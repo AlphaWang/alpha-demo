@@ -1,4 +1,4 @@
-package com.alphawang.concurrency.c01.status;
+package com.alphawang.concurrency.c01.thread;
 
 import java.util.concurrent.TimeUnit;
 
@@ -47,7 +47,7 @@ import java.util.concurrent.TimeUnit;
  *
  * 
  */
-public class ThreadStatusDemo {
+public class ThreadStatus {
 
     public static void main(String[] args) {
         /**
@@ -70,9 +70,9 @@ public class ThreadStatusDemo {
          */
         new Thread(()->{
             while(true){
-                synchronized (ThreadStatusDemo.class){
+                synchronized (ThreadStatus.class){
                     try {
-                        ThreadStatusDemo.class.wait();
+                        ThreadStatus.class.wait();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

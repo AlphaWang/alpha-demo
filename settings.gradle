@@ -1,5 +1,4 @@
 rootProject.name = 'demo'
-include 'thread'
 include 'alpha-ops'
 include 'alpha-concurrency'
 
