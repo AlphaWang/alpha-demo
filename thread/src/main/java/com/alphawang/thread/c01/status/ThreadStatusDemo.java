@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
  * Thread state for a waiting thread.
  * A thread is in the waiting state due to calling one of the following methods:
  *   - Object.wait() with no timeout
- *   - Thread.join} with no timeout
+ *   - Thread.join() with no timeout
  *   - LockSupport#park() 
  *
  * A thread in the waiting state is waiting for another thread to perform a particular action.
