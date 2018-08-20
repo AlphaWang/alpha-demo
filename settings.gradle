@@ -1,4 +1,5 @@
 rootProject.name = 'demo'
 include 'alpha-ops'
 include 'alpha-concurrency'
+include 'alpha-kafka'
 
