@@ -24,19 +24,25 @@ public class SemaphoreTest {
 	private static Stopwatch stopwatch = Stopwatch.createStarted();
 
 	public static void main(String[] args) throws InterruptedException {
-
 		log.info("[{}] ----- START ", stopwatch.elapsed(TimeUnit.MILLISECONDS));
-
 		ExecutorService executorService = Executors.newCachedThreadPool();
+
+		/**
+		 * Semaphore(int permits) 
+		 * Semaphore(int permits, boolean fair)
+		 */
 		Semaphore semaphore = new Semaphore(CONCURRENT_LEVEL);
+		
 		CountDownLatch countDownLatch = new CountDownLatch(TOTAL);
 
 		for (int i = 0; i < TOTAL; i++) {
 			executorService.execute(() -> {
 				try {
 
-					// tryAcquire with timeout:
-					// 当获取不到信号量，则等待。超时后直接丢弃本次请求。
+					/** 
+					 * tryAcquire with timeout:
+					 * 当获取不到信号量，则等待。超时后直接丢弃本次请求。
+					 */
 					if (semaphore.tryAcquire(3000, TimeUnit.MILLISECONDS)) {
 						test();
 						semaphore.release();
