@@ -17,7 +17,7 @@ import java.util.zip.CRC32;
 
 @Slf4j
 @Component
-public class SessionIdInterceptor implements HandlerInterceptor {
+public class SessionInterceptor implements HandlerInterceptor {
     
     @Autowired
     private SessionHolder sessionHolder;
@@ -30,6 +30,7 @@ public class SessionIdInterceptor implements HandlerInterceptor {
         String sid =  generate(UUID.randomUUID());
 
         sessionHolder.setCartSessionId(sid);
+        log.warn("sessionHolder from interceptor: {}", sessionHolder.hashCode());
         
         return true;
     }
