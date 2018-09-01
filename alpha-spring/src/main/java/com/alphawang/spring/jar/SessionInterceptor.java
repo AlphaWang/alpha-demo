@@ -1,6 +1,6 @@
-package com.alphawang.spring.scope.interceptor;
+package com.alphawang.spring.jar;
 
-import com.alphawang.spring.scope.bean.SessionHolder;
+import com.alphawang.spring.jar.SessionHolder;
 import com.google.common.base.Charsets;
 import com.google.common.primitives.Longs;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,10 @@ import java.util.zip.CRC32;
 @Slf4j
 @Component
 public class SessionInterceptor implements HandlerInterceptor {
-    
+
+    /**
+     * is SubSessionHolder
+     */
     @Autowired
     private SessionHolder sessionHolder;
 
@@ -29,8 +32,12 @@ public class SessionInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String sid =  generate(UUID.randomUUID());
 
-        sessionHolder.setCartSessionId(sid);
-        log.warn("sessionHolder from interceptor: {}", sessionHolder.hashCode());
+        if (sessionHolder != null) {
+            sessionHolder.setCartSessionId(sid);
+            log.warn("sessionHolder from interceptor: {}", sessionHolder.hashCode());
+        } else {
+            log.error("sessionHolder from interceptor is NULL !!!!!!!!!!");
+        }
         
         return true;
     }

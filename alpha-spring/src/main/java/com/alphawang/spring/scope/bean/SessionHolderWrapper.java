@@ -1,5 +1,6 @@
 package com.alphawang.spring.scope.bean;
 
+import com.alphawang.spring.jar.SessionHolder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -21,8 +22,7 @@ public class SessionHolderWrapper {
 
     private String sid;
 
-    public String getSid(){
-        
+    public String getSid() {
         log.warn("sessionHolder from wrapper: {}", cartSessionHolder.hashCode());
         
         if (StringUtils.isEmpty(this.sid)) {

@@ -1,4 +1,4 @@
-package com.alphawang.spring.scope.bean;
+package com.alphawang.spring.jar;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
