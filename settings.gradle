@@ -3,4 +3,5 @@ include 'alpha-ops'
 include 'alpha-concurrency'
 include 'alpha-kafka'
 include 'alpha-algorithm'
+include 'alpha-mongodb'
 
