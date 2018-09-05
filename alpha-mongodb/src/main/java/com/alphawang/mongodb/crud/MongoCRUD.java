@@ -1,4 +1,4 @@
-package com.alphawang.mongodb;
+package com.alphawang.mongodb.crud;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
