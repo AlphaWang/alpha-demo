@@ -20,10 +20,12 @@ public class RedisWithReentrantLock {
          * ﻿set key true ex 5 nx
          * ﻿使得 setnx 和 expire 指令可以一起执行
          */
+        System.err.println("LOCK " + key);
         return jedis.set(key, "", "nx", "ex", 5L) != null;
     }
 
     private void _unlock(String key) {
+        System.err.println("UNLOCK " + key);
         jedis.del(key);
     }
 
@@ -45,6 +47,7 @@ public class RedisWithReentrantLock {
         Integer refCnt = refs.get(key);
         if (refCnt != null) {
             refs.put(key, refCnt + 1);
+            System.out.println("LOCK: " + refs.get(key));
             return true;
         }
         
@@ -54,6 +57,7 @@ public class RedisWithReentrantLock {
             return false;
         }
         refs.put(key, 1);
+        System.out.println("LOCK: " + refs.get(key));
         return true;
     }
 
@@ -62,6 +66,7 @@ public class RedisWithReentrantLock {
         Map<String, Integer> refs = currentLockers();
         Integer refCnt = refs.get(key);
         if (refCnt == null) {
+            System.err.println("UNLOCK fail");
             return false;
         }
         
@@ -73,16 +78,18 @@ public class RedisWithReentrantLock {
             refs.remove(key);
             this._unlock(key);
         }
+
+        System.out.println("UNLOCK: " + refCnt);
         return true;
     }
 
     public static void main(String[] args) {
         Jedis jedis = new Jedis();
         RedisWithReentrantLock redis = new RedisWithReentrantLock(jedis);
-        System.out.println(redis.lock("codehole"));
-        System.out.println(redis.lock("codehole"));
-        System.out.println(redis.unlock("codehole"));
-        System.out.println(redis.unlock("codehole"));
+        redis.lock("codehole");
+        redis.lock("codehole");
+        redis.unlock("codehole");
+        redis.unlock("codehole");
     }
 
 }
