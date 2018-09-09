@@ -1,4 +1,4 @@
-package com.alphawang.redis.queue;
+package com.alphawang.redis.scenario.queue;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;

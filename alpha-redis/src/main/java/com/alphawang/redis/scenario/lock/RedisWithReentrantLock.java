@@ -1,4 +1,4 @@
-package com.alphawang.redis.lock;
+package com.alphawang.redis.scenario.lock;
 
 import redis.clients.jedis.Jedis;
 
