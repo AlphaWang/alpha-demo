@@ -1,4 +1,4 @@
-package com.alphawang.designpattern.singleton;
+package com.alphawang.designpattern.creational.singleton;
 
 public class HungrySingleton {
 
