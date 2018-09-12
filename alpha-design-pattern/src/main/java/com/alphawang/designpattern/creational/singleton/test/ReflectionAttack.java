@@ -2,7 +2,7 @@ package com.alphawang.designpattern.creational.singleton.test;
 
 import com.alphawang.designpattern.creational.singleton.HungrySingleton;
 import com.alphawang.designpattern.creational.singleton.LazyHolderSingleton;
-import com.alphawang.designpattern.creational.singleton.LazyHolderSingleton2;
+import com.alphawang.designpattern.creational.singleton.LazyHolderSingleton2Reflection;
 import com.alphawang.designpattern.creational.singleton.LazySingleton;
 
 import java.lang.reflect.Constructor;
@@ -17,7 +17,7 @@ public class ReflectionAttack {
         attackSingleton(LazySingleton.class);
         // HACKED!!!
         attackSingleton(LazyHolderSingleton.class);
-        attackSingleton(LazyHolderSingleton2.class);
+        attackSingleton(LazyHolderSingleton2Reflection.class);
         
     }
     

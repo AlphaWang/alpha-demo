@@ -1,6 +1,8 @@
 package com.alphawang.designpattern.creational.singleton;
 
-public class LazyHolderSingleton {
+import java.io.Serializable;
+
+public class LazyHolderSingleton implements Serializable {
 
     public static LazyHolderSingleton getInstance() {
         return LazyHolder.INSTANCE;
