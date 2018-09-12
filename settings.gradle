@@ -6,4 +6,5 @@ include 'alpha-algorithm'
 include 'alpha-mongodb'
 include 'alpha-jdk'
 include 'alpha-redis'
+include 'alpha-design-pattern'
 
