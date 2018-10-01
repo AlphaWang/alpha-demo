@@ -21,12 +21,16 @@ public class RedisWithReentrantLock {
          * ﻿使得 setnx 和 expire 指令可以一起执行
          */
         System.err.println("LOCK " + key);
-        return jedis.set(key, "", "nx", "ex", 5L) != null;
+        String rs = jedis.set(key, "", "nx", "ex", 5L);
+        System.err.println("LOCKED " + key + " rs: " + rs);
+        
+        return rs != null;
     }
 
     private void _unlock(String key) {
         System.err.println("UNLOCK " + key);
-        jedis.del(key);
+        Long rs = jedis.del(key);
+        System.err.println("UNLOCKED " + key + " rs: " + rs);
     }
 
     private Map<String, Integer> currentLockers() {
