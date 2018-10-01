@@ -30,7 +30,9 @@ public class RedisDistributedLock {
             while (System.currentTimeMillis() < end) {  // acquireTimeout 获取锁的限定时间
 
                 if (jedis.setnx(lockKey, identifier) == 1) { // 设值
-                    jedis.expire(lockKey, lockExpire);  // 设置超时时间 // setnx + expire 可以用一条命令
+                    jedis.expire(lockKey, lockExpire);  // 设置超时时间 
+                    // setnx + expire 可以用一条命令  :  jedis.set(key, "", "nx", "ex", 5L)
+                    
                     log.info("LOCKED {}, id: {}", lockKey, identifier);
                     return identifier;
                 }
@@ -85,7 +87,22 @@ public class RedisDistributedLock {
         return isReleased;
     }
     
-    
+    public boolean releaseWithLua(String lockName, String identifier) {
+        String lockKey="lock:"+lockName;
+        log.info("RELEASING with Lua {}, id: {}", lockKey, identifier);
+        
+        String lua = "if redis.call(\"get\", KEYS[1]) == ARGV[1] " 
+            + " then " 
+            + "    return redis.call(\"del\", KEYS[1]) " 
+            + " else " 
+            + "    return 0 " 
+            + "  end";
+        
+        Long rs = (Long) jedis.eval(lua, 1, new String[] {lockKey, identifier});
+        
+        return rs.intValue() > 0;
+    }
+
     public static void main(String[] args) {
         Runnable runnable = new Runnable() {
             @Override 
@@ -102,7 +119,7 @@ public class RedisDistributedLock {
                         try {
                             Thread.sleep(1000);
 
-                            lock.releaseLock("updateCart", identifier);
+                            lock.releaseWithLua("updateCart", identifier);
                             System.out.println(Thread.currentThread().getName() + " release lock: " + identifier);
 
                         } catch (InterruptedException e) {
