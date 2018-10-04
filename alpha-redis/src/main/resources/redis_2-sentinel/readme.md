@@ -1,4 +1,7 @@
 ## sentinel配置
+
+> *注意：sentinel需要建立在master-slave的基础之上*
+
 每个sentinel节点在本质上还是一个redis实例，只不过和redis数据节点不同的是，其主要作用是监控redis数据节点。
 
 在redis安装目录下有个默认的sentinel配置文件sentinel.conf，和配置主从节点类似，这里复制三个配置文件：sentinel-26379.conf，sentinel-26380.conf和sentinel-26381.conf。分别按照如下示例编辑这三个配置文件：
