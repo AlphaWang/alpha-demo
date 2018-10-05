@@ -110,8 +110,22 @@ be9485a6a729fc98c5151374bc30277e89a461d8 127.0.0.1:6383 master - 0 1468073978579
 
 > 批量addslots不支持！！！    
 
-> first=`echo {0..5000}` # you can insert your own start and end numbers  
-> redis-cli -a kimi -p 30002 cluster addslots $first
+#### 解决方法一
+> first=`echo {0..5461}` # you can insert your own start and end numbers  
+> redis-cli -a kimi -p 6379 cluster addslots $first
+
+#### 解决方法二
+在每个节点上执行脚本
+```
+#!/bin/bash
+n=0
+for ((i=n;i<=5461;i++))
+do
+   /usr/local/bin/redis-cli -h 192.168.100.134 -p 17021 -a dxy CLUSTER ADDSLOTS $i
+done
+```
+
+
 
 添加完槽位后可使用 `cluster info` 命令查看当前集群状态：
 
