@@ -7,4 +7,5 @@ include 'alpha-mongodb'
 include 'alpha-jdk'
 include 'alpha-redis'
 include 'alpha-design-pattern'
+include 'alpha-zookeeper'
 
