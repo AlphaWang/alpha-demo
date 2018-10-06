@@ -1,6 +1,9 @@
 package com.alphawang.zookeeper.curator.tools;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.curator.test.TestingCluster;
 import org.apache.curator.test.TestingZooKeeperServer;
 
@@ -12,6 +15,29 @@ public class TestingClusterDemo {
         
         cluster.start();
         Thread.sleep(2000);
+        
+        testKillLeader(cluster);
+        testGetClusterData(cluster);
+            
+        cluster.stop();
+        
+    }
+
+    private static void testGetClusterData(TestingCluster cluster) throws Exception {
+        CuratorFramework client = CuratorFrameworkFactory.builder()
+            .connectString(cluster.getConnectString())
+            .retryPolicy(new ExponentialBackoffRetry(1000, 3))
+            .sessionTimeoutMs(5000)
+            .build();
+        client.start();
+
+        client.create().forPath("/alpha-zk-cluster", "test-data".getBytes());
+
+        byte[] data = client.getData().forPath("/alpha-zk-cluster");
+        log.warn("==== get data {}", new String(data));
+    }
+
+    private static void testKillLeader(TestingCluster cluster) throws InterruptedException {
         TestingZooKeeperServer leader = null;
 
         /**
@@ -30,8 +56,7 @@ public class TestingClusterDemo {
                 leader = zs;
             }
         }
-        
-        
+
         log.warn("killing leader: {}", leader);
         leader.kill();
         log.warn("killed leader: {}", leader);
@@ -60,8 +85,5 @@ public class TestingClusterDemo {
                 zs.getQuorumPeer().getServerState(),
                 zs.getInstanceSpec().getDataDirectory().getAbsolutePath());
         }
-        
-        cluster.stop();
-        
     }
 }
