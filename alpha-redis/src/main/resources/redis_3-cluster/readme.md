@@ -1,3 +1,5 @@
+http://redis.cn/topics/cluster-tutorial.html
+
 # redis cluster
 
 ## 原理
