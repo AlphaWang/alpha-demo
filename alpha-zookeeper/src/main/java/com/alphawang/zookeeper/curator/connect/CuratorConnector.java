@@ -16,12 +16,15 @@ public class CuratorConnector {
     
     public CuratorConnector() {
         RetryPolicy retryPolicy = getRetryPolicy();
-        
+
+        /**
+         * Curator遵循Fluent设计风格
+         */
         curatorFramework = CuratorFrameworkFactory.builder()
             .connectString(Constants.LOCAL_ZK_SERVER)
             .sessionTimeoutMs(10000)
             .retryPolicy(retryPolicy)
-            .namespace("curator_namespace")
+            .namespace("curator_namespace")   // 创建包含隔离命名空间的会话 
             .build();
         
         log.warn("Connected Curator {}. Detail: {}", Constants.LOCAL_ZK_SERVER, curatorFramework);
