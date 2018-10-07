@@ -41,10 +41,9 @@ public class TestingClusterDemo {
         TestingZooKeeperServer leader = null;
 
         /**
-         * 23:44:20.025 [main] INFO  c.a.z.c.t.TestingClusterDemo - == serverId: 1, serverState: following, data dir: /var/folders/5t/k079pcv16877_xj41pzgmdzh0000gp/T/1538840657884-0
-         * 23:44:20.025 [main] INFO  c.a.z.c.t.TestingClusterDemo - == serverId: 2, serverState: following, data dir: /var/folders/5t/k079pcv16877_xj41pzgmdzh0000gp/T/1538840657888-0
-         * 23:44:20.025 [main] INFO  c.a.z.c.t.TestingClusterDemo - == serverId: 3, serverState: leading, data dir: /var/folders/5t/k079pcv16877_xj41pzgmdzh0000gp/T/1538840657888-1
-         * 23:44:20.025 [main] WARN  c.a.z.c.t.TestingClusterDemo - killing leader: org.apache.curator.test.TestingZooKeeperServer@6be46e8f
+         * [main] INFO  - == serverId: 1, serverState: following, data dir: /var/folders/5t/k079pcv16877_xj41pzgmdzh0000gp/T/1538921575991-0
+         * [main] INFO  - == serverId: 2, serverState: following, data dir: /var/folders/5t/k079pcv16877_xj41pzgmdzh0000gp/T/1538921575994-0
+         * [main] INFO  - == serverId: 3, serverState: leading, data dir: /var/folders/5t/k079pcv16877_xj41pzgmdzh0000gp/T/1538921575995-0
          */
         for (TestingZooKeeperServer zs : cluster.getServers()) {
             log.info("== serverId: {}, serverState: {}, data dir: {}", 
@@ -57,14 +56,21 @@ public class TestingClusterDemo {
             }
         }
 
+        /**
+         * [main] WARN  - killing leader: org.apache.curator.test.TestingZooKeeperServer@68837a77
+         * [main] INFO  - Shutting down
+         * [main] INFO  - Shutdown called
+         * ...
+         * [main] WARN  - killed leader: org.apache.curator.test.TestingZooKeeperServer@68837a77
+         */
         log.warn("killing leader: {}", leader);
         leader.kill();
         log.warn("killed leader: {}", leader);
 
         /**
-         * 23:44:20.056 [main] INFO  c.a.z.c.t.TestingClusterDemo - ++ serverId: 1, serverState: leaderelection, data dir: /var/folders/5t/k079pcv16877_xj41pzgmdzh0000gp/T/1538840657884-0
-         * 23:44:20.057 [main] INFO  c.a.z.c.t.TestingClusterDemo - ++ serverId: 2, serverState: leaderelection, data dir: /var/folders/5t/k079pcv16877_xj41pzgmdzh0000gp/T/1538840657888-0
-         * 23:44:20.057 [main] INFO  c.a.z.c.t.TestingClusterDemo - ++ serverId: 3, serverState: leaderelection, data dir: /var/folders/5t/k079pcv16877_xj41pzgmdzh0000gp/T/1538840657888-1
+         * [main] INFO  - ++ serverId: 1, serverState: leaderelection, data dir: /var/folders/5t/k079pcv16877_xj41pzgmdzh0000gp/T/1538921575991-0
+         * [main] INFO  - ++ serverId: 2, serverState: leaderelection, data dir: /var/folders/5t/k079pcv16877_xj41pzgmdzh0000gp/T/1538921575994-0
+         * [main] INFO  - ++ serverId: 3, serverState: leaderelection, data dir: /var/folders/5t/k079pcv16877_xj41pzgmdzh0000gp/T/1538921575995-0
          */
         for (TestingZooKeeperServer zs : cluster.getServers()) {
             log.info("++ serverId: {}, serverState: {}, data dir: {}",
@@ -74,9 +80,10 @@ public class TestingClusterDemo {
         }
 
         /**
-         * 23:46:04.343 [main] INFO  c.a.z.c.t.TestingClusterDemo - -- serverId: 1, serverState: following, data dir: /var/folders/5t/k079pcv16877_xj41pzgmdzh0000gp/T/1538840759188-0
-         * 23:46:04.343 [main] INFO  c.a.z.c.t.TestingClusterDemo - -- serverId: 2, serverState: leading, data dir: /var/folders/5t/k079pcv16877_xj41pzgmdzh0000gp/T/1538840759192-0
-         * 23:46:04.344 [main] INFO  c.a.z.c.t.TestingClusterDemo - -- serverId: 3, serverState: leaderelection, data dir: /var/folders/5t/k079pcv16877_xj41pzgmdzh0000gp/T/1538840759192-1
+         *
+         [main] INFO  - -- serverId: 1, serverState: following, data dir: /var/folders/5t/k079pcv16877_xj41pzgmdzh0000gp/T/1538921575991-0
+         [main] INFO  - -- serverId: 2, serverState: leading, data dir: /var/folders/5t/k079pcv16877_xj41pzgmdzh0000gp/T/1538921575994-0
+         [main] INFO  - -- serverId: 3, serverState: leaderelection, data dir: /var/folders/5t/k079pcv16877_xj41pzgmdzh0000gp/T/1538921575995-0
          */
         Thread.sleep(3000);
         for (TestingZooKeeperServer zs : cluster.getServers()) {
