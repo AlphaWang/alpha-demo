@@ -1,0 +1,3 @@
+[template]
+src = "local-asset.conf.tmpl"
+dest = "/pang/program/nginx/conf/hosts/assets/local-asset.conf"

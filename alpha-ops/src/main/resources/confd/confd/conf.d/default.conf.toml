@@ -1,0 +1,3 @@
+[template]
+src = "default.conf.tmpl"
+dest = "/pang/program/nginx/conf/hosts/default.conf"
