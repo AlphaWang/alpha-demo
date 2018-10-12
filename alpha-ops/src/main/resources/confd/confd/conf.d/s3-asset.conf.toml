@@ -1,3 +1,3 @@
 [template]
 src = "s3-asset.conf.tmpl"
-dest = "/pang/program/nginx/conf/hosts/assets/s3-asset.conf"
+dest = "../target/conf/hosts/assets/s3-asset.conf"
