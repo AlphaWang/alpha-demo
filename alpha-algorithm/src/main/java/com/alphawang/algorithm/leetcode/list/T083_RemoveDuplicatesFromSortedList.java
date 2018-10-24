@@ -9,6 +9,7 @@ import java.util.stream.Stream;
  * https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list
  * https://leetcode.com/problems/remove-duplicates-from-sorted-list/
  * 
+ * Given a sorted linked list, delete all duplicates such that each element appear only once.
  * 
  * Definition for singly-linked list.
  * public class ListNode {
@@ -45,6 +46,15 @@ public class T083_RemoveDuplicatesFromSortedList {
         return head;
     }
 
+    public static ListNode deleteDuplicates2(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        head.next = deleteDuplicates2(head.next);
+        
+        return head.val == head.next.val ? head.next : head;
+    }
+
     public static void main(String[] args) {
         List<ListNode> nodes = Stream.of(1, 2, 2, 2, 3)
             .map(i -> new ListNode(i))
@@ -60,14 +70,15 @@ public class T083_RemoveDuplicatesFromSortedList {
         ListNode head = nodes.get(0);
         
         System.out.println("BEFORE " + head);
-        head = deleteDuplicates(head);
+//        head = deleteDuplicates(head);
+        head = deleteDuplicates2(head);
         System.out.println("AFTER " + head);
         
         
     }
     
 
-    public static class ListNode {
+    static class ListNode {
       int val;
       ListNode next;
       ListNode(int x) { val = x; }
