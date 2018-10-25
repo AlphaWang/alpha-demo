@@ -18,21 +18,28 @@ public class BioServer {
         new Thread(() -> {
             while (true) {
                 try {
+                    
                     Socket socket = serverSocket.accept();
                     System.out.println("accepted " + socket);
 
                     /**
                      * 2. 每个连接创建新线程 读取数据
+                     * 
+                     * 问题： 每个连接创建成功之后都需要一个线程来维护，每个线程包含一个 while 死循环，
+                     *       那么 1w 个连接对应 1w 个线程，继而 1w 个 while 死循环
+                     *       
+                     *       
                      */
                     new Thread(() -> {
                         try {
+                            
                             int len;
                             byte[] data = new byte[1024];
                             InputStream inputStream = socket.getInputStream();
                             
                             while ((len = inputStream.read(data)) != -1) {
                                  System.out.println(Thread.currentThread().getName() 
-                                     + " INPUT: " + new String(data, 0, len));
+                                     + " READ: " + new String(data, 0, len));
                             }
                             
                         } catch (IOException e) {
