@@ -29,15 +29,20 @@ public class NettyClient {
                 }
             });
         
+        connect(bootstrap, "localhost", 8000);
+    }
+    
+    private static void connect(Bootstrap bootstrap, String host, int port) {
         bootstrap
-            .connect("localhost", 8000)
+            .connect(host, port)
             .addListener(new GenericFutureListener<Future<? super Void>>() {
-                @Override 
+                @Override
                 public void operationComplete(Future<? super Void> future) throws Exception {
                     if (future.isSuccess()) {
-                        System.out.println("连接成功");
+                        System.out.println("连接成功 " + host + ":" + port);
                     } else {
-                        System.err.println("连接失败");
+                        System.err.println("连接失败, 重试...");
+                        connect(bootstrap, host, port);
                     }
                 }
             });
