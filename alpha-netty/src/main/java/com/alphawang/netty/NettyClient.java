@@ -8,6 +8,8 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 
+import java.util.concurrent.TimeUnit;
+
 public class NettyClient {
 
     public static void main(String[] args) {
@@ -29,10 +31,11 @@ public class NettyClient {
                 }
             });
         
-        connect(bootstrap, "localhost", 8000);
+        connect(bootstrap, "localhost", 8000, MAX_RETRY);
     }
     
-    private static void connect(Bootstrap bootstrap, String host, int port) {
+    private static final int MAX_RETRY = 10;
+    private static void connect(Bootstrap bootstrap, String host, int port, int retry) {
         bootstrap
             .connect(host, port)
             .addListener(new GenericFutureListener<Future<? super Void>>() {
@@ -40,9 +43,20 @@ public class NettyClient {
                 public void operationComplete(Future<? super Void> future) throws Exception {
                     if (future.isSuccess()) {
                         System.out.println("连接成功 " + host + ":" + port);
+                    } else if (retry == 0) {
+                        System.out.println("重试次数已用完，放弃连接");
                     } else {
-                        System.err.println("连接失败, 重试...");
-                        connect(bootstrap, host, port);
+                        // 重试次数
+                        int time = (MAX_RETRY - retry) + 1;
+                        // 本次重连的间隔
+                        int delay = 1 << time;
+                        System.err.println("连接失败, 第 " + time + " 次重试... ");
+                        
+                        bootstrap.config().group().schedule(new Runnable() {
+                            @Override public void run() {
+                                connect(bootstrap, host, port, retry - 1);
+                            }
+                        }, delay, TimeUnit.SECONDS);
                     }
                 }
             });
