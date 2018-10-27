@@ -5,6 +5,7 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.util.AttributeKey;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 
@@ -28,8 +29,12 @@ public class NettyClient {
                 @Override 
                 protected void initChannel(SocketChannel ch) throws Exception {
                     System.out.println("===== client handler... " + ch);
+                    System.out.println("===== client attr " + ch.attr(AttributeKey.newInstance("clientName")));
                 }
-            });
+            })
+            // 可以通过channel.attr()取出这个属性
+            .attr(AttributeKey.newInstance("clientName"), "alphaNettyClient")
+        ;
         
         connect(bootstrap, "localhost", 8000, MAX_RETRY);
     }
