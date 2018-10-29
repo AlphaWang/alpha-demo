@@ -25,7 +25,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
         String msg = byteBuf.toString(Charset.forName("utf-8"));
         System.out.println("... channelRead 服务端读到数据: " + msg);
 
-        ByteBufHelper.inspectByteBuf(byteBuf);
+        ByteBufHelper.print("SERVER channelRead param", byteBuf);
         
         return msg;
     }
@@ -38,7 +38,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
         byteBuf.writeBytes(bytes);
         System.out.println("... channelRead 服务端发送数据: " + tobeSent);
 
-        ByteBufHelper.inspectByteBuf(byteBuf);
+        ByteBufHelper.print("SERVER channelRead ctx.alloc().buffer()", byteBuf);
         
         ctx.channel().writeAndFlush(byteBuf);
     }

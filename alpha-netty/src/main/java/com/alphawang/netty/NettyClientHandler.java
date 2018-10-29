@@ -22,7 +22,7 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
         byteBuf.writeBytes(bytes);
         System.out.println("...channelActive - 客户端写出: " + msg);
         
-        ByteBufHelper.inspectByteBuf(byteBuf);
+        ByteBufHelper.print("CLIENT channelActive ctx.alloc().buffer()", byteBuf);
         
         ctx.channel().writeAndFlush(byteBuf);
     }
@@ -33,7 +33,7 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
         String string = byteBuf.toString(Charset.forName("utf-8"));
         System.out.println("... channelRead 客户端读到数据: " + string);
         
-        ByteBufHelper.inspectByteBuf(byteBuf);
+        ByteBufHelper.print("CLIENT channelRead param", byteBuf);
     }
     
     
