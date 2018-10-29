@@ -29,11 +29,11 @@ public class NettyClient {
                 @Override 
                 protected void initChannel(SocketChannel ch) throws Exception {
                     System.out.println("===== client handler... " + ch);
-                    System.out.println("===== client attr " + ch.attr(AttributeKey.newInstance("clientName")));
+                    ch.pipeline().addLast(new NettyClientHandler());
                 }
             })
             // 可以通过channel.attr()取出这个属性
-            .attr(AttributeKey.newInstance("clientName"), "alphaNettyClient")
+//            .attr(AttributeKey.newInstance("clientName"), "alphaNettyClient")
         ;
         
         connect(bootstrap, "localhost", 8000, MAX_RETRY);

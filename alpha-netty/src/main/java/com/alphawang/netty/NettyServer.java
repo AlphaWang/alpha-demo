@@ -29,6 +29,7 @@ public class NettyServer {
                 @Override 
                 protected void initChannel(NioSocketChannel ch) throws Exception {
                     System.out.println("===== childHandler 业务处理: " + ch);
+                    ch.pipeline().addLast(new NettyServerHandler());
                 }
             })
             // 指定在服务端启动过程中的一些逻辑
