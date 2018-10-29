@@ -1,5 +1,6 @@
 package com.alphawang.netty;
 
+import com.alphawang.netty.bytebuf.ByteBufHelper;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -19,8 +20,10 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
         String msg = "Netty Msg ---- " + new Date();
         byte[] bytes = msg.getBytes(Charset.forName("utf-8"));
         byteBuf.writeBytes(bytes);
-
         System.out.println("...channelActive - 客户端写出: " + msg);
+        
+        ByteBufHelper.inspectByteBuf(byteBuf);
+        
         ctx.channel().writeAndFlush(byteBuf);
     }
 
@@ -29,6 +32,10 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
         ByteBuf byteBuf = (ByteBuf) msg;
         String string = byteBuf.toString(Charset.forName("utf-8"));
         System.out.println("... channelRead 客户端读到数据: " + string);
+        
+        ByteBufHelper.inspectByteBuf(byteBuf);
     }
+    
+    
 
 }

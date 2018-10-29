@@ -1,5 +1,6 @@
 package com.alphawang.netty;
 
+import com.alphawang.netty.bytebuf.ByteBufHelper;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -23,6 +24,8 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
         ByteBuf byteBuf = (ByteBuf) msgObj;
         String msg = byteBuf.toString(Charset.forName("utf-8"));
         System.out.println("... channelRead 服务端读到数据: " + msg);
+
+        ByteBufHelper.inspectByteBuf(byteBuf);
         
         return msg;
     }
@@ -33,6 +36,9 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
         byte[] bytes = tobeSent.getBytes(Charset.forName("utf-8"));
         ByteBuf byteBuf = ctx.alloc().buffer();
         byteBuf.writeBytes(bytes);
+        System.out.println("... channelRead 服务端发送数据: " + tobeSent);
+
+        ByteBufHelper.inspectByteBuf(byteBuf);
         
         ctx.channel().writeAndFlush(byteBuf);
     }
