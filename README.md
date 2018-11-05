@@ -1,5 +1,4 @@
 Java知识脑图：http://naotu.baidu.com/file/b38589b975d51e3851f2c3315a895b72
-
 # Java
 
 ## JVM
@@ -123,6 +122,10 @@ bgsave时不扩容，除非达到dict_force_resize_ratio
 
 压缩列表是一块连续的内存空间，元素之间紧挨着存储，没有任何冗余空隙。
 
+####### 渐进式rehash
+
+它会同时保留旧数组和新数组，然后在定时任务中以及后续对 hash 的指令操作中渐渐地将旧数组中挂接的元素迁移到新数组上。这意味着要操作处于 rehash 中的字典，需要同时访问新旧两个数组结构。如果在旧数组下面找不到元素，还需要去新数组下面去寻找。
+
 ##### list
 
 rpush books python java golang
@@ -154,7 +157,9 @@ zadd books 9.0 "think in java"
 
 ###### ziplist: 元素个数较小时，用ziplist节约空间
 
-#### 通讯协议：RESP, Redis Serialization Protocal
+#### 原理
+
+##### 通讯协议：RESP, Redis Serialization Protocal
 
 单行字符串 以 + 符号开头。
 多行字符串 以 $ 符号开头，后跟字符串长度。
@@ -162,36 +167,74 @@ zadd books 9.0 "think in java"
 错误消息 以 - 符号开头。
 数组 以 * 号开头，后跟数组的长度。
 
+##### 多路复用
+
+###### 指令队列
+
+Redis 会将每个客户端套接字都关联一个指令队列。客户端的指令通过队列来排队进行顺序处理，先到先服务。
+
+###### 响应队列
+
+Redis 服务器通过响应队列来将指令的返回结果回复给客户端。 
+- 如果队列为空，那么意味着连接暂时处于空闲状态，不需要去获取写事件，也就是可以将当前的客户端描述符从write_fds里面移出来。等到队列有数据了，再将描述符放进去。避免select系统调用立即返回写事件，结果发现没什么数据可以写。出这种情况的线程会飙高 CPU。
+
+###### epoll事件轮询API
+
+最简单的事件轮询 API 是select函数，它是操作系统提供给用户程序的 API。
+输入是读写描述符列表read_fds & write_fds，输出是与之对应的可读可写事件。
+
+同时还提供了一个timeout参数，如果没有任何事件到来，那么就最多等待timeout时间，线程处于阻塞状态。
+
+一旦期间有任何事件到来，就可以立即返回。时间过了之后还是没有任何事件到来，也会立即返回。拿到事件后，线程就可以继续挨个处理相应的事件。处理完了继续过来轮询。于是线程就进入了一个死循环，我们把这个死循环称为事件循环，一个循环为一个周期。
+
 #### 持久化
 
 ##### 快照
 
-###### 异步BGSAVE
+###### 触发条件
 
-###### 同步SAVE
+####### 异步BGSAVE
 
-###### 配置文件 save 900 1
+####### 同步SAVE
+
+####### 配置文件 save 900 1
 
 save after 900 seconds if there is at least 1 change to the dataset
 
-###### SHUTDOWN命令时
+####### SHUTDOWN命令时
 
-###### 从节点SYNC时 (=BGSAVE)
+####### 从节点SYNC时 (=BGSAVE)
+
+###### fork子进程生成快照
+
+
+- 调用 glibc 的函数fork产生一个子进程，快照持久化完全交给子进程来处理，父进程继续处理客户端请求。
+
+###### COW (Copy On Write)
+
+使用操作系统的 COW 机制来进行数据段页面的分离。
+当父进程对其中一个页面的数据进行修改时，会将被共享的页面复制一份分离出来，然后对这个复制的页面进行修改。这时子进程相应的页面是没有变化的，还是进程产生时那一瞬间的数据。
 
 ##### AOF
 
 - 先执行指令才将日志存盘.
 - 可用 `bgrewriteaof` 指令对 AOF 日志进行瘦身。
 
-###### always
+###### 触发条件
 
-###### every second
+####### always
 
-###### no
+####### every second
+
+####### no
+
+###### AOF重写：bgrewriteaof
 
 ##### 混合
 
 在 Redis 重启的时候，可以先加载 rdb 的内容，然后再重放增量 AOF 日志。比 AOF 全量文件重放要快很多。
+
+##### 持久化操作主要在从节点进行
 
 #### cluster
 
@@ -258,6 +301,94 @@ save after 900 seconds if there is at least 1 change to the dataset
 
 #### 应用
 
+##### 分布式锁
+
+###### setnx + expire
+
+###### set xx ex 5 nx
+
+##### 延时队列
+
+###### lpush / rpush 
+
+###### rpop / lpop -> brpop / blpop
+
+##### 位图
+
+位图不是特殊的数据结构，它的内容其实就是普通的字符串，也就是 byte 数组。我们可以使用普通的 get/set 直接获取和设置整个位图的内容，也可以使用位图操作 getbit/setbit 等将 byte 数组看成「位数组」来处理。
+
+###### setbit
+
+零存：`setbit s 4 1`
+整存：`set s <string>`
+
+###### getbit
+
+整取：`get s`
+零取：`getbit s 1`
+
+
+###### bitcount统计
+
+###### bitpos查找
+
+###### bitfield操作多个位
+
+##### HyperLogLog
+
+HyperLogLog 提供不精确的去重计数方案
+
+###### pfadd
+
+###### pfcount
+
+###### pfmerge
+
+##### 布隆过滤器
+
+布隆过滤器能准确过滤掉那些已经看过的内容，那些没有看过的新内容，它也会过滤掉极小一部分 (误判)
+
+###### bf.add / bf.madd
+
+###### bf.exists / bf.mexists
+
+##### 简单限流: zset实现滑动时间窗口
+
+###### key: clientId-actionId
+
+###### value: ms
+
+###### score: ms
+
+##### 漏斗限流: redis-cell模块
+
+###### cl.throttle key capacity count period 1
+
+##### GeoHash
+
+GeoHash 算法将二维的经纬度数据映射到一维的整数，这样所有的元素都将在挂载到一条线上，距离靠近的二维坐标映射到一维后的点之间距离也会很接近。
+
+###### geoadd
+
+###### geodist
+
+###### geopos
+
+###### geohash
+
+##### 搜索key
+
+###### keys
+
+- 没有 offset、limit 参数，一次性吐出所有满足条件的 key。
+- keys 算法是遍历算法，复杂度是 O(n)
+
+###### scan
+
+scan <cursor> match <regex> count <limit>
+在 Redis 中所有的 key 都存储在一个很大的字典中，scan 指令返回的游标就是第一维数组的位置索引，limit 参数就表示需要遍历的槽位数
+  
+
 ### ZooKeeper
 
 #### 特性
@@ -290,8 +421,21 @@ Zookeeper Atomic Broadcast.
 
 ##### 单一主进程
 
-- 使用单一的主进程来接收并处理所有事务请求，
+- 使用单一的主进程来接收并处理所有事务请求（事务==写），
 - 并采用ZAB原子广播协议，将服务器数据的状态变更以事务Proposal的形式广播到所有副本进程。
+
+###### 单一的主进程来接收并处理所有事务请求
+
+###### 对每个事务分配全局唯一的ZXID
+
+####### zxid低32位：单调递增计数器
+
+对每个事务请求，生成Proposal时，将计数器+1
+
+
+####### zxid高32位：Leader周期的epoch编号
+
+###### 数据的状态变更以事务Proposal的形式广播到所有副本进程
 
 ##### 顺序应用
 
@@ -306,13 +450,6 @@ Zookeeper Atomic Broadcast.
 
 则可保证新Leader一定具有所有已提交的Proposal；
 同时保证丢弃已经被跳过的Proposal
-
-####### zxid低32位：单调递增计数器
-
-对每个事务请求，生成Proposal时，将计数器+1
-
-
-####### zxid高32位：Leader周期的epoch编号
 
 ##### 2. (同步) 检查是否完成数据同步
 
@@ -339,6 +476,12 @@ Zookeeper Atomic Broadcast.
 ###### 4.返回给处理成功给对应的客户端
 
 ###### 类似一个2PC提交，移除了中断逻辑
+
+#### version保证原子性
+
+##### version表示修改次数
+
+##### 乐观锁
 
 #### 角色
 
@@ -483,3 +626,87 @@ Producer会监听`Broker的新增与减少`、`Topic的新增与减少`、`Broke
 ## 微服务
 
 ## Spring
+
+### Bean
+
+#### 生命周期
+
+#### 作用域
+
+##### singleton
+
+##### prototype
+
+##### request
+
+##### session
+
+##### globalSession
+
+##### 作用域依赖问题
+
+#### FactoryBean: 定制实例化Bean的逻辑
+
+#### 注解配置
+
+##### @Component
+
+##### @Service
+
+#### Java类配置
+
+##### @Configuration
+
+##### @Import
+
+##### @Bean
+
+#### 创建流程
+
+##### ResourceLoader: 装载配置文件 --> Resouce
+
+##### BeanDefinitionReader: 解析配置文件 --> BeanDefinition，并保存到BeanDefinitionRegistry
+
+##### BeanFactoryPostProcessor: 对BeanDefinition进行加工
+
+###### 对占位符<bean>进行解析
+
+###### 找出实现PropertyEditor的Bean, 注册到PropertyEditorResistry
+
+##### InstantiationStrategy: 进行Bean实例化
+
+###### SimpleInstantiationStrategy
+
+###### CglibSubclassingInstantiationStrategy
+
+##### BeanWapper: 实例化时封装
+
+###### Bean包裹器
+
+###### 属性访问器：属性填充
+
+###### 属性编辑器注册表
+
+属性编辑器：将外部设置值转换为JVM内部对应类型
+
+
+##### BeanPostProcessor
+
+### DI
+
+#### Bean Factory: IoC容器
+
+#### ApplicationContext: 应用上下文，Spring容器
+
+#### 依赖注入
+
+##### 属性注入
+
+##### 构造函数注入
+
+##### 工厂方法注入
+
+##### 注解默认采用byType自动装配策略
+
+### AOP
+
