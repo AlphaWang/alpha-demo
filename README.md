@@ -1,9 +1,17 @@
 Java知识脑图：http://naotu.baidu.com/file/b38589b975d51e3851f2c3315a895b72
+
 # Java
 
 ## JVM
 
 ### 内存模型
+
+### 工具
+
+#### jconsole
+
+查看MBean
+
 
 ## 并发
 
@@ -49,6 +57,16 @@ monitorexit指令：计数器-1
 ##### execute不需要返回值，无法判断任务是否执行成功
 
 #### 构造参数
+
+#### 线程池大小设置
+
+##### CPU密集型任务：线程池尽可能小
+
+##### IO密集型任务：线程池尽可能大
+
+##### 公式：
+最佳线程数目 = （（线程等待时间+线程CPU时间）/线程CPU时间 ）* CPU数目
+最佳线程数目 = （线程等待时间与线程CPU时间之比 + 1）* CPU数目
 
 ### Atomic原子类
 
@@ -483,6 +501,18 @@ Zookeeper Atomic Broadcast.
 
 ##### 乐观锁
 
+#### watcher
+
+##### 推拉结合
+
+##### 流程
+
+###### 客户端注册Watcher
+
+###### 客户端将Watcher对象存到WatchManager
+
+###### 服务端发送通知、客户端线程从WatchManager中取出对象，执行回调逻辑
+
 #### 角色
 
 ##### Leader: 读写
@@ -623,7 +653,47 @@ Producer会监听`Broker的新增与减少`、`Topic的新增与减少`、`Broke
 
 ### ETL
 
+## Netty
+
+### 通讯方式
+
+#### BIO: 同步阻塞
+
+#### NIO: 同步非阻塞
+
+#### AIO: 异步非阻塞
+
 ## 微服务
+
+### Spring Cloud
+
+### service mesh
+
+#### consumer端 sidecar
+
+##### 服务发现
+
+##### 负载均衡
+
+##### 熔断降级
+
+#### provider端 sidecar
+
+##### 服务注册
+
+##### 限流降级
+
+##### 监控上报
+
+#### Control Plane
+
+##### 服务注册中心
+
+##### 负载均衡配置
+
+##### 请求路由规则
+
+##### 配额控制
 
 ## Spring
 
@@ -647,19 +717,25 @@ Producer会监听`Broker的新增与减少`、`Topic的新增与减少`、`Broke
 
 #### FactoryBean: 定制实例化Bean的逻辑
 
-#### 注解配置
+#### 配置方式
 
-##### @Component
+##### XML配置
 
-##### @Service
+##### Groovy配置
 
-#### Java类配置
+##### 注解配置
 
-##### @Configuration
+###### @Component
 
-##### @Import
+###### @Service
 
-##### @Bean
+##### Java类配置
+
+###### @Configuration
+
+###### @Import
+
+###### @Bean
 
 #### 创建流程
 
@@ -710,3 +786,82 @@ Producer会监听`Broker的新增与减少`、`Topic的新增与减少`、`Broke
 
 ### AOP
 
+### 外部属性文件
+
+#### PropertyPlaceholderConfigurer
+
+##### 覆盖其convertProperty方法可实现加密属性值
+
+#### <context:property-placeholder location=/>
+
+### 国际化
+
+#### Java支持
+
+##### ResourceBundle.getBundle
+
+##### MessageFormat.format
+
+#### MessageResource
+
+```
+@Bean
+	public MessageSourceAccessor messageSourceAccessor() {
+		return new MessageSourceAccessor(messageSource());
+	}
+
+	@Bean
+	public MessageSource messageSource() {
+		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+		messageSource.setDefaultEncoding("UTF-8");
+		messageSource.setBasenames("classpath:vitamin/messages/message");
+		return messageSource;
+	}
+```    
+
+##### MessageSourceAccessor
+
+##### ApplicationContext继承MessageResource
+
+### 容器事件
+
+#### 事件
+
+##### ApplicationContextEvent
+
+容器的启动、刷新、停止、关闭
+
+##### RequestHandledEvent
+
+HTTP请求被处理
+
+
+#### 监听器
+
+##### ApplicationListener
+
+实现 `onApplicationEvent(E event)`
+
+#### 事件源
+
+#### 监听器注册表
+
+##### ApplicationEventMulticaster
+
+#### 事件广播器
+
+##### ApplicationEventMulticaster
+
+#### 事件发送者
+
+##### 实现ApplicationContextAware
+
+##### ctx.publishEvent()
+
+## Spring Boot
+
+### 模式注解
+
+#### 派生性
+
+#### 层次性
