@@ -175,6 +175,10 @@ zadd books 9.0 "think in java"
 
 ###### ziplist: 元素个数较小时，用ziplist节约空间
 
+###### hash + skiplist
+
+二分查找
+
 #### 原理
 
 ##### 通讯协议：RESP, Redis Serialization Protocal
@@ -248,6 +252,20 @@ QUEUED
 > exec  # 事务执行失败
 (nil)
 
+##### 过期策略
+
+###### 惰性策略
+
+###### 定时扫描
+
+Redis 默认会每秒进行十次过期扫描，过期扫描不会遍历过期字典中所有的 key，而是采用了一种简单的贪心策略。
+
+从过期字典中随机 20 个 key；
+删除这 20 个 key 中已经过期的 key；
+如果过期的 key 比率超过 1/4，那就重复步骤 1；
+
+###### 实践：过期时间随机化
+
 #### 持久化
 
 ##### 快照
@@ -297,25 +315,79 @@ save after 900 seconds if there is at least 1 change to the dataset
 
 ##### 持久化操作主要在从节点进行
 
-#### cluster
+#### 集群
 
-##### 集群成员：Master + Slave
+##### 主从
 
-##### 扩展性：迁移slot (同步)
+###### slave of
+
+##### Sentinel
+
+######  Sentinel 集群可看成是一个 ZooKeeper 集群
+
+###### 消息丢失
+
+####### min-slaves-to-write 1
+
+主节点必须至少有一个从节点在进行正常复制，否则就停止对外写服务，丧失可用性
+
+####### min-slaves-max-lag 10
+
+如果 10s 没有收到从节点的反馈，就意味着从节点同步不正常
+
+##### codis
+
+###### 用zookeeper存储槽位关系
+
+###### 代价
+
+- 不支持事务；
+- 同样 rename 操作也很危险；
+- 为了支持扩容，单个 key 对应的 value 不宜过大。
+- 因为增加了 Proxy 作为中转层，所有在网络开销上要比单个 Redis 大。
+- 集群配置中心使用 zk 来实现，意味着在部署上增加了 zk 运维的代价
+
+##### cluster
+
+###### slots
+
+####### 16384
+
+####### 槽位信息存储于每个节点中
+
+####### 定位：crc16(key) % 16384
+
+###### 跳转：MOVED
+
+当客户端向一个错误的节点发出了指令，该节点会向客户端发送MOVED，告诉客户端去连正确的节点。 
+ GET x
+ -MOVED 3999 127.0.0.1:6381
+
+###### 扩展性：迁移slot (同步)
 
 - Redis 迁移的单位是槽，当一个槽正在迁移时，这个槽就处于中间过渡状态。这个槽在原节点的状态为`migrating`，在目标节点的状态为`importing`，  
 
 - 客户端先尝试访问旧节点，如果对应的数据不在旧节点里面，旧节点会向客户端返回一个`-ASK targetNodeAddr`的重定向指令。
 
 - 客户端收到这个重定向指令后，先去目标节点执行一个不带任何参数的`asking`指令，然后在目标节点再重新执行原先的操作指令。
+(在迁移没有完成之前，这个槽位还是不归新节点管理的，它会向客户端返回一个`-MOVED`重定向指令告诉它去源节点去执行。如此就会形成 `重定向循环`。asking指令的目标就是打开目标节点的选项，告诉它下一条指令不能不理，而要当成自己的槽位来处理。)
 
-- 迁移过程是同步的，在目标节点执行`restore指令`到原节点删除key之间，原节点的主线程会处于阻塞状态，直到key被成功删除。
+- 迁移过程是同步的，在目标节点执行`restore指令`到原节点删除key之间，原节点的主线程会处于阻塞状态，直到key被成功删除。 >> 要尽可能避免大key
 
-当客户端向一个错误的节点发出了指令，该节点会向客户端发送MOVED，告诉客户端去连正确的节点。 
- GET x
- -MOVED 3999 127.0.0.1:6381
+原理：
+- 以原节点作为目标节点的「客户端」
+- 原节点对当前的key执行dump指令得到序列化内容，然后发送指令restore携带序列化的内容作为参数
+- 目标节点再进行反序列化就可以将内容恢复到目标节点的内存中
+- 原节点收到后再把当前节点的key删除
 
-##### 主从复制 (异步)：SYNC snapshot + backlog队列
+
+####### dump
+
+####### restore
+
+####### remove
+
+###### 主从复制 (异步)：SYNC snapshot + backlog队列
 
 - slave启动时，向master发起 `SYNC` 命令。
 
@@ -329,23 +401,23 @@ save after 900 seconds if there is at least 1 change to the dataset
 
 - backlog 发送完成后，后续的写操作同时发给slave，保持实时地异步复制。
 
-###### 快照同步
+####### 快照同步
 
-###### 增量同步
+####### 增量同步
 
 异步将 buffer 中的指令同步到从节点，从节点一边执行同步的指令流来达到和主节点一样的状态，一边向主节点反馈自己同步到哪里了 (偏移量)。
 
-###### 无盘复制
+####### 无盘复制
 
 无盘复制是指主服务器直接通过套接字将快照内容发送到从节点，生成快照是一个遍历的过程，主节点会一边遍历内存，一边将序列化的内容发送到从节点，从节点还是跟之前一样，先将接收到的内容存储到磁盘文件中，再进行一次性加载。
 
 
-###### wait 指令
+####### wait 指令
 
 wait 指令可以让异步复制变身同步复制，确保系统的强一致性。
 - `wait N t`: 等待 wait 指令之前的所有写操作同步到 N 个从库，最多等待时间 t。
 
-##### 读写分离: READONLY 命令
+###### 读写分离: READONLY 命令
 
 - 默认情况下，某个slot对应的节点一定是一个master节点。客户端通过`MOVED`消息得知的集群拓扑结构也只会将请求路由到各个master中。
 
@@ -353,9 +425,9 @@ wait 指令可以让异步复制变身同步复制，确保系统的强一致性
 
 - 为此，Redis Cluster引入了 `READONLY` 命令，客户端向slave发送READONLY命令后，slave对于读操作将不再返回moved，而是直接处理。
 
-##### 主从切换: gossip PFAIL / FAIL
+###### 主从切换: gossip PFAIL / FAIL
 
-##### Failover: Master选举
+###### Failover: Master选举
 
 如果B已被集群公认为是FAIL状态了，则其slave会发起竞选，期望成为新的master。
 
@@ -363,7 +435,7 @@ wait 指令可以让异步复制变身同步复制，确保系统的强一致性
 
 - slave通过向其他master发送FAILOVER_AUTH_REQUEST消息发起竞选，master回复FAILOVER_AUTH_ACK告知是否同意。
 
-##### 一致性: 保证朝着epoch值更大的信息收敛
+###### 一致性: 保证朝着epoch值更大的信息收敛
 
 保证朝着epoch值更大的信息收敛: 每一个Node都保存了集群的配置信息`clusterState`。
 
@@ -383,6 +455,15 @@ wait 指令可以让异步复制变身同步复制，确保系统的强一致性
 ###### setnx + expire
 
 ###### set xx ex 5 nx
+
+###### 集群问题
+
+主节点挂掉时，从节点会取而代之，客户端上却并没有明显感知。原先第一个客户端在主节点中申请成功了一把锁，但是这把锁还没有来得及同步到从节点，主节点突然挂掉了。然后从节点变成了主节点，这个新的节点内部没有这个锁，所以当另一个客户端过来请求加锁时，立即就批准了。这样就会导致系统中同样一把锁被两个客户端同时持有
+
+####### Redlock算法
+
+过半节点加锁成功
+
 
 ##### 延时队列
 
@@ -466,6 +547,10 @@ scan <cursor> match <regex> count <limit>
 在 Redis 中所有的 key 都存储在一个很大的字典中，scan 指令返回的游标就是第一维数组的位置索引，limit 参数就表示需要遍历的槽位数
   
 
+##### Stream
+
+##### PubSub
+
 #### 运维
 
 ##### 内存回收
@@ -473,6 +558,18 @@ scan <cursor> match <regex> count <limit>
 ###### 无法保证立即回收已经删除的 key 的内存
 
 ###### flushdb
+
+##### 保护
+
+###### rename-command flushall ""
+
+######  spiped: SSL代理
+
+##### 懒惰删除
+
+###### del -> unlink
+
+###### flushdb -> flushdb async
 
 ### ZooKeeper
 
@@ -562,23 +659,77 @@ Zookeeper Atomic Broadcast.
 
 ###### 类似一个2PC提交，移除了中断逻辑
 
-#### version保证原子性
+#### 原理
 
-##### version表示修改次数
+##### version保证原子性
 
-##### 乐观锁
+###### version表示修改次数
 
-#### watcher
+###### 乐观锁
 
-##### 推拉结合
+##### watcher
 
-##### 流程
+###### 特性
 
-###### 客户端注册Watcher
+####### 一次性
 
-###### 客户端将Watcher对象存到WatchManager
+####### 客户端串行执行
 
-###### 服务端发送通知、客户端线程从WatchManager中取出对象，执行回调逻辑
+####### 轻量
+
+######## 推拉结合
+
+######## 注册watcher时只传输ServerCnxn
+
+###### 流程
+
+####### 客户端注册Watcher
+
+####### 客户端将Watcher对象存到WatchManager: Map<String, Set<Watcher>>
+
+####### 服务端存储ServerCnxn
+
+######## watchTable: Map<String, Set<Watcher>>
+
+######## watch2Paths: Map<Watch, Set<String>>
+
+####### 服务端触发通知
+
+######## 封装WatchedEvent
+
+######## 查询并删除Watcher
+
+######## process: send response (header = -1)
+
+####### 客户端执行回调
+
+######## SendThread接收通知， 放入EventThread
+
+######## 查询并删除Watcher
+
+######## process: 执行回调
+
+###### WatchedEvent
+
+网络传输时序列化为 `WatcherEvent`
+
+####### KeeperState
+
+- SyncConnected
+- Disconnected
+- Expired
+- AuthFailed
+
+
+####### EventType
+
+- None
+- NodeCreated
+- NodeDeleted
+- NodeDataChanged
+- NodeChildrenChanged
+
+##### ACL
 
 #### 角色
 
