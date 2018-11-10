@@ -4,7 +4,51 @@ Java知识脑图：http://naotu.baidu.com/file/b38589b975d51e3851f2c3315a895b72
 
 ## JVM
 
-### 内存模型
+### 运行时数据区
+
+#### 程序计数器
+
+##### 线程私有
+
+##### 当前线程所执行的字节码的行号指示器
+
+##### OOM: 无
+
+#### JVM 栈
+
+##### 线程私有
+
+##### 存储局部变量表、操作数栈、方法出口
+
+##### StackOverflowError
+
+##### OOM: 动态扩展时无法申请到足够内存
+
+#### 本地方法栈
+
+#### 方法区
+
+##### 线程共享
+
+##### 存储类信息、常量、静态变量、运行时常量(String.intern)
+
+##### GC: 回收常量池、卸载类型
+
+##### OOM
+
+#### 堆
+
+##### 线程共享
+
+##### 存储对象实例、数组
+
+##### OOM
+
+#### 直接内存(堆外内存)
+
+##### NIO DirectByteBuffer
+
+##### OOM
 
 ### 工具
 
@@ -925,6 +969,9 @@ Producer会监听`Broker的新增与减少`、`Topic的新增与减少`、`Broke
 
 ##### prototype
 
+每次getBean都会创建一个Bean，如果是cglib动态代理，则性能不佳
+
+
 ##### request
 
 ##### session
@@ -1014,6 +1061,8 @@ Producer会监听`Broker的新增与减少`、`Topic的新增与减少`、`Broke
 
 ##### @Conditional
 
+例： OnPropertyCondition
+
 ### AOP
 
 #### 术语
@@ -1027,7 +1076,7 @@ AOP黑客攻击的候选锚点
 
 ##### Pointcut 切点
 
-定位到某个方法
+定位到某个类的某个方法
 
 ##### Advice 增强
 
@@ -1041,7 +1090,7 @@ Advice增强逻辑的织入目标类
 
 ##### Introduction 引介
 
-为类添加属性和方法
+为类添加属性和方法，可继承 `DelegatingIntroductionInterceptor`
 
 ##### Weaving 织入
 
@@ -1049,7 +1098,7 @@ Advice增强逻辑的织入目标类
 
 ##### Aspect 切面
 
-Aspect = Pointcut + Introduction
+Aspect = Pointcut + Advice？
 
 
 #### 原理
@@ -1063,6 +1112,43 @@ Aspect = Pointcut + Introduction
 ###### 不能代理final 或 private方法
 
 ###### 性能比JDK好，但是创建花费时间较长
+
+#### 用法
+
+##### ProxyFactory.addAdvice / addAdvisor
+
+ProxyFactory.setTarget
+ProxyFactory.addAdvice
+ProxyFactory.getProxy() --> Target
+
+```
+public void addAdvice(int pos, Advice advice) {
+  this.addAdvisor(pos, new DefaultPointcutAdvisor(advice));
+}
+```
+
+##### 配置ProxyFactoryBean
+
+<bean class="aop.ProxyFactoryBean"
+p:target-ref="target"
+p:interceptorNames="advice or adviso">
+  
+  
+
+##### 自动创建代理
+
+基于BeanPostProcessor实现，在容器实例化Bean时 自动为匹配的Bean生成代理实例。
+
+
+###### BeanNameAutoProxyCreator
+
+基于Bean配置名规则
+
+###### DefaultAdvisorAutoProxyCreator
+
+基于Advisor匹配机制
+
+###### AnnotationAwareAspectJAutoPRoxyCreator
 
 ### 外部属性文件
 
