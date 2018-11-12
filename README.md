@@ -24,6 +24,9 @@ Java知识脑图：http://naotu.baidu.com/file/b38589b975d51e3851f2c3315a895b72
 
 ##### OOM: 动态扩展时无法申请到足够内存
 
+如果`-Xss`栈大小设置过大，当创建大量线程时可能OOM.
+（每个线程都会创建一个栈）
+
 #### 本地方法栈
 
 #### 方法区
@@ -34,7 +37,13 @@ Java知识脑图：http://naotu.baidu.com/file/b38589b975d51e3851f2c3315a895b72
 
 ##### GC: 回收常量池、卸载类型
 
-##### OOM
+##### OOM: String.intern，CGLib
+
+- 例如大量String.intern()
+- 用CGLib生成大量动态类
+- OSGi应用
+- 大量JSP的应用 （JSP第一次运行需要便以为Javale）
+`-XX:PermSize` `-XX:MaxPermSize`
 
 #### 堆
 
@@ -44,11 +53,247 @@ Java知识脑图：http://naotu.baidu.com/file/b38589b975d51e3851f2c3315a895b72
 
 ##### OOM
 
+`-Xms` `-Xmx`
+
 #### 直接内存(堆外内存)
 
 ##### NIO DirectByteBuffer
 
 ##### OOM
+
+`-XX:MaxDirectMemorySize`
+
+### 对象
+
+#### 创建
+
+##### 在常量池找类的符号引用
+
+##### 类加载
+
+##### 分配内存
+
+###### 指针碰撞：适用于Compact GC，例如Serial, ParNew
+
+###### 空闲列表：适用于Mark-Sweep GC，例如CMS
+
+###### 并发问题
+
+####### CAS
+
+####### TLAB: Thread Local Allocation Buffer
+
+##### init
+
+#### 结构
+
+##### Header
+
+###### Mark Word
+
+- HashCode
+- GC分代年龄
+- 锁状态标志
+- 线程持有的锁
+- 偏向线程ID
+- 偏向时间戳
+
+###### 类型指针
+
+##### Instance Data
+
+##### Padding
+
+### GC
+
+#### 引用类型
+
+##### 强引用
+
+##### 软引用
+
+发生内存溢出之前，会尝试回收
+
+##### 弱引用
+
+下一次垃圾回收之前，一定会被回收
+
+
+##### 虚引用
+
+#### GC回收判断
+
+##### 引用计数法
+
+###### 无法解决循环引用问题
+
+##### 可达性分析
+
+###### GC Roots
+
+####### 虚拟机栈中，本地变量表引用的对象
+
+####### 本地方法栈中，JNI引用的对象
+
+####### 方法区中，类静态属性引用的对象
+
+####### 方法区中，常量引用的对象
+
+#### GC算法
+
+##### 标记清除 Mark-Sweep
+
+- 标记出所有需要回收的对象
+- 标记完成后统一回收被标记的对象
+
+
+###### 效率问题
+
+###### 空间问题
+
+##### 复制算法 Copying
+
+- 将可用内存划分为两块；
+- 当一块用完时，将存活对象复制到另一块nei'cun
+
+###### 问题：内存使用率
+
+###### 适用：存活率低的场景
+
+###### 例子：Eden + 2 Suvivor
+
+##### 标记整理 Mark-Compact
+
+- 标记出所有需要回收的对象
+- 让所有存活对象都向一端移动	
+
+###### 例子：老年代
+
+#### GC收集器
+
+##### 实现
+
+###### 枚举根节点
+
+- 会发生停顿
+- OopMap: 虚拟机知道哪些地方存放着对象yin'yong
+
+###### 安全点
+
+程序执行时，只有达到安全点时才能暂停：
+- 方法调用
+- 循环跳转
+- 异常跳转
+
+
+####### 抢先式中断
+
+少用。
+- 先中断全部线程
+- 如果发现有线程中断的地方不在安全点上，则恢复线程
+
+
+####### 主动式中断
+
+- GC简单地设置一个标志
+- 线程执行时主动轮询这个标志，当为真时则自己中断挂起
+
+###### 安全区域
+
+在一段代码片段中，引用关系不会发生变化，在这个区域中任意地方开始GC都是安全的。
+
+##### Serial (Serial Old)
+
+###### Stop The World
+
+###### 新生代：复制算法
+
+###### 老年代：标记整理
+
+##### ParNew
+
+###### 新生代：多个GC线程
+
+###### 其余和Serial一致
+
+##### Parallel Scavenge (Parallel Old)
+
+###### 目标：吞吐量
+
+###### GC停顿时间会牺牲吞吐量和新生代空间
+
+###### 适合后台运算任务，不需要太多的交互
+
+###### 其余类似ParNew
+
+##### CMS, Concurrent Mark Sweep
+
+###### 目标：减少回收停顿时间
+
+###### 标记清除算法，其他收集器用标记整理
+
+###### 步骤
+
+####### 1.初始标记 (单线程)
+
+- Stop The World
+- 标记GC roots直接关联到的对象
+
+####### 2.并发标记 (单线程，并发)
+
+- 耗时长，但与用户线程一起工作
+- GC Roots Tracing 可达性分析
+
+####### 3.重新标记 (多线程)
+
+- Stop The World
+- 修正上一步并发标记期间发生变动的对象
+
+####### 4.并发清除 (单线程，并发)
+
+- 与用户线程一起工作
+
+###### 缺点
+
+####### CPU资源敏感，吞吐量会降低
+
+并发阶段会占用xian'che
+
+####### 无法处理浮动垃圾，可能Concurrent Mode Failure
+
+- CMS不能等到老年代几乎满时再收集；
+- 否则会导致预留的内存无法满足程序需要，出现Concurrent Mode Failure，临时启用Serial Old收集，停顿时间长
+
+####### 标记清除，产生内存碎片
+
+##### G1
+
+###### 特点
+
+####### 并行与并发
+
+####### 分代收集
+
+G1将堆划分为大小相等的`Region`，新生代和老年代不再是物理隔离的
+
+####### 空间整合 -标记整理
+
+####### 可预测的停顿
+
+允许使用者明确指定M毫秒内GC时间不得超过N毫秒
+
+###### 步骤
+
+####### 1.初始标记 (单线程)
+
+####### 2.并发标记 (单线程，并发)
+
+- 耗时长，但与用户线程一起工作
+- GC Roots Tracing 可达性分析
+
+####### 3.最终标记 (多线程)
+
+####### 4.筛选回收 (多线程)
 
 ### 工具
 
@@ -739,19 +984,21 @@ Zookeeper Atomic Broadcast.
 
 ####### 服务端触发通知
 
-######## 封装WatchedEvent
+######## 1.封装WatchedEvent
 
-######## 查询并删除Watcher
+######## 2.查询并删除Watcher
 
-######## process: send response (header = -1)
+######## 3.process: send response (header = -1)
 
 ####### 客户端执行回调
 
-######## SendThread接收通知， 放入EventThread
+######## 1.SendThread接收通知， 放入EventThread
 
-######## 查询并删除Watcher
+NIO
 
-######## process: 执行回调
+######## 2.查询并删除Watcher
+
+######## 3.process: 执行回调
 
 ###### WatchedEvent
 
@@ -774,6 +1021,95 @@ Zookeeper Atomic Broadcast.
 - NodeChildrenChanged
 
 ##### ACL
+
+###### Scheme
+
+####### IP:192.168.1.1:permission
+
+####### Digest:username:sha:permission
+
+####### World:anyone:permission
+
+####### Super:username:sha:permission
+
+###### Permission
+
+####### C, Create
+
+####### D, Delete
+
+####### R, Read
+
+####### W, Write
+
+####### A, Admin
+
+###### 权限扩展体系
+
+####### 实现AuthenticationProvider
+
+####### 注册
+
+######## 系统属性 -Dzookeeper.authProvider.x=
+
+######## zoo.cfg: authProvider.x=
+
+##### 客户端
+
+###### 通讯协议
+
+####### 请求
+
+######## RequestHeader
+
+######### xid
+
+记录客户端发起请求的先后顺序
+
+######### type
+
+- 1: OpCode.Create
+- 2: delete
+- 4: getData
+
+
+######## Request
+
+####### 响应
+
+######## ReplyHeader
+
+######### xid
+
+原值返回
+
+
+######### zxid
+
+服务器上的最新事务ID
+
+
+######### err
+
+######## Response
+
+###### ClientCnxn：网络IO
+
+####### outgoingQueue
+
+待发送的请求Packet队列
+
+####### pendingQueue
+
+已发送的、等待服务端响应的Packetdui'lie
+
+####### SendThread: IO线程
+
+####### EventThread: 事件线程
+
+######## waitingEvents队列
+
+##### Session
 
 #### 角色
 
