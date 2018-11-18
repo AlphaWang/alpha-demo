@@ -75,7 +75,13 @@ Java知识脑图：http://naotu.baidu.com/file/b38589b975d51e3851f2c3315a895b72
 
 ###### 指针碰撞：适用于Compact GC，例如Serial, ParNew
 
+当内存规整时适用
+
+
 ###### 空闲列表：适用于Mark-Sweep GC，例如CMS
+
+当内存不连续时适用
+
 
 ###### 并发问题
 
@@ -214,15 +220,17 @@ Java知识脑图：http://naotu.baidu.com/file/b38589b975d51e3851f2c3315a895b72
 
 ###### 新生代：多个GC线程
 
-###### 其余和Serial一致
+###### 其余和Serial一致，STW
 
 ##### Parallel Scavenge (Parallel Old)
 
-###### 目标：吞吐量
+###### 目标：吞吐量；而其他算法关注缩短停顿时间
 
 ###### GC停顿时间会牺牲吞吐量和新生代空间
 
 ###### 适合后台运算任务，不需要太多的交互
+
+###### 可设置MaxGCPauseMillis, GCTimeRatio
 
 ###### 其余类似ParNew
 
@@ -234,7 +242,7 @@ Java知识脑图：http://naotu.baidu.com/file/b38589b975d51e3851f2c3315a895b72
 
 ###### 步骤
 
-####### 1.初始标记 (单线程)
+####### 1.初始标记 (单线程，STW)
 
 - Stop The World
 - 标记GC roots直接关联到的对象
@@ -244,7 +252,7 @@ Java知识脑图：http://naotu.baidu.com/file/b38589b975d51e3851f2c3315a895b72
 - 耗时长，但与用户线程一起工作
 - GC Roots Tracing 可达性分析
 
-####### 3.重新标记 (多线程)
+####### 3.重新标记 (多线程，STW)
 
 - Stop The World
 - 修正上一步并发标记期间发生变动的对象
@@ -257,12 +265,14 @@ Java知识脑图：http://naotu.baidu.com/file/b38589b975d51e3851f2c3315a895b72
 
 ####### CPU资源敏感，吞吐量会降低
 
-并发阶段会占用xian'che
+并发阶段会占用线程
 
 ####### 无法处理浮动垃圾，可能Concurrent Mode Failure
 
-- CMS不能等到老年代几乎满时再收集；
-- 否则会导致预留的内存无法满足程序需要，出现Concurrent Mode Failure，临时启用Serial Old收集，停顿时间长
+- CMS不能等到老年代几乎满时再收集，要预留空间给浮动垃圾；
+- 否则会导致预留的内存无法满足程序需要，出现Concurrent Mode Failure，临时启用Serial Old收集，停顿时间长。  
+
+`CMSInitiatingOccupancyFraction`不宜过高
 
 ####### 标记清除，产生内存碎片
 
@@ -284,16 +294,40 @@ G1将堆划分为大小相等的`Region`，新生代和老年代不再是物理�
 
 ###### 步骤
 
-####### 1.初始标记 (单线程)
+####### 1.初始标记 (单线程，STW)
 
 ####### 2.并发标记 (单线程，并发)
 
 - 耗时长，但与用户线程一起工作
 - GC Roots Tracing 可达性分析
 
-####### 3.最终标记 (多线程)
+####### 3.最终标记 (多线程，STW)
 
 ####### 4.筛选回收 (多线程)
+
+#### 内存分配策略
+
+##### 对象优先在Eden分配
+
+如果Eden空间不足，则出发MinorGC
+
+
+##### 大对象直接进入老年代
+
+PretenureSizeThreshold
+
+##### 长期存活的对象进入老年代
+
+MaxTenuringThreshold
+
+##### 动态对象年龄判断
+
+如果Survivor中相同年龄对象的总大小 > Survivor的一半；则该年龄及更老的对象 直接进入lao'nian'dai
+
+##### 空间分配担保: 可能触发FullGC
+
+- MinorGC之前，检查老年代最大可用的连续空间，是否大于新生代所有对象总空间。如果大于，则MinorGC是安全的。
+- 否则要进行一次FullGCC.
 
 ### 工具
 
@@ -464,9 +498,13 @@ zadd books 9.0 "think in java"
 
 ###### ziplist: 元素个数较小时，用ziplist节约空间
 
-###### hash + skiplist
+###### hash: value -> score
 
-二分查找
+hash 结构来存储 value 和 score 的对应关系
+
+###### skiplist: 二分查找
+
+skiplist提供指定 score 的范围来获取 value 列表的功能，二分查找
 
 #### 原理
 
@@ -643,6 +681,12 @@ save after 900 seconds if there is at least 1 change to the dataset
 ####### 16384
 
 ####### 槽位信息存储于每个节点中
+
+######## Rax
+
+`Rax slots_to_keys` 用来记录槽位和key的对应关系
+- Radix Tree 基数树
+
 
 ####### 定位：crc16(key) % 16384
 
@@ -847,6 +891,31 @@ scan <cursor> match <regex> count <limit>
 ###### 无法保证立即回收已经删除的 key 的内存
 
 ###### flushdb
+
+##### eviction
+
+###### LRU: Least Recently Used
+
+当字典的某个元素被访问时，它在链表中的位置会被移动到表头。
+
+所以链表的元素排列顺序就是元素最近被访问的时间顺序。
+
+位于链表尾部的元素就是不被重用的元素，所以会被踢掉。
+
+- 缺点：需要大量的额外的内存
+
+
+###### 近似LRU
+
+- **随机**采样出 5(可以配置) 个 key，
+- 然后淘汰掉最旧的 key，
+- 如果淘汰后内存还是超出 maxmemory，那就继续随机采样淘汰，直到内存低于 maxmemory 为止。
+
+Redis给每个 key 增加了一个额外的小字段，这个字段的长度是 24 个 bit，也就是最后一次被访问的时间戳。
+
+
+
+###### LFU: Least Frequently Used
 
 ##### 保护
 
@@ -1111,6 +1180,68 @@ NIO
 
 ##### Session
 
+###### SessionID: 服务器myid + 时间戳
+
+###### SessionTracker: 服务器的会话管理器
+
+####### 内存数据结构
+
+######## sessionById:     HashMap<Long, SessionImpl>
+
+######## sessionWithTimeout: ConcurrentHashMap<Long, Integer>
+
+######## sessionSets:     HashMap<Long, SessionSet>超时时间分桶
+
+####### 分桶策略
+
+- 将类似的会话放在同一区块进行管理。
+- 按照“下次超时时间”
+- 好处：清理时可批量处理
+
+####### 会话激活
+
+- 心跳检测
+- 重新计算下一次超时时间
+- 迁移到新区块
+
+
+######## 客户端发送任何请求时
+
+######## sessionTimeout / 3时，发送PING请求
+
+####### 超时检测：独立线程，逐个清理
+
+####### 会话清理
+
+######## 1. isClosing设为true
+
+######## 2.发起“会话关闭”请求
+
+######## 3.收集需要清理的临时节点
+
+######## 4.添加“节点删除”事务变更
+
+######## 5.删除临时节点
+
+######## 6.移除会话、关闭NIOServerCnxn
+
+####### 重连
+
+######## 连接断开
+
+- 断开后，客户端收到None-Disconnected通知，并抛出异常`ConnectionLossException`；
+- 应用需要捕获异常，并等待客户端自动完成重连；
+- 客户端自动重连后，收到None-SyncConnected通知
+
+######## 会话失效
+
+- 自动重连时 超过了会话超时时间。
+- 应用需要重新实例化ZooKeeper对象，重新恢复临时数据
+
+######## 会话转移
+
+- 服务端收到请求时，检查Owner 如果不是当前服务器则抛出`SessionMovedExceptio`
+
 #### 角色
 
 ##### Leader: 读写
@@ -1251,6 +1382,41 @@ Producer会监听`Broker的新增与减少`、`Topic的新增与减少`、`Broke
 
 ### ETL
 
+### 索引
+
+#### 原理
+
+##### B Tree
+
+M阶B Tree: 
+- 每个非叶子结点至多有M个儿子，至少有M/2个儿子；
+- 根节点至少有2个儿子；
+- 所有叶子节点在同一层。
+
+##### B+ Tree
+
+叶子节点才是真正的原始数据
+
+
+##### 与二叉树的区别
+
+- 二叉树：优化比较次数
+- B/B+树：优化磁盘读写次数
+
+#### 分类
+
+##### 簇索引
+
+每个表至多一个，一般为主键索引
+
+##### 非簇索引
+
+### 事务
+
+#### select xx for update: 锁住行
+
+#### where stock=xx: 乐观锁
+
 ## Netty
 
 ### 通讯方式
@@ -1315,6 +1481,8 @@ Producer会监听`Broker的新增与减少`、`Topic的新增与减少`、`Broke
 ##### globalSession
 
 ##### 作用域依赖问题
+
+prototype --> request, 动态代理
 
 #### FactoryBean: 定制实例化Bean的逻辑
 
@@ -1451,7 +1619,9 @@ Aspect = Pointcut + Advice？
 
 #### 用法
 
-##### ProxyFactory.addAdvice / addAdvisor
+##### 编程方式
+
+###### ProxyFactory.addAdvice / addAdvisor
 
 ProxyFactory.setTarget
 ProxyFactory.addAdvice
@@ -1463,7 +1633,7 @@ public void addAdvice(int pos, Advice advice) {
 }
 ```
 
-##### 配置ProxyFactoryBean
+###### 配置ProxyFactoryBean
 
 <bean class="aop.ProxyFactoryBean"
 p:target-ref="target"
@@ -1471,20 +1641,27 @@ p:interceptorNames="advice or adviso">
   
   
 
-##### 自动创建代理
+###### 自动创建代理
 
 基于BeanPostProcessor实现，在容器实例化Bean时 自动为匹配的Bean生成代理实例。
 
 
-###### BeanNameAutoProxyCreator
+####### BeanNameAutoProxyCreator
 
 基于Bean配置名规则
 
-###### DefaultAdvisorAutoProxyCreator
+####### DefaultAdvisorAutoProxyCreator
 
 基于Advisor匹配机制
 
-###### AnnotationAwareAspectJAutoPRoxyCreator
+####### AnnotationAwareAspectJAutoPRoxyCreator
+
+##### AspectJ
+
+###### <aop:aspectj-autoproxy>
+
+- 自动为匹配`@AspectJ`切面的Bean创建代理，完成切面织入。
+- 底层通过 `AnnotationAwareAspectJAutoProxyCreator`实现。
 
 ### 外部属性文件
 
@@ -1565,3 +1742,73 @@ HTTP请求被处理
 #### 派生性
 
 #### 层次性
+
+### 自动装配
+
+#### 1.@EnableAutoConfiguration
+
+#### 2. XXAutoConfiguration
+
+##### 条件判断 @Conditional
+
+##### 模式注解 @Configuration
+
+##### @Enable模块：@EnableXX -> *ImportSelector -> *Configuration
+
+#### 3.配置spring.factories (SpringFactoriesLoader)
+
+### 源码
+
+#### SpringApplication
+
+##### 准备阶段
+
+###### 配置 Spring Boot Bean 源		
+
+###### 推断Web应用类型
+
+根据classpath
+
+###### 推断引导类
+
+根据 Main 线程执行堆栈判断实际的引导类
+
+###### 加载ApplicationContextInitializer
+
+spring.factorie
+
+###### 加载ApplicationListener
+
+spring.factories
+例如`ConfigFileApplicationListener`
+
+##### 运行阶段
+
+###### 加载监听器 SpringApplicationRunListeners
+
+spring.factories
+getSpringFactoriesInstances(SpringApplicationRunListener.class, types, this, args))
+
+`EventPublishingRunListener` 
+--> `SimpleApplicationEventMulticaster`
+
+####### EventPublishingRunListener
+
+####### SimpleApplicationEventMulticaster
+
+###### 运行监听器 SpringApplicationRunListeners
+
+listeners.starting();
+
+###### 创建应用上下文 ConfigurableApplicationContext
+
+createApplicationContext()
+- NONE: `AnnotationConfigApplicationContext`
+- SERVLET: `AnnotationConfigServletWebServerApplicationContext`
+- REACTIVE: `AnnotationConfigReactiveWebServerApplicationContext` 
+
+###### 创建Environment
+
+getOrCreateEnvironment()
+- SERVLET: `StandardServletEnvironment`
+- NONE, REACTIVE: `StandardEnvironment` 
