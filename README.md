@@ -331,10 +331,44 @@ MaxTenuringThreshold
 
 ### 工具
 
-#### jconsole
+#### 命令行工具
+
+##### jps -l
+
+##### jstat -class/-gc
+
+jstat -gc vmid [interval] [count]
+
+- class
+- gc
+- gccause
+
+
+
+##### jinfo: 查看修改VM参数
+
+修改参数：
+- jinfo -flag name=value
+- jinfo -flag[+|-] name
+
+##### jmap: 生成heap dump
+
+jmap -dump:live,format=b,file=/pang/logs/tomcat/heapdump.bin 1
+
+##### jhat: 简单分析heap dump 
+
+##### jstack -l: 生成thread dump
+
+##### jcmd
+
+#### GUI工具
+
+##### jconsole
 
 查看MBean
 
+
+##### VisualVM
 
 ## 并发
 
@@ -1407,15 +1441,36 @@ M阶B Tree:
 
 ##### 簇索引
 
-每个表至多一个，一般为主键索引
+每个表至多一个，一般为主键索引。
+- B Tree上存储的就是数据本身
 
 ##### 非簇索引
+
+- B Tree上存储的是指针
 
 ### 事务
 
 #### select xx for update: 锁住行
 
 #### where stock=xx: 乐观锁
+
+### 连接池
+
+#### 配置参数
+
+##### maxLive (100)
+
+##### maxIdle (100)
+
+##### minIdle (10)
+
+##### initialSize (10)
+
+##### maxWait (30s)
+
+当第101个请求过来时候，等待30s; 30s后如果还没有空闲链接，则报错
+
+#### 由客户端维护
 
 ## Netty
 
