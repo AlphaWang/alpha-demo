@@ -1,9 +1,5 @@
 package com.alphawang.algorithm.leetcode.list;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 /**
  * 
  * https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list
@@ -20,8 +16,8 @@ import java.util.stream.Stream;
  */
 public class T083_RemoveDuplicatesFromSortedList {
 
-    public static ListNode deleteDuplicates(ListNode head) {
-        ListNode current = head;
+    public static Node<Integer> deleteDuplicates(Node<Integer> head) {
+        Node<Integer> current = head;
         /**
          * bug!
          * 
@@ -35,63 +31,36 @@ public class T083_RemoveDuplicatesFromSortedList {
 //            current = current.next;
 //        }
 
-        while (current != null && current.next != null) {
-            if (current.next.val == current.val) {
-                current.next = current.next.next;
+        while (current != null && current.getNext() != null) {
+            if (current.getNext().getValue() == current.getValue()) {
+                current.setNext(current.getNext().getNext());
             } else {
-                current = current.next;
+                current = current.getNext();
             }
         }
         
         return head;
     }
 
-    public static ListNode deleteDuplicates2(ListNode head) {
-        if (head == null || head.next == null) {
+    public static Node<Integer> deleteDuplicates2(Node<Integer> head) {
+        if (head == null || head.getNext() == null) {
             return head;
         }
-        head.next = deleteDuplicates2(head.next);
+        head.setNext(deleteDuplicates2(head.getNext()));
         
-        return head.val == head.next.val ? head.next : head;
+        return head.getValue() == head.getNext().getValue() ? head.getNext() : head;
     }
 
     public static void main(String[] args) {
-        List<ListNode> nodes = Stream.of(1, 2, 2, 2, 3)
-            .map(i -> new ListNode(i))
-            
-            .collect(Collectors.toList());
+
+        Node<Integer> head = NodeCreator.create(1, 2, 2, 2, 3);
         
-        for (int i = 0; i < nodes.size() - 1; i++) {
-            ListNode current = nodes.get(i);
-            ListNode next = nodes.get(i +1);
-            current.next = next;
-        }
-        
-        ListNode head = nodes.get(0);
-        
-        System.out.println("BEFORE " + head);
-//        head = deleteDuplicates(head);
-        head = deleteDuplicates2(head);
-        System.out.println("AFTER " + head);
+        System.out.println("BEFORE " + Node.format(head));
+        head = deleteDuplicates(head);
+//        head = deleteDuplicates2(head);
+        System.out.println("AFTER  " + Node.format(head));
         
         
     }
     
-
-    static class ListNode {
-      int val;
-      ListNode next;
-      ListNode(int x) { val = x; }
-      
-      public String toString() {
-          StringBuilder sb = new StringBuilder();
-          sb.append(val);
-          
-          if (next != null) {
-              sb.append(" -> ");
-              sb.append(next.toString());
-          }
-          return sb.toString();
-      }
-  }
 }

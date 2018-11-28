@@ -13,61 +13,35 @@ public class T082_RemoveDuplicatesFromSortedList2 {
      * leaving only distinct numbers from the original list.
      */
 
-    public static ListNode deleteDuplicates(ListNode head) {
+    public static Node<Integer> deleteDuplicates(Node<Integer> head) {
         if (head == null) {
             return head;
         }
         
-        if (head.next != null && head.val == head.next.val) {
-            while (head.next != null && head.val == head.next.val) {
-                head = head.next;
+        if (head.getNext() != null && head.getValue() == head.getNext().getValue()) {
+            
+            while (head.getNext() != null && head.getValue() == head.getNext().getValue()) {
+                head = head.getNext();
             }
-            return deleteDuplicates(head.next);
+            
+            return deleteDuplicates(head.getNext());
+            
         } else {
-            head.next = deleteDuplicates(head.next);
+            head.setNext(deleteDuplicates(head.getNext()));
         }
 
         return head;
     }
 
     public static void main(String[] args) {
-        List<ListNode> nodes = Stream.of(1, 2, 2, 2, 3)
-            .map(i -> new ListNode(i))
+        Node<Integer> head = NodeCreator.create(1, 2, 2, 2, 3);
 
-            .collect(Collectors.toList());
-
-        for (int i = 0; i < nodes.size() - 1; i++) {
-            ListNode current = nodes.get(i);
-            ListNode next = nodes.get(i +1);
-            current.next = next;
-        }
-        ListNode head = nodes.get(0);
-
-        System.out.println("BEFORE " + head);
+        System.out.println("BEFORE " + Node.format(head));
         head = deleteDuplicates(head);
-        System.out.println("AFTER " + head);
+        System.out.println("AFTER  " + Node.format(head));
 
 
     }
-
-    static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-        }
-
-        public String toString() {
-            StringBuilder sb = new StringBuilder();
-            sb.append(val);
-
-            if (next != null) {
-                sb.append(" -> ");
-                sb.append(next.toString());
-            }
-            return sb.toString();
-        }
-    }
+    
 
 }
