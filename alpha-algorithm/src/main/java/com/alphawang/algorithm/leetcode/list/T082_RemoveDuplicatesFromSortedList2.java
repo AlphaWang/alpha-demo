@@ -1,9 +1,5 @@
 package com.alphawang.algorithm.leetcode.list;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 public class T082_RemoveDuplicatesFromSortedList2 {
     /**
      * https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/
@@ -42,8 +38,11 @@ public class T082_RemoveDuplicatesFromSortedList2 {
     private static void remove(Integer... values) {
         Node<Integer> head = NodeCreator.create(values);
         System.out.println("BEFORE " + Node.format(head));
+        
         head = deleteDuplicates(head);
+        
         System.out.println("AFTER  " + Node.format(head));
+        System.out.println();
     }
     
 

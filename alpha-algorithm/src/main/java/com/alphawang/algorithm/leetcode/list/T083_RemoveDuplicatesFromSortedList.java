@@ -59,9 +59,12 @@ public class T083_RemoveDuplicatesFromSortedList {
     private static void remove(Integer... values) {
         Node<Integer> head = NodeCreator.create(values);
         System.out.println("BEFORE " + Node.format(head));
+        
         head = deleteDuplicates(head);
         // head = deleteDuplicates2(head);
+        
         System.out.println("AFTER  " + Node.format(head));
+        System.out.println();
     }
     
 }
