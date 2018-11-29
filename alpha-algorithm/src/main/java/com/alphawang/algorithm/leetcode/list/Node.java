@@ -28,7 +28,10 @@ public class Node<T> {
     }
 
     public static <T> String format(Node<T> head) {
-
+        if (head == null) {
+            return null;
+        }
+        
         StringBuilder sb = new StringBuilder();
         sb.append(head);
         

@@ -34,13 +34,16 @@ public class T082_RemoveDuplicatesFromSortedList2 {
     }
 
     public static void main(String[] args) {
-        Node<Integer> head = NodeCreator.create(1, 2, 2, 2, 3);
+        remove(1, 2, 2, 2, 3);
+        remove(1, 1,1);
 
+    }
+
+    private static void remove(Integer... values) {
+        Node<Integer> head = NodeCreator.create(values);
         System.out.println("BEFORE " + Node.format(head));
         head = deleteDuplicates(head);
         System.out.println("AFTER  " + Node.format(head));
-
-
     }
     
 
