@@ -4,40 +4,42 @@ Java知识脑图：http://naotu.baidu.com/file/b38589b975d51e3851f2c3315a895b72
 
 ## JVM
 
-### 运行时数据区
+### 内存区域
 
-#### 程序计数器
+#### 运行时数据区
 
-##### 线程私有
+##### 程序计数器
 
-##### 当前线程所执行的字节码的行号指示器
+###### 线程私有
 
-##### OOM: 无
+###### 当前线程所执行的字节码的行号指示器
 
-#### JVM 栈
+###### OOM: 无
 
-##### 线程私有
+##### JVM 栈
 
-##### 存储局部变量表、操作数栈、方法出口
+###### 线程私有
 
-##### StackOverflowError
+###### 存储局部变量表、操作数栈、方法出口
 
-##### OOM: 动态扩展时无法申请到足够内存
+###### StackOverflowError
+
+###### OOM: 动态扩展时无法申请到足够内存
 
 如果`-Xss`栈大小设置过大，当创建大量线程时可能OOM.
 （每个线程都会创建一个栈）
 
-#### 本地方法栈
+##### 本地方法栈
 
-#### 方法区
+##### 方法区
 
-##### 线程共享
+###### 线程共享
 
-##### 存储类信息、常量、静态变量、运行时常量(String.intern)
+###### 存储类信息、常量、静态变量、运行时常量(String.intern)
 
-##### GC: 回收常量池、卸载类型
+###### GC: 回收常量池、卸载类型
 
-##### OOM: String.intern，CGLib
+###### OOM: String.intern，CGLib
 
 - 例如大量String.intern()
 - 用CGLib生成大量动态类
@@ -45,23 +47,47 @@ Java知识脑图：http://naotu.baidu.com/file/b38589b975d51e3851f2c3315a895b72
 - 大量JSP的应用 （JSP第一次运行需要便以为Javale）
 `-XX:PermSize` `-XX:MaxPermSize`
 
-#### 堆
+##### 堆
 
-##### 线程共享
+###### 线程共享
 
-##### 存储对象实例、数组
+###### 存储对象实例、数组
 
-##### OOM
+###### OOM
 
 `-Xms` `-Xmx`
 
-#### 直接内存(堆外内存)
+##### 直接内存(堆外内存)
 
-##### NIO DirectByteBuffer
+###### NIO DirectByteBuffer
 
-##### OOM
+###### OOM
 
 `-XX:MaxDirectMemorySize`
+
+#### 其他
+
+##### Direct Memory
+
+###### NIO可能会操作堆外内存
+
+###### -XX:MaxDirectMemorySize
+
+###### 回收：FullGC时顺便清理，不能主动触发
+
+###### 异常OutOfMemoryError: Direct buffer memory
+
+##### 线程堆栈
+
+###### 纵向异常：无法分配新的栈桢：StackOverflowError
+
+###### 横向异常：无法建立新的线程：OutOfMemoryError: unable to create new native thread
+
+##### Socket缓存区
+
+##### JNI代码
+
+##### 虚拟机和GC
 
 ### 对象
 
@@ -407,7 +433,29 @@ jmap -dump:live,format=b,file=/pang/logs/tomcat/heapdump.bin 1
 查看MBean
 
 
+###### 内存：jstat
+
+###### 线程：jstack
+
 ##### VisualVM
+
+###### 插件
+
+###### 监视：dump
+
+###### Profiler
+
+####### CPU
+
+####### 内存
+
+###### BTrace
+
+#### instrument
+
+##### ClassFileTransformer
+
+##### Instrumentation
 
 ## 并发
 
@@ -487,6 +535,10 @@ AtomicIntegerArray, AtomicLongArray, Atomic ReferenceArray
 - CAS的原理是拿期望的值和原本的一个值作比较，如果相同则更新成新的值。`UnSafe.objectFieldOffset()` 方法是一个本地方法，这个方法是用来拿到“原来的值”的内存地址，返回值是 valueOffset。另外 value 是一个volatile变量，在内存中可见，因此 JVM 可以保证任何时刻任何线程总能拿到该变量的最新值。
 
 ### AQS
+
+#### condition
+
+##### 必须在排它锁中使用
 
 ### Unsafe
 
@@ -1451,9 +1503,59 @@ Producer会监听`Broker的新增与减少`、`Topic的新增与减少`、`Broke
 
 ## MySql
 
+### ETL
+
 ### 内核
 
-### ETL
+#### InnoDB
+
+##### 事务
+
+InnoDB每一条SQL语言都默认封装成事务，自动提交，这样会影响速度，所以最好把多条SQL语言放在begin和commit之间，组成一个事务；
+
+
+
+##### 不保存表的具体行数
+
+#### MyISAM
+
+##### 不支持事务
+
+##### 不支持行锁
+
+##### 不支持外键
+
+##### 保存了整个表的行数
+
+##### 支持全文索引
+
+### 原理
+
+#### 更新
+
+##### WAL: Write-Ahead-Logging
+
+先写日志，再写磁盘。
+
+InnoDB 引擎会在适当的时候，将这个操作记录更新到磁盘里
+
+##### redo log
+
+###### 两阶段提交
+
+###### InnoDB特有
+
+###### 循环写: Write POS, Check Point
+
+##### binlog
+
+###### Server共有
+
+###### 追加写
+
+#### 脏页：内存数据页跟磁盘数据页内容不一致
+
+##### flush: 写回磁盘
 
 ### 索引
 
@@ -1478,20 +1580,216 @@ M阶B Tree:
 
 #### 分类
 
-##### 簇索引
+##### 簇索引 -主键索引
 
 每个表至多一个，一般为主键索引。
 - B Tree上存储的就是数据本身
 
-##### 非簇索引
+##### 非簇索引 -二级索引
 
-- B Tree上存储的是指针
+- B Tree上存储的是主键
+- 需要两次查找才能获取数据本身
+
+##### 唯一索引 vs. 普通索引
+
+###### 读取性能类似，写入性能 普通索引好
+
+###### change buffer
+
+当需要更新一个数据页时，
+- 如果数据页在内存中就直接更新
+- 而如果这个数据页还没有在内存中的话，在不影响数据一致性的前提下，InooDB 会将这些更新操作缓存在 change buffer 中
+
+这样就不需要从磁盘中读入这个数据页了。在
+
+下次查询需要访问这个数据页的时候，将数据页读入内存，然后执行 change buffer 中与这个页有关的操作。通过这种方式就能保证这个数据逻辑的正确性。
+
+####### 主要节省的是随机读磁盘的 IO 消耗
+
+####### 访问数据 则触发merge
+
+####### 适合写多读少
+
+因为 merge 的时候是真正进行数据更新的时刻，而 change buffer 的主要目的就是将记录的变更动作缓存下来，
+
+所以在一个数据页做 merge 之前，change buffer 记录的变更越多（也就是这个页面上要更新的次数越多），收益就越大。
+
+####### 条件：不适用于唯一索引
+
+###### redo log
+
+####### 主要节省的是随机写磁盘的 IO 消耗（转成顺序写）
+
+#### 主键
+
+##### 自增主键
+
+###### 性能好
+
+每次插入一条新记录，都是追加操作，都不涉及到挪动其他记录，也不会触发叶子节点的分裂
+
+###### 存储空间小
+
+##### 业务主键
+
+###### 适用场景
+
+####### 只有一个索引
+
+####### 例如KV
+
+#### 操作
+
+##### 覆盖索引
+
+select primaryKey（而不是*） from xx where indexColumn=
+非簇索引节点值为“primaryKey”，而非真实数据记录。避免回表
+
+##### 前缀索引
+
+联合索引(a, b), 只查a也会索引
+
+##### 索引下推
+
+MySQL 5.6 引入的索引下推优化（index condition pushdown)， 可以在索引遍历过程中，对索引中包含的字段先做判断，直接过滤掉不满足条件的记录，减少回表次数。
+
+
+#### 优化器选择索引
+
+##### 标准
+
+###### 扫描行数
+
+####### 区分度：cardinality
+
+`show index`可查
+
+####### analyze table t 重新统计索引信息
+
+###### 是否使用临时表
+
+###### 是否排序
+
+###### 是否回表
+
+##### 选择非最优时
+
+###### force index强行选择一个索引
+
+select * from t force index(a)
+
+###### 修改语句，引导使用希望的索引
+
+order by b limit 1 --> index b
+order by b, a limit 1 --> index a
+
+###### 新建合适的索引
+
+### 锁
+
+#### 全局锁
+
+Flush tables with read lock (FTWRL)
+
+当你需要让整个库处于只读状态的时候，可以使用这个命令，之后其他线程的以下语句会被阻塞：数据更新语句（增删改）、数据定义语句（建表、修改表结构等）和更新类事务的提交语句
+
+##### 场景：全库逻辑备份
+
+##### 区别与 set global readonly=true
+
+##### 优化：innoDB可在可重复读隔离级别下开启一个事务
+
+#### 表级锁
+
+##### 表锁（lock tables xx read/write）
+
+##### 元数据锁（metadata lock)
+
+MDL 不需要显式使用，在访问一个表的时候会被自动加上。
+
+- 当对一个表做增删改查操作的时候，加 MDL 读锁；
+- 当要对表做做结构变更操作的时候，加 MDL 写锁；
+
+###### case: 增加字段需要MDL写锁，会block业务
+
+####### ALTER +timeout
+
+ALTER TABLE tbl_name NOWAIT add column ...
+ALTER TABLE tbl_name WAIT N add column ... 
+
+
+####### 执行之前杀掉长事务
+
+#### 行锁
+
+##### 两阶段锁协议
+
+###### 行锁是在需要的时候才加上的
+
+###### 但并不是不需要了就立刻释放，而是等到事务结束
+
+##### 最佳实践
+
+###### 要把最可能造成锁冲突、最可能影响并发度的锁尽量往后放
+
+##### 死锁
+
+###### 等待超时: innodb_lock_wait_timeout
+
+###### 死锁检测
+
+ innodb_deadlock_detect=on, 主动回滚死锁链条中的某一个事务
+
+####### 问题：耗费 CPU
+
+####### 解决：服务端并发控制
+
+对于相同行的更新，在进入引擎之前排队
+
 
 ### 事务
 
 #### select xx for update: 锁住行
 
 #### where stock=xx: 乐观锁
+
+#### 事务隔离
+
+##### 实现原理
+
+###### 回滚日志
+
+###### consistent read view -一致性读
+
+####### 基于row trx_id实现快照
+
+####### 根据 row trx_id 和一致性视图确定数据版本的可见性
+
+####### 用于实现可重复读
+
+######## 如果数据版本是我启动以后才生成的，我就不认，我必须要找到它的上一个版本
+
+###### current read -当前读
+
+####### 更新数据都是先读后写的，而这个读，只能读当前的值
+
+####### 除了 update 语句外，select 语句如果加锁，也是当前读
+
+######## 共享锁select xx lock in share mode;
+
+######## 排它锁select xx for update;
+
+##### 隔离级别
+
+###### Read Committed
+
+####### 查询只承认在语句启动前就已经提交完成的数据
+
+###### Repeatable Read
+
+####### 查询只承认在事务启动前就已经提交完成的数据
+
+###### Serialized
 
 ### 连接池
 
@@ -1828,6 +2126,78 @@ HTTP请求被处理
 ##### 实现ApplicationContextAware
 
 ##### ctx.publishEvent()
+
+### SpringMVC
+
+#### 流程
+
+##### web.xml
+
+###### web.xml 匹配DispatcherServlet映射路径
+
+##### DispatcherServlet
+
+##### HandlerMapping
+
+###### 通过HandlerMapping找到处理请求的Handler
+
+##### HanlderAdapter
+
+###### 通过HandlerAdapter封装调用Handler
+
+###### HttpMessageConverter
+
+####### MappingJackson2HttpMessageConverter
+
+##### ViewResolver
+
+###### 通过ViewResolver解析视图名到真实视图对象
+
+#### 自动装配
+
+##### Spring SPI
+
+###### 基础接口：WebApplicationInitializer
+
+###### 编程驱动：AbstractDispatcherServletInitializer
+
+###### 注解驱动：AbstractAnnotationConfigDispatcherServletInitializer
+
+##### 流程
+
+###### 1. 启动时查找ServletContainerInitializer实现类 
+
+###### 2. 找到SpringServletContainerInitializer
+
+###### 3.@HandlesTypes({WebApplicationInitializer.class})
+
+#### 编码
+
+##### 入参
+
+###### @RequestParam
+
+###### @RequestHeader
+
+###### @CookieValue
+
+###### @MatrixVariable
+
+###### HttpServletRequest / HttpSession
+
+###### WebRequest
+
+###### ModelMap / Map
+
+SpringMVC在调用方法前会创建一个隐含的模型对象。如果方法入参为Map/Model，则会将隐含模型的引用传递给这些入参。
+
+
+##### 入参原理
+
+###### HttpMessageConverter
+
+- MappingJackson2HttpMessageConverter
+- ByteArrayHttpMessageConverter
 
 ## Spring Boot
 
