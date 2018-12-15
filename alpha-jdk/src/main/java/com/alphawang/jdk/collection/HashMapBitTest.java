@@ -1,14 +1,19 @@
 package com.alphawang.jdk.collection;
 
-import com.alphawang.util.Printer;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class HashMapBitTest {
     public static void main(String[] args) {
-        Printer.print(5 >>> 16);
-        Printer.print(16 >>> 16);
-        Printer.print(32 >>> 16);
-        Printer.print(128 >>> 16);
-        Printer.print(1 << 30);
+        print(5 >>> 16);
+        print(16 >>> 16);
+        print(32 >>> 16);
+        print(128 >>> 16);
+        print(1 << 30);
+    }
+    
+    private static void print(int v) {
+        log.info("{}", v);
     }
 
     /**
