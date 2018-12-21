@@ -26,7 +26,7 @@ Java知识脑图：http://naotu.baidu.com/file/b38589b975d51e3851f2c3315a895b72
 
 ###### OOM: 动态扩展时无法申请到足够内存
 
-如果`-Xss`栈大小设置过大，当创建大量线程时可能OOM.
+如果`-Xss`设置过大，当创建大量线程时可能OOM.
 （每个线程都会创建一个栈）
 
 ##### 本地方法栈
@@ -150,6 +150,8 @@ Java9改名为平台类jia'zai'qi
 
 ####### TLAB: Thread Local Allocation Buffer
 
+本地线程分配缓冲：每个线程在堆中预先分配一小块内存。
+
 #### 编译：将字节码翻译成机器码
 
 ##### 解释执行
@@ -170,6 +172,9 @@ Java9改名为平台类jia'zai'qi
 - 偏向时间戳
 
 ###### 类型指针
+
+JVM通过这个指针来确定对象是哪个类的实例
+
 
 ##### Instance Data
 
@@ -225,7 +230,8 @@ Java9改名为平台类jia'zai'qi
 ##### 复制算法 Copying
 
 - 将可用内存划分为两块；
-- 当一块用完时，将存活对象复制到另一块nei'cun
+- 当一块用完时，将存活对象复制到另一块内存
+
 
 ###### 问题：内存使用率
 
@@ -247,7 +253,7 @@ Java9改名为平台类jia'zai'qi
 ###### 枚举根节点
 
 - 会发生停顿
-- OopMap: 虚拟机知道哪些地方存放着对象yin'yong
+- OopMap: 虚拟机知道哪些地方存放着对象引用
 
 ###### 安全点
 
@@ -303,7 +309,7 @@ Java9改名为平台类jia'zai'qi
 
 ###### 目标：减少回收停顿时间
 
-###### 标记清除算法，其他收集器用标记整理
+###### 标记清除算法（其他收集器用标记整理）
 
 ###### 步骤
 
@@ -456,6 +462,46 @@ jmap -dump:live,format=b,file=/pang/logs/tomcat/heapdump.bin 1
 ##### ClassFileTransformer
 
 ##### Instrumentation
+
+### 参数
+
+#### 运维
+
+##### -XX:+HeapDumpOnOutOfMemoryError
+
+##### -Xverify:none -忽略字节码校验
+
+##### -Xint -禁止JIT编译器
+
+#### 内存
+
+##### -XX: SurvivorRatio
+
+##### -XX:MaxTenuringThreshold
+
+##### -XX:+AlwaysTenure -去掉Suvivor空间
+
+##### -Xms -最小堆
+
+##### -Xmx -最大堆
+
+##### -Xmn -新生代
+
+##### -Xss -栈内存大小
+
+##### -XX:PermSize  -XX:MaxPermSize
+
+##### -XX:MaxDirectMemorySize -直接内存
+
+#### GC
+
+##### -XX:+DisableExplicitGC -忽略System.gc()
+
+##### -XX:+PrintGCApplicationStoppedTime
+
+##### -XX:+PrintGCDateStamps
+
+##### -Xloggc:xx.log
 
 ## 并发
 
@@ -1557,6 +1603,41 @@ InnoDB 引擎会在适当的时候，将这个操作记录更新到磁盘里
 
 ##### flush: 写回磁盘
 
+#### count(*)
+
+##### count(字段) < count(id) < count(1) = count(*)
+
+#### order by
+
+##### sort_buffer
+
+如果排序数据量太大，内存放不下，则不得不利用磁盘临时文件辅助 --> sort_buffer_size
+
+##### 分类
+
+###### 全字段排序
+
+无需回表
+
+
+###### rowid排序
+
+SET max_length_for_sort_data = 16;
+只在buffer中放入id和待排序字段，需要按照id回表
+
+
+##### 索引
+
+###### 如果有索引：不需要临时表，也不需要排序
+
+###### 进一步优化：覆盖索引
+
+##### 随机
+
+###### order by rand()
+
+###### where id >= @X limit 1
+
 ### 索引
 
 #### 原理
@@ -1703,7 +1784,7 @@ Flush tables with read lock (FTWRL)
 
 ##### 表锁（lock tables xx read/write）
 
-##### 元数据锁（metadata lock)
+##### 元数据锁（MDL, metadata lock)
 
 MDL 不需要显式使用，在访问一个表的时候会被自动加上。
 
@@ -1791,23 +1872,49 @@ ALTER TABLE tbl_name WAIT N add column ...
 
 ###### Serialized
 
-### 连接池
+### 运维
 
-#### 配置参数
+#### 连接池
 
-##### maxLive (100)
+##### 配置参数
 
-##### maxIdle (100)
+###### maxLive (100)
 
-##### minIdle (10)
+###### maxIdle (100)
 
-##### initialSize (10)
+###### minIdle (10)
 
-##### maxWait (30s)
+###### initialSize (10)
+
+###### maxWait (30s)
 
 当第101个请求过来时候，等待30s; 30s后如果还没有空闲链接，则报错
 
-#### 由客户端维护
+##### 由客户端维护
+
+#### 收缩表空间
+
+##### 空洞：delete 只是标记记录为可复用，磁盘文件大小不会变
+
+##### 重建表
+
+###### alter table t engine=innodb,ALGORITHM=copy;
+
+####### 原表不能同时接受更新
+
+####### temp table
+
+###### alter table t engine=innodb,ALGORITHM=inplace;
+
+####### Online DDL: 同时接受更新
+
+####### temp file
+
+####### row log
+
+###### analyze table t 其实不是重建表，只是对表的索引信息进行重新统计
+
+###### optimize table = alter + analyze
 
 ## Netty
 
