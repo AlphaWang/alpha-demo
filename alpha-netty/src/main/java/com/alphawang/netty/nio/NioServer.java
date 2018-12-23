@@ -29,6 +29,7 @@ public class NioServer {
                 ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
                 serverSocketChannel.socket().bind(new InetSocketAddress(8000));
                 serverSocketChannel.configureBlocking(false);
+                
                 serverSocketChannel.register(serverSelector, SelectionKey.OP_ACCEPT);
                 
                 while (true) {
@@ -46,6 +47,7 @@ public class NioServer {
                                     // (1) 每来一个新连接，不需要创建一个线程，而是直接注册到clientSelector
                                     SocketChannel clientChannel = ((ServerSocketChannel) selectionKey.channel()).accept();
                                     clientChannel.configureBlocking(false);
+                                    
                                     clientChannel.register(clientSelector, SelectionKey.OP_READ);
                                 } finally {
                                     // TODO why?

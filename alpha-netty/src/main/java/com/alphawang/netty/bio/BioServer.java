@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class BioServer {
 
@@ -19,6 +20,7 @@ public class BioServer {
             while (true) {
                 try {
                     
+                    // 读取客户端连接
                     Socket socket = serverSocket.accept();
                     System.out.println("accepted " + socket);
 
@@ -32,14 +34,22 @@ public class BioServer {
                      */
                     new Thread(() -> {
                         try {
+//                            Scanner scanner = new Scanner(socket.getInputStream());
+//                            while (true) {
+//                                String request = scanner.nextLine();
+//                            }
+//                            
+                            InputStream inputStream = socket.getInputStream();
                             
                             int len;
                             byte[] data = new byte[1024];
-                            InputStream inputStream = socket.getInputStream();
                             
                             while ((len = inputStream.read(data)) != -1) {
-                                 System.out.println(Thread.currentThread().getName() 
-                                     + " READ: " + new String(data, 0, len));
+                                String request = new String(data, 0, len);
+                                System.out.println(Thread.currentThread().getName() + " READ: " + request);
+                                
+                                String response = "Hello " + request;
+                                socket.getOutputStream().write(response.getBytes());
                             }
                             
                         } catch (IOException e) {
