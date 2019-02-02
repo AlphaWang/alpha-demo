@@ -24,21 +24,25 @@ public class Node<T> {
     
 
     public String toString() {
-        return val.toString();
+        return val != null ? val.toString() : "(null)";
     }
 
     public static <T> String format(Node<T> head) {
         if (head == null) {
-            return null;
+            return "(null node)";
         }
         
         StringBuilder sb = new StringBuilder();
         sb.append(head);
         
-        while(head.getNext() != null) {
+        while (head.getNext() != null) {
             sb.append(" -> ");
             sb.append(head.getNext());
             head = head.getNext();
+        } 
+        
+        if (head.getNext() == null) {
+            sb.append(" -> (null node)");
         }
         
         return sb.toString();
