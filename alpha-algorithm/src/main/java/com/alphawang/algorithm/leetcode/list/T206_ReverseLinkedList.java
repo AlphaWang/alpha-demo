@@ -21,6 +21,20 @@ public class T206_ReverseLinkedList {
         
         return newHead;
     }
+    
+    public static Node<Integer> reverseByLoop(Node<Integer> head) {
+        Node<Integer> newHead = null;
+        Node<Integer> curHead = head;
+        
+        while (curHead != null) {
+            Node<Integer> nextHead = curHead.getNext();
+            curHead.setNext(newHead);
+            newHead = curHead;
+            curHead = nextHead;
+        }
+            
+        return newHead;
+    }
 
     public static void main(String[] args) {
         reverse(1, 2, 3, 4, 5);
@@ -30,8 +44,8 @@ public class T206_ReverseLinkedList {
         Node<Integer> head = NodeCreator.create(values);
         System.out.println("BEFORE " + Node.format(head));
         
-        head = reverseByRecursion(head);
-        // head = deleteDuplicates2(head);
+//        head = reverseByRecursion(head);
+         head = reverseByLoop(head);
         
         System.out.println("AFTER  " + Node.format(head));
         System.out.println();
