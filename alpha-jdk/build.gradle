@@ -18,6 +18,8 @@ dependencies {
 
     compile('org.projectlombok:lombok:1.18.2')
     compile('com.google.guava:guava:25.1-jre')
+    compile group: 'commons-lang', name: 'commons-lang', version: '2.6'
+
 
     compile group: 'org.springframework', name: 'spring-core', version: '4.3.13.RELEASE'
 

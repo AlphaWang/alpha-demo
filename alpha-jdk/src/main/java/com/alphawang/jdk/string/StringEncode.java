@@ -1,6 +1,7 @@
 package com.alphawang.jdk.string;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -43,6 +44,8 @@ public class StringEncode {
 
         String decoded2 = decode(decoded);
         log.info("decode2 {}", decoded2);
+        
+        log.info(StringUtils.substring("abc", 0, 256));
         
     }
 }
