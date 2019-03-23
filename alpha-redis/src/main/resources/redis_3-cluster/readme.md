@@ -127,6 +127,17 @@ do
 done
 ```
 
+```
+start=$1
+end=$2
+port=$3
+
+for slot in `seq ${start} ${end}`
+do
+    echo "slot: ${slot}"
+    redis-cli -p ${port} cluster addslots ${slot}
+done
+```
 
 
 添加完槽位后可使用 `cluster info` 命令查看当前集群状态：
