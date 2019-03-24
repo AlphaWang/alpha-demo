@@ -3,8 +3,8 @@ package com.alphawang.kafka.serializer;
 import com.alphawang.kafka.KafkaConstant;
 import com.alphawang.kafka.Message;
 import com.alphawang.kafka.producer.KafkaProducerTest;
-import io.confluent.kafka.serializers.KafkaAvroSerializer;
-import io.confluent.kafka.serializers.KafkaAvroSerializerConfig;
+//import io.confluent.kafka.serializers.KafkaAvroSerializer;
+//import io.confluent.kafka.serializers.KafkaAvroSerializerConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -51,8 +51,8 @@ public class KafkaAvroSerializerTest {
 		kafkaProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaConstant.BROKER);
 
 		kafkaProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
-		kafkaProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer.class.getName());
-		kafkaProps.put(KafkaAvroSerializerConfig.SCHEMA_REGISTRY_URL_CONFIG, "http://localhost:8081");  // schema-registry server
+//		kafkaProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer.class.getName());
+//		kafkaProps.put(KafkaAvroSerializerConfig.SCHEMA_REGISTRY_URL_CONFIG, "http://localhost:8081");  // schema-registry server
 
 		kafkaProps.put(ProducerConfig.CLIENT_ID_CONFIG, "producer-avro");
 
