@@ -9,4 +9,5 @@ include 'alpha-redis'
 include 'alpha-design-pattern'
 include 'alpha-zookeeper'
 include 'alpha-netty'
+include 'alpha-nacos'
 
