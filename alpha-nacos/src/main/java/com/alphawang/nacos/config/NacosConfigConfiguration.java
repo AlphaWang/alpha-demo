@@ -8,5 +8,5 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableNacosConfig(globalProperties = @NacosProperties(serverAddr = "127.0.0.1:8848"))
 @NacosPropertySource(dataId = "cart.page", autoRefreshed = true)
-public class NacosConfiguration {
+public class NacosConfigConfiguration {
 }
