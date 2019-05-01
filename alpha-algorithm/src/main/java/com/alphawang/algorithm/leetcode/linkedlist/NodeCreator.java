@@ -1,4 +1,4 @@
-package com.alphawang.algorithm.leetcode.list;
+package com.alphawang.algorithm.leetcode.linkedlist;
 
 import java.util.List;
 import java.util.stream.Collectors;

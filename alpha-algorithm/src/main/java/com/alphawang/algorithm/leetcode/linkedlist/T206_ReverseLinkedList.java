@@ -1,4 +1,4 @@
-package com.alphawang.algorithm.leetcode.list;
+package com.alphawang.algorithm.leetcode.linkedlist;
 
 public class T206_ReverseLinkedList {
 
