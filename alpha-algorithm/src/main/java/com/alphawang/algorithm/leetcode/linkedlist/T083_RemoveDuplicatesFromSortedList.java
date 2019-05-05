@@ -7,17 +7,14 @@ package com.alphawang.algorithm.leetcode.linkedlist;
  * 
  * Given a sorted linked list, delete all duplicates such that each element appear only once.
  * 
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) { val = x; }
- * }
+ * Input: 1->1->2->3->3
+ * Output: 1->2->3
+ *
  */
 public class T083_RemoveDuplicatesFromSortedList {
 
-    public static Node<Integer> deleteDuplicates(Node<Integer> head) {
-        Node<Integer> current = head;
+    public static ListNode<Integer> deleteDuplicates(ListNode<Integer> head) {
+        ListNode<Integer> current = head;
         /**
          * bug!
          * 
@@ -42,7 +39,7 @@ public class T083_RemoveDuplicatesFromSortedList {
         return head;
     }
 
-    public static Node<Integer> deleteDuplicates2(Node<Integer> head) {
+    public static ListNode<Integer> deleteDuplicates2(ListNode<Integer> head) {
         if (head == null || head.getNext() == null) {
             return head;
         }
@@ -57,13 +54,13 @@ public class T083_RemoveDuplicatesFromSortedList {
     }
     
     private static void remove(Integer... values) {
-        Node<Integer> head = NodeCreator.create(values);
-        System.out.println("BEFORE " + Node.format(head));
+        ListNode<Integer> head = ListNodeCreator.create(values);
+        System.out.println("BEFORE " + ListNode.format(head));
         
         head = deleteDuplicates(head);
         // head = deleteDuplicates2(head);
         
-        System.out.println("AFTER  " + Node.format(head));
+        System.out.println("AFTER  " + ListNode.format(head));
         System.out.println();
     }
     

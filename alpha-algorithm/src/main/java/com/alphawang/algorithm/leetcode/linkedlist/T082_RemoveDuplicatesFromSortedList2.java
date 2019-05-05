@@ -7,9 +7,13 @@ public class T082_RemoveDuplicatesFromSortedList2 {
      * Given a sorted linked list, 
      * delete all nodes that have duplicate numbers, 
      * leaving only distinct numbers from the original list.
+     * 
+     * Input: 1->2->3->3->4->4->5
+     * Output: 1->2->5
+     * 
      */
 
-    public static Node<Integer> deleteDuplicates(Node<Integer> head) {
+    public static ListNode<Integer> deleteDuplicates(ListNode<Integer> head) {
         if (head == null) {
             return head;
         }
@@ -36,12 +40,12 @@ public class T082_RemoveDuplicatesFromSortedList2 {
     }
 
     private static void remove(Integer... values) {
-        Node<Integer> head = NodeCreator.create(values);
-        System.out.println("BEFORE " + Node.format(head));
+        ListNode<Integer> head = ListNodeCreator.create(values);
+        System.out.println("BEFORE " + ListNode.format(head));
         
         head = deleteDuplicates(head);
         
-        System.out.println("AFTER  " + Node.format(head));
+        System.out.println("AFTER  " + ListNode.format(head));
         System.out.println();
     }
     

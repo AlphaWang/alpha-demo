@@ -9,12 +9,12 @@ public class T206_ReverseLinkedList {
      * Output: 5->4->3->2->1->NULL
      */
     
-    public static Node<Integer> reverseByRecursion(Node<Integer> head) {
+    public static ListNode<Integer> reverseByRecursion(ListNode<Integer> head) {
         if (head == null || head.getNext() == null) {
             return head;
         }
         
-        Node<Integer> newHead = reverseByRecursion(head.getNext());
+        ListNode<Integer> newHead = reverseByRecursion(head.getNext());
 //        newHead.setNext(head);
         head.getNext().setNext(head);
         head.setNext(null);
@@ -22,12 +22,12 @@ public class T206_ReverseLinkedList {
         return newHead;
     }
     
-    public static Node<Integer> reverseByLoop(Node<Integer> head) {
-        Node<Integer> newHead = null;
-        Node<Integer> curHead = head;
+    public static ListNode<Integer> reverseByLoop(ListNode<Integer> head) {
+        ListNode<Integer> newHead = null;
+        ListNode<Integer> curHead = head;
         
         while (curHead != null) {
-            Node<Integer> nextHead = curHead.getNext();
+            ListNode<Integer> nextHead = curHead.getNext();
             curHead.setNext(newHead);
             newHead = curHead;
             curHead = nextHead;
@@ -41,13 +41,13 @@ public class T206_ReverseLinkedList {
     }
 
     private static void reverse(Integer... values) {
-        Node<Integer> head = NodeCreator.create(values);
-        System.out.println("BEFORE " + Node.format(head));
+        ListNode<Integer> head = ListNodeCreator.create(values);
+        System.out.println("BEFORE " + ListNode.format(head));
         
 //        head = reverseByRecursion(head);
          head = reverseByLoop(head);
         
-        System.out.println("AFTER  " + Node.format(head));
+        System.out.println("AFTER  " + ListNode.format(head));
         System.out.println();
     }
 }

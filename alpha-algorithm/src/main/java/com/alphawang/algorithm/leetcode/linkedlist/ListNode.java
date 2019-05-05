@@ -1,10 +1,10 @@
 package com.alphawang.algorithm.leetcode.linkedlist;
 
-public class Node<T> {
+public class ListNode<T> {
     private final T val;
-    private Node next;
+    private ListNode next;
 
-    Node(T x) { 
+    ListNode(T x) { 
         this.val = x; 
         this.next = null;
     }
@@ -13,11 +13,11 @@ public class Node<T> {
         return val;
     }
     
-    public Node<T> getNext() {
+    public ListNode<T> getNext() {
         return next;
     }
     
-    public void setNext(Node<T> next) {
+    public void setNext(ListNode<T> next) {
         this.next = next;
     }
 
@@ -27,7 +27,7 @@ public class Node<T> {
         return val != null ? val.toString() : "(null)";
     }
 
-    public static <T> String format(Node<T> head) {
+    public static <T> String format(ListNode<T> head) {
         if (head == null) {
             return "(null node)";
         }
