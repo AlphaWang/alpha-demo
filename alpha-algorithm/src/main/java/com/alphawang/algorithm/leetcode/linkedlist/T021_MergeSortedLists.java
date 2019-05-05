@@ -24,31 +24,26 @@ public class T021_MergeSortedLists {
             l2 = l2.getNext();
         }
         tail = head;
-        
 
-        while (l1 != null || l2 != null) {
-            if (l1 != null && l2 != null ) {
-                if (l1.getValue() <= l2.getValue()) {
-                    tail.setNext(l1);
-                    tail = tail.getNext();
-                    l1 = l1.getNext();
-                }  else {
-                    tail.setNext(l2);
-                    tail = tail.getNext();
-                    l2 = l2.getNext();
-                }
-            } else if (l2 != null) {
-                tail.setNext(l2);
-                tail = tail.getNext();
-                l2 = l2.getNext();
-            } else if (l1 != null) {
+        while (l1 != null && l2 != null) {
+            if (l1.getValue() <= l2.getValue()) {
                 tail.setNext(l1);
                 tail = tail.getNext();
                 l1 = l1.getNext();
+            }  else {
+                tail.setNext(l2);
+                tail = tail.getNext();
+                l2 = l2.getNext();
             }
-            
         }
         
+        if (l1 != null) {
+            tail.setNext(l1);
+        }
+        if (l2 != null) {
+            tail.setNext(l2);
+        }
+
         return head;
     }
     
