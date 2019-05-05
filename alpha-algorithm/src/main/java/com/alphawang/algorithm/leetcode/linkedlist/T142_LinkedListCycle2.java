@@ -1,50 +1,37 @@
 package com.alphawang.algorithm.leetcode.linkedlist;
 
-public class T141_LinkedListCycle {
+public class T142_LinkedListCycle2 {
     
     /**
-     * https://leetcode.com/problems/linked-list-cycle/
+     * https://leetcode.com/problems/linked-list-cycle-ii/
      * 
-     * Given a linked list, determine if it has a cycle in it.
+     * Given a linked list, return the node where the cycle begins. 
+     * If there is no cycle, return null.
      *
      */
-    public static boolean hasCycle(ListNode head) {
-        ListNode slow = head;
-        ListNode fast = head;
-        
-        while (true) {
-            if (slow == null || fast == null || fast.getNext() == null) {
-                return false;
-            }
-            
-            slow = slow.getNext();
-            fast = fast.getNext().getNext();
 
-            if (slow != null && slow == fast) {
-                return true;
-            }
-        }
-    }
-
-    public static boolean hasCycle2(ListNode head) {
+    public static ListNode getCyclePos(ListNode head) {
         if (head == null || head.getNext() == null) {
-            return false;
+            return null;
         }
-        
         
         ListNode slow = head;
         ListNode fast = head.getNext();
+        
+        ListNode result = null;
 
         while (slow != fast) {
             if (slow == null || fast == null || fast.getNext() == null) {
-                return false;
+                return null;
             }
+            
+            result = slow;
 
             slow = slow.getNext();
             fast = fast.getNext().getNext();
         }
         
-        return true;
+        return result;
     }
 
     public static void main(String[] args) {
@@ -66,8 +53,12 @@ public class T141_LinkedListCycle {
         
         fromNode.setNext(toNode);
         
-        System.out.println(hasCycle(node));
-        System.out.println(hasCycle2(node));
+        System.out.println(getCyclePos(node));
+
+
+
+        node = ListNodeCreator.create(1);
+        System.out.println(getCyclePos(node));
     }
     
 }
