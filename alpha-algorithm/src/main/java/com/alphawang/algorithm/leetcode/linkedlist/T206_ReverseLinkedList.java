@@ -29,6 +29,7 @@ public class T206_ReverseLinkedList {
         while (curHead != null) {
             ListNode<Integer> nextHead = curHead.getNext();
             curHead.setNext(newHead);
+            
             newHead = curHead;
             curHead = nextHead;
         }

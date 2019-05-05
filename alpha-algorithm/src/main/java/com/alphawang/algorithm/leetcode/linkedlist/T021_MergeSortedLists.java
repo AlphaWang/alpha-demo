@@ -13,9 +13,16 @@ public class T021_MergeSortedLists {
      * 
      */
     public static ListNode mergeTwoLists(ListNode<Integer> l1, ListNode<Integer> l2) {
+        if (l1 == null) {
+            return l2;
+        }
+        if (l2 == null) {
+            return l1;
+        }
+
         ListNode head;
         ListNode tail;
-        
+
         if (l1.getValue() <= l2.getValue()) {
             head = l1;
             l1 = l1.getNext();
