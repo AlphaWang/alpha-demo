@@ -11,7 +11,7 @@ sourceCompatibility = '1.8'
 
 configurations {
     compileOnly {
-        extendsFrom annotationProcessor
+//        extendsFrom annotationProcessor
     }
 }
 
@@ -22,7 +22,7 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
+//    annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     // https://mvnrepository.com/artifact/com.alibaba.nacos/nacos-spring-context
