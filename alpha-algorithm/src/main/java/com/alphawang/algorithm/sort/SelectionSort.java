@@ -23,7 +23,8 @@ public class SelectionSort {
             }
             
             // 将最小值和第一个没有排序过的位置交换
-            if (data[min] < data[i]) {
+            if (min != i) {
+//            if (data[min] < data[i]) {
                int temp = data[min];
                data[min] = data[i];
                data[i] = temp;
@@ -35,6 +36,7 @@ public class SelectionSort {
     }
     
     public static void main(String[] args) {
+        System.out.println("Selection Sort...");
         print(sort(new int[]{4, 5, 6, 1, 2, 3}));
         print(sort(new int[]{1, 2, 3, 4, 5, 6}));
         print(sort(new int[]{6, 5, 4, 3, 2, 1}));

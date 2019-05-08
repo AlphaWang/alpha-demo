@@ -28,6 +28,7 @@ public class BubbleSort {
     }
     
     public static void main(String[] args) {
+        System.out.println("Bubble Sort...");
         print(sort(new int[]{4, 5, 6, 1, 2, 3}));
         print(sort(new int[]{1, 2, 3, 4, 5, 6}));
         print(sort(new int[]{6, 5, 4, 3, 2, 1}));
