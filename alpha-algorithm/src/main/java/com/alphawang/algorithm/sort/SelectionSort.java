@@ -6,6 +6,9 @@ public class SelectionSort {
 
     /**
      * N^2
+     * 
+     * 思路类似插入排序，分为已排序区、未排序区；
+     * 每次从未排序区找到最小元素，放到已排序区末尾。
      */
     public static int[] sort(int[] data) {
         int n = data.length;

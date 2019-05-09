@@ -30,6 +30,6 @@ dependencies {
     // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
 
-    implementation 'com.auth0:java-jwt:3.8.0'
+//    implementation 'com.auth0:java-jwt:3.8.0'
 
 }

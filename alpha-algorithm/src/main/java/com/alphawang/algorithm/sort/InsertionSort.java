@@ -6,6 +6,12 @@ public class InsertionSort {
 
     /**
      * N^2
+     * 
+     * 假设前面(n-1) [n>=2] 个数已经是排好顺序的。
+     * 把第n个数插到前面的有序数中，使得这n个数也是排好顺序的。
+     * 
+     * - 找到待插入位置，查找过程中移动数据
+     * - 把n插入找到的位置。
      */
     public static int[] sort(int[] data) {
 
