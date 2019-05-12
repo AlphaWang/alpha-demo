@@ -9,11 +9,14 @@ import java.util.Optional;
 import java.util.TreeSet;
 
 import static java.util.stream.Collectors.averagingInt;
+import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.mapping;
 import static java.util.stream.Collectors.maxBy;
 import static java.util.stream.Collectors.partitioningBy;
 import static java.util.stream.Collectors.toCollection;
+import static java.util.stream.Collectors.toList;
 
 public class CollectorDemo {
 
@@ -50,12 +53,27 @@ public class CollectorDemo {
 
         /**
          * 数据分组
-         * Collectors.groupingBy
+         * Collectors.groupingBy + counting + mapping
          */
+        //   group: {0=[4], 1=[1, 5, 3]}
         Map<Integer, List<Integer>> group = numbers.stream()
             .collect(groupingBy(x -> x % 2));
         System.out.println("group: " + group);
 
+        // groupingBy + mapping: 分组+转换
+        //   group mapping: {0=[int-4], 1=[int-1, int-5, int-3]}
+        Map<Integer, List<String>> groupMappipng = numbers.stream()
+            .collect(groupingBy(x -> x % 2, mapping(x -> "int-" + x, toList())));
+        System.out.println("group mapping: " + groupMappipng);
+        
+        // groupingBy + counting: 分组+计数
+        //   group counting: {0=1, 1=3}
+        Map<Integer, Long> groupCounting = numbers.stream()
+            .collect(groupingBy(x -> x % 2, counting()));
+        System.out.println("group counting: " + groupCounting);
+
+       
+        
         /**
          * 拼接字符串
          * Collectors.joining(CharSequence delimiter,
