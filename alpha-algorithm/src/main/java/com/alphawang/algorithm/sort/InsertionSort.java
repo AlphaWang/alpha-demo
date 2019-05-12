@@ -17,26 +17,26 @@ public class InsertionSort {
 
         // 遍历每个没有排序过的元素
         for (int i = 1; i < data.length; i++) {
-            // “提取” 元素 X
+            // 记录要插入的数据
             int value = data[i];
-            int targetIndex = -1;
             
             // 找到待插入位置
             // 在已经排序的元素序列中从后向前扫描
-            for (int j = i - 1; j >= 0; j--) {
-                // 如果现在排序过的元素 > 提取的元素，将排序过的元素向右移一格
-                if (data[j] > value) {
-                    data[j+1] = data[j]; 
-                    targetIndex = j;
+            int j = i;
+            for (; j > 0; j--) {
+                // 如果现在排序过的元素 > 待插入元素，将排序过的元素向右移一格
+                if (data[j - 1] > value) {
+                    data[j] = data[j - 1]; 
                 } else {
-                    // 否则：插入提取的元素
+                    // 否则：插入待插入元素
                     break;
                 }
             }
-           
-            if (targetIndex >= 0) {
-                data[targetIndex] = value;
+            
+            if (j != i ) {
+                data[j] = value;
             }
+           
         }
         
         return data;
