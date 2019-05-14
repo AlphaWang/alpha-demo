@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeSet;
+import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.averagingInt;
 import static java.util.stream.Collectors.counting;
@@ -25,7 +26,8 @@ public class CollectorDemo {
          * 转换成其他集合
          * toCollection(Supplier)
          */
-        List<Integer> numbers = Lists.newArrayList(1, 5, 3, 4);
+        List<Integer> numbers = Lists.newArrayList(1, 5, 3, 4);  // IntStream.of(1, 5, 3, 4);
+        
         TreeSet<Integer> treeSet = numbers.stream()
             .collect(toCollection(TreeSet::new));
         System.out.println("to TreeSet" + treeSet);
