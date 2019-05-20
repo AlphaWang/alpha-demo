@@ -3,20 +3,24 @@ package com.alphawang.algorithm.search;
 public class BinarySearch {
 
     public static void main(String[] args) {
-        System.out.println(binarySearch(new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, 10));
-        System.out.println(binarySearch(new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, 3));
-        System.out.println(binarySearch(new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, 11));
+        System.out.println(binarySearch(new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, 10)); // 9
+        System.out.println(binarySearch(new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, 3));  // 2
+        System.out.println(binarySearch(new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, 11)); // -1
+        
+        System.out.println(binarySearch(new int[] {1, 2, 3, 4, 5, 6, 7, 8, 8, 8}, 8)); // 7
+        System.out.println(binarySearch(new int[] {1, 2, 3, 4, 5, 8, 8, 8, 11, 18}, 8)); // 7
 
         /**
          * 求中点的方法
          */
-         int middle = (22222 + Integer.MAX_VALUE) / 2;  // 溢出！！
-         int middle2 = 22222 + ((Integer.MAX_VALUE - 22222) / 2);
-         int middle3 = 22222 + ((Integer.MAX_VALUE - 22222) >> 1); // 位运算更高效
+        System.out.println("----------test middle:");
+        int middle = (22222 + Integer.MAX_VALUE) / 2;  // 溢出！！
+        int middle2 = 22222 + ((Integer.MAX_VALUE - 22222) / 2);
+        int middle3 = 22222 + ((Integer.MAX_VALUE - 22222) >> 1); // 位运算更高效
          
-         System.out.println(middle); 
-         System.out.println(middle2); 
-         System.out.println(middle3); 
+        System.out.println(middle); 
+        System.out.println(middle2); 
+        System.out.println(middle3); 
     }
         
     
@@ -32,11 +36,13 @@ public class BinarySearch {
                 return middle;
             }
             
-            if (target < data[middle]) {
+            // 当前值大于target，看左边
+            if (data[middle] > target) {
                 right = middle - 1;
             }
             
-            if (target > data[middle]) {
+            // 当前值小于target, 看右边
+            if (data[middle] < target) {
                 left = middle + 1;
             }
         }
