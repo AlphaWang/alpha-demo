@@ -1,4 +1,4 @@
-package com.alphawang.concurrency.work.thread;
+package com.alphawang.concurrency.c1_work.thread;
 
 import java.util.concurrent.TimeUnit;
 

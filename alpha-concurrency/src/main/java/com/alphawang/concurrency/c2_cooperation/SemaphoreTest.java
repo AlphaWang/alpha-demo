@@ -1,4 +1,4 @@
-package com.alphawang.concurrency.cooperation;
+package com.alphawang.concurrency.c2_cooperation;
 
 import com.google.common.base.Stopwatch;
 import lombok.extern.slf4j.Slf4j;

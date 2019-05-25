@@ -1,4 +1,4 @@
-package com.alphawang.concurrency.work.future;
+package com.alphawang.concurrency.c1_work.future;
 
 import lombok.extern.slf4j.Slf4j;
 

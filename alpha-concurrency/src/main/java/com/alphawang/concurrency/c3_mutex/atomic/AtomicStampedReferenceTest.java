@@ -1,4 +1,4 @@
-package com.alphawang.concurrency.mutex.atomic;
+package com.alphawang.concurrency.c3_mutex.atomic;
 
 import com.google.common.base.Stopwatch;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package com.alphawang.concurrency.mutex.atomic;
+package com.alphawang.concurrency.c3_mutex.atomic;
 
 import com.alphawang.concurrency.common.annotations.ThreadSafe;
 import com.google.common.base.Stopwatch;
@@ -9,18 +9,18 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.LongAdder;
 
 @Slf4j
 @ThreadSafe
-public class AtomicLongTest {
+public class LongAdderTest {
 
 	private static final int TOTAL = 100;
 	private static final int CONCURRENT_LEVEL = 5;
 
 	public static void main(String[] args) {
 		Stopwatch stopwatch = Stopwatch.createStarted();
-		AtomicLong atomicLong = new AtomicLong();
+		LongAdder longAdder = new LongAdder();
 		log.info("[{}] ---- START ", stopwatch.elapsed(TimeUnit.MILLISECONDS));
 
 		ExecutorService executorService = Executors.newCachedThreadPool();
@@ -32,14 +32,13 @@ public class AtomicLongTest {
 			executorService.execute(() -> {
 				try {
 					semaphore.acquire();
-					test(stopwatch, atomicLong);
+					test(stopwatch, longAdder);
 					semaphore.release();
-					
+
 					countDownLatch.countDown();
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-
 			});
 
 		}
@@ -47,21 +46,21 @@ public class AtomicLongTest {
 		try {
 			countDownLatch.await();
 		} catch (InterruptedException e) {
-			log.error("countDownLatch.await() ERROR. " + atomicLong.get());
+			log.error("countDownLatch.await() ERROR. " + longAdder.sum());
 			e.printStackTrace();
 		}
 
-		log.error("[{}] ------ AtomicLong.get {}", stopwatch.elapsed(TimeUnit.MILLISECONDS), atomicLong.get());
+
+		log.error("[{}] ------ LongAdder.sum {}", stopwatch.elapsed(TimeUnit.MILLISECONDS), longAdder.sum());
 
 		executorService.shutdown();
 		stopwatch.stop();
 	}
 
-	private static void test(Stopwatch stopwatch, AtomicLong atomicLong) throws InterruptedException {
+	private static void test(Stopwatch stopwatch, LongAdder longAdder) throws InterruptedException {
 		Thread.sleep(500);
-		
-		log.info("[{}] AtomicLong.incrementAndGet {} ",
-			stopwatch.elapsed(TimeUnit.MILLISECONDS),
-			atomicLong.incrementAndGet());
+
+		longAdder.increment();
+		log.info("[{}] LongAdder.increment {} ", stopwatch.elapsed(TimeUnit.MILLISECONDS), longAdder.longValue());
 	}
 }

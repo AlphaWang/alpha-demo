@@ -1,4 +1,4 @@
-package com.alphawang.concurrency.mutex.threadlocal;
+package com.alphawang.concurrency.c3_mutex.threadlocal;
 
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
