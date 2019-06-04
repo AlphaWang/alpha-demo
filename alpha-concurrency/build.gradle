@@ -18,5 +18,12 @@ dependencies {
     compile('ch.qos.logback:logback-core:1.1.7')
     compile('com.google.guava:guava:25.1-jre')
     compile('joda-time:joda-time:2.9')
+    
+    // https://mvnrepository.com/artifact/com.lmax/disruptor
+    compile group: 'com.lmax', name: 'disruptor', version: '3.4.2'
+
+    // https://mvnrepository.com/artifact/com.typesafe.akka/akka-actor
+    compile group: 'com.typesafe.akka', name: 'akka-actor_2.12', version: '2.6.0-M2'
+
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
