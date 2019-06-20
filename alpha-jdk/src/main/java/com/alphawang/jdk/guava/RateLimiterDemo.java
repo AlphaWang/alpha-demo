@@ -14,10 +14,10 @@ public class RateLimiterDemo {
         ExecutorService es = Executors.newFixedThreadPool(1);
 
         AtomicLong prev = new AtomicLong(System.nanoTime());
-        
+
         for (int i = 0; i < 20; i++) {
             limiter.acquire();
-            
+
             es.execute(() -> {
                 long cur = System.nanoTime();
                 System.out.println("interval: " + (cur - prev.get()) / 1000_000);

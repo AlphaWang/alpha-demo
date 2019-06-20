@@ -1,6 +1,5 @@
 package com.alphawang.jdk.guava.service;
 
-
 import com.alphawang.jdk.guava.model.City;
 
 import java.util.List;

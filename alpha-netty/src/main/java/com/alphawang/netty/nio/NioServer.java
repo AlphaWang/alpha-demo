@@ -17,59 +17,56 @@ import java.util.Set;
 public class NioServer {
 
     public static void main(String[] args) throws IOException {
-        
+
         // serverSelector负责轮询是否有新的连接
         Selector serverSelector = Selector.open();
         // clientSelector负责轮询连接是否有数据可读
         Selector clientSelector = Selector.open();
-        
+
         new Thread(() -> {
             try {
-                
+
                 ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
                 serverSocketChannel.socket().bind(new InetSocketAddress(8000));
                 serverSocketChannel.configureBlocking(false);
-                
+
                 serverSocketChannel.register(serverSelector, SelectionKey.OP_ACCEPT);
-                
+
                 while (true) {
                     // 监测是否有新的连接，这里的1指的是阻塞的时间为 1ms
                     if (serverSelector.select(1) > 0) {
-                        
+
                         Set<SelectionKey> selectionKeys = serverSelector.selectedKeys();
                         Iterator<SelectionKey> iterator = selectionKeys.iterator();
-                        
+
                         while (iterator.hasNext()) {
                             SelectionKey selectionKey = iterator.next();
-                            
+
                             if (selectionKey.isAcceptable()) {
                                 try {
                                     // (1) 每来一个新连接，不需要创建一个线程，而是直接注册到clientSelector
                                     SocketChannel clientChannel = ((ServerSocketChannel) selectionKey.channel()).accept();
                                     clientChannel.configureBlocking(false);
-                                    
+
                                     clientChannel.register(clientSelector, SelectionKey.OP_READ);
                                 } finally {
                                     // TODO why?
                                     iterator.remove();
                                 }
-                                
+
                             }
-                            
+
                         }
 
                     }
-                    
+
                 }
-                
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }).start();
-        
-        
-        
-        
+
         new Thread(() -> {
             while (true) {
                 try {
@@ -77,10 +74,10 @@ public class NioServer {
                     if (clientSelector.select(1) > 0) {
                         Set<SelectionKey> selectionKeys = clientSelector.selectedKeys();
                         Iterator<SelectionKey> iterator = selectionKeys.iterator();
-                        
+
                         while (iterator.hasNext()) {
                             SelectionKey selectionKey = iterator.next();
-                            
+
                             if (selectionKey.isReadable()) {
                                 try {
                                     SocketChannel clientChannel = (SocketChannel) selectionKey.channel();
@@ -89,13 +86,13 @@ public class NioServer {
                                     clientChannel.read(byteBuffer);
                                     byteBuffer.flip();
 
-                                    System.out.println(Thread.currentThread().getName() 
+                                    System.out.println(Thread.currentThread().getName()
                                         + "READ: " + Charset.defaultCharset().newDecoder().decode(byteBuffer).toString());
                                 } finally {
                                     iterator.remove();
                                     selectionKey.interestOps(SelectionKey.OP_READ);
                                 }
-                               
+
                             }
                         }
                     }
@@ -105,5 +102,5 @@ public class NioServer {
             }
         }).start();
     }
-    
+
 }

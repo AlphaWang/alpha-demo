@@ -17,61 +17,60 @@ import java.util.concurrent.atomic.LongAdder;
  */
 @Slf4j
 public class SemaphoreTest {
-	private static final int TOTAL = 100;
-	private static final int CONCURRENT_LEVEL = 5;
+    private static final int TOTAL = 100;
+    private static final int CONCURRENT_LEVEL = 5;
 
-	private static LongAdder longAdder = new LongAdder();
-	private static Stopwatch stopwatch = Stopwatch.createStarted();
+    private static LongAdder longAdder = new LongAdder();
+    private static Stopwatch stopwatch = Stopwatch.createStarted();
 
-	public static void main(String[] args) throws InterruptedException {
-		log.info("[{}] ----- START ", stopwatch.elapsed(TimeUnit.MILLISECONDS));
-		ExecutorService executorService = Executors.newCachedThreadPool();
+    public static void main(String[] args) throws InterruptedException {
+        log.info("[{}] ----- START ", stopwatch.elapsed(TimeUnit.MILLISECONDS));
+        ExecutorService executorService = Executors.newCachedThreadPool();
 
-		/**
-		 * Semaphore(int permits) 
-		 * Semaphore(int permits, boolean fair)
-		 */
-		Semaphore semaphore = new Semaphore(CONCURRENT_LEVEL);
-		
-		CountDownLatch countDownLatch = new CountDownLatch(TOTAL);
+        /**
+         * Semaphore(int permits) 
+         * Semaphore(int permits, boolean fair)
+         */
+        Semaphore semaphore = new Semaphore(CONCURRENT_LEVEL);
 
-		for (int i = 0; i < TOTAL; i++) {
-			executorService.execute(() -> {
-				try {
+        CountDownLatch countDownLatch = new CountDownLatch(TOTAL);
 
-					/** 
-					 * tryAcquire with timeout:
-					 * 当获取不到信号量，则等待。超时后直接丢弃本次请求。
-					 */
-					if (semaphore.tryAcquire(3000, TimeUnit.MILLISECONDS)) {
-						test();
-						semaphore.release();
-					} else {
-						log.info("[{}] {}", stopwatch.elapsed(TimeUnit.MILLISECONDS), "Discard action.");
-					}
+        for (int i = 0; i < TOTAL; i++) {
+            executorService.execute(() -> {
+                try {
 
+                    /**
+                     * tryAcquire with timeout:
+                     * 当获取不到信号量，则等待。超时后直接丢弃本次请求。
+                     */
+                    if (semaphore.tryAcquire(3000, TimeUnit.MILLISECONDS)) {
+                        test();
+                        semaphore.release();
+                    } else {
+                        log.info("[{}] {}", stopwatch.elapsed(TimeUnit.MILLISECONDS), "Discard action.");
+                    }
 
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				} finally {
-					countDownLatch.countDown();
-				}
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    countDownLatch.countDown();
+                }
 
-			});
+            });
 
-		}
+        }
 
-		countDownLatch.await();
-		log.error("[{}] ------ END {} {}", stopwatch.elapsed(TimeUnit.MILLISECONDS), "action", longAdder.sum());
+        countDownLatch.await();
+        log.error("[{}] ------ END {} {}", stopwatch.elapsed(TimeUnit.MILLISECONDS), "action", longAdder.sum());
 
-		executorService.shutdown();
-		stopwatch.stop();
-	}
+        executorService.shutdown();
+        stopwatch.stop();
+    }
 
-	private static void test() throws InterruptedException {
-		Thread.sleep(1000);
+    private static void test() throws InterruptedException {
+        Thread.sleep(1000);
 
-		longAdder.increment();
-		log.info("[{}] {} {}", stopwatch.elapsed(TimeUnit.MILLISECONDS), "action", longAdder.longValue());
-	}
+        longAdder.increment();
+        log.info("[{}] {} {}", stopwatch.elapsed(TimeUnit.MILLISECONDS), "action", longAdder.longValue());
+    }
 }

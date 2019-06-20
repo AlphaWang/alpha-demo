@@ -18,18 +18,17 @@ public class Timestamp {
         printTime("2018-11-27 09:00:00");   // 1543244400 
         printTime("2018-11-27 09:10:00");   // 1543277400
 
-
         SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss +timezone");
         System.out.println(df2.parse("2011-11-07T16:28:44 +0000"));
     }
-    
+
     private static void printTime(String date) throws ParseException {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        df.setTimeZone(TimeZone.getTimeZone("KST"));
+        //        df.setTimeZone(TimeZone.getTimeZone("KST"));
         df.setTimeZone(TimeZone.getTimeZone(ZoneId.of("Asia/Seoul")));
-        
+
         Date d1 = df.parse(date);
-        
+
         System.out.println(d1 + " -> " + d1.getTime());
     }
 }

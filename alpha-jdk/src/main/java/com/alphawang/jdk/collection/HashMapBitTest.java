@@ -11,7 +11,7 @@ public class HashMapBitTest {
         print(128 >>> 16);
         print(1 << 30);
     }
-    
+
     private static void print(int v) {
         log.info("{}", v);
     }
@@ -19,13 +19,13 @@ public class HashMapBitTest {
     /**
      * HashMap: put()会调用此方法计算hash
      * return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
-     * 
+     *
      * 数组index = (length - 1) & hash
      * 即 （2的n次方 - 1） & hash
-     * 
+     *
      * n = tab.length
      * tab[i = (n - 1) & hash]
-     * 
+     *
      * Computes key.hashCode() and spreads (XORs) higher bits of hash
      * to lower.  Because the table uses power-of-two masking, sets of
      * hashes that vary only in bits above the current mask will

@@ -4,10 +4,10 @@ public class FinallyFlow {
     public static void main(String[] args) {
         System.out.println(testFinal());
     }
-    
+
     private static int testFinal() {
         try {
-            int i  = 10;
+            int i = 10;
             return i / 0;
         } catch (Exception e) {
             System.err.println("Exception! " + e.getMessage());
@@ -16,6 +16,6 @@ public class FinallyFlow {
             System.err.println("finally! ");
             return 200;
         }
-        
+
     }
 }

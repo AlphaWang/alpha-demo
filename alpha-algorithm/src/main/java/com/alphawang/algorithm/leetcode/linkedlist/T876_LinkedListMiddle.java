@@ -4,13 +4,13 @@ public class T876_LinkedListMiddle {
 
     /**
      * https://leetcode.com/problems/middle-of-the-linked-list/
-     * 
+     *
      * Given a non-empty, singly linked list with head node head, return a middle node of linked list.
      */
 
     public static ListNode middleNode(ListNode head) {
         ListNode[] array = new ListNode[100];
-        
+
         int i = 0;
         while (head.getNext() != null) {
             array[i++] = head;
@@ -22,20 +22,20 @@ public class T876_LinkedListMiddle {
     public static ListNode middleNode2(ListNode head) {
         ListNode slow = head;
         ListNode fast = head;
-        
+
         while (fast != null && fast.getNext() != null) {
             slow = slow.getNext();
             fast = fast.getNext().getNext();
         }
-        
+
         return slow;
     }
 
     public static void main(String[] args) {
-       findMiddle(1, 2, 3); 
-       findMiddle(1, 2, 3, 4, 5, 6); 
+        findMiddle(1, 2, 3);
+        findMiddle(1, 2, 3, 4, 5, 6);
     }
-    
+
     private static void findMiddle(Integer... array1) {
         ListNode l1 = ListNodeCreator.create(array1);
         System.out.println(middleNode(l1));

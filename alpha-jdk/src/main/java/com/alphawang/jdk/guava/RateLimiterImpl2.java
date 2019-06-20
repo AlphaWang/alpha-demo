@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * RateLimiter简单实现
- * 
+ *
  * - 令牌桶容量 > 1 的实现
  */
 public class RateLimiterImpl2 {
@@ -31,11 +31,11 @@ public class RateLimiterImpl2 {
         long nr = 1 - fb;
         // 计算下一令牌产生时间
         next = next + nr * interval;
-        
+
         // 重新计算令牌桶中令牌数量
         storedPermits -= fb;
-        
-        return at; 
+
+        return at;
     }
 
     /**
@@ -47,7 +47,7 @@ public class RateLimiterImpl2 {
         if (now > next) {
             long newPermits = (now - next) / interval;
             storedPermits = Math.min(maxPermits, storedPermits + newPermits);
-            
+
             next = now;
         }
     }
@@ -66,5 +66,5 @@ public class RateLimiterImpl2 {
             TimeUnit.NANOSECONDS.sleep(waitTime);
         }
     }
-    
+
 }

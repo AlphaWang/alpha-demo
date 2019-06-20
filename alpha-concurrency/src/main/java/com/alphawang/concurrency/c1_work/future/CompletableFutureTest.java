@@ -10,7 +10,7 @@ import java.util.function.BiFunction;
 
 @Slf4j
 public class CompletableFutureTest {
-    
+
     public static void main(String[] args) {
         log.error("Test");
         ExecutorService executorService = Executors.newFixedThreadPool(3);
@@ -20,27 +20,27 @@ public class CompletableFutureTest {
             sleep(500);
             log.warn("STEP 1: finish async.");
         }, executorService);
-        
+
         CompletableFuture<String> f2 = CompletableFuture.supplyAsync(() -> {
             log.warn("STEP 2: start async.");
             sleep(800);
             log.warn("STEP 2: finish async.");
-            
+
             return "STEP 2";
         }, executorService);
-        
+
         CompletableFuture<String> f3 = f1.thenCombineAsync(f2, new BiFunction<Void, String, String>() {
-            @Override 
+            @Override
             public String apply(Void aVoid, String s) {
                 log.warn("STEP 3: combine");
                 return "STEP 3 -- " + s;
             }
         });
-        
+
         log.warn("MAIN: " + f3.join());
-        
+
     }
-    
+
     private static void sleep(int timeout) {
         try {
             TimeUnit.MILLISECONDS.sleep(timeout);

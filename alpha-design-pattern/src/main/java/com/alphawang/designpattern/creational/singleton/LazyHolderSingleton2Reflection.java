@@ -14,6 +14,7 @@ public class LazyHolderSingleton2Reflection {
      * 保护不受反射影响
      */
     private static boolean initialized = false;
+
     private LazyHolderSingleton2Reflection() {
         if (!initialized) {
             initialized = true;

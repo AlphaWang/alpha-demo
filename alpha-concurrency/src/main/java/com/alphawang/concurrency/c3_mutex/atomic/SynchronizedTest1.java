@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 
 /**
  * 两个对象的同一个实例方法：交叉执行
- * 
+ *
  * 22:57:49 [pool-1-thread-1] INFO  c.a.c.c1_atomic.SynchronizedTest1 - test2 1 - 0
  * 22:57:49 [pool-1-thread-2] INFO  c.a.c.c1_atomic.SynchronizedTest1 - test2 2 - 0
  * 22:57:49 [pool-1-thread-1] INFO  c.a.c.c1_atomic.SynchronizedTest1 - test2 1 - 1

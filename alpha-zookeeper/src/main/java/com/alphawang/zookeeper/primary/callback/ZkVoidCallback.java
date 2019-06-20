@@ -5,7 +5,7 @@ import org.apache.zookeeper.AsyncCallback;
 
 @Slf4j
 public class ZkVoidCallback implements AsyncCallback.VoidCallback {
-    @Override 
+    @Override
     public void processResult(int rc, String path, Object ctx) {
         /**
          * if version is bad: rc=-103

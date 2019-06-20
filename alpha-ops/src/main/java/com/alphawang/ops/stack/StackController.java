@@ -8,16 +8,16 @@ import java.util.Map;
 
 @Controller
 public class StackController {
-    
+
     @RequestMapping("/test")
     @ResponseBody
     public String test() {
         StringBuilder sb = new StringBuilder();
-        
+
         for (Map.Entry<Thread, StackTraceElement[]> entry : Thread.getAllStackTraces().entrySet()) {
             Thread thread = entry.getKey();
             StackTraceElement[] stacks = entry.getValue();
-            
+
             sb.append("\n\r\n\r").append("Thread: ").append(thread.getName());
             for (StackTraceElement stack : stacks) {
                 sb.append("\t").append(stack).append("\n\r");
@@ -29,7 +29,7 @@ public class StackController {
     @RequestMapping("/test2")
     @ResponseBody
     public Map<Thread, StackTraceElement[]> test2() {
-        
+
         return Thread.getAllStackTraces();
     }
 }

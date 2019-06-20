@@ -15,10 +15,10 @@ public class HungrySingleton {
     public static HungrySingleton getInstance() {
         return INSTANCE;
     }
-    
+
     private static final HungrySingleton INSTANCE = new HungrySingleton();
-    
+
     private HungrySingleton() {
-        
+
     }
 }

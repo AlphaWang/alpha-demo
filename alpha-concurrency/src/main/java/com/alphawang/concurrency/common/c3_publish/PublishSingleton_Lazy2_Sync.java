@@ -11,11 +11,11 @@ import com.alphawang.concurrency.common.annotations.ThreadSafe;
 @ThreadSafe
 @NotRecommend
 public class PublishSingleton_Lazy2_Sync {
-    
+
     private PublishSingleton_Lazy2_Sync() {
         // do something
     }
-    
+
     private static PublishSingleton_Lazy2_Sync instance = null;
 
     /**
@@ -28,5 +28,5 @@ public class PublishSingleton_Lazy2_Sync {
         }
         return instance;
     }
-    
+
 }

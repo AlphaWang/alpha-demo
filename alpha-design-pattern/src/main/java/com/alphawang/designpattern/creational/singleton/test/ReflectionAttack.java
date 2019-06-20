@@ -18,24 +18,24 @@ public class ReflectionAttack {
         // HACKED!!!
         attackSingleton(LazyHolderSingleton.class);
         attackSingleton(LazyHolderSingleton2Reflection.class);
-        
+
     }
-    
+
     private static void attackSingleton(Class clazz) {
         try {
             Constructor constructor = clazz.getDeclaredConstructor(null);
             constructor.setAccessible(true);
-            
+
             Object instance1 = constructor.newInstance();
-            
+
             Object instance2 = constructor.newInstance();
-            
+
             boolean singleInstance = (instance1 == instance2);
             System.out.println("Attack " + clazz.getSimpleName() + " : " + singleInstance);
             if (!singleInstance) {
                 System.out.println("HACKED!!!");
             }
-            
+
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {

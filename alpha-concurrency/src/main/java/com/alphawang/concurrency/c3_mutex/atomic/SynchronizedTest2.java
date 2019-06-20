@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 /**
  * 两个对象的同一个静态方法：顺序执行
  * >> 静态锁 会影响当前类的所有对象！！
- * 
+ *
  * 279  ms [INFO ] [pool-1-thread-1 ] SynchronizedTest2:39 - test1 1 - 0
  * 283  ms [INFO ] [pool-1-thread-1 ] SynchronizedTest2:39 - test1 1 - 1
  * 283  ms [INFO ] [pool-1-thread-1 ] SynchronizedTest2:39 - test1 1 - 2

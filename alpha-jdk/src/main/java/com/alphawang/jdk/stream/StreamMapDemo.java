@@ -13,9 +13,9 @@ public class StreamMapDemo {
     public static void main(String[] args) {
         /**获取单词，并且去重**/
         List<String> list = Arrays.asList(
-            "hello welcome", 
-            "world hello", 
-            "hello world", 
+            "hello welcome",
+            "world hello",
+            "hello world",
             "hello world welcome");
 
         /**
@@ -23,23 +23,21 @@ public class StreamMapDemo {
          */
         log.error("---------- map");
         List<Stream<String>> mapResult = list.stream()
-                .map(item -> Arrays.stream(item.split(" ")))
-                .distinct()
-                .collect(Collectors.toList());
+            .map(item -> Arrays.stream(item.split(" ")))
+            .distinct()
+            .collect(Collectors.toList());
 
         for (Stream<String> stream : mapResult) {
             System.out.println(">> stream string:");
             stream.forEach(System.out::println);
         }
-        
+
         log.error("---------- flatMap");
         List<String> flatMapResult = list.stream()
-                .flatMap(item -> Arrays.stream(item.split(" ")))
-                .distinct()
-                .collect(Collectors.toList());
+            .flatMap(item -> Arrays.stream(item.split(" ")))
+            .distinct()
+            .collect(Collectors.toList());
         flatMapResult.forEach(System.out::println);
-
-
 
         log.error("---------- flatMap forEach");
 

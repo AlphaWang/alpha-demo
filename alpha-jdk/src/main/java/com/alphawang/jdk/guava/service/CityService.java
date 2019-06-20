@@ -29,9 +29,6 @@ public class CityService {
         return Optional.fromNullable(cityRepository.getCities()).or(Collections.EMPTY_LIST); // Lists.<City>newArrayList()
     }
 
-
-
-
     public City save(City city) {
         Preconditions.checkArgument(city != null, "IllegalArgumentException: city is null");
         // or

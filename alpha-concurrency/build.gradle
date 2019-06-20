@@ -18,7 +18,7 @@ dependencies {
     compile('ch.qos.logback:logback-core:1.1.7')
     compile('com.google.guava:guava:25.1-jre')
     compile('joda-time:joda-time:2.9')
-    
+
     // https://mvnrepository.com/artifact/com.lmax/disruptor
     compile group: 'com.lmax', name: 'disruptor', version: '3.4.2'
 

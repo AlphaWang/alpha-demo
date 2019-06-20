@@ -13,7 +13,8 @@ import java.util.Map;
  */
 public class Test_Practice {
 
-    private BigDecimal getBenefitPrice_Before(Long vendorItemId, BigDecimal originalPrice, APIResponse<Map<String, OptimizedBenefitSummaryDTO>> benefitResponse) {
+    private BigDecimal getBenefitPrice_Before(Long vendorItemId, BigDecimal originalPrice,
+        APIResponse<Map<String, OptimizedBenefitSummaryDTO>> benefitResponse) {
         BigDecimal convertedPrice = null;
 
         if (benefitResponse.isSuccess() && originalPrice != null) {
@@ -35,11 +36,13 @@ public class Test_Practice {
      * 3. String.valueOf
      * 4. Optional.transform
      */
-    private BigDecimal getBenefitPrice_After(Long vendorItemId, BigDecimal originalPrice, APIResponse<Map<String, OptimizedBenefitSummaryDTO>> benefitResponse) {
+    private BigDecimal getBenefitPrice_After(Long vendorItemId, BigDecimal originalPrice,
+        APIResponse<Map<String, OptimizedBenefitSummaryDTO>> benefitResponse) {
         if (!benefitResponse.isSuccess() || originalPrice == null) {
             return BigDecimal.ZERO; //1
         }
-        Map<String, OptimizedBenefitSummaryDTO> contents = Optional.fromNullable(benefitResponse.getContents()).or(ImmutableMap.<String, OptimizedBenefitSummaryDTO>of());  //2
+        Map<String, OptimizedBenefitSummaryDTO> contents = Optional.fromNullable(benefitResponse.getContents()).or(
+            ImmutableMap.<String, OptimizedBenefitSummaryDTO>of());  //2
         Long discount = Optional.fromNullable(contents.get(String.valueOf(vendorItemId))).transform(   //3
             new Function<OptimizedBenefitSummaryDTO, Long>() {
                 @Override public Long apply(OptimizedBenefitSummaryDTO input) {
@@ -48,8 +51,6 @@ public class Test_Practice {
             }).or(0L);    //4
         return originalPrice.subtract(BigDecimal.valueOf(discount));
     }
-
-
 
     // MOCK classes
     @Data

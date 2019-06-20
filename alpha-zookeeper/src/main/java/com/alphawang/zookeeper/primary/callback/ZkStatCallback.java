@@ -6,7 +6,7 @@ import org.apache.zookeeper.data.Stat;
 
 @Slf4j
 public class ZkStatCallback implements AsyncCallback.StatCallback {
-    @Override 
+    @Override
     public void processResult(int rc, String path, Object ctx, Stat stat) {
         log.warn("[StatCallback] >>>> rc={}, path={}, ctx={}, stat={}, dataVersion={}", rc, path, ctx, stat, stat.getVersion());
     }

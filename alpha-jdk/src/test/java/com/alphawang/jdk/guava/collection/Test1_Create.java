@@ -31,9 +31,9 @@ public class Test1_Create {
 
         // or
         // Note for Java 7 and later: this method is now unnecessary and should be treated as deprecated.
-//        List<String> list2 = Lists.newArrayListWithCapacity(2);
-//        list2.add("A");
-//        list2.add("B");
+        //        List<String> list2 = Lists.newArrayListWithCapacity(2);
+        //        list2.add("A");
+        //        list2.add("B");
 
         /*
         Lists.newArrayListWithCapacity() : Creates an ArrayList instance backed by an array with the specified initial size; simply delegates to ArrayList.ArrayList(int).
@@ -55,11 +55,6 @@ public class Test1_Create {
 
         Assert.assertTrue(map2.size() == 0);
     }
-
-
-
-
-
 
     @Test
     public void createImmutableList() {
@@ -88,6 +83,5 @@ public class Test1_Create {
 
         Assert.assertTrue(map1.size() == map2.size());
     }
-
 
 }

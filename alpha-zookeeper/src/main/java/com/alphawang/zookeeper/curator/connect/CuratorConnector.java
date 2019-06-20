@@ -10,10 +10,10 @@ import org.apache.curator.retry.RetryNTimes;
 
 @Slf4j
 public class CuratorConnector {
-    
+
     @Getter
     private CuratorFramework curatorFramework;
-    
+
     public CuratorConnector() {
         RetryPolicy retryPolicy = getRetryPolicy();
 
@@ -26,9 +26,9 @@ public class CuratorConnector {
             .retryPolicy(retryPolicy)
             .namespace("curator_namespace")   // 创建包含隔离命名空间的会话 
             .build();
-        
+
         log.warn("Connected Curator {}. Detail: {}", Constants.LOCAL_ZK_SERVER, curatorFramework);
-        
+
         curatorFramework.start();
     }
 
@@ -37,13 +37,13 @@ public class CuratorConnector {
             this.curatorFramework.close();
         }
     }
-    
+
     private static RetryPolicy getRetryPolicy() {
         /**
          * @param baseSleepTimeMs initial amount of time to wait between retries
          * @param maxRetries max number of times to retry
          * @param maxSleepMs max time in ms to sleep on each retry
-         */ 
+         */
         // return new ExponentialBackoffRetry(1000, 5);
 
         /**
@@ -56,5 +56,5 @@ public class CuratorConnector {
          */
         // return new RetryOneTime(5000);
     }
-    
+
 }

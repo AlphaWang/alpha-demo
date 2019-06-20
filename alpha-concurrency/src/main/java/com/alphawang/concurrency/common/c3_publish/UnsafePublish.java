@@ -12,9 +12,9 @@ import java.util.Arrays;
 @Slf4j
 @NotThreadSafe
 public class UnsafePublish {
-    
-    private String[] states = {"a", "b", "c"};
-    
+
+    private String[] states = { "a", "b", "c" };
+
     public String[] getStates() {
         return states;
     }
@@ -22,7 +22,7 @@ public class UnsafePublish {
     public static void main(String[] args) {
         UnsafePublish unsafePublish = new UnsafePublish();
         log.info("INIT: {}", Arrays.toString(unsafePublish.getStates()));
-    
+
         // 其他线程可以直接修改field，造成状态错误
         unsafePublish.getStates()[0] = "d";
         log.info("MODIFIED: {}", Arrays.toString(unsafePublish.getStates()));

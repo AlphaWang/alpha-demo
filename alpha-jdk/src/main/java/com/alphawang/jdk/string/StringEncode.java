@@ -32,20 +32,20 @@ public class StringEncode {
         }
     }
 
-    public static void main(String[] args) {   
+    public static void main(String[] args) {
         String msg = "Hello | World!";
         log.info("origin {}", msg);
-        
+
         String encoded = encode(msg);
         log.info("encode {}", encoded);
-        
+
         String decoded = decode(encoded);
         log.info("decode {}", decoded);
 
         String decoded2 = decode(decoded);
         log.info("decode2 {}", decoded2);
-        
+
         log.info(StringUtils.substring("abc", 0, 256));
-        
+
     }
 }

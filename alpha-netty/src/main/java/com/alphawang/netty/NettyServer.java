@@ -26,7 +26,7 @@ public class NettyServer {
             .channel(NioServerSocketChannel.class)
             // 连接读写处理逻辑: 定义后续每条连接的数据读写，业务处理逻辑
             .childHandler(new ChannelInitializer<NioSocketChannel>() {
-                @Override 
+                @Override
                 protected void initChannel(NioSocketChannel ch) throws Exception {
                     System.out.println("===== childHandler 业务处理: " + ch);
                     ch.pipeline().addLast(new NettyServerHandler());
@@ -34,7 +34,7 @@ public class NettyServer {
             })
             // 指定在服务端启动过程中的一些逻辑
             .handler(new ChannelInitializer<NioServerSocketChannel>() {
-                @Override 
+                @Override
                 protected void initChannel(NioServerSocketChannel ch) throws Exception {
                     System.out.println("===== handler 服务器启动中... " + ch);
                 }
@@ -42,20 +42,20 @@ public class NettyServer {
             // 给NioServerSocketChannel指定一些自定义属性
             .attr(AttributeKey.newInstance("serverName"), "alphaNettyServer")
             .childAttr(AttributeKey.newInstance("clientKey"), "clientValue");
-        
+
         serverBootstrap
             .bind(8000)
             .addListener(new GenericFutureListener<Future<? super Void>>() {
-                @Override 
+                @Override
                 public void operationComplete(Future<? super Void> future) throws Exception {
-                   if (future.isSuccess()) {
-                       System.out.println("端口绑定成功");
-                   } else {
-                       System.err.println("端口绑定失败");
-                   }
+                    if (future.isSuccess()) {
+                        System.out.println("端口绑定成功");
+                    } else {
+                        System.err.println("端口绑定失败");
+                    }
                 }
             });
-            
+
     }
-    
+
 }

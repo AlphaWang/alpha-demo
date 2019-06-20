@@ -10,13 +10,13 @@ import java.util.List;
 
 @Slf4j
 public class ZKWatcher implements Watcher {
-    
-    @Override 
+
+    @Override
     public void process(WatchedEvent event) {
         log.warn("[Watcher] >>> accepted event {}", event);
         printData(event);
     }
-    
+
     private void printData(WatchedEvent event) {
         if (StringUtils.isEmpty(event.getPath())) {
             return;
@@ -31,6 +31,6 @@ public class ZKWatcher implements Watcher {
             }
         } catch (KeeperException | InterruptedException e) {
             log.error("get data error. ", e);
-        } 
+        }
     }
 }

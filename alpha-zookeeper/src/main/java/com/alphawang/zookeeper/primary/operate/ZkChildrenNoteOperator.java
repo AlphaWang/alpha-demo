@@ -14,21 +14,20 @@ public class ZkChildrenNoteOperator implements Watcher {
 
     public static void main(String[] args) throws KeeperException, InterruptedException {
         ZKConnector connector = new ZKConnector();
-        
+
         List<String> strChildList = connector.getZooKeeper().getChildren("/imooc", true);
         log.info("get Children for /imooc (watch=true): {}", strChildList);
 
-
         List<String> strChildList2 = connector.getZooKeeper().getChildren("/imooc", new ZKWatcher());
         log.info("get Children for /imooc (new Watcher): {}", strChildList2);
-            
+
         // wait for children change.
         Thread.sleep(10000);
-        connector.close();    
+        connector.close();
     }
 
     //TODO 为什么没有执行 ?
-    @Override 
+    @Override
     public void process(WatchedEvent event) {
         log.info("[watch=true] >>> Received WatchedEvent {}", event);
     }

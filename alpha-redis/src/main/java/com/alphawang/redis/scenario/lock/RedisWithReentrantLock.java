@@ -23,7 +23,7 @@ public class RedisWithReentrantLock {
         System.err.println("LOCK " + key);
         String rs = jedis.set(key, "", "nx", "ex", 5L);
         System.err.println("LOCKED " + key + " rs: " + rs);
-        
+
         return rs != null;
     }
 
@@ -54,7 +54,7 @@ public class RedisWithReentrantLock {
             System.out.println("LOCK: " + refs.get(key));
             return true;
         }
-        
+
         //2. 否则拿锁，并初始化count=1
         boolean ok = this._lock(key);
         if (!ok) {
@@ -73,7 +73,7 @@ public class RedisWithReentrantLock {
             System.err.println("UNLOCK fail");
             return false;
         }
-        
+
         //2. 否则，count--
         refCnt -= 1;
         if (refCnt > 0) {

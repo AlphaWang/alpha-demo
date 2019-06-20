@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 简单RateLimiter实现
- * 
+ *
  * - 令牌通容量为 1 
  * - 记录下一个令牌产生的时间，并动态更新它
  */
@@ -19,7 +19,7 @@ public class RateLimiterImpl1 {
      */
     synchronized long reserve(long now) {
         resync(now);
-        
+
         // at: 能够获取令牌的时间
         long at = next;
         next = next + interval;
@@ -42,7 +42,7 @@ public class RateLimiterImpl1 {
         // 预占令牌
         long now = System.nanoTime();
         long at = reserve(now);
-        
+
         // 计算要等待的时间，wait
         long waitTime = Math.max(at - now, 0);
         if (waitTime > 0) {
@@ -51,6 +51,6 @@ public class RateLimiterImpl1 {
     }
 
     public static void main(String[] args) {
-        
+
     }
 }

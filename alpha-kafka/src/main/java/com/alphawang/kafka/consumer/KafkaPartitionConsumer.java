@@ -21,45 +21,46 @@ import java.util.Properties;
 @Slf4j
 public class KafkaPartitionConsumer {
 
-	public static void main(String[] args) {
-		KafkaConsumer consumer = createConsumer();
+    public static void main(String[] args) {
+        KafkaConsumer consumer = createConsumer();
 
-		List<PartitionInfo> partitions = consumer.partitionsFor(KafkaConstant.TOPIC_SIMPLE);
+        List<PartitionInfo> partitions = consumer.partitionsFor(KafkaConstant.TOPIC_SIMPLE);
 
-		if (partitions != null) {
-			List<TopicPartition> topicPartitions = Lists.newArrayList();
-			for (PartitionInfo partition : partitions) {
-				topicPartitions.add(new TopicPartition(partition.topic(), partition.partition()));
-			}
+        if (partitions != null) {
+            List<TopicPartition> topicPartitions = Lists.newArrayList();
+            for (PartitionInfo partition : partitions) {
+                topicPartitions.add(new TopicPartition(partition.topic(), partition.partition()));
+            }
 
-			// 指定分区
-			consumer.assign(topicPartitions);
+            // 指定分区
+            consumer.assign(topicPartitions);
 
-			consume(consumer);
-		}
-	}
+            consume(consumer);
+        }
+    }
 
-	private static void consume(KafkaConsumer consumer) {
-		while (true) {
-			ConsumerRecords<String, String> consumerRecords = consumer.poll(1000);
+    private static void consume(KafkaConsumer consumer) {
+        while (true) {
+            ConsumerRecords<String, String> consumerRecords = consumer.poll(1000);
 
-			for (ConsumerRecord<String, String> consumerRecord : consumerRecords) {
-				log.info("CONSUMING topic = {}, partition = {}, offset = {}, key = {}, value = {}", consumerRecord.topic(), consumerRecord.partition(),
-					consumerRecord.offset(), consumerRecord.key(), consumerRecord.value());
-			}
+            for (ConsumerRecord<String, String> consumerRecord : consumerRecords) {
+                log.info("CONSUMING topic = {}, partition = {}, offset = {}, key = {}, value = {}", consumerRecord.topic(),
+                    consumerRecord.partition(),
+                    consumerRecord.offset(), consumerRecord.key(), consumerRecord.value());
+            }
 
-			consumer.commitSync();
-		}
-	}
+            consumer.commitSync();
+        }
+    }
 
-	private static KafkaConsumer createConsumer() {
-		Properties props = new Properties();
-		props.put("bootstrap.servers", KafkaConstant.BROKER);
-		props.put("group.id", "consumer-1");
-		props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-		props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-		KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(props);
+    private static KafkaConsumer createConsumer() {
+        Properties props = new Properties();
+        props.put("bootstrap.servers", KafkaConstant.BROKER);
+        props.put("group.id", "consumer-1");
+        props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+        props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+        KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(props);
 
-		return consumer;
-	}
+        return consumer;
+    }
 }

@@ -12,10 +12,10 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        String received = receiveMsg( msg);
+        String received = receiveMsg(msg);
 
         TimeUnit.SECONDS.sleep(1);
-        
+
         sendMsg(ctx, received);
     }
 
@@ -26,20 +26,20 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
         System.out.println("... channelRead 服务端读到数据: " + msg);
 
         ByteBufHelper.print("SERVER channelRead param", byteBuf);
-        
+
         return msg;
     }
 
     private void sendMsg(ChannelHandlerContext ctx, String originMsg) {
         String tobeSent = "服务器确认已收到 " + originMsg;
-        
+
         byte[] bytes = tobeSent.getBytes(Charset.forName("utf-8"));
         ByteBuf byteBuf = ctx.alloc().buffer();
         byteBuf.writeBytes(bytes);
         System.out.println("... channelRead 服务端发送数据: " + tobeSent);
 
         ByteBufHelper.print("SERVER channelRead ctx.alloc().buffer()", byteBuf);
-        
+
         ctx.channel().writeAndFlush(byteBuf);
     }
 }

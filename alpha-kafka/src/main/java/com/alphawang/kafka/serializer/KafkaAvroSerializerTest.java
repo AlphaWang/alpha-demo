@@ -27,40 +27,38 @@ import java.util.Properties;
 @Slf4j
 public class KafkaAvroSerializerTest {
 
+    public static void main(String[] args) {
+        KafkaProducer producer = createProducer();
+        syncSend(producer);
+    }
 
-	public static void main(String[] args) {
-	   KafkaProducer producer = createProducer();
-	   syncSend(producer);
-	}
+    private static void syncSend(KafkaProducer producer) {
+        Message msg = new Message()
+            .setId(1L)
+            .setName("test kafka msg")
+            .setDate(new Date());
+        ProducerRecord<String, Message> record = new ProducerRecord<>(KafkaConstant.TOPIC_AVRO, msg.getName(), msg);
 
-	private static void syncSend(KafkaProducer producer) {
-		Message msg = new Message()
-			.setId(1L)
-			.setName("test kafka msg")
-			.setDate(new Date());
-		ProducerRecord<String, Message> record = new ProducerRecord<>(KafkaConstant.TOPIC_AVRO, msg.getName(), msg);
+        RecordMetadata meta = KafkaProducerTest.send(producer, record);
 
-		RecordMetadata meta = KafkaProducerTest.send(producer, record);
+        log.info("----- produce: " + meta);
+    }
 
-		log.info("----- produce: " + meta);
-	}
+    private static KafkaProducer createProducer() {
+        Properties kafkaProps = new Properties();
+        kafkaProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaConstant.BROKER);
 
+        kafkaProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
+        //		kafkaProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer.class.getName());
+        //		kafkaProps.put(KafkaAvroSerializerConfig.SCHEMA_REGISTRY_URL_CONFIG, "http://localhost:8081");  // schema-registry server
 
-	private static KafkaProducer createProducer() {
-		Properties kafkaProps = new Properties();
-		kafkaProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, KafkaConstant.BROKER);
+        kafkaProps.put(ProducerConfig.CLIENT_ID_CONFIG, "producer-avro");
 
-		kafkaProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
-//		kafkaProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer.class.getName());
-//		kafkaProps.put(KafkaAvroSerializerConfig.SCHEMA_REGISTRY_URL_CONFIG, "http://localhost:8081");  // schema-registry server
+        kafkaProps.put(ProducerConfig.BATCH_SIZE_CONFIG, "1024");
+        kafkaProps.put(ProducerConfig.LINGER_MS_CONFIG, "5000");
 
-		kafkaProps.put(ProducerConfig.CLIENT_ID_CONFIG, "producer-avro");
+        KafkaProducer producer = new KafkaProducer(kafkaProps);
 
-		kafkaProps.put(ProducerConfig.BATCH_SIZE_CONFIG, "1024");
-		kafkaProps.put(ProducerConfig.LINGER_MS_CONFIG, "5000");
-
-		KafkaProducer producer = new KafkaProducer(kafkaProps);
-
-		return producer;
-	}
+        return producer;
+    }
 }

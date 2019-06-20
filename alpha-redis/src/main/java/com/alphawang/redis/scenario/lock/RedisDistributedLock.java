@@ -10,29 +10,29 @@ import java.util.stream.IntStream;
 
 @Slf4j
 public class RedisDistributedLock {
-    
+
     private Jedis jedis;
 
     public RedisDistributedLock(Jedis jedis) {
         this.jedis = jedis;
     }
-    
+
     public String acquireLock(String lockName, long acquireTimeout, long lockTimeout) {
         String identifier = UUID.randomUUID().toString();
         String lockKey = "lock:" + lockName;
-        
+
         log.info("LOCKING {}", lockKey);
-        
+
         int lockExpire = (int) (lockTimeout / 1000);
         long end = System.currentTimeMillis() + acquireTimeout;
-        
+
         try {
             while (System.currentTimeMillis() < end) {  // acquireTimeout 获取锁的限定时间
 
                 if (jedis.setnx(lockKey, identifier) == 1) { // 设值
                     jedis.expire(lockKey, lockExpire);  // 设置超时时间 
                     // setnx + expire 可以用一条命令  :  jedis.set(key, "", "nx", "ex", 5L)
-                    
+
                     log.info("LOCKED {}, id: {}", lockKey, identifier);
                     return identifier;
                 }
@@ -48,18 +48,18 @@ public class RedisDistributedLock {
                 }
             }
         } finally {
-//            jedis.close();
+            //            jedis.close();
         }
-        
+
         return null;
     }
-    
+
     public boolean releaseLock(String lockName, String identifier) {
-        String lockKey="lock:"+lockName;
+        String lockKey = "lock:" + lockName;
         log.info("RELEASING {}, id: {}", lockKey, identifier);
-        
+
         boolean isReleased = false;
-        
+
         try {
             while (true) {
                 jedis.watch(lockKey);
@@ -81,31 +81,31 @@ public class RedisDistributedLock {
                 break;
             }
         } finally {
-//            jedis.close();
+            //            jedis.close();
         }
-        
+
         return isReleased;
     }
-    
+
     public boolean releaseWithLua(String lockName, String identifier) {
-        String lockKey="lock:"+lockName;
+        String lockKey = "lock:" + lockName;
         log.info("RELEASING with Lua {}, id: {}", lockKey, identifier);
-        
-        String lua = "if redis.call(\"get\", KEYS[1]) == ARGV[1] " 
-            + " then " 
-            + "    return redis.call(\"del\", KEYS[1]) " 
-            + " else " 
-            + "    return 0 " 
+
+        String lua = "if redis.call(\"get\", KEYS[1]) == ARGV[1] "
+            + " then "
+            + "    return redis.call(\"del\", KEYS[1]) "
+            + " else "
+            + "    return 0 "
             + "  end";
-        
-        Long rs = (Long) jedis.eval(lua, 1, new String[] {lockKey, identifier});
-        
+
+        Long rs = (Long) jedis.eval(lua, 1, new String[] { lockKey, identifier });
+
         return rs.intValue() > 0;
     }
 
     public static void main(String[] args) {
         Runnable runnable = new Runnable() {
-            @Override 
+            @Override
             public void run() {
                 while (true) {
                     Jedis jedis = new Jedis();
@@ -131,12 +131,12 @@ public class RedisDistributedLock {
             }
         };
 
-//        for (int i = 0; i < 10; i++) {
-//            new Thread(runnable, "thread-" + i).start();
-//        }
+        //        for (int i = 0; i < 10; i++) {
+        //            new Thread(runnable, "thread-" + i).start();
+        //        }
         IntStream.range(0, 10).forEach(index -> new Thread(runnable, "thread-" + index).start());
     }
-    
+
 }
 
 

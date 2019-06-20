@@ -8,13 +8,13 @@ public class OptionalElse {
         String result = Optional.ofNullable(Service.get())
             .map(s -> s.toUpperCase())
             .orElse("NULL");
-        
+
         System.out.println(result);
     }
-    
+
     static class Service {
         public static String get() {
-//            return null;
+            //            return null;
             return "alpha";
         }
     }

@@ -16,6 +16,7 @@ public class LazyHolderSingleton3Serialize implements Serializable {
      * 保护不受反射影响
      */
     private static boolean initialized = false;
+
     private LazyHolderSingleton3Serialize() {
         if (!initialized) {
             initialized = true;
@@ -30,5 +31,5 @@ public class LazyHolderSingleton3Serialize implements Serializable {
     public Object readResolve() {
         return LazyHolder.INSTANCE;
     }
-    
+
 }

@@ -27,7 +27,7 @@ public class CollectorDemo {
          * toCollection(Supplier)
          */
         List<Integer> numbers = Lists.newArrayList(1, 5, 3, 4);  // IntStream.of(1, 5, 3, 4);
-        
+
         TreeSet<Integer> treeSet = numbers.stream()
             .collect(toCollection(TreeSet::new));
         System.out.println("to TreeSet" + treeSet);
@@ -67,15 +67,13 @@ public class CollectorDemo {
         Map<Integer, List<String>> groupMappipng = numbers.stream()
             .collect(groupingBy(x -> x % 2, mapping(x -> "int-" + x, toList())));
         System.out.println("group mapping: " + groupMappipng);
-        
+
         // groupingBy + counting: 分组+计数
         //   group counting: {0=1, 1=3}
         Map<Integer, Long> groupCounting = numbers.stream()
             .collect(groupingBy(x -> x % 2, counting()));
         System.out.println("group counting: " + groupCounting);
 
-       
-        
         /**
          * 拼接字符串
          * Collectors.joining(CharSequence delimiter,

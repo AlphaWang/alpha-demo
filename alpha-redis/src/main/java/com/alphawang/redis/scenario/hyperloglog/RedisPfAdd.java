@@ -10,7 +10,7 @@ public class RedisPfAdd {
 
     public static void main(String[] args) {
         Jedis jedis = new Jedis();
-        
+
         int testCount = 100000;
         for (int i = 0; i < testCount; i++) {
             jedis.pfadd("codehole", "user" + i);
@@ -23,7 +23,6 @@ public class RedisPfAdd {
         System.out.printf("expected: %d, actual: %d\n", 100000, total);
         jedis.close();
     }
-    
-    
+
 }
 

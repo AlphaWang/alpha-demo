@@ -21,11 +21,11 @@ public class JwtFilter implements Filter {
 
     private static final List<String> WHITE_LIST = Collections.singletonList("/registration");
     private static final String JWT_HEADER_NAME = "Authorization";
-    
+
     @Autowired
     private JwtService jwtService;
-    
-    @Override 
+
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
@@ -40,7 +40,6 @@ public class JwtFilter implements Filter {
             httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         }
     }
-
 
     private void updateToken(HttpServletResponse httpServletResponse, String jwt) {
         String payload = jwtService.parseToken(jwt);

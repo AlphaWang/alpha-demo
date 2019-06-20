@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class DistributedLockTest {
-    
+
     private static DistributedLock lock;
 
     public static void main(String[] args) throws InterruptedException {
@@ -26,31 +26,31 @@ public class DistributedLockTest {
 
         lock = new DistributedLock(curatorFramework);
         lock.init();
-        
+
         buy(4);
     }
-    
+
     private static boolean buy(int buyCount) throws InterruptedException {
         lock.getLock();
 
         int stock = getStock();
         if (stock < buyCount) {
             log.error("库存不足.");
-            
+
             lock.releaseLock();
             return false;
         }
-        
+
         boolean created = createOrder();
         if (created) {
             log.info("订单创建成功");
             lock.releaseLock();
-            
+
             return true;
         } else {
             log.info("订单创建失败");
             lock.releaseLock();
-            
+
             return false;
         }
     }
@@ -73,17 +73,17 @@ public class DistributedLockTest {
          */
         // return new RetryOneTime(5000);
     }
-    
+
     private static int getStock() throws InterruptedException {
         TimeUnit.SECONDS.sleep(1);
         log.info("==== get stock");
         return 10;
     }
-    
+
     private static boolean createOrder() throws InterruptedException {
         TimeUnit.SECONDS.sleep(1);
         log.info("==== create order.");
-        
+
         return true;
     }
 }

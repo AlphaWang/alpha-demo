@@ -8,7 +8,7 @@ import java.util.Date;
 @Data
 @Accessors(chain = true)
 public class Message {
-	private Long id;
-	private String name;
-	private Date date;
+    private Long id;
+    private String name;
+    private Date date;
 }

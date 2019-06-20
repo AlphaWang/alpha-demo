@@ -21,7 +21,7 @@ public class DiscoveryController {
     /**
      * 注册服务：
      * curl -X PUT 'http://127.0.0.1:8848/nacos/v1/ns/instance?serviceName=cart_front_api&ip=127.0.0.1&port=8080'
-     * 
+     *
      * 查询服务：
      * http://localhost:8080/discovery/get?serviceName=cart_front_api
      */

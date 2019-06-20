@@ -87,9 +87,6 @@ public class Test3_Filter {
         Assert.assertTrue(!Iterables.isEmpty(result));
     }
 
-
-
-
     @Test
     public void filterMap() {
         Map<String, City> nameCityMap = Maps.uniqueIndex(cities, new Function<City, String>() {
@@ -99,7 +96,6 @@ public class Test3_Filter {
             }
         });
         System.out.println(nameCityMap);
-
 
         Map<String, City> filteredMap = Maps.filterEntries(nameCityMap, new Predicate<Map.Entry<String, City>>() {
             @Override

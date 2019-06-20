@@ -25,8 +25,6 @@ public class Test3_Enums {
             locale.get();
         }
 
-
-
         Assert.assertTrue(locale.isPresent());
         Assert.assertTrue(locale.get() == VitaminLocale.ko_KR);
 

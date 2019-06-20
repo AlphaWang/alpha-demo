@@ -19,12 +19,12 @@ public class CuratorAcl {
         String nodePath = "/imooc/curator/acl";
 
         List<ACL> acls = new ArrayList<>();
-        Id idImooc1 = new Id("digest", DigestAuthenticationProvider.generateDigest("imooc1:123456")); 
-        Id idImooc2 = new Id("digest", DigestAuthenticationProvider.generateDigest("imooc2:123456")); 
+        Id idImooc1 = new Id("digest", DigestAuthenticationProvider.generateDigest("imooc1:123456"));
+        Id idImooc2 = new Id("digest", DigestAuthenticationProvider.generateDigest("imooc2:123456"));
         acls.add(new ACL(ZooDefs.Perms.ALL, idImooc1));
         acls.add(new ACL(ZooDefs.Perms.READ, idImooc2));
         acls.add(new ACL(ZooDefs.Perms.DELETE | ZooDefs.Perms.CREATE, idImooc2));
-        
+
         String result = curatorConnector.getCuratorFramework()
             .create()
             .creatingParentsIfNeeded()
@@ -32,8 +32,8 @@ public class CuratorAcl {
             .withACL(acls)
             .forPath(nodePath);
         log.warn("--- create node {}, result {}", nodePath, result);
-        
+
         curatorConnector.close();
-        
+
     }
 }

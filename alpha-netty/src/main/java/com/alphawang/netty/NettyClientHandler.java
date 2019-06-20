@@ -16,14 +16,14 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         ByteBuf byteBuf = ctx.alloc().buffer();
-        
+
         String msg = "Netty Msg ---- " + new Date();
         byte[] bytes = msg.getBytes(Charset.forName("utf-8"));
         byteBuf.writeBytes(bytes);
         System.out.println("...channelActive - 客户端写出: " + msg);
-        
+
         ByteBufHelper.print("CLIENT channelActive ctx.alloc().buffer()", byteBuf);
-        
+
         ctx.channel().writeAndFlush(byteBuf);
     }
 
@@ -32,10 +32,8 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
         ByteBuf byteBuf = (ByteBuf) msg;
         String string = byteBuf.toString(Charset.forName("utf-8"));
         System.out.println("... channelRead 客户端读到数据: " + string);
-        
+
         ByteBufHelper.print("CLIENT channelRead param", byteBuf);
     }
-    
-    
 
 }

@@ -1,6 +1,5 @@
 package com.alphawang.concurrency.common.c3_publish;
 
-
 public class Escape2Fix {
     private final EventListener listener;
 
@@ -31,4 +30,4 @@ public class Escape2Fix {
 
     interface Event {
     }
-  }
+}

@@ -13,12 +13,12 @@ public class ConfigController {
      * - dataId: cart.page
      * - group: DEFAULT_GROUP
      * - content: itemCount
-     * 
+     *
      * curl -X POST "http://127.0.0.1:8848/nacos/v1/cs/configs?dataId=cart.page&group=DEFAULT_GROUP&content=itemCount=70"
      */
     @NacosValue(value = "${itemCount:10}", autoRefreshed = true)
     private String itemCount;
-    
+
     @RequestMapping("cart-count")
     public String getItemCount() {
         return itemCount;

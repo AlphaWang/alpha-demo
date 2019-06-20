@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class ParallelStream {
-    
+
     private static final int N = 100;
 
     public static void main(String[] args) {
@@ -33,7 +33,7 @@ public class ParallelStream {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        
+
         String out = Thread.currentThread().getName() + " computing " + number;
         System.out.println(out);
         return out;

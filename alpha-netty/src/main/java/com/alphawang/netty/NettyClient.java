@@ -26,20 +26,21 @@ public class NettyClient {
             .channel(NioSocketChannel.class)
             // IO处理逻辑
             .handler(new ChannelInitializer<SocketChannel>() {
-                @Override 
+                @Override
                 protected void initChannel(SocketChannel ch) throws Exception {
                     System.out.println("===== client handler... " + ch);
                     ch.pipeline().addLast(new NettyClientHandler());
                 }
             })
-            // 可以通过channel.attr()取出这个属性
-//            .attr(AttributeKey.newInstance("clientName"), "alphaNettyClient")
+        // 可以通过channel.attr()取出这个属性
+        //            .attr(AttributeKey.newInstance("clientName"), "alphaNettyClient")
         ;
-        
+
         connect(bootstrap, "localhost", 8000, MAX_RETRY);
     }
-    
+
     private static final int MAX_RETRY = 10;
+
     private static void connect(Bootstrap bootstrap, String host, int port, int retry) {
         bootstrap
             .connect(host, port)
@@ -56,7 +57,7 @@ public class NettyClient {
                         // 本次重连的间隔
                         int delay = 1 << time;
                         System.err.println("连接失败, 第 " + time + " 次重试... ");
-                        
+
                         bootstrap.config().group().schedule(new Runnable() {
                             @Override public void run() {
                                 connect(bootstrap, host, port, retry - 1);

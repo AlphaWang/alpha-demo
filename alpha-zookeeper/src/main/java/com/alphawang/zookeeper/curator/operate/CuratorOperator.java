@@ -14,9 +14,9 @@ public class CuratorOperator {
     public static void main(String[] args) throws Exception {
         CuratorConnector curatorConnector = new CuratorConnector();
         boolean isZkCuratorStarted = curatorConnector.getCuratorFramework().isStarted();
-    
+
         log.info("Curator Started? {} ", isZkCuratorStarted);
-        
+
         String nodePath = "/imooc/curator";
         String data = "curator-data";
         log.info("---- 1. creating node {}", nodePath);
@@ -33,22 +33,22 @@ public class CuratorOperator {
             .storingStatIn(stat)
             .forPath(nodePath);
         log.info("---- 2. get data {} = {}, version = {}", nodePath, new String(result), stat.getVersion());
-        
+
         data = "curator-data2";
         log.info("---- 3. setting data {} = {}", nodePath, data);
-        
+
         curatorConnector.getCuratorFramework()
             .setData()
             .withVersion(0)
             .forPath(nodePath, data.getBytes());
-        
+
         Stat statExists = curatorConnector.getCuratorFramework()
             .checkExists()
             .forPath(nodePath);
         log.info("---- 4. check exists for node {}", nodePath, statExists);
-        
+
         log.info("---- 4. deleting node {}", nodePath);
-        
+
         curatorConnector.getCuratorFramework()
             .delete()
             .guaranteed()

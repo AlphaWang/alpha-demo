@@ -16,12 +16,12 @@ public class CompletionServiceTest {
         ExecutorService executorService = Executors.newFixedThreadPool(3);
 
         CompletionService<Integer> cs = new ExecutorCompletionService<>(executorService);
-        
+
         cs.submit(() -> {
             log.warn("Service 1: start.");
             sleep(500);
             log.warn("Service 1: finish.");
-            
+
             return 333;
         });
 
@@ -55,7 +55,7 @@ public class CompletionServiceTest {
             }
             log.warn("RESULT: " + result);
         }
-        
+
     }
 
     private static void sleep(int timeout) {

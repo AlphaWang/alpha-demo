@@ -16,7 +16,7 @@ public class MorphiaCRUD {
 
     public static void main(String[] args) {
         Morphia morphia = new Morphia();
-        
+
         MongoClient mongoClient = new MongoClient("localhost", 27017);
         Datastore datastore = morphia.createDatastore(mongoClient, "alpha-db");
 

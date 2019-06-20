@@ -11,7 +11,7 @@ import org.apache.zookeeper.data.Stat;
 
 import java.util.concurrent.CountDownLatch;
 
-@Slf4j 
+@Slf4j
 public class DistributedLock {
 
     private CuratorFramework curatorFramework;
@@ -40,16 +40,16 @@ public class DistributedLock {
                     .forPath(ZK_LOCK_PROJECT);
 
             }
-            
+
             addWatcherToLock(ZK_LOCK_PROJECT);
-            
+
         } catch (Exception e) {
             log.error("Failed to connect zookeeper server.", e);
         }
     }
 
     public void getLock() {
-        while(true) {
+        while (true) {
             try {
                 curatorFramework.create()
                     .creatingParentsIfNeeded()
@@ -60,7 +60,7 @@ public class DistributedLock {
                 return;
             } catch (Exception e) {
                 log.warn("Failed to get distributed lock.", e);
-                
+
                 if (zkLockLatch.getCount() <= 0) {
                     zkLockLatch = new CountDownLatch(1);
                 }
@@ -85,7 +85,7 @@ public class DistributedLock {
             log.error("Failed to check/delete zk node", e);
             return false;
         }
-        
+
         log.info("Released lock.");
         return false;
     }
@@ -94,12 +94,12 @@ public class DistributedLock {
         PathChildrenCache pathChildrenCache = new PathChildrenCache(curatorFramework, path, true);
         pathChildrenCache.start(PathChildrenCache.StartMode.POST_INITIALIZED_EVENT);
         pathChildrenCache.getListenable().addListener(new PathChildrenCacheListener() {
-            @Override 
+            @Override
             public void childEvent(CuratorFramework client, PathChildrenCacheEvent event) throws Exception {
                 if (event.getType() == PathChildrenCacheEvent.Type.CHILD_REMOVED) {
                     String path = event.getData().getPath();
                     log.info("Path Deleted. {}", path);
-                    
+
                     if (path.contains(DISTRIBUTED_LOCK)) {
                         log.info("release CountDownLatch");
                         zkLockLatch.countDown();

@@ -9,19 +9,18 @@ import com.alphawang.concurrency.common.annotations.ThreadSafe;
  */
 @ThreadSafe
 public class PublishSingleton_Lazy3_DoubleCheckVolatile {
-    
+
     private PublishSingleton_Lazy3_DoubleCheckVolatile() {
         // do something
     }
 
     /**
      * 解决方法3：双重检查 + volatile
-     * 
+     *
      * volatile 可以禁止指令重排!!!
      */
     private static volatile PublishSingleton_Lazy3_DoubleCheckVolatile instance = null;
 
-    
     public static PublishSingleton_Lazy3_DoubleCheckVolatile getInstance() {
         if (instance == null) {  // A
             synchronized (PublishSingleton_Lazy3_DoubleCheckVolatile.class) {
@@ -32,5 +31,5 @@ public class PublishSingleton_Lazy3_DoubleCheckVolatile {
         }
         return instance;
     }
-    
+
 }

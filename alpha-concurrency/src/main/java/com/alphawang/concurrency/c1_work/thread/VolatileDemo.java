@@ -1,7 +1,7 @@
 package com.alphawang.concurrency.c1_work.thread;
 
 public class VolatileDemo {
-    
+
     private static int x = 0, y = 0;
     private static int a = 0, b = 0;
 
@@ -13,15 +13,15 @@ public class VolatileDemo {
             a = 1;
             x = b;
         });
-        
+
         Thread t2 = new Thread(() -> {
             b = 1;
             y = a;
         });
-        
+
         t1.start();
         t2.start();
-        
+
         t1.join();
         t2.join();
 

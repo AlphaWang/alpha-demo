@@ -10,9 +10,9 @@ public class CuratorChildrenOperator {
 
     public static void main(String[] args) throws Exception {
         String nodePath = "/imooc/curator";
-        
+
         CuratorConnector curatorConnector = new CuratorConnector();
-        
+
         List<String> childNodes = curatorConnector.getCuratorFramework()
             .getChildren()
             .forPath(nodePath);

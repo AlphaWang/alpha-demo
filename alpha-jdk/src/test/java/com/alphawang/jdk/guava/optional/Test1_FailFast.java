@@ -25,16 +25,15 @@ public class Test1_FailFast {
     }
 
     /**
-        If you really need null values, and you're having problems with a null-hostile collection implementations,
-        use a different implementation.
-        For example, use Collections.unmodifiableList(Lists.newArrayList()) instead of ImmutableList.
+     If you really need null values, and you're having problems with a null-hostile collection implementations,
+     use a different implementation.
+     For example, use Collections.unmodifiableList(Lists.newArrayList()) instead of ImmutableList.
      */
     @Test(expected = NullPointerException.class)
     public void testImmutableList() {
         List<String> copy = ImmutableList.copyOf(list);
         System.out.println(copy);
     }
-
 
     @Test(expected = NullPointerException.class)
     public void testLists() {

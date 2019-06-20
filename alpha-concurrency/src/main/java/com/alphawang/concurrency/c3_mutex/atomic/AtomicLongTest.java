@@ -15,53 +15,53 @@ import java.util.concurrent.atomic.AtomicLong;
 @ThreadSafe
 public class AtomicLongTest {
 
-	private static final int TOTAL = 100;
-	private static final int CONCURRENT_LEVEL = 5;
+    private static final int TOTAL = 100;
+    private static final int CONCURRENT_LEVEL = 5;
 
-	public static void main(String[] args) {
-		Stopwatch stopwatch = Stopwatch.createStarted();
-		AtomicLong atomicLong = new AtomicLong();
-		log.info("[{}] ---- START ", stopwatch.elapsed(TimeUnit.MILLISECONDS));
+    public static void main(String[] args) {
+        Stopwatch stopwatch = Stopwatch.createStarted();
+        AtomicLong atomicLong = new AtomicLong();
+        log.info("[{}] ---- START ", stopwatch.elapsed(TimeUnit.MILLISECONDS));
 
-		ExecutorService executorService = Executors.newCachedThreadPool();
+        ExecutorService executorService = Executors.newCachedThreadPool();
 
-		Semaphore semaphore = new Semaphore(CONCURRENT_LEVEL);
-		CountDownLatch countDownLatch = new CountDownLatch(TOTAL);
+        Semaphore semaphore = new Semaphore(CONCURRENT_LEVEL);
+        CountDownLatch countDownLatch = new CountDownLatch(TOTAL);
 
-		for (int i = 0; i < TOTAL; i++) {
-			executorService.execute(() -> {
-				try {
-					semaphore.acquire();
-					test(stopwatch, atomicLong);
-					semaphore.release();
-					
-					countDownLatch.countDown();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+        for (int i = 0; i < TOTAL; i++) {
+            executorService.execute(() -> {
+                try {
+                    semaphore.acquire();
+                    test(stopwatch, atomicLong);
+                    semaphore.release();
 
-			});
+                    countDownLatch.countDown();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
-		}
+            });
 
-		try {
-			countDownLatch.await();
-		} catch (InterruptedException e) {
-			log.error("countDownLatch.await() ERROR. " + atomicLong.get());
-			e.printStackTrace();
-		}
+        }
 
-		log.error("[{}] ------ AtomicLong.get {}", stopwatch.elapsed(TimeUnit.MILLISECONDS), atomicLong.get());
+        try {
+            countDownLatch.await();
+        } catch (InterruptedException e) {
+            log.error("countDownLatch.await() ERROR. " + atomicLong.get());
+            e.printStackTrace();
+        }
 
-		executorService.shutdown();
-		stopwatch.stop();
-	}
+        log.error("[{}] ------ AtomicLong.get {}", stopwatch.elapsed(TimeUnit.MILLISECONDS), atomicLong.get());
 
-	private static void test(Stopwatch stopwatch, AtomicLong atomicLong) throws InterruptedException {
-		Thread.sleep(500);
-		
-		log.info("[{}] AtomicLong.incrementAndGet {} ",
-			stopwatch.elapsed(TimeUnit.MILLISECONDS),
-			atomicLong.incrementAndGet());
-	}
+        executorService.shutdown();
+        stopwatch.stop();
+    }
+
+    private static void test(Stopwatch stopwatch, AtomicLong atomicLong) throws InterruptedException {
+        Thread.sleep(500);
+
+        log.info("[{}] AtomicLong.incrementAndGet {} ",
+            stopwatch.elapsed(TimeUnit.MILLISECONDS),
+            atomicLong.incrementAndGet());
+    }
 }

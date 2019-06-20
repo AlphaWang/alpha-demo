@@ -9,7 +9,7 @@ public class BioClient {
     public static void main(String[] args) {
         new Thread(() -> {
             try {
-                
+
                 Socket socket = new Socket("127.0.0.1", 8000);
                 while (true) {
                     String msg = "OUTPUT: " + new Date();
@@ -17,7 +17,7 @@ public class BioClient {
                     socket.getOutputStream().write(msg.getBytes());
                     Thread.sleep(2000);
                 }
-                
+
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {

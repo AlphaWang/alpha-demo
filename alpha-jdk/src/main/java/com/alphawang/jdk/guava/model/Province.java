@@ -15,13 +15,12 @@ public class Province {
     private String name;
     private List<City> cities = Lists.newArrayListWithCapacity(20);
 
-    public  List<City> getCities() {
+    public List<City> getCities() {
         return ImmutableList.copyOf(cities); //Collections.unmodifiableList(cities);
     }
 
     public void addCity(City city) {
         cities.add(city);
     }
-
 
 }

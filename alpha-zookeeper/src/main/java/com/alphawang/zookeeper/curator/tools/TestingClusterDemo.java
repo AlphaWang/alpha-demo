@@ -12,15 +12,15 @@ public class TestingClusterDemo {
 
     public static void main(String[] args) throws Exception {
         TestingCluster cluster = new TestingCluster(3);
-        
+
         cluster.start();
         Thread.sleep(2000);
-        
+
         testKillLeader(cluster);
         testGetClusterData(cluster);
-            
+
         cluster.stop();
-        
+
     }
 
     private static void testGetClusterData(TestingCluster cluster) throws Exception {
@@ -46,11 +46,11 @@ public class TestingClusterDemo {
          * [main] INFO  - == serverId: 3, serverState: leading, data dir: /var/folders/5t/k079pcv16877_xj41pzgmdzh0000gp/T/1538921575995-0
          */
         for (TestingZooKeeperServer zs : cluster.getServers()) {
-            log.info("== serverId: {}, serverState: {}, data dir: {}", 
+            log.info("== serverId: {}, serverState: {}, data dir: {}",
                 zs.getInstanceSpec().getServerId(),
                 zs.getQuorumPeer().getServerState(),
                 zs.getInstanceSpec().getDataDirectory().getAbsolutePath());
-            
+
             if (zs.getQuorumPeer().getServerState().equals("leading")) {
                 leader = zs;
             }

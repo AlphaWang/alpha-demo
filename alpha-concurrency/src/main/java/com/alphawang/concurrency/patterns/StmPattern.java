@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 
 /**
  * 软件事务内存  Software Transactional Memory
- * 
+ *
  * https://github.com/pveentjer/Multiverse
  */
 public class StmPattern {
@@ -22,25 +22,24 @@ public class StmPattern {
         for (int i = 0; i < 4; i++) {
             es.execute(() -> {
                 for (int j = 0; j < 10; j++) {
-                   a.transfer(b, 10);
+                    a.transfer(b, 10);
                     System.out.println(a.balance.get());
                     System.out.println(b.balance.get());
                 }
             });
         }
-        
+
         Thread.sleep(10000);
 
-        
     }
-  
+
     static class Account {
         private TxnLong balance;
 
         public Account(long balance) {
             this.balance = StmUtils.newTxnLong(balance);
         }
-        
+
         public void transfer(Account to, int amt) {
             StmUtils.atomic(() -> {
                 if (this.balance.get() > amt) {

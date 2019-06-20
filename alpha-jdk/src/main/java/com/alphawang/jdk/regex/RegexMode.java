@@ -31,13 +31,13 @@ public class RegexMode {
         find("abcdabbbcd", pattern_reluctant);
         find("abcdabbbcd", pattern_possessive);
     }
-    
+
     private static void find(String source, Pattern pattern) {
         System.out.print("[Source] " + source + ", [Pattern] " + pattern + " : ");
         Matcher matcher = pattern.matcher(source);
         while (matcher.find()) {
             System.out.print(matcher.group(0) + " ");
-        } 
+        }
         System.out.println();
     }
 }

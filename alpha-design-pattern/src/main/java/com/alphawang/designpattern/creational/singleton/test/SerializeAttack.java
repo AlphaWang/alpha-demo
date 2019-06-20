@@ -26,7 +26,7 @@ public class SerializeAttack {
         // NO HACKED
         attackSerializable(instance3, instance4);
     }
-    
+
     private static void attackSerializable(Serializable instance1, Serializable instance2) {
         FileOutputStream fos = null;
 
@@ -34,24 +34,24 @@ public class SerializeAttack {
             fos = new FileOutputStream("singleton.obj");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(instance2);
-            
+
             oos.flush();
             oos.close();
 
             FileInputStream fis = new FileInputStream("singleton.obj");
             ObjectInputStream ois = new ObjectInputStream(fis);
             instance1 = (Serializable) ois.readObject();
-            
+
             ois.close();
 
             boolean singleInstance = (instance1 == instance2);
             if (!singleInstance) {
                 System.out.println("HACKED!!!");
             }
-            
+
             System.out.println(instance1);
             System.out.println(instance2);
-            
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

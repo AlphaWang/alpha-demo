@@ -20,7 +20,7 @@ public class CompletionServiceForkingTest {
 
         CompletionService<Integer> cs = new ExecutorCompletionService<>(executorService);
         List<Future<Integer>> futures = Lists.newArrayList();
-        
+
         futures.add(cs.submit(() -> {
             log.warn("Service 1: start.");
             sleep(500);
@@ -55,7 +55,7 @@ public class CompletionServiceForkingTest {
                 if (result != null) {
                     break;
                 }
-                
+
             }
         } catch (InterruptedException e) {
             e.printStackTrace();

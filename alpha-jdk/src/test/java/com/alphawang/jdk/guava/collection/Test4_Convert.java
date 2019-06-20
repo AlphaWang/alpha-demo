@@ -79,7 +79,7 @@ public class Test4_Convert {
         );
 
         List<String> cityComments = FluentIterable.from(cityCommentMap.entrySet())
-            .transform(new Function<Map.Entry<City,String>, String>() {
+            .transform(new Function<Map.Entry<City, String>, String>() {
                 @Override
                 public String apply(Map.Entry<City, String> input) {
                     return input.getKey().getName() + " IS " + input.getValue();
@@ -87,6 +87,5 @@ public class Test4_Convert {
             }).toList();
         System.out.println("\nmapToList:\n" + cityComments);
     }
-
 
 }

@@ -5,8 +5,8 @@ public class Client1 extends AbstractClient {
     public static void main(String[] args) throws Exception {
         new Client1().listen();
     }
-    
-    @Override 
+
+    @Override
     protected String getClientName() {
         return "client-1";
     }

@@ -26,19 +26,19 @@ public class NodeCacheListenerTest {
         }
 
         getCurrentData(nodeCache);
-        
+
         nodeCache.getListenable().addListener(new NodeCacheListener() {
-            @Override 
+            @Override
             public void nodeChanged() throws Exception {
                 log.warn("[NodeCacheListener] >>> Received Node Change Event.");
-                getCurrentData(nodeCache); 
+                getCurrentData(nodeCache);
             }
         });
 
         TimeUnit.SECONDS.sleep(2);
         curatorConnector.close();
     }
-    
+
     private static void getCurrentData(NodeCache nodeCache) {
         ChildData currentData = nodeCache.getCurrentData();
         if (currentData != null) {

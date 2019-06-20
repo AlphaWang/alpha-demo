@@ -29,7 +29,7 @@ public class Test2_Transform {
     @Before
     public void setup() {
         cities = Lists.newArrayList(
-            new City(1L,"Shanghai", 1360L),
+            new City(1L, "Shanghai", 1360L),
             new City(2L, "Beijing", 1020L),
             new City(3L, "Guangzhou", 680L),
             new City(4L, "Chengdu", 450L)
@@ -102,13 +102,6 @@ public class Test2_Transform {
         System.out.println(cityNameLength);
         Assert.assertTrue(cityNameLength.size() == 4);
     }
-
-
-
-
-
-
-
 
     @Test
     public void transformMapEntry() {

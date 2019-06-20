@@ -23,5 +23,4 @@ public class AuthController {
         return String.format("JWT for %s :\n%s", username, jwt);
     }
 
-    
 }

@@ -20,10 +20,10 @@ public class PathChildrenCacheTest {
         PathChildrenCache pathChildrenCache = new PathChildrenCache(curatorConnector.getCuratorFramework(), nodePath, true);
 
         try {
-//            pathChildrenCache.start();
+            //            pathChildrenCache.start();
             /**
              * StartMode: 初始化方式
-             * 
+             *
              * POST_INITIALIZED_EVENT：异步初始化，初始化之后会触发事件
              * NORMAL：异步初始化
              * BUILD_INITIAL_CACHE：同步初始化
@@ -32,20 +32,20 @@ public class PathChildrenCacheTest {
         } catch (Exception e) {
             log.error("Failed to start node cache", e);
         }
-        
+
         getCurrentData(pathChildrenCache);
-        
+
         pathChildrenCache.getListenable().addListener(new PathChildrenCacheListener() {
-            @Override 
+            @Override
             public void childEvent(CuratorFramework client, PathChildrenCacheEvent event) throws Exception {
-                log.warn("[PathChildrenCacheListener] >>> Received PathChildrenCacheEvent. type = {}, data = {}", event.getType(), event.getData()); 
+                log.warn("[PathChildrenCacheListener] >>> Received PathChildrenCacheEvent. type = {}, data = {}", event.getType(), event.getData());
             }
         });
 
         Thread.sleep(100000);
         curatorConnector.close();
     }
-    
+
     private static void getCurrentData(PathChildrenCache pathChildrenCache) {
         List<ChildData> childDataList = pathChildrenCache.getCurrentData();
         log.warn("PathChildrenCache current data {}", childDataList);

@@ -16,19 +16,19 @@ import java.util.List;
 
 /**
  * zkCli > getAcl path
- * 
+ *
  * setAcl /imooc/acl world:anyone:cdrwa
  * setAcl /imooc/acl auth:imooc:imooc:cdrwa   //设置之前需要 addauth; 此命令可简写为setAcl /imooc/acl auth::cdrwa 
  * setAcl /imooc/acl digest:imooc:XXX:cdrwa
  * setAcl /imooc/acl ip:192.168.1.1:cdrwa
- * 
+ *
  * Clean zk data before execute:
  * > addauth digest imooc1:123456
  * > rmr /imooc/acl
  */
 @Slf4j
 public class ZkNodeAcl {
-    
+
     private static final String LOCAL_IP = "127.0.0.1";
     private static final String REMOTE_IP = "192.168.1.10";
 
@@ -37,14 +37,14 @@ public class ZkNodeAcl {
 
         /**
          * 1. acl 任何人都可以访问
-         * 
+         *
          * zkCli (setAcl scheme:id:permissions) 
-         * 
+         *
          * > setAcl /imooc/acl world:anyone:cdrwa
-         * 
-         * 
+         *
+         *
          * zkCli (getAcl) 
-         * 
+         *
          * > getAcl /imooc/acl
          *   'world,'anyone
          *   : cdrwa
@@ -54,14 +54,14 @@ public class ZkNodeAcl {
 
         /**
          * 2. 自定义用户认证访问
-         *  
+         *
          * zkCli (setAcl scheme:id:permissions) 
-         * 
+         *
          * > setAcl /imooc/acl/digest digest:imooc1:ee8R/pr2P4sGnQYNGyw2M5S5IMU=:cdrwa
          * > addAuth digest imooc1:123456         
-         *          
+         *
          * zkCli (getAcl)  
-         * 
+         *
          * > getAcl /imooc/acl/digest
          *  'digest,'imooc1:ee8R/pr2P4sGnQYNGyw2M5S5IMU=
          *  : cdrwa
@@ -86,7 +86,7 @@ public class ZkNodeAcl {
         log.info("2.2 create child Node with digest auth {}.", "imooc1:123456");
         connector.getZooKeeper().addAuthInfo("digest", "imooc1:123456".getBytes());
         connector.getZooKeeper().create(digestPath + "/childtest", "childtest".getBytes(), ZooDefs.Ids.CREATOR_ALL_ACL, CreateMode.EPHEMERAL);
-       
+
         Stat stat = new Stat();
         byte[] data = connector.getZooKeeper().getData(digestPath, false, stat);
         log.info("2.3 get data for {} : {}", digestPath, new String(data));
@@ -94,23 +94,21 @@ public class ZkNodeAcl {
 
         /**
          *  3. ip ACL.
-         *  
+         *
          *  > setAcl path ip:192.168.1.1:cdrwa
          */
         String pathForLocalIp = "/imooc/acl/ip-local";
         String pathForRemoteIp = "/imooc/acl/ip-remote";
-        
+
         List<ACL> aclsIP = new ArrayList<ACL>();
         Id id_ip1 = new Id("ip", LOCAL_IP);  //REMOTE_IP
         aclsIP.add(new ACL(ZooDefs.Perms.ALL, id_ip1));
 
         log.info("3.1 create Node {} with ip ACLs: {}", pathForLocalIp, aclsIP);
         connector.getZooKeeper().create(pathForLocalIp, "local-ip-data".getBytes(), aclsIP, CreateMode.PERSISTENT);
-        
+
         data = connector.getZooKeeper().getData(pathForLocalIp, false, stat);
         log.info("3.2 get data for {} : {}", pathForLocalIp, new String(data));
-
-        
 
         List<ACL> aclsIP2 = new ArrayList<ACL>();
         Id id_ip2 = new Id("ip", REMOTE_IP);
@@ -121,8 +119,7 @@ public class ZkNodeAcl {
 
         data = connector.getZooKeeper().getData(pathForRemoteIp, false, stat);
         log.info("3.2 get data for {} : {}", pathForRemoteIp, new String(data));
-        
-        
+
     }
 
 }

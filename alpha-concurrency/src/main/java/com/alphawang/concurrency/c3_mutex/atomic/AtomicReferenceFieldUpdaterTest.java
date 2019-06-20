@@ -16,15 +16,15 @@ public class AtomicReferenceFieldUpdaterTest {
      * 必须不是static
      */
     @Getter
-    public volatile int count = 100; 
-    
+    public volatile int count = 100;
+
     // 原子性地更新某个类的某个实例变量
-    private static AtomicIntegerFieldUpdater<AtomicReferenceFieldUpdaterTest> updater = 
+    private static AtomicIntegerFieldUpdater<AtomicReferenceFieldUpdaterTest> updater =
         AtomicIntegerFieldUpdater.newUpdater(AtomicReferenceFieldUpdaterTest.class, "count");
 
     public static void main(String[] args) {
         AtomicReferenceFieldUpdaterTest example = new AtomicReferenceFieldUpdaterTest();
-        
+
         if (updater.compareAndSet(example, 100, 120)) {
             log.info("update success 1#, {}", example.getCount());  //print 120
         }

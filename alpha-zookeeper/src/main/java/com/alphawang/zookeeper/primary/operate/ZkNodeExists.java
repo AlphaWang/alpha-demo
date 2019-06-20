@@ -18,7 +18,7 @@ public class ZkNodeExists {
         } else {
             log.info("Node exists. {}; version={}", stat, stat.getVersion());
         }
-        
+
         Thread.sleep(10000);
     }
 

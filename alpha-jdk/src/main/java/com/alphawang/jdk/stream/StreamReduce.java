@@ -12,7 +12,7 @@ public class StreamReduce {
 
     public static void main(String[] args) {
         List<String> list = Lists.newArrayList("A", "B", "C");
-        
+
         Optional<String> result = list.stream().reduce(String::concat);
         log.info("stream.reduce() : {}", result.get());
 

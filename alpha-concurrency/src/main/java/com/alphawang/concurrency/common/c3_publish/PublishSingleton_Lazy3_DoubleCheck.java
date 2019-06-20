@@ -9,19 +9,19 @@ import com.alphawang.concurrency.common.annotations.NotThreadSafe;
  */
 @NotThreadSafe
 public class PublishSingleton_Lazy3_DoubleCheck {
-    
+
     private PublishSingleton_Lazy3_DoubleCheck() {
         // do something
     }
-    
+
     private static PublishSingleton_Lazy3_DoubleCheck instance = null;
 
     /**
      * 解决方法2：双重检查; 双重同步锁单例模式
      * 问题：指令重排，非线程安全！！
-     * 
-     * 
-     * 
+     *
+     *
+     *
      *      1、memory = allocate() 分配对象的内存空间
      *      2、ctorInstance() 初始化对象
      *      3、instance = memory 设置instance指向刚分配的内存
@@ -31,10 +31,10 @@ public class PublishSingleton_Lazy3_DoubleCheck {
      *      1、memory = allocate() 分配对象的内存空间
      *      3、instance = memory 设置instance指向刚分配的内存
      *      2、ctorInstance() 初始化对象
-     *      
+     *
      *      所以，A 处可能取到不为null的实例，但其实并没有初始化完成。
-     *      
-     * 
+     *
+     *
      */
     public static PublishSingleton_Lazy3_DoubleCheck getInstance() {
         if (instance == null) {  // A
@@ -57,5 +57,5 @@ public class PublishSingleton_Lazy3_DoubleCheck {
         }
         return instance;
     }
-    
+
 }

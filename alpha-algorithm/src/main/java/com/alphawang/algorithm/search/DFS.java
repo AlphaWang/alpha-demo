@@ -9,45 +9,45 @@ import java.util.Arrays;
  */
 public class DFS {
 
-	private static int totalCount = 3;
-	private static int[] book = new int[10];
-	private static int[] a = new int[10];
+    private static int totalCount = 3;
+    private static int[] book = new int[10];
+    private static int[] a = new int[10];
 
-	private static void dfs(int step) {
+    private static void dfs(int step) {
 
-		System.out.println("step " + step);
+        System.out.println("step " + step);
 
-		if (step == totalCount + 1) {
-			System.out.print("============ Result: ");
-			for (int i = 1; i <= totalCount; i++) {
-				System.out.print(a[i]);
-			}
-			System.out.println();
+        if (step == totalCount + 1) {
+            System.out.print("============ Result: ");
+            for (int i = 1; i <= totalCount; i++) {
+                System.out.print(a[i]);
+            }
+            System.out.println();
 
-			return;
-		}
+            return;
+        }
 
-		for (int num = 1; num <= totalCount; num++) {
-			if (book[num] == 0) {
+        for (int num = 1; num <= totalCount; num++) {
+            if (book[num] == 0) {
 
-				System.out.println("++ step = " + step + ". num = " + num);
+                System.out.println("++ step = " + step + ". num = " + num);
 
-				a[step] = num;
-				book[num] = 1;
+                a[step] = num;
+                book[num] = 1;
 
-				System.out.println("结果 " + Arrays.toString(a));
-				System.out.println("标记 " + Arrays.toString(book));
-				dfs(step + 1);
+                System.out.println("结果 " + Arrays.toString(a));
+                System.out.println("标记 " + Arrays.toString(book));
+                dfs(step + 1);
 
-				book[num] = 0;
-				System.out.println("-- step = " + step + ". num = " + num);
-				System.out.println("取标 " + Arrays.toString(book));
-			}
-		}
-	}
+                book[num] = 0;
+                System.out.println("-- step = " + step + ". num = " + num);
+                System.out.println("取标 " + Arrays.toString(book));
+            }
+        }
+    }
 
-	public static void main(String[] args) {
-		dfs(1);
+    public static void main(String[] args) {
+        dfs(1);
 
 /*  output:
  step 1
@@ -148,5 +148,5 @@ step 4
 -- step = 1. num = 3
 取标 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
  */
-	}
+    }
 }

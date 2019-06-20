@@ -18,7 +18,7 @@ dependencies {
 
     compile('org.projectlombok:lombok:1.18.2')
     compile('org.apache.commons:commons-lang3:3.8')
-    
+
     compile group: 'org.apache.zookeeper', name: 'zookeeper', version: '3.5.4-beta', ext: 'pom'
     compile group: 'org.apache.curator', name: 'curator-framework', version: '4.0.1'
     compile group: 'org.apache.curator', name: 'curator-recipes', version: '4.0.1'

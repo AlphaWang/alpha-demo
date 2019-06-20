@@ -12,12 +12,12 @@ public class MapCompute {
         add("M", 1);
         add("Alpha", 2);
         add("M", 1);
-        
+
         System.out.println(counter);
-        
+
     }
-    
+
     private static void add(String key, int count) {
-        counter.compute(key, (k, previousValue) ->  previousValue == null ? count : count + previousValue);
+        counter.compute(key, (k, previousValue) -> previousValue == null ? count : count + previousValue);
     }
 }

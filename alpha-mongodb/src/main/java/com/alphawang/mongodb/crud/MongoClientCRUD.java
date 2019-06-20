@@ -24,12 +24,12 @@ public class MongoClientCRUD {
             .append("count", 1)
             .append("versions", Arrays.asList("v3.2", "v3.0", "v2.6"))
             .append("info", new Document("x", 203).append("y", 102));
-        
+
         log.info("document: {}", doc);
         collection.insertOne(doc);
 
         FindIterable<Document> documents = collection.find();
-        for (Document document: documents) {
+        for (Document document : documents) {
             log.error(">>>> get document: {}", document);
         }
     }

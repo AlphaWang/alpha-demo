@@ -12,7 +12,6 @@ public class StreamMapCombineDemo {
 
     public static void main(String[] args) {
 
-
         /**
          * 相互组合
          */
@@ -33,8 +32,8 @@ public class StreamMapCombineDemo {
         List<String> collect1 = list2.stream()
             .flatMap(item -> list3.stream().map(item2 -> item + " " + item2))
             .collect(Collectors.toList());
-        
+
         collect1.forEach(System.out::println);
-        
+
     }
 }

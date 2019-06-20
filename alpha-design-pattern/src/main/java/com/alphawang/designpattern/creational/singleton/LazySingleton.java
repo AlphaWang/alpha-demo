@@ -12,14 +12,14 @@ public class LazySingleton {
                     instance = new LazySingleton();
                 }
             }
-            
+
         }
         return instance;
     }
 
     /**
      * 注意 volatile !!!
-     * 
+     *
      * ﻿如果不用volatile，则因为内存模型允许所谓的“无序写入”，可能导致失败。——某个线程可能会获得一个未完全初始化的实例。
      * LazySingleton 构造函数体执行之前，变量instance 可能成为非 null 的！
      */

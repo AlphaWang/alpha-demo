@@ -4,11 +4,11 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 执行之后通过 `jstack` 查看线程状态
- * 
- * 
+ *
+ *
  * java.lang.Thread.State
- * 
- * 
+ *
+ *
  *﻿ 1. NEW: 
  * Thread state for a thread which has not yet started.
  *
@@ -45,7 +45,7 @@ import java.util.concurrent.TimeUnit;
  * 6. TERMINATED:
  * The thread has completed execution.
  *
- * 
+ *
  */
 public class ThreadStatus {
 
@@ -54,23 +54,23 @@ public class ThreadStatus {
          * "timewaiting"
          *  java.lang.Thread.State: TIMED_WAITING (sleeping)
          */
-        new Thread(()->{
-            while(true){
+        new Thread(() -> {
+            while (true) {
                 try {
                     TimeUnit.SECONDS.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-        },"timewaiting").start();
+        }, "timewaiting").start();
 
         /**
          * "waiting" 
          *  java.lang.Thread.State: WAITING (on object monitor)
          */
-        new Thread(()->{
-            while(true){
-                synchronized (ThreadStatus.class){
+        new Thread(() -> {
+            while (true) {
+                synchronized (ThreadStatus.class) {
                     try {
                         ThreadStatus.class.wait();
                     } catch (InterruptedException e) {
@@ -78,26 +78,26 @@ public class ThreadStatus {
                     }
                 }
             }
-        },"waiting").start();
+        }, "waiting").start();
 
         /**
          * "BlockDemo-0" 
          * java.lang.Thread.State: TIMED_WAITING (sleeping)
          */
-        new Thread(new BlockDemo(),"BlockDemo-0").start();
+        new Thread(new BlockDemo(), "BlockDemo-0").start();
 
         /**
          * BlockDemo-1" 
          * java.lang.Thread.State: BLOCKED (on object monitor)
          */
-        new Thread(new BlockDemo(),"BlockDemo-1").start();
+        new Thread(new BlockDemo(), "BlockDemo-1").start();
 
     }
 
-    static class BlockDemo extends Thread{
-        public void run(){
-            synchronized (BlockDemo.class){
-                while(true){
+    static class BlockDemo extends Thread {
+        public void run() {
+            synchronized (BlockDemo.class) {
+                while (true) {
                     try {
                         TimeUnit.SECONDS.sleep(100);
                     } catch (InterruptedException e) {
@@ -108,5 +108,4 @@ public class ThreadStatus {
         }
     }
 
-    
 }
