@@ -11,4 +11,5 @@ include 'alpha-zookeeper'
 include 'alpha-netty'
 include 'alpha-nacos'
 include 'alpha-auth'
+include 'alpha-websocket'
 
