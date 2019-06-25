@@ -6,6 +6,7 @@ import org.openjdk.jmh.annotations.Measurement;
 import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.annotations.OutputTimeUnit;
 import org.openjdk.jmh.annotations.Warmup;
+import org.openjdk.jmh.results.format.ResultFormatType;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
@@ -75,6 +76,8 @@ public class JmhForHashMap {
         Options opt = new OptionsBuilder()
             .include(JmhForHashMap.class.getSimpleName())
             .forks(1)
+            .result("jmh.result.json")
+            .resultFormat(ResultFormatType.JSON)
             .build();
         
         new Runner(opt).run();
