@@ -53,6 +53,8 @@ public class T021_MergeSortedLists {
 
         return head;
     }
+    
+    // 递归
 
     public static void main(String[] args) {
         testMerge(new Integer[] { 1, 2, 4 }, new Integer[] { 1, 3, 4 });

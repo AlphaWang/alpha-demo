@@ -6,6 +6,7 @@ import org.openjdk.jmh.annotations.Measurement;
 import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.annotations.OutputTimeUnit;
 import org.openjdk.jmh.annotations.Warmup;
+import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.results.format.ResultFormatType;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
@@ -55,11 +56,13 @@ public class JmhForHashMap {
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.MICROSECONDS)
-    public void testHashMapWithoutSize() {
+    public void testHashMapWithoutSize(Blackhole blackhole) {
         Map map = new HashMap<>();
         for (Demo demo : demoList) {
             map.put(demo.id, demo.name);
         }
+        
+        blackhole.consume(map);
     }
 
     @Benchmark
