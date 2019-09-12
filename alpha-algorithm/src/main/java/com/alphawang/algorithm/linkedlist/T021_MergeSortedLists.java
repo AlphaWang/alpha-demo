@@ -1,4 +1,4 @@
-package com.alphawang.algorithm.leetcode.linkedlist;
+package com.alphawang.algorithm.linkedlist;
 
 public class T021_MergeSortedLists {
 
