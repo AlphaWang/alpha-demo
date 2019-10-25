@@ -19,7 +19,7 @@ public class GuardedSuspensionPattern {
      */
     @Data
     static class GuardedObject<T> {
-        private T obj;
+        private T response;
         private final Lock lock = new ReentrantLock();
         private final Condition done = lock.newCondition();
 
@@ -45,7 +45,8 @@ public class GuardedSuspensionPattern {
 
             try {
                 log.info("[await] GuardedObject get: await()");
-                while (!predicate.test(obj)) {
+                // False Notify Protection.
+                while (!predicate.test(response)) {
                     done.await(timeout, TimeUnit.SECONDS);
                 }
             } catch (InterruptedException e) {
@@ -55,7 +56,7 @@ public class GuardedSuspensionPattern {
             }
 
             log.info("[await-done] GuardedObject get: await() finished!!!!!");
-            return obj;
+            return response;
         }
 
         public void onChange(T obj) {
@@ -63,7 +64,7 @@ public class GuardedSuspensionPattern {
 
             try {
                 log.info("[signalAll] GuardedObject onChange: signalAll()");
-                this.obj = obj;
+                this.response = obj;
                 done.signalAll();
             } finally {
                 lock.unlock();
