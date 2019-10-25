@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.Map;
 
 @Controller
-public class StackController {
+public class StackTraceController {
 
     @RequestMapping("/test")
     @ResponseBody
