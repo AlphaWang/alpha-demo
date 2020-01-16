@@ -14,9 +14,15 @@ public interface Snapshot {
     
     int getNumberOfSuccessfulCalls();
     
+    //MVP
     int getNumberOfFailedCalls();
-    
+             
+    //MVP
     int getTotalNumberOfCalls();
     
+    //MVP
     float getFailureRate();
+    
+    void report();
+    
 }
