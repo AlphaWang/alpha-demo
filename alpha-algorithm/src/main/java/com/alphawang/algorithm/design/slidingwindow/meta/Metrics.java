@@ -1,4 +1,4 @@
-package com.alphawang.algorithm.design.slidingwindown.meta;
+package com.alphawang.algorithm.design.slidingwindow.meta;
 
 import java.util.concurrent.TimeUnit;
 

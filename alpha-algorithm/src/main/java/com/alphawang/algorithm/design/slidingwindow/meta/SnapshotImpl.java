@@ -1,6 +1,5 @@
-package com.alphawang.algorithm.design.slidingwindown.meta;
+package com.alphawang.algorithm.design.slidingwindow.meta;
 
-import afu.org.checkerframework.checker.oigj.qual.O;
 import java.time.Duration;
 
 public class SnapshotImpl implements Snapshot {

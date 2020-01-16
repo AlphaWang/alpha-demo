@@ -1,9 +1,9 @@
-package com.alphawang.algorithm.design.slidingwindown;
+package com.alphawang.algorithm.design.slidingwindow;
 
-import com.alphawang.algorithm.design.slidingwindown.meta.Measurement;
-import com.alphawang.algorithm.design.slidingwindown.meta.Metrics;
-import com.alphawang.algorithm.design.slidingwindown.meta.Snapshot;
-import com.alphawang.algorithm.design.slidingwindown.meta.SnapshotImpl;
+import com.alphawang.algorithm.design.slidingwindow.meta.Measurement;
+import com.alphawang.algorithm.design.slidingwindow.meta.Metrics;
+import com.alphawang.algorithm.design.slidingwindow.meta.Snapshot;
+import com.alphawang.algorithm.design.slidingwindow.meta.SnapshotImpl;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
