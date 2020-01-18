@@ -8,12 +8,28 @@ import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+/**
+ * 复杂度：
+ * The time to retrieve a Snapshot is constant O(1), since the Snapshot is pre-aggregated and is independent of the window size.
+ * The space requirement (memory consumption) of this implementation should be O(n).
+ */
 public class FixedSizeSlidingWindowMetrics implements Metrics {
     
     int windowSize;
-    private Measurement totalAggregation;
+    
+    /**
+     * The count-based sliding window is implemented with a circular array of N measurements.
+     * If the count window size is 10, the circular array has always 10 measurements.
+     */
     private Measurement[] measurements;
-    // TODO
+    
+    /**
+     *  The sliding window incrementally updates a total aggregation. 
+     *  The total aggregation is updated when a new call outcome is recorded. 
+     */
+    private Measurement totalAggregation;
+    
+    // Measurement[] 环形数组的当前元素指针
     int headIndex;
     
     public FixedSizeSlidingWindowMetrics(int windowSize) {
@@ -41,10 +57,17 @@ public class FixedSizeSlidingWindowMetrics implements Metrics {
     public Snapshot getSnapshot() {
         return new SnapshotImpl(totalAggregation);
     }
-    
+
     private Measurement moveWindowByOne() {
         int newHeadIndex = moveHeadIndexByOne();
-        Measurement latestMeasurement = measurements[newHeadIndex]; 
+        Measurement latestMeasurement = measurements[newHeadIndex];
+
+        /**
+         *  When the oldest measurement is evicted, 
+         *  the measurement is subtracted from the total aggregation and the bucket is reset. 
+         *  (Subtract-on-Evict)
+         */
+        totalAggregation.removeBucket(latestMeasurement);
         latestMeasurement.reset();
         
         return latestMeasurement; 
