@@ -46,11 +46,12 @@ public class FixedSizeSlidingWindowMetrics implements Metrics {
     @Override
     public Snapshot record(long duration, TimeUnit durationUnit, Outcome outcome) {
         this.totalAggregation.record(duration, durationUnit, outcome);
+        
         Measurement latestMeasurement = moveWindowByOne();
         latestMeasurement.record(duration, durationUnit, outcome);
         
         printStatus();
-        return getSnapshot();
+        return new SnapshotImpl(totalAggregation);
     }
 
     @Override

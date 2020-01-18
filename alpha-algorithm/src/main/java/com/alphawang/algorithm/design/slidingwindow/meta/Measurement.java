@@ -44,7 +44,7 @@ public class Measurement {
 
     @Override
     public String toString() {
-        return String.format("failCount=%s, slowCount=%s, totalCount=%s, totalDuration=%s", 
-                             numberOfFailedCalls, numberOfSlowCalls, numberOfCalls, totalDurationInMillis);
+        return String.format("failCount=%s, totalCount=%s, totalDuration=%s", 
+                             numberOfFailedCalls, numberOfCalls, totalDurationInMillis);
     }
 }
