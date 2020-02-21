@@ -1,5 +1,7 @@
 package com.alphawang.jdk.regex;
 
+import static com.alphawang.jdk.regex.RegexFinder.find;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,12 +34,5 @@ public class RegexMode {
         find("abcdabbbcd", pattern_possessive);
     }
 
-    private static void find(String source, Pattern pattern) {
-        System.out.print("[Source] " + source + ", [Pattern] " + pattern + " : ");
-        Matcher matcher = pattern.matcher(source);
-        while (matcher.find()) {
-            System.out.print(matcher.group(0) + " ");
-        }
-        System.out.println();
-    }
+    
 }
