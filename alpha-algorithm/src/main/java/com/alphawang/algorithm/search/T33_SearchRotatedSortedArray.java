@@ -33,23 +33,10 @@ public class T33_SearchRotatedSortedArray {
     }
 
     private static int search(int[] nums, int target) {
-        int low = 0;
-        int high = nums.length - 1;
-        
-        // find smallest item
-        while (low < high) {
-            int mid = low + (high - low) / 2;
-            if (nums[mid] > nums[high]) {
-                low = mid + 1;
-            } else {
-                high = mid;
-            }
-        }
-        int smallest = high;
+        int smallest = findSmallestIndex(nums);
         int smallestValue = nums[smallest];
         
-        System.out.println(String.format("smallest item in %s: nums[%s]=%s ", 
-                                         Arrays.toString(nums), smallest, smallestValue));
+        System.out.println(String.format("smallest item in %s: nums[%s]=%s ", Arrays.toString(nums), smallest, smallestValue));
         // reset 
         if (nums[0] > target) {
             int index = BinarySearch.binarySearch(nums, smallest, nums.length - 1, target);
@@ -64,6 +51,23 @@ public class T33_SearchRotatedSortedArray {
         }
         
         return -1;
+    }
+    
+    private static int findSmallestIndex(int[] nums) {
+        int low = 0;
+        int high = nums.length - 1;
+
+        // find smallest item
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+            if (nums[mid] > nums[high]) {
+                low = mid + 1;
+            } else {
+                high = mid;
+            }
+        }
+        
+        return high;
     }
 
 }
