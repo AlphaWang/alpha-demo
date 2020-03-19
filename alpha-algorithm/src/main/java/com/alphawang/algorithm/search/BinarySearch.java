@@ -10,6 +10,14 @@ public class BinarySearch {
         System.out.println(binarySearch(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 8, 8 }, 8)); // 7
         System.out.println(binarySearch(new int[] { 1, 2, 3, 4, 5, 8, 8, 8, 11, 18 }, 8)); // 7
 
+        System.out.println("----------test Recursive:");
+        System.out.println(binarySearchRecursive(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, 10)); // 9
+        System.out.println(binarySearchRecursive(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, 3));  // 2
+        System.out.println(binarySearchRecursive(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, 11)); // -1
+
+        System.out.println(binarySearchRecursive(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 8, 8 }, 8)); // 7
+        System.out.println(binarySearchRecursive(new int[] { 1, 2, 3, 4, 5, 8, 8, 8, 11, 18 }, 8)); // 7
+
         /**
          * 求中点的方法
          */
@@ -23,10 +31,13 @@ public class BinarySearch {
         System.out.println(middle3);
     }
 
-    private static int binarySearch(int[] data, int target) {
+    public static int binarySearch(int[] data, int target) {
         int left = 0;
         int right = data.length - 1;
+        return binarySearch(data, left, right, target);
+    }
 
+    public static int binarySearch(int[] data, int left, int right, int target) {
         while (left <= right) {
             // 可能溢出！！
             // int middle = (l + r) / 2;
@@ -47,5 +58,28 @@ public class BinarySearch {
         }
 
         return -1;
+    }
+
+    public static int binarySearchRecursive(int[] data, int target) {
+        return binarySearchRecursive(data, 0, data.length - 1, target);
+    }
+    
+    
+    public static int binarySearchRecursive(int[] data, int low, int high, int target) {
+        if (low > high) {
+            return -1;
+        }
+        
+        int mid = low + (high - low) / 2;
+        if (data[mid] > target) {
+            high = mid - 1;
+            return binarySearchRecursive(data, low, high, target);
+        } else if (data[mid] < target) {
+            low = mid + 1;
+            return binarySearchRecursive(data, low, high, target);
+        } else {
+            return mid;
+        }
+        
     }
 }

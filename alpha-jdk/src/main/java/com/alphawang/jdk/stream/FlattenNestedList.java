@@ -16,10 +16,12 @@ public class FlattenNestedList {
 
         List<Item> items = Lists.newArrayList(new Item(tags1), new Item(tags2));
 
+        // 1. for each 添加
         List<String> flatList = new ArrayList<>();
         items.forEach(item -> flatList.addAll(item.getTags()));
         System.out.println(flatList);
 
+        // 2. flatMap
         List<String> flatList2 = items.stream()
             .flatMap(item -> item.getTags().stream())
             .collect(Collectors.toList());
