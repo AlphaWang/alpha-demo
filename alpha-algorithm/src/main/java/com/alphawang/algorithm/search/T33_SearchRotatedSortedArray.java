@@ -32,20 +32,25 @@ public class T33_SearchRotatedSortedArray {
         System.out.println(result);
     }
 
+    /**
+     * 1. 分割数组 + 二分搜索
+     */
     private static int search(int[] nums, int target) {
         int smallest = findSmallestIndex(nums);
         int smallestValue = nums[smallest];
         
         System.out.println(String.format("smallest item in %s: nums[%s]=%s ", Arrays.toString(nums), smallest, smallestValue));
-        // reset 
+        // 如果小于第一个，则搜索 [smallest, n] 
         if (nums[0] > target) {
             int index = BinarySearch.binarySearch(nums, smallest, nums.length - 1, target);
             return index;
         }
+        // 如果大于第一个，则搜索 [0, smallest-1] 
         if (nums[0] < target) {
             int index = BinarySearch.binarySearch(nums, 0, smallest - 1, target);
             return index;
         }
+        // 如果等于第一个，bingo
         if (nums[0] == target) {
             return 0;
         }
