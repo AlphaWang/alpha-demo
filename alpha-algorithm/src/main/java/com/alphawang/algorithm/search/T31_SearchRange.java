@@ -21,21 +21,16 @@ import java.util.Arrays;
 public class T31_SearchRange {
 
     public static void main(String[] args) {
-        int[] result = linearSearch(new int[]{5, 7, 7, 8, 8, 10}, 8);
-        System.out.println(Arrays.toString(result)); // [3, 4]
+//        linearSearch(new int[]{5, 7, 7, 8, 8, 10}, 8, new int[]{3, 4});
+//        linearSearch(new int[]{5, 7, 7, 8, 8, 10}, 6, new int[]{-1, -1});
 
-        result = linearSearch(new int[]{5, 7, 7, 8, 8, 10}, 6);
-        System.out.println(Arrays.toString(result)); // [-1, -1]
-
-        result = binarySearch(new int[]{5, 7, 7, 8, 8, 10}, 8);
-        System.out.println(Arrays.toString(result)); // [3, 4]
-
+        binarySearch(new int[]{5, 7, 7, 8, 8, 10}, 8, new int[]{3, 4});
     }
 
     /**
      * O(N)
      */
-    public static int[] linearSearch(int[] nums, int target) {
+    public static int[] linearSearch(int[] nums, int target, int[] expect) {
         int start = -1;
         int end = -1;
 
@@ -51,16 +46,25 @@ public class T31_SearchRange {
             }
         }
 
-        return new int[]{start, end};
+        int[] result = new int[]{start, end};
+        
+        System.out.println(String.format("Linear Search: %s in %s : [%s, %s]. ", target, Arrays.toString(nums), start, end));
+        System.out.println(Arrays.equals(result, expect) ? "PASS" : "FAILED");
+        
+        return result;
     }
 
     /**
      * O(logN)
      */
-    public static int[] binarySearch(int[] nums, int target) {
+    public static int[] binarySearch(int[] nums, int target, int[] expect) {
         int[] result = new int[2];
         result[0] = findFirst(nums, target);
         result[1] = findLast(nums, target);
+
+        System.out.print(String.format("Binary Search: %s in %s : %s. ", target, Arrays.toString(nums), Arrays.toString(result)));
+        System.out.println(Arrays.equals(result, expect) ? "PASS" : "FAILED");
+        
         return result;
     }
 
@@ -77,11 +81,15 @@ public class T31_SearchRange {
             System.out.println("loop-" + (i++));
             System.out.println(String.format("start=%s, mid=%s, end=%s. idx=%s", start, mid, end, idx));
             
+            // 在左侧
             if (nums[mid] >= target) {
                 end = mid - 1;
-            } else {
+            } 
+            // 在右侧
+            else {
                 start = mid + 1;
             }
+            
             if (nums[mid] == target) {
                 idx = mid;
             }
