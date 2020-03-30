@@ -25,6 +25,7 @@ public class T31_SearchRange {
 //        linearSearch(new int[]{5, 7, 7, 8, 8, 10}, 6, new int[]{-1, -1});
 
         binarySearch(new int[]{5, 7, 7, 8, 8, 10}, 8, new int[]{3, 4});
+        binarySearch(new int[]{5, 7, 7, 8, 8, 10}, 6, new int[]{-1, -1});
     }
 
     /**
@@ -81,18 +82,20 @@ public class T31_SearchRange {
             System.out.println("loop-" + (i++));
             System.out.println(String.format("start=%s, mid=%s, end=%s. idx=%s", start, mid, end, idx));
             
-            // 在左侧
-            if (nums[mid] >= target) {
+            // 相等 --> 往左找
+            if (nums[mid] == target) {
                 end = mid - 1;
+                idx = mid;
             } 
+            // 在左侧 
+            else if (nums[mid] > target) {
+                end = mid - 1; 
+            }
             // 在右侧
             else {
                 start = mid + 1;
             }
             
-            if (nums[mid] == target) {
-                idx = mid;
-            }
             System.out.println(String.format("start=%s, mid=%s, end=%s. idx=%s", start, mid, end, idx));
         }
 
@@ -112,14 +115,19 @@ public class T31_SearchRange {
             
             System.out.println("loop-" + (i++));
             System.out.println(String.format("start=%s, mid=%s, end=%s. idx=%s", start, mid, end, idx));
-            
-            if (nums[mid] <= target) {
-                start = mid + 1;
-            } else {
-                end = mid - 1;
-            }
+
+            // 相等 --> 往右找
             if (nums[mid] == target) {
+                start = mid + 1;
                 idx = mid;
+            } 
+            // 在右边
+            else if (nums[mid] < target) {
+                start = mid + 1;
+            }
+            // 在左边
+            else {
+                end = mid - 1;
             }
             System.out.println(String.format("start=%s, mid=%s, end=%s. idx=%s", start, mid, end, idx));
         }

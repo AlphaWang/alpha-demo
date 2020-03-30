@@ -1,5 +1,8 @@
 package com.alphawang.concurrency.c1_work.future;
 
+import static com.alphawang.concurrency.common.Printer.print;
+
+import com.alphawang.concurrency.common.Printer;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.CompletableFuture;
@@ -11,33 +14,45 @@ import java.util.function.BiFunction;
 @Slf4j
 public class CompletableFutureTest {
 
+    /**
+     * [pool-1-thread-1] - STEP 1: start async.
+     * [pool-1-thread-2] - STEP 2: start async.
+     * [pool-1-thread-1] - STEP 1: finish async.
+     * [pool-1-thread-2] - STEP 2: finish async.
+     * [ForkJoinPool.commonPool-worker-9] - STEP 3: combine
+     * 
+     * [main] - STEP 3 -- STEP 2
+     */
     public static void main(String[] args) {
-        log.error("Test");
+        System.out.println("Test");
         ExecutorService executorService = Executors.newFixedThreadPool(3);
 
         CompletableFuture<Void> f1 = CompletableFuture.runAsync(() -> {
-            log.warn("STEP 1: start async.");
+            print("STEP 1: start async.");
             sleep(500);
-            log.warn("STEP 1: finish async.");
+            print("STEP 1: finish async.");
         }, executorService);
 
         CompletableFuture<String> f2 = CompletableFuture.supplyAsync(() -> {
-            log.warn("STEP 2: start async.");
+            print("STEP 2: start async.");
             sleep(800);
-            log.warn("STEP 2: finish async.");
+            print("STEP 2: finish async.");
 
             return "STEP 2";
         }, executorService);
 
+        // 不指定线程池，则用 ForkJoinPool
         CompletableFuture<String> f3 = f1.thenCombineAsync(f2, new BiFunction<Void, String, String>() {
             @Override
             public String apply(Void aVoid, String s) {
-                log.warn("STEP 3: combine");
+                print("STEP 3: combine");
                 return "STEP 3 -- " + s;
             }
         });
+        
+        String response = f3.join();
 
-        log.warn("MAIN: " + f3.join());
+        print(response);
 
     }
 
