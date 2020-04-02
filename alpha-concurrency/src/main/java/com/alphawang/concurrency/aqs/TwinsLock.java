@@ -45,6 +45,11 @@ public class TwinsLock implements Lock {
             setState(count);
         }
 
+        /**
+         * 不能用 tryAcquire() ?
+         * 
+         * @return >= 0 时，获取成功
+         */
         @Override
         protected int tryAcquireShared(int acquires) {
             for (;;) {

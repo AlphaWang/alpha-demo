@@ -54,6 +54,8 @@ public class Mutex implements Lock {
 
         /**
          * 获取锁：当 state == 0 时允许
+         * 
+         * @return 是否获取成功
          */
         @Override
         protected boolean tryAcquire(int acquires) {
