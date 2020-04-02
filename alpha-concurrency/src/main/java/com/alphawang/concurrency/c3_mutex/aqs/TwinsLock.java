@@ -1,4 +1,4 @@
-package com.alphawang.concurrency.aqs;
+package com.alphawang.concurrency.c3_mutex.aqs;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.AbstractQueuedSynchronizer;

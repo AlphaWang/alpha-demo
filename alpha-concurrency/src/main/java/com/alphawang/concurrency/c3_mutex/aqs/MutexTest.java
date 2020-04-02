@@ -1,9 +1,8 @@
-package com.alphawang.concurrency.aqs;
+package com.alphawang.concurrency.c3_mutex.aqs;
 
 import com.alphawang.concurrency.common.Printer;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.IntStream;
 
 public class MutexTest {
