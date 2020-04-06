@@ -9,7 +9,7 @@ import org.springframework.web.socket.messaging.WebSocketStompClient;
 
 public class MyStompClient {
     
-    private static final String HOST = "ws://localhost:8080/spring-mvc-java/chat";
+    private static final String HOST = "ws://localhost:8080/greeting";
 
     public static void main(String[] args) {
         WebSocketClient client = new StandardWebSocketClient();

@@ -13,7 +13,10 @@ public class MyStompSessionHandler implements StompSessionHandler {
     public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
         System.out.println("---- New session connected : " + session.getSessionId());
         
-        session.subscribe("/topic/messages", this);
+//        session.subscribe("/topic/messages", this);
+        session.subscribe("/user/queue/errors", this);
+        session.subscribe("/user/queue/reply", this);
+        
         session.send("/app/chat", getSampleMessage());
 
         System.out.println("---- Sent msg to websocket server.");
@@ -22,12 +25,12 @@ public class MyStompSessionHandler implements StompSessionHandler {
     @Override
     public void handleException(StompSession session, StompCommand command, StompHeaders headers, byte[] payload,
                                 Throwable exception) {
-        System.err.println("EXCEPTION : " + exception);
+        System.err.println("---- EXCEPTION : " + exception);
     }
 
     @Override
     public void handleTransportError(StompSession session, Throwable exception) {
-        System.err.println("TRANSPORT ERROR : " + exception);
+        System.err.println("---- TRANSPORT ERROR : " + exception);
     }
 
     @Override
@@ -38,7 +41,7 @@ public class MyStompSessionHandler implements StompSessionHandler {
     @Override
     public void handleFrame(StompHeaders headers, Object payload) {
         Message msg = (Message) payload;
-        System.out.println("Received : " + msg);
+        System.out.println("---- Received : " + msg);
     }
 
     private Object getSampleMessage() {

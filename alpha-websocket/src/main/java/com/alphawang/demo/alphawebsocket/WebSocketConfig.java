@@ -1,5 +1,6 @@
 package com.alphawang.demo.alphawebsocket;
 
+import com.alphawang.demo.alphawebsocket.server.HttpHandshakeInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.AbstractWebSocketMessageBrokerConfigurer;
@@ -12,12 +13,14 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry broker) {
-        broker.enableSimpleBroker("/topic");
+        broker.enableSimpleBroker("/topic", "/queue");
         broker.setApplicationDestinationPrefixes("/app");
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry endpoint) {
-        endpoint.addEndpoint("/chat").withSockJS();
+        endpoint.addEndpoint("/greeting")
+                .addInterceptors(new HttpHandshakeInterceptor())
+                .withSockJS();
     }
 }

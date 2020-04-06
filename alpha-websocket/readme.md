@@ -27,13 +27,13 @@ either parties can share data.
 
 
 ## Reference
+https://www.devglan.com/spring-boot/spring-boot-websocket-example
+
 https://www.baeldung.com/websockets-spring
 https://github.com/eugenp/tutorials/blob/master/spring-websockets/
 
 https://www.baeldung.com/spring-websockets-send-message-to-user
 https://www.baeldung.com/spring-websockets-sendtouser
-
-https://www.devglan.com/spring-boot/spring-boot-websocket-example 
 
 
 
