@@ -1,6 +1,9 @@
 
 
 ## Concepts
+
+### WebSocket
+
 To communicate with the WebSocket server, 
 the client has to initiate the WebSocket connection by sending an HTTP request to a server with an Upgrade header set properly:
 
@@ -25,19 +28,24 @@ Once this process (also known as WebSocket handshake) is completed,
 the initial HTTP connection is replaced by WebSocket connection on top of same TCP/IP connection after which 
 either parties can share data.
 
+### Queue, Topic, Endpoint
+
+- `Topics` – common conversations or chat topics open to any client or user
+- `Queues` – reserved for specific users and their current sessions
+- `Endpoints` – generic endpoints
 
 ## Reference
-https://www.devglan.com/spring-boot/spring-boot-websocket-example
+- https://www.devglan.com/spring-boot/spring-boot-websocket-example
 
 https://www.baeldung.com/websockets-spring
 https://github.com/eugenp/tutorials/blob/master/spring-websockets/
 
-https://www.baeldung.com/spring-websockets-send-message-to-user
-https://www.baeldung.com/spring-websockets-sendtouser
+~~ https://www.baeldung.com/spring-websockets-send-message-to-user  
+~~ https://www.baeldung.com/spring-websockets-sendtouser
 
 
 
 CLIENT
-https://www.baeldung.com/websockets-api-java-spring-client
-http://www.programmingforliving.com/2013/08/jsr-356-java-api-for-websocket-client-api.html 
+- https://www.baeldung.com/websockets-api-java-spring-client
+- http://www.programmingforliving.com/2013/08/jsr-356-java-api-for-websocket-client-api.html 
 

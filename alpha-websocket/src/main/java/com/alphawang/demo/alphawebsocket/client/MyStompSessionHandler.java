@@ -14,7 +14,8 @@ public class MyStompSessionHandler implements StompSessionHandler {
         System.out.println("---- New session connected : " + session.getSessionId());
         
 //        session.subscribe("/topic/messages", this);
-        session.subscribe("/user/queue/errors", this);
+        
+//        session.subscribe("/user/queue/errors", this);
         session.subscribe("/user/queue/reply", this);
         
         session.send("/app/chat", getSampleMessage());

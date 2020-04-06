@@ -13,14 +13,21 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry broker) {
+        /**
+         * Set up a simple memory-based message broker 
+         * to carry the messages back to the client on destinations prefixed with “/topic” and “/queue”.
+         */
         broker.enableSimpleBroker("/topic", "/queue");
         broker.setApplicationDestinationPrefixes("/app");
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry endpoint) {
+        /**
+         * Registered stomp endpoints at “/greeting”.
+         */
         endpoint.addEndpoint("/greeting")
-                .addInterceptors(new HttpHandshakeInterceptor())
+//                .addInterceptors(new HttpHandshakeInterceptor())
                 .withSockJS();
     }
 }

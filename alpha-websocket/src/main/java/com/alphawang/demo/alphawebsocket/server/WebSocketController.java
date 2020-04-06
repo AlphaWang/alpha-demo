@@ -19,18 +19,39 @@ public class WebSocketController {
     
     @Autowired
     private SimpMessageSendingOperations messageOperations;
-    
+
+    /**
+     * @SendToUser annotation:
+     * 
+     * allows us to send a message to a user destination via “/user/{sessionId}/…” 
+     * rather than “/user/{user}/…“.
+     */
     @MessageMapping("/message")
     @SendToUser("/queue/reply")
     public String processMessageFromClient(@Payload String msg, Principal principal) {
         log.info("get message: " + msg);
 
-        String reply = "PRO_" +  msg;
+        String reply = "REP_" +  msg;
 //        messageOperations.convertAndSendToUser(principal.getName(), "/queue/reply", reply);
         
         return reply;
     }
-    
+
+    @MessageMapping("/greeting")
+    @SendToUser("/queue/reply")
+    public String processMessageFromClientGreetring(@Payload String msg, Principal principal) {
+        log.info("get message: " + msg);
+
+        String reply = "GREETING_" +  msg;
+//        messageOperations.convertAndSendToUser(principal.getName(), "/queue/reply", reply);
+
+        return reply;
+    }
+
+    /**
+     * @SendToUser points to “queue/errors” 
+     * but the message will be sent to “/user/queue/errors“.
+     */
     @MessageExceptionHandler
     @SendToUser("/queue/errors")
     public String handleException(Throwable exception) {
