@@ -1,5 +1,6 @@
 package com.alphawang.concurrency.c3_mutex.atomic;
 
+import com.alphawang.concurrency.common.Printer;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,13 +27,16 @@ public class AtomicReferenceFieldUpdaterTest {
         AtomicReferenceFieldUpdaterTest example = new AtomicReferenceFieldUpdaterTest();
 
         if (updater.compareAndSet(example, 100, 120)) {
-            log.info("update success 1#, {}", example.getCount());  //print 120
+            log.info("#1 update success, {}", example.getCount());  //print 120
         }
 
-        if (updater.compareAndSet(example, 100, 120)) {
-            log.info("update success 2#, {}", example.getCount());
+        if (updater.compareAndSet(example, 100, 130)) {
+            log.info("#2 update success, {}", example.getCount());
         } else {
-            log.info("update failed, {}", example.getCount()); //print 120
+            log.info("#2 update failed , {}", example.getCount()); //print 120
         }
+        
+        log.info("getAndIncrement 1: {}", updater.getAndIncrement(example));
+        log.info("getAndIncrement 2: {}", updater.getAndIncrement(example));
     }
 }
