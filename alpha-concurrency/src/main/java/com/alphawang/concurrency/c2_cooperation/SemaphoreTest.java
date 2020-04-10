@@ -14,6 +14,8 @@ import java.util.concurrent.atomic.LongAdder;
  * semaphore.tryAcquire(3000, TimeUnit.MILLISECONDS)
  * 如果获取不到信号量，则等待。
  * 如果等待超时，则丢弃本次请求。
+ * 
+ * 可用于控制同时访问特定资源的线程数
  */
 @Slf4j
 public class SemaphoreTest {
