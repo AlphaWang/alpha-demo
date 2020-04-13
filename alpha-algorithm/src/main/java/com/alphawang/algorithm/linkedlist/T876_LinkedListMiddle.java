@@ -8,7 +8,7 @@ public class T876_LinkedListMiddle {
      * Given a non-empty, singly linked list with head node head, return a middle node of linked list.
      */
 
-    public static ListNode middleNode(ListNode head) {
+    public static ListNode findMiddleByArray(ListNode head) {
         ListNode[] array = new ListNode[100];
 
         int i = 0;
@@ -19,7 +19,7 @@ public class T876_LinkedListMiddle {
         return array[i / 2];
     }
 
-    public static ListNode middleNode2(ListNode head) {
+    public static ListNode findMiddleBySlowFast(ListNode head) {
         ListNode slow = head;
         ListNode fast = head;
 
@@ -38,8 +38,8 @@ public class T876_LinkedListMiddle {
 
     private static void findMiddle(Integer... array1) {
         ListNode l1 = ListNodeCreator.create(array1);
-        System.out.println(middleNode(l1));
-        System.out.println(middleNode2(l1));
+        System.out.println(findMiddleByArray(l1));
+        System.out.println(findMiddleBySlowFast(l1));
         System.out.println("----");
     }
 }
