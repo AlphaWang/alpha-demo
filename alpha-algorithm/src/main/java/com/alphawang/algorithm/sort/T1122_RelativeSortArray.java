@@ -22,27 +22,27 @@ import java.util.Arrays;
  */
 public class T1122_RelativeSortArray {
 
-    public static void main(String[] args) {
-        print(relativeSort(new int[]{2,3,1,3,2,4,6,7,9,2,19}, new int[]{2,1,4,3,9,6}));
-        print(relativeSort(new int[]{1,2,3,4,5,6,7}, new int[]{2,7}));
-    }
-    
     private static int[] relativeSort(int[] arr1, int[] arr2) {
-        // arr1 中每个元素的出现次数
+        // 1. 遍历arr1：记录arr1 中每个元素的出现次数
         int[] count = new int[1001];
         for (int element1 : arr1) {
             count[element1]++;
         }
+
+        System.out.println("----arr1: " + Arrays.toString(arr1));
+        System.out.println("----arr1 count: " + Arrays.toString(count));
         
-        // 按 arr2排序
+        // 2. 遍历arr2：按 arr2排序
         int index = 0;
         for (int element2 : arr2) {
             while(count[element2]-- > 0) {
                 arr1[index++] = element2;
             }
         }
+
+        System.out.println("----by arr2: " + Arrays.toString(arr1));
         
-        // arr2 中未出现的元素
+        // 3. 遍历count: 处理 arr2 中未出现的元素
         for (int i = 0; i < count.length; i++) {
             if (count[i] > 0) {
                 while (count[i]-- > 0) {
@@ -52,6 +52,11 @@ public class T1122_RelativeSortArray {
         }
         
         return arr1;
+    }
+
+    public static void main(String[] args) {
+//        print(relativeSort(new int[]{2,3,1,3,2,4,6,7,9,2,19}, new int[]{2,1,4,3,9,6}));
+        print(relativeSort(new int[]{1,1,2,3,4,5,6,7}, new int[]{2,7}));
     }
     
     private static void print(int[] arr) {
