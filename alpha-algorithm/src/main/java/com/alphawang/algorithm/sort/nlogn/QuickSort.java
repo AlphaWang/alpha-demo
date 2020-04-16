@@ -37,7 +37,8 @@ public class QuickSort {
     /**
      * 分区
      * 
-     * 不占用额外空间，思路巧妙！
+     * 原地分区：不占用额外空间，思路巧妙！
+     * 如果不考虑原地，则可创建两个临时数组 再拷贝回原数组
      */
     private static int partition(int[] array, int start, int end) {
         // 选取 end 作为 pivot

@@ -18,6 +18,7 @@ public class Timestamp {
         printTime("2018-11-27 09:00:00");   // 1543244400 
         printTime("2018-11-27 09:10:00");   // 1543277400
 
+        //TODO java.lang.IllegalArgumentException: Illegal pattern character 't' 
         SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss +timezone");
         System.out.println(df2.parse("2011-11-07T16:28:44 +0000"));
     }

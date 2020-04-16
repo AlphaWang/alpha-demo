@@ -43,6 +43,7 @@ public class MergeSort {
     private static int[] merge(int[] arr1, int[] arr2) {
         int len1 = arr1.length;
         int len2 = arr2.length;
+        //TODO 如何消除额外空间？
         int[] tmp = new int[len1 + len2];
         
         int i = 0, j = 0, k = 0;
