@@ -1,4 +1,4 @@
-package com.alphawang.algorithm.sort;
+package com.alphawang.algorithm.sort.n2;
 
 import java.util.Arrays;
 
