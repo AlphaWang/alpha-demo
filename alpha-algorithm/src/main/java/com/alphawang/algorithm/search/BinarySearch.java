@@ -64,7 +64,6 @@ public class BinarySearch {
         return binarySearchRecursive(data, 0, data.length - 1, target);
     }
     
-    
     public static int binarySearchRecursive(int[] data, int low, int high, int target) {
         if (low > high) {
             return -1;
