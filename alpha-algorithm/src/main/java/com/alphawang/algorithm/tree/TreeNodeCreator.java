@@ -8,6 +8,10 @@ public class TreeNodeCreator {
         TreeNode[] nodes = new TreeNode[len+1];
         for (int i = 0; i < len; i++) {
             T value = values[i];
+            if (value == null) {
+                continue; 
+            }
+            
             int arrayIndex = i + 1;
             TreeNode node = new TreeNode(value);
             nodes[arrayIndex] = node;
@@ -27,10 +31,31 @@ public class TreeNodeCreator {
     }
 
     public static void main(String[] args) {
-        TreeNode node = createTree(1, 2, 3, 4, 5);
+        /**
+         *      1
+         *    / \
+         *   2  3
+         *  / \
+         * 4  5
+         */
+        print(createTree(1, 2, 3, 4, 5));
+        /**
+         *      3
+         *    / \
+         *   9  20
+         *     /  \
+         *    15   7
+         */
+        print(createTree(3,9,20,null,null,15,7));
+        
+    }
+    
+    private static void print(TreeNode node) {
+        System.out.println("----------");
         System.out.println(node.preOrder());
         System.out.println(node.inOrder());
         System.out.println(node.postOrder());
     }
+    
 
 }
