@@ -51,6 +51,9 @@ public class T33_SearchRotatedSortedArray {
 
     /**
      * 1. 分割数组 + 二分搜索
+     * 
+     * 1) 找到分界下标，分成两个有序数组
+     * 2) 判断目标值在哪个有序数据范围内，做二分查找
      */
     private static int search(int[] nums, int target) {
         int smallest = findSmallestIndex(nums);
@@ -75,6 +78,11 @@ public class T33_SearchRotatedSortedArray {
 
     /**
      * 2. real mid [HARD]
+     * 
+     *  1. 找到最大值的下标 x;
+     *  2. 所有元素下标 +x 偏移，超过数组范围值的取模;
+     *  3. 利用偏移后的下标做二分查找；
+     *  4. 如果找到目标下标，再作 -x 偏移，就是目标值实际下标。
      */
     private static int search2(int[] nums, int target) {
         int smallest = findSmallestIndex(nums);
@@ -180,9 +188,12 @@ public class T33_SearchRotatedSortedArray {
         // find smallest item
         while (low < high) {
             int mid = low + (high - low) / 2;
+            // 中间值 > 最右，找右边
             if (nums[mid] > nums[high]) {
                 low = mid + 1;
-            } else {
+            }
+            // 中间值 <= 最右，找左边
+            else {
                 high = mid;
             }
         }
