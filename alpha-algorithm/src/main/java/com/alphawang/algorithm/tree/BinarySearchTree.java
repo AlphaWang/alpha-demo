@@ -43,6 +43,73 @@ public class BinarySearchTree {
 
             T value = node.value;
             int compare = target.compareTo(value);
+            if (compare < 0) {
+                node = node.left;
+            } else if (compare > 0) {
+                node = node.right;
+            } else if (compare == 0) {
+                break;
+            }
+        }
+
+        System.out.println(String.format("Found %s in %s steps", target, step));
+        return node;
+    }
+
+    /**
+     * Insert a value into binary-search-tree
+     */
+    public static <T extends Comparable> TreeNode<T> insert(TreeNode<T> tree, T target) {
+        if (tree == null) {
+            return new TreeNode<>(target);
+        }
+        
+        TreeNode<T> node = tree;
+
+        int step = 0;
+        while (node != null) {
+            step++;
+
+            T value = node.value;
+            int compare = target.compareTo(value);
+            if (compare < 0) {
+                if (node.left == null) {
+                    TreeNode newNode = new TreeNode<>(target);
+                    node.setLeft(newNode);
+                    break;
+                }
+                
+                node = node.left;
+            } else if (compare > 0) {
+                if (node.right == null) {
+                    TreeNode newNode = new TreeNode<>(target);
+                    node.setRight(newNode);
+                    break;
+                }
+                
+                node = node.right;
+            } else if (compare == 0) {
+                System.out.println("-- Already have " + target);
+                break;
+            }
+        }
+
+        System.out.println(String.format("Insert %s in %s steps", target, step));
+        return tree;
+    }
+
+    /**
+     * Delete a value in binary-search-tree
+     */
+    public static <T extends Comparable> TreeNode<T> delete(TreeNode<T> tree, T target) {
+        TreeNode<T> node = tree;
+
+        int step = 0;
+        while (node != null) {
+            step++;
+
+            T value = node.value;
+            int compare = target.compareTo(value);
             if (compare == 0) {
                 break;
             } else if (compare < 0) {
@@ -63,6 +130,9 @@ public class BinarySearchTree {
         print(tree);
         System.out.println(find(tree, 8));
         System.out.println(find(tree, 0));
+        
+        print(insert(tree, 4));
+        print(insert(tree, 12));
     }
 
 
