@@ -1,5 +1,10 @@
 package com.alphawang.algorithm.tree;
 
+import static com.alphawang.algorithm.tree.TreeNodeTraversal.inOrder;
+import static com.alphawang.algorithm.tree.TreeNodeTraversal.postOrder;
+import static com.alphawang.algorithm.tree.TreeNodeTraversal.preOrder;
+import static com.alphawang.algorithm.tree.TreeNodeTraversal.print;
+
 public class TreeNodeCreator {
     
     public static <T> TreeNode<T> createTree(T... values) {
@@ -50,12 +55,7 @@ public class TreeNodeCreator {
         
     }
     
-    private static void print(TreeNode node) {
-        System.out.println("----------");
-        System.out.println(node.preOrder());
-        System.out.println(node.inOrder());
-        System.out.println(node.postOrder());
-    }
+
     
 
 }
