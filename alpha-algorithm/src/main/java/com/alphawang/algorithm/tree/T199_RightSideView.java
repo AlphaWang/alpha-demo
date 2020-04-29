@@ -31,9 +31,12 @@ public class T199_RightSideView {
      */
     public static List<Integer> rightSideViewByLevelTraverse(TreeNode<Integer> tree) {
         List<Integer> result = Lists.newArrayList();
+        if (tree == null) {
+            return result;
+        }
 
         Queue<TreeNode<Integer>> queue = new LinkedList<>();
-        queue.add(tree);
+        queue.offer(tree);
 
         while (!queue.isEmpty()) {
             int count = queue.size();
