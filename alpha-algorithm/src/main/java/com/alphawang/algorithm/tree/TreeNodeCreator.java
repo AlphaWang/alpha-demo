@@ -1,9 +1,7 @@
 package com.alphawang.algorithm.tree;
 
-import static com.alphawang.algorithm.tree.TreeNodeTraversal.inOrder;
-import static com.alphawang.algorithm.tree.TreeNodeTraversal.postOrder;
-import static com.alphawang.algorithm.tree.TreeNodeTraversal.preOrder;
-import static com.alphawang.algorithm.tree.TreeNodeTraversal.print;
+import static com.alphawang.algorithm.tree.TreeNodePrinter.print;
+import static com.alphawang.algorithm.tree.TreeNodeTraversal.traverse;
 
 public class TreeNodeCreator {
     
@@ -43,7 +41,9 @@ public class TreeNodeCreator {
          *  / \
          * 4  5
          */
-        print(createTree(1, 2, 3, 4, 5));
+        TreeNode tree = createTree(1, 2, 3, 4, 5);
+        traverse(tree);
+        print(tree);
         /**
          *      3
          *    / \
@@ -51,7 +51,9 @@ public class TreeNodeCreator {
          *     /  \
          *    15   7
          */
-        print(createTree(3,9,20,null,null,15,7));
+        tree = createTree(3, 9, 20, null, null, 15, 7);
+        traverse(tree);
+        print(tree);
         
     }
     

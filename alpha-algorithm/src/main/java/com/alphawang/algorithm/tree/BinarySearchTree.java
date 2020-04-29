@@ -1,6 +1,7 @@
 package com.alphawang.algorithm.tree;
 
-import static com.alphawang.algorithm.tree.TreeNodeTraversal.print;
+import static com.alphawang.algorithm.tree.TreeNodePrinter.print;
+import static com.alphawang.algorithm.tree.TreeNodeTraversal.traverse;
 
 public class BinarySearchTree {
 
@@ -121,11 +122,12 @@ public class BinarySearchTree {
         // 2. 当没有子节点，直接删除
         // 可以与 step-3 合并
         if (node.left == null && node.right == null) {
-            if (parent.right.equals(node)) {
+            if (node.equals(parent.right)) {
                 parent.right = null;
             } else {
                 parent.left = null;
             }
+            return;
         }
 
         // 3. 当有一个子节点，则把子节点 链接 到父节点
@@ -136,26 +138,59 @@ public class BinarySearchTree {
         if (node.right == null) {
             child = node.left;
         }
-        if (parent.right.equals(node)) {
-            parent.right = child;
-        } else {
-            parent.left = child;
+        if (child != null) {
+            if (node.equals(parent.right)) {
+                parent.right = child;
+            } else {
+                parent.left = child;
+            }
+            return;
         }
         
+        
         // 4. 当有两个子节点，找到右子树中的最小值，替换到当前节点；再删除最小值节点
-
+        // TODO bug: 当最小值有右子树时，右子树会被误删除
+        TreeNode<T> min = node.right;
+        TreeNode<T> minParent = node;
+        while (min.left != null) {
+            minParent = min;
+            min = min.left;
+        }
+        
+        node.value = min.value;
+        if (min.equals(minParent.left)) {
+            minParent.left = null;
+        }
+        if (min.equals(minParent.right)) {
+            minParent.right = null;
+        }
     }
 
 
     public static void main(String[] args) {
-        TreeNode tree = create(1, 2, 3, 4, 5, 6, 7, 8, 9);
+        TreeNode tree = create(1, 2, 3, 5, 6, 8, 9);
 
+        System.out.println("------- AS-IS ");
         print(tree);
         System.out.println(find(tree, 8));
         System.out.println(find(tree, 0));
-        
+
+        System.out.println("------- Insert 4: ");
         print(insert(tree, 4));
-        print(insert(tree, 12));
+        System.out.println("------- Insert 10: ");
+        print(insert(tree, 10));
+
+        System.out.println("------- Delete 4: ");
+        delete(tree, 4);
+        print(tree);
+
+        System.out.println("------- Delete 2: ");
+        delete(tree, 2);
+        print(tree);
+
+        System.out.println("------- Delete 8: ");
+        delete(tree, 8);
+        print(tree);
     }
 
 

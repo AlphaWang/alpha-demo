@@ -5,7 +5,7 @@ import java.util.List;
 
 public class TreeNodeTraversal {
 
-    public static void print(TreeNode node) {
+    public static void traverse(TreeNode node) {
         System.out.println("----------");
         System.out.println("pre :" + preOrder(node));
         System.out.println("in  :" + inOrder(node));
