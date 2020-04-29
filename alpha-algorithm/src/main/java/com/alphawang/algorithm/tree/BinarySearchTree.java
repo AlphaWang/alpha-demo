@@ -1,7 +1,6 @@
 package com.alphawang.algorithm.tree;
 
 import static com.alphawang.algorithm.tree.TreeNodePrinter.print;
-import static com.alphawang.algorithm.tree.TreeNodeTraversal.traverse;
 
 public class BinarySearchTree {
 
