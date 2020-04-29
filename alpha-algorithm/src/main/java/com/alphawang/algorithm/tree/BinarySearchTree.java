@@ -166,6 +166,72 @@ public class BinarySearchTree {
         }
     }
 
+    public static <T extends Comparable> void delete2(TreeNode<T> tree, T target) {
+        TreeNode<T> parent = null;
+        TreeNode<T> node = tree;
+
+        // 0. 找到待删除节点、以及父节点
+        while(node != null && !target.equals(node.value)) {
+            parent = node;
+            if (target.compareTo(node.value) < 0) {
+                node = node.left;
+            } else {
+                node = node.right;
+            }
+        }
+
+        if (node == null) {
+            System.out.println("---- Not Found " + target);
+        }
+
+
+        // 1. 当有两个子节点，找到右子树中的最小值，替换到当前节点；再删除最小值节点
+        if (node.left != null & node.right != null) {
+            TreeNode<T> min = node.right;
+            TreeNode<T> minParent = node;
+            while (min.left != null) {
+                minParent = min;
+                min = min.left;
+            }
+
+            node.value = min.value;
+            
+            //接下来 删除 min
+            node = min;
+            parent = minParent;
+        }
+       
+
+        // 2. 当没有子节点，直接删除
+        // 可以与 step-3 合并
+        if (node.left == null && node.right == null) {
+            if (node.equals(parent.right)) {
+                parent.right = null;
+            } else {
+                parent.left = null;
+            }
+            return;
+        }
+
+        // 3. 当有一个子节点，则把子节点 链接 到父节点
+        TreeNode<T> child = null;
+        if (node.left == null) {
+            child = node.right;
+        }
+        if (node.right == null) {
+            child = node.left;
+        }
+        if (child != null) {
+            if (node.equals(parent.right)) {
+                parent.right = child;
+            } else {
+                parent.left = child;
+            }
+            return;
+        }
+
+    }
+
 
     public static void main(String[] args) {
         TreeNode tree = create(1, 2, 3, 5, 6, 8, 9);
@@ -181,15 +247,15 @@ public class BinarySearchTree {
         print(insert(tree, 10));
 
         System.out.println("------- Delete 4: ");
-        delete(tree, 4);
+        delete2(tree, 4);
         print(tree);
 
         System.out.println("------- Delete 2: ");
-        delete(tree, 2);
+        delete2(tree, 2);
         print(tree);
 
         System.out.println("------- Delete 8: ");
-        delete(tree, 8);
+        delete2(tree, 8);
         print(tree);
     }
 
