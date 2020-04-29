@@ -25,7 +25,6 @@ public class BinarySearchTree {
         TreeNode<T> right = create(values, mid + 1, end);
         node.setLeft(left);
         node.setRight(right);
-
 //        System.out.println(String.format("-- [%s, %s] --> %s", start, end, mid));
 
         return node;
@@ -101,26 +100,50 @@ public class BinarySearchTree {
     /**
      * Delete a value in binary-search-tree
      */
-    public static <T extends Comparable> TreeNode<T> delete(TreeNode<T> tree, T target) {
+    public static <T extends Comparable> void delete(TreeNode<T> tree, T target) {
+        TreeNode<T> parent = null;
         TreeNode<T> node = tree;
-
-        int step = 0;
-        while (node != null) {
-            step++;
-
-            T value = node.value;
-            int compare = target.compareTo(value);
-            if (compare == 0) {
-                break;
-            } else if (compare < 0) {
+        
+        // 1. 找到待删除节点、以及父节点
+        while(node != null && !target.equals(node.value)) {
+            parent = node;
+            if (target.compareTo(node.value) < 0) {
                 node = node.left;
-            } else if (compare > 0) {
+            } else {
                 node = node.right;
             }
         }
+        
+        if (node == null) {
+            System.out.println("---- Not Found " + target);
+        }
+        
+        // 2. 当没有子节点，直接删除
+        // 可以与 step-3 合并
+        if (node.left == null && node.right == null) {
+            if (parent.right.equals(node)) {
+                parent.right = null;
+            } else {
+                parent.left = null;
+            }
+        }
 
-        System.out.println(String.format("Found %s in %s steps", target, step));
-        return node;
+        // 3. 当有一个子节点，则把子节点 链接 到父节点
+        TreeNode<T> child = null;
+        if (node.left == null) {
+            child = node.right;
+        }
+        if (node.right == null) {
+            child = node.left;
+        }
+        if (parent.right.equals(node)) {
+            parent.right = child;
+        } else {
+            parent.left = child;
+        }
+        
+        // 4. 当有两个子节点，找到右子树中的最小值，替换到当前节点；再删除最小值节点
+
     }
 
 
