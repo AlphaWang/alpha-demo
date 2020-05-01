@@ -3,8 +3,14 @@ package com.alphawang.algorithm.tree;
 import static com.alphawang.algorithm.tree.TreeNodePrinter.print;
 import static com.alphawang.algorithm.tree.TreeNodeTraversal.traverse;
 
+import java.util.Arrays;
+
 public class TreeNodeCreator {
-    
+
+    public static TreeNode<Integer> createTree(int[] values) {
+        Integer[] integers = Arrays.stream(values).boxed().toArray(Integer[]::new);
+        return createTree(integers);
+    }
     public static <T> TreeNode<T> createTree(T... values) {
         int len = values.length;
         
