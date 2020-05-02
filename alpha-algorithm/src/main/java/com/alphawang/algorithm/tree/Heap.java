@@ -1,5 +1,7 @@
 package com.alphawang.algorithm.tree;
 
+import static com.alphawang.algorithm.Utils.swap;
+
 import java.util.Arrays;
 
 public class Heap {
@@ -13,6 +15,12 @@ public class Heap {
         this.capacity = capacity;
         this.count = 0;
     }
+
+    public Heap(int[] array) {
+        this.array = array;
+        this.capacity = array.length - 1;
+        this.count = array.length - 1;
+    }
     
     public String toString() {
         return Arrays.toString(array);
@@ -23,6 +31,10 @@ public class Heap {
         TreeNode<Integer> tree = TreeNodeCreator.createTree(data);
         TreeNodePrinter.print(tree);
     }
+    
+    public int[] getArray() {
+        return array;
+    }
 
     /**
      * 插入
@@ -30,6 +42,9 @@ public class Heap {
      * 2. 依次与父节点比较、交换。从下往上堆化
      */
     public void insert(int data) {
+        if (data <= 0) {
+            return;
+        }
         if (count >= capacity) {
             System.out.println("---- exceed capacity " + capacity);
             return;
@@ -75,10 +90,43 @@ public class Heap {
     }
 
     /**
+     * 创建堆
+     * 
+     * 方法一：从前往后，逐个调用 insert()：从下往上堆化
+     * 
+     * 方法二：从后往前处理，从上往下堆化
+     * 
+     */
+    public static Heap buildHeap1(int[] array) {
+        System.out.println("build heap for " + Arrays.toString(array));
+        Heap heap = new Heap(array.length);
+        for (int i = 0; i < array.length; i++) {
+            heap.insert(array[i]);
+        }
+        
+        return heap;
+    }
+    
+    //TODO ?
+    public static Heap buildHeap2(int[] array) {
+        int[] newArray = new int[array.length + 1];
+        System.arraycopy(array, 0, newArray, 1, array.length);
+        System.out.println("build heap for " + Arrays.toString(newArray));
+        
+        
+        int count = newArray.length - 1;
+        for (int i = count / 2; i >= 1; i--) {
+            heapifyFromTop(newArray, count, i);
+        }
+        
+        return new Heap(newArray);
+    }
+
+    /**
      * 自下而上堆化：
      * 依次与父节点比较，交换
      */
-    private void heapifyFromBottom(int[] array, int fromIndex) {
+    public static void heapifyFromBottom(int[] array, int fromIndex) {
         int currentIndex = fromIndex;
         int parentIndex = currentIndex / 2;
 
@@ -96,7 +144,7 @@ public class Heap {
         }
     }
     
-    private void heapifyFromTop(int[] array, int count, int fromIndex) {
+    public static void heapifyFromTop(int[] array, int count, int fromIndex) {
         int currentIndex = fromIndex;
        
         while (currentIndex <= count) {
@@ -121,14 +169,6 @@ public class Heap {
         }
     }
     
-    private void swap(int[] array, int i, int j) {
-        int tmp = array[i];
-        array[i] = array[j];
-        array[j] = tmp;
-//        System.out.println(String.format("----- swap: %s - %s", i, j));
-    }
-    
-
     public static void main(String[] args) {
         Heap heap = new Heap(5);
         
@@ -146,7 +186,6 @@ public class Heap {
         heap.removeMax();
         heap.removeMax();
         heap.removeMax();
-        
         
     }
     
