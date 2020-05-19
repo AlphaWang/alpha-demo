@@ -3,23 +3,24 @@ package com.alphawang.concurrency.c2_cooperation.waitnotify;
 import java.util.LinkedList;
 
 public class WrongWaitDeadLock {
-    
+
     interface Stack {
         void push(Object x);
         Object pop() throws Exception;
     }
-    
+
     static class WrongWaitStack implements Stack {
+
         LinkedList list = new LinkedList();
 
         public synchronized void push(Object x) {
             System.out.println("++ enter push()");
-            synchronized(list) {
+            synchronized (list) {
                 System.out.println("++ synced list");
-                
-                list.addLast( x );
+
+                list.addLast(x);
                 System.out.println("++ added element");
-                
+
                 notify();
                 System.out.println("++ notified");
             }
@@ -27,33 +28,33 @@ public class WrongWaitDeadLock {
 
         public synchronized Object pop() throws InterruptedException {
             System.out.println("-- enter pop()");
-            synchronized(list) {
+            synchronized (list) {
                 System.out.println("-- synced list");
-                
-                if( list.size() <= 0 ) {
+
+                if (list.size() <= 0) {
                     System.out.println("-- start wait, size=" + list.size());
-                    wait();
+                    wait(); // release stack.lock, but not release list.lock
                     System.out.println("-- finished wait, size=" + list.size());
                 }
-                
-                
-                Object  o = list.removeLast();
+
+                Object o = list.removeLast();
                 System.out.println("-- pop " + o);
-                
+
                 return o;
             }
         }
     }
 
     static class CorrectWaitStack implements Stack {
+
         LinkedList list = new LinkedList();
 
         public synchronized void push(Object x) {
             System.out.println("++ enter push()");
 
-            list.addLast( x );
+            list.addLast(x);
             System.out.println("++ added element");
-    
+
             notify();
             System.out.println("++ notified");
         }
@@ -61,14 +62,13 @@ public class WrongWaitDeadLock {
         public synchronized Object pop() throws InterruptedException {
             System.out.println("-- enter pop()");
 
-            if( list.size() <= 0 ) {
+            if (list.size() <= 0) {
                 System.out.println("-- start wait, size=" + list.size());
                 wait();
                 System.out.println("-- finished wait, size=" + list.size());
             }
 
-
-            Object  o = list.removeLast();
+            Object o = list.removeLast();
             System.out.println("-- pop " + o);
 
             return o;
@@ -76,13 +76,12 @@ public class WrongWaitDeadLock {
     }
 
     private static void testPushPop(Stack stack) throws InterruptedException {
-        Thread pushThread = new Thread(() ->{
+        Thread pushThread = new Thread(() -> {
             stack.push("abc");
         }, "push-1");
         pushThread.start();
-        
-        
-        Thread popThread = new Thread(() ->{
+
+        Thread popThread = new Thread(() -> {
             try {
                 Object o = stack.pop();
                 System.out.println(o);
@@ -91,14 +90,14 @@ public class WrongWaitDeadLock {
             }
         }, "pop-1");
         popThread.start();
-        
+
         pushThread.join();
         popThread.join();
 
     }
-    
+
     private static void testPopPush(Stack stack) throws InterruptedException {
-        Thread popThread = new Thread(() ->{
+        Thread popThread = new Thread(() -> {
             try {
                 Object o = stack.pop();
                 System.out.println(o);
@@ -108,17 +107,15 @@ public class WrongWaitDeadLock {
         }, "pop-2");
         popThread.start();
 
-
-        Thread pushThread = new Thread(() ->{
+        Thread pushThread = new Thread(() -> {
             stack.push("abc");
         }, "push-2");
         pushThread.start();
-        
+
         popThread.join();
         pushThread.join();
     }
 
-   
 
     public static void main(String[] args) throws InterruptedException {
         /**
@@ -142,7 +139,7 @@ public class WrongWaitDeadLock {
          */
         testPopPush(new CorrectWaitStack());
         System.out.println("-------------");
-        
+
         /**
          * ++ enter push()
          * ++ synced list
@@ -159,9 +156,9 @@ public class WrongWaitDeadLock {
          * -- synced list
          * -- start wait, size=0
          * ++ enter push()
-         * 
+         *
          * 此时push() 等待 list.lock
-         * 
+         *
          * "push-1" #20 prio=5 os_prio=31 tid=0x00007fe052884800 nid=0x6403 waiting for monitor entry [0x000070000dc30000]
          *    java.lang.Thread.State: BLOCKED (on object monitor)
          * 	at com.alphawang.concurrency.c2_cooperation.waitnotify.WrongWaitDeadLock$WrongWaitStack.push(WrongWaitDeadLock.java:18)
@@ -184,6 +181,6 @@ public class WrongWaitDeadLock {
          * 	at java.lang.Thread.run(Thread.java:745)
          */
         testPopPush(new WrongWaitStack());
- 
+
     }
 }
