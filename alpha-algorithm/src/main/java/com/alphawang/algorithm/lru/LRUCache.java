@@ -20,16 +20,16 @@ public class LRUCache {
         cache.get(3);       // returns 3
         cache.get(4);       // returns 4
     }
-    
-    
+
     private final ConcurrentMap<Integer, Value> concurrentMap;
+    // 双向链表
     private final Node head = new Node();
     private final Node tail = new Node();
     private final int capacity;
     private int size = 0;
 
     private static class Value {
-        private int value;
+        private int value;  // value 可放到Node中？
         private Node node;
     }
 
@@ -46,6 +46,18 @@ public class LRUCache {
         this.tail.pre = this.head;
     }
 
+    /**
+     *    
+     * 思路：
+     *      int get(int key) {
+     *        if (key 不存在) {
+     *          return -1;
+     *        } else {
+     *          将数据 (key, val) 提到开头；
+     *          return val;
+     *        }
+     *      }
+     */
     public int get(int key) {
         Value value = concurrentMap.get(key);
         if (value == null) {
@@ -55,6 +67,7 @@ public class LRUCache {
         return value.value;
     }
 
+    // 将 node 放到header
     private void replaceNode(Value value, int key) {
         Node newNode = new Node();
         newNode.key = key;
@@ -76,6 +89,24 @@ public class LRUCache {
         }
     }
 
+    /**
+     * 思路：
+     * 
+     * void put(int key, int val) {
+     *     Node x = new Node(key, val);
+     *     if (key 已存在) {
+     *         把旧的数据删除；
+     *         将新节点 x 插入到开头；
+     *     } else {
+     *         if (cache 已满) {
+     *             删除链表的最后一个数据腾位置；
+     *             删除 map 中映射到该数据的键；
+     *         }
+     *         将新节点 x 插入到开头；
+     *         map 中新建 key 对新节点 x 的映射；
+     *     }
+     * }
+     */
     public void put(int key, int value) {
         Value value1 = new Value();
         value1.value = value;
@@ -83,6 +114,7 @@ public class LRUCache {
         Value pre = concurrentMap.putIfAbsent(key, value1);
         synchronized (this) {
             if (pre == null) {
+                // 如果是新元素，且超过容量，则删除 tail 元素
                 if (size >= capacity) {
                     // 移除值
                     concurrentMap.remove(tail.pre.key);
@@ -95,6 +127,7 @@ public class LRUCache {
                     size++;
                 }
 
+                // 新元素放入header
                 Node node = new Node();
                 node.key = key;
                 Node last = head.pre;

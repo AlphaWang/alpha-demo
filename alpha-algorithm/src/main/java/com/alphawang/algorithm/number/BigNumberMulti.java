@@ -1,4 +1,4 @@
-package com.alphawang.algorithm.bignumber;
+package com.alphawang.algorithm.number;
 
 /**
  * Created by Alpha on 12/11/17.

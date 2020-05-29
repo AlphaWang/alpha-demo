@@ -1,4 +1,4 @@
-package com.alphawang.algorithm.bignumber;
+package com.alphawang.algorithm.number;
 
 public class Interview {
 
