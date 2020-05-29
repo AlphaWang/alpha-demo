@@ -47,7 +47,6 @@ public class LRUCache {
     }
 
     /**
-     *    
      * 思路：
      *      int get(int key) {
      *        if (key 不存在) {
@@ -64,6 +63,10 @@ public class LRUCache {
             return -1;
         }
         replaceNode(value, key);
+
+        System.out.println("-- get " + key + " : " + value.value);
+        print();
+        
         return value.value;
     }
 
@@ -143,5 +146,18 @@ public class LRUCache {
                 replaceNode(value1, key);
             }
         }
+
+        System.out.println("++ put " + key + " : " +value);
+        print();
+    }
+
+
+    private void print() {
+        Node node = head;
+        while (node != null) {
+            System.out.print(node.key + " > ");
+            node = node.next;
+        }
+        System.out.println();
     }
 }
