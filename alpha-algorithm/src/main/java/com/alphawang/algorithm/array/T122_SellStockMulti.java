@@ -90,6 +90,20 @@ public class T122_SellStockMulti {
         return profit;
     }
 
+    /**
+     * 从第二天开始，如果当前价格比之前价格高，则把差值加入利润中
+     */
+    public static int maxProfit3(int[] nums) {
+       int profit = 0;
+       for (int i = 1; i < nums.length; i++) {
+           if (nums[i] > nums[i-1]) {
+               profit += nums[i] - nums[i-1];
+           }
+       }
+       
+       return profit;
+    }
+
     public static void main(String[] args) {
         printMaxProfit1(new int[] {7, 1, 5, 3, 6, 4}); //7
         printMaxProfit1(new int[] {1,2,3,4,5}); //4
@@ -98,6 +112,10 @@ public class T122_SellStockMulti {
         printMaxProfit2(new int[] {7, 1, 5, 3, 6, 4}); //7
         printMaxProfit2(new int[] {1,2,3,4,5}); //4
         printMaxProfit2(new int[] {7,6,4,3,1}); //0
+
+        printMaxProfit3(new int[] {7, 1, 5, 3, 6, 4}); //7
+        printMaxProfit3(new int[] {1,2,3,4,5}); //4
+        printMaxProfit3(new int[] {7,6,4,3,1}); //0
         
     }
     
@@ -107,6 +125,10 @@ public class T122_SellStockMulti {
 
     private static void printMaxProfit2(int[] nums) {
         System.out.println(String.format("%s -> %s", Arrays.toString(nums), maxProfit2(nums)));
+    }
+
+    private static void printMaxProfit3(int[] nums) {
+        System.out.println(String.format("%s -> %s", Arrays.toString(nums), maxProfit3(nums)));
     }
 
 }
