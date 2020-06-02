@@ -35,16 +35,16 @@ public class T142_LinkedListCycle2 {
     }
 
     public static void main(String[] args) {
-        ListNode node = ListNodeCreator.create(3, 2, 0, 4);
+        ListNode node = ListNodeCreator.create(3, 2, 0, 4, 5, 6, 7, 8, 9);
 
         ListNode toNode = null;
         ListNode fromNode = null;
         ListNode curr = node;
         while (curr != null) {
-            if (curr.getValue().equals(2)) {
+            if (curr.getValue().equals(7)) {
                 toNode = curr;
             }
-            if (curr.getValue().equals(4)) {
+            if (curr.getValue().equals(9)) {
                 fromNode = curr;
             }
 
