@@ -3,6 +3,11 @@ package com.alphawang.concurrency.c1_work.future;
 import static com.alphawang.concurrency.common.Printer.print;
 
 import com.alphawang.concurrency.common.Printer;
+import com.google.common.collect.Lists;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.CompletableFuture;
@@ -23,8 +28,15 @@ public class CompletableFutureTest {
      * 
      * [main] - STEP 3 -- STEP 2
      */
-    public static void main(String[] args) {
-        System.out.println("Test");
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        testParallel();
+        testParallel2();
+        testParallel3();
+//        testCombine();
+    }
+    
+    private static void testCombine() {
+        System.out.println("------testCombine");
         ExecutorService executorService = Executors.newFixedThreadPool(3);
 
         CompletableFuture<Void> f1 = CompletableFuture.runAsync(() -> {
@@ -49,13 +61,94 @@ public class CompletableFutureTest {
                 return "STEP 3 -- " + s;
             }
         });
-        
+
         String response = f3.join();
 
         print(response);
-
     }
 
+    private static void testParallel() throws ExecutionException, InterruptedException {
+        System.out.println("------testParallel");
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
+
+        CompletableFuture<String> f1 = CompletableFuture.supplyAsync(() -> {
+            print("STEP 1: start async.");
+            sleep(1000);
+            print("STEP 1: finish async.");
+            
+            return "STEP 1";
+        }, executorService);
+
+        CompletableFuture<String> f2 = CompletableFuture.supplyAsync(() -> {
+            print("STEP 2: start async.");
+            sleep(1000);
+            print("STEP 2: finish async.");
+
+            return "STEP 2";
+        }, executorService);
+
+        print(f1.get());
+        print(f2.get());
+    }
+
+
+    private static void testParallel2() throws ExecutionException, InterruptedException {
+        System.out.println("------testParallel2");
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
+
+        CompletableFuture<String> f1 = CompletableFuture.supplyAsync(() -> {
+            print("STEP 1: start async.");
+            sleep(1000);
+            print("STEP 1: finish async.");
+
+            return "STEP 1";
+        }, executorService)
+        .supplyAsync(() -> {
+            print("STEP 2: start async.");
+            sleep(1000);
+            print("STEP 2: finish async.");
+
+            return "STEP 2";
+        }, executorService);
+
+        print(f1.get());
+    }
+
+   
+    private static void testParallel3() throws ExecutionException, InterruptedException {
+        System.out.println("------testParallel3");
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
+
+        List<Integer> input = Lists.newArrayList(1, 2, 3, 4);
+
+        /**
+         * TODO: 实际是串行!
+         */
+        List<String> res = input.stream().map(i -> CompletableFuture.supplyAsync(() -> {
+            print("start async. " + i);
+            sleep(1000);
+            print("finish async. " + i);
+
+            return "STEP " + i;
+        }))
+        .map(CompletableFuture::join).collect(Collectors.toList());
+        print(res);
+
+        /**
+         * 这样才是并行
+         */
+        List<CompletableFuture<String>> res2 = input.stream().map(i -> CompletableFuture.supplyAsync(() -> {
+            print("start async2. " + i);
+            sleep(1000);
+            print("finish async2. " + i);
+
+            return "STEP " + i;
+        }))
+        .collect(Collectors.toList());
+        
+        print(res2.stream().map(CompletableFuture::join).collect(Collectors.toList()));
+    }
+    
     private static void sleep(int timeout) {
         try {
             TimeUnit.MILLISECONDS.sleep(timeout);
