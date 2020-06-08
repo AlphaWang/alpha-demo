@@ -13,6 +13,26 @@
 - 快速排序
 
 ## Array
+- [ ] 283: 移动零
+https://leetcode.com/problems/move-zeroes/
+  > 1. loop, count zero
+  > 2. new int[], loop
+  > 3. index     
+
+- [ ] 11: 盛水最多的容器 
+https://leetcode.com/problems/container-with-most-water/
+  > 1. 嵌套循环，枚举 left / right
+  > 2. 左右边界，向中间收敛
+
+- [ ] 70: 爬楼梯
+https://leetcode.com/problems/climbing-stairs/
+  > 找最近重复子问题，数学归纳法
+  > 如何走到第三级：从n-1走过来 + 从n-2级走过来
+  > 1. 斐波那契数列，递归 f(n) = f(n-1) + f(n-2) 
+  > 2. 优化：缓存，保存a[i]，或直接只保存最后三个数
+
+- [ ] 15: 三数之和
+https://leetcode.com/problems/3sum/
 
 - [ ] : 旋转数组最小值  
 https://leetcode.com/problems/find-minimum-in-rotated-sorted-array
@@ -154,13 +174,13 @@ https://leetcode.com/problems/valid-anagram/
 - [ ] 1: Two Sum   
 https://leetcode.com/problems/two-sum/
   > 1. 两重遍历 
-  > 2. 先遍历一遍，记录 Map<期望匹配值，index> 
+  > 2. 先遍历一遍，记录 Map<期望匹配值，index>；或记录 Map<元素值, index> 
 
-- [ ] 15: Three Sum  
+- [ ] 15: Three Sum *****  
 https://leetcode.com/problems/3sum/
-  > 1. 三重遍历
-  > 2. 先把数组放入Map；两重遍历，查询Map中是否有 -(a+b)    
-  > 3. 先排序；遍历，同时在后继元素中使用双指针
+  > 1. 暴力：三重遍历
+  > 2. Map：先把数组放入Map；两重遍历，查询Map中是否有 -(a+b)    
+  > 3. 双指针：先排序；遍历，同时在后继元素中使用双指针
 
 - [ ] 18: Four Sum   
 https://leetcode.com/problems/4sum/
@@ -267,6 +287,7 @@ https://leetcode.com/problems/generate-parentheses/
        a) 局部不合法，不再递归； 
        b) 保存leftUsed / rightUsed
 
+
 ### 二分查找
 - [ ] 69: 平方根 
 https://leetcode.com/problems/sqrtx/
@@ -278,9 +299,15 @@ https://leetcode.com/problems/valid-perfect-square/
 
 - [ ] 208: 实现字典树 
 https://leetcode.com/problems/implement-trie-prefix-tree/
- 
-- [ ] : 
+   
+- [ ] 79: 单词查找 
+https://leetcode.com/problems/word-search/
+
+- [ ] 212: 单词查找2
 https://leetcode.com/problems/word-search-ii/ 
+  > 1. DFS；缺点：对每个候选词都要重新计算
+  > 2. Trie: 把候选词构造成Trie树，对矩阵进行 DFS
+
 
 ### 剪枝
 
@@ -300,6 +327,13 @@ https://leetcode.com/problems/valid-sudoku/
 
 - [ ] 37: 数独 
 https://leetcode.com/problems/sudoku-solver/
+
+## 位运算
+
+1. https://leetcode.com/problems/number-of-1-bits/
+2. https://leetcode.com/problems/power-of-two/
+3. https://leetcode.com/problems/counting-bits/ 
+4. https://leetcode.com/problems/n-queens-ii/
 
 ## 贪心、动态规划
 - [ ] : 
