@@ -13,25 +13,25 @@
 - 快速排序
 
 ## Array
-- [ ] 283: 移动零
+- [ ] 283: 移动零 ****
 https://leetcode.com/problems/move-zeroes/
   > 1. loop, count zero
   > 2. new int[], loop
   > 3. index     
 
-- [ ] 11: 盛水最多的容器 
+- [ ] 11: 盛水最多的容器 **** 
 https://leetcode.com/problems/container-with-most-water/
   > 1. 嵌套循环，枚举 left / right
   > 2. 左右边界，向中间收敛
 
-- [ ] 70: 爬楼梯
+- [ ] 70: 爬楼梯 ****
 https://leetcode.com/problems/climbing-stairs/
   > 找最近重复子问题，数学归纳法
   > 如何走到第三级：从n-1走过来 + 从n-2级走过来
   > 1. 斐波那契数列，递归 f(n) = f(n-1) + f(n-2) 
   > 2. 优化：缓存，保存a[i]，或直接只保存最后三个数
 
-- [ ] 15: 三数之和
+- [ ] 15: 三数之和 *****
 https://leetcode.com/problems/3sum/
 
 - [ ] : 旋转数组最小值  
@@ -55,26 +55,27 @@ https://leetcode-cn.com/problems/subarray-sum-equals-k/
 
 ## LinkedList
 
-- [x] 206: reverse-linked-list   
+- [x] 206: reverse-linked-list ****  
 https://leetcode.com/problems/reverse-linked-list/ 
   > 1. 两个指针：pre/cur；  
   > 指针操作：cur.next = pre; pre = cur; cur后移 
 
-- [ ] 24: swap-nodes-in-pairs   
+- [ ] 24: swap-nodes-in-pairs ****  
 https://leetcode.com/problems/swap-nodes-in-pairs 
   > 1. 遍历：pre.next && pre.next.next；  
   > 指针操作：？
 
-- [ ] 25: reverse-nodes-in-k-group  
+- [ ] 25: reverse-nodes-in-k-group **** (H)
 https://leetcode.com/problems/reverse-nodes-in-k-group/
 
-- [x] 141: linked-list-cycle  
-https://leetcode.com/problems/linked-list-cycle
+- [x] 141: linked-list-cycle ****  
+  https://leetcode.com/problems/linked-list-cycle
+
   > 1. 暴力：限时循环，判断是否能走到null
   > 2. 遍历，Set 存储走过的节点
   > 3. 快慢指针，判断是否相交
 
-- [x] 142: linked-list-cycle-ii  
+- [x] 142: linked-list-cycle-ii ****  
 https://leetcode.com/problems/linked-list-cycle-ii
   > 1. 遍历，Set 存储走过的节点；如果当前节点在Set中已存在，则是环的入口
   > 1. 快慢指针，找到相交点；再用另外两个指针，分别指向头结点、相交点，同时往后遍历找到相交点即是入口。
@@ -94,17 +95,26 @@ https://leetcode.com/problems/merge-k-sorted-lists/
 
 ## Queue / Stack
 
-- [ ] 20: valid-parentheses  
+- [ ] 20: valid-parentheses **** (E) 
 https://leetcode.com/problems/valid-parentheses/
-  > 1. 栈。左括号入栈，右括号取栈顶，判断是否匹配。
-  >   tips: 用 Map<右括号，左括号> 方便验证是否匹配。
-  > 2. s.replace("()", "")，循环删除匹配的括号
- 
+  > 1. 暴力：
+        遍历，替换匹配的括号对；
+        或者replace("()", "")，循环删除匹配的括号；
+  > 2. 栈：最近相关性，类比洋葱
+  >     左括号入栈，右括号取栈顶，判断是否匹配。
+  >     tips: 用 Map<右括号，左括号> 方便验证是否匹配。
+
+扩展： 
   - 给定一个只包括 '('，')'的字符串，判断字符串是否有效。
   - 优化：提升空间复杂度，不用栈 --> 记录变量 ( 则 +1, ) 则 -1
   - 给定一个只包含 '(' 和 ')' 的字符串，找出最长的包含有效括号的子串的长度。
-   暴力解法：依次遍历
+      暴力解法：依次遍历
   - 优化：https://www.cnblogs.com/kubidemanong/p/11949244.html 
+  
+- [ ] 155: Min Stack **** (E)
+  https://leetcode.com/problems/min-stack/
+
+  > 1. 维护两个栈
 
 - [ ] 225: implement-stack-using-queues  
 https://leetcode.com/problems/implement-stack-using-queues/
@@ -115,11 +125,24 @@ https://leetcode.com/problems/implement-queue-using-stacks/
   > push(): 直接放入输入栈
   > pop(): 输出栈不为空，则pop输出栈；输出栈为空，则先将输入栈 导入到 输出栈，再pop输出栈
 
-- [ ] 239: sliding-window-maximum   
-https://leetcode.com/problems/sliding-window-maximum/
+- [ ] 84: 柱状图中的最大矩形 `*****` `H`
+https://leetcode.com/problems/largest-rectangle-in-histogram/
+  > 1. 暴力：两重循环，每次找最小高度
+  > 2. 暴力2：遍历，找到左右边界，area = height[i] * (right - left)
+  > 3. 栈：优化思路 左边界无需遍历寻找；遍历入栈，栈内元素从小到大排列，
+
+- [ ] 239: sliding-window-maximum `*****` `H`  
+  https://leetcode.com/problems/sliding-window-maximum/
+
   > 1. 暴力解法：循环找最大值，存入数组。
   > 2. 维护大顶堆。Q: 需要删除非堆顶元素  
   > 3. 维护一个双端队列。队列元素为下标，最左为当前最大值的下标。
+
+- [ ] 641: 设计循环双端队列 `*****` `M`
+https://leetcode.com/problems/design-circular-deque/
+
+- [ ] 42: 接雨水 `*****` ``
+https://leetcode.com/problems/trapping-rain-water/
 
 
 
@@ -170,7 +193,7 @@ https://leetcode.com/problems/valid-anagram/
   > 1. 先排序，再比较 
   > 2. Map 计数，比较Map是否相同
   > 3. int[26] 计数
-   
+  
 - [ ] 1: Two Sum   
 https://leetcode.com/problems/two-sum/
   > 1. 两重遍历 
@@ -206,7 +229,7 @@ public void recursion(level, param1, ...) {
   // reverse the current level status if needed
   reverseState(level);
 }
-```  
+```
 
 - [ ] 50: powx-n  
 https://leetcode.com/problems/powx-n/
@@ -239,7 +262,7 @@ dfs(node, visited) {
     if (!visited.contains(nextNode)) 
        dfs(nextNode, visited)
 }
-```   
+```
 
 - BFS：队列存储
 ```
@@ -299,7 +322,7 @@ https://leetcode.com/problems/valid-perfect-square/
 
 - [ ] 208: 实现字典树 
 https://leetcode.com/problems/implement-trie-prefix-tree/
-   
+
 - [ ] 79: 单词查找 
 https://leetcode.com/problems/word-search/
 
@@ -356,12 +379,14 @@ https://leetcode.com/problems/walking-robot-simulation/
 
 
 ## Java 数据结构操作
-PriorityQueue:
-- offer()
-- poll()
-- peak()
+Queue:
+- offer() / add()  
+- poll() / remove()
+- peek() / element() null / exception
 
 Deque
-- getFirst() / removeFirst()
-- getLast() / removeLast()
+- getFirst() / getLast()
+- removeFirst() / removeLast()  : exception
 - addLast() / addFirst()
+- pollFirst() / pollLast()   : null
+- offerFirst() / offerLast() 
