@@ -34,6 +34,10 @@ https://leetcode.com/problems/climbing-stairs/
 - [ ] 15: 三数之和 *****
 https://leetcode.com/problems/3sum/
 
+- [x] 26: 删除排序数组中的重复项 `****` `E`
+https://leetcode.com/problems/remove-duplicates-from-sorted-array/
+  > 遍历，双指针。碰到不相等的元素，则拷贝
+
 - [ ] : 旋转数组最小值  
 https://leetcode.com/problems/find-minimum-in-rotated-sorted-array
 
