@@ -13,31 +13,46 @@
 - 快速排序
 
 ## Array
-- [ ] 283: 移动零 ****
+- [x] 283: 移动零 `****` `E`
 https://leetcode.com/problems/move-zeroes/
-  > 1. loop, count zero
-  > 2. new int[], loop
-  > 3. index     
+  > 1: loop, count zero
+  > 2: new int[], loop
+  > 3: index，挪动非0元素    
 
-- [ ] 11: 盛水最多的容器 **** 
+- [ ] 11: 盛水最多的容器 `****` 
 https://leetcode.com/problems/container-with-most-water/
-  > 1. 嵌套循环，枚举 left / right
-  > 2. 左右边界，向中间收敛
+  > 1: 嵌套循环，枚举 left / right
+  > 2: 左右边界，向中间收敛
 
-- [ ] 70: 爬楼梯 ****
+- [ ] 70: 爬楼梯 `****`
 https://leetcode.com/problems/climbing-stairs/
   > 找最近重复子问题，数学归纳法
   > 如何走到第三级：从n-1走过来 + 从n-2级走过来
-  > 1. 斐波那契数列，递归 f(n) = f(n-1) + f(n-2) 
-  > 2. 优化：缓存，保存a[i]，或直接只保存最后三个数
+  > 1: 斐波那契数列，递归 f(n) = f(n-1) + f(n-2) 
+  > 2: 优化：缓存，保存a[i]，或直接只保存最后三个数
 
-- [ ] 15: 三数之和 *****
+- [ ] 15: 三数之和 `*****`
 https://leetcode.com/problems/3sum/
 
 - [x] 26: 删除排序数组中的重复项 `****` `E`
 https://leetcode.com/problems/remove-duplicates-from-sorted-array/
-  > 遍历，双指针。碰到不相等的元素，则拷贝
+  > 1: 开辟新数组，遍历原数组 并拷贝非重复元素到新数组
+  > 2: 双指针遍历。碰到不相等的元素，则拷贝到index+1指针处
 
+- [x] 189: 旋转数组 `****` `E`
+https://leetcode.com/problems/rotate-array/
+  > 1: 计算需要移动的步数，for steps, 从后往前遍历数组 移动元素
+  > 2: 使用额外数据，暂存头部（或尾部）待移动的元素，再依次移动
+  > 3: 使用额外数据，直接计算目标下标 `(k+i) % length`     
+  > 4: 三次翻转数组 ！ 
+  > 5: 环状替换 (?)
+
+- [x] 88: 合并有序数组 `*****` `E`
+https://leetcode.com/problems/merge-sorted-array/
+  > 1: 双指针从前往后遍历，如果nums1元素大，则往后挪动元素
+  > 2: 双指针从后往前遍历：从 m+n-1 --> 0
+  > 3: 双指针从后往前遍历：从 m-1 / n-1 --> 0 ，优化循环判断逻辑
+ 
 - [ ] : 旋转数组最小值  
 https://leetcode.com/problems/find-minimum-in-rotated-sorted-array
 
@@ -90,8 +105,10 @@ https://leetcode-cn.com/problems/insertion-sort-list/
 - [ ] 148: 排序链表 （归并）  
 https://leetcode-cn.com/problems/sort-list/
 
-- [x] 21: 合并两个有序的链表
+- [x] 21: 合并两个有序的链表 `*****` ``
 https://leetcode.com/problems/merge-two-sorted-lists/ 
+  > 1: 循环两个链表；最后处理剩余的
+  > 2: 递归
 
 - [ ] : 合并K个有序链表  
 https://leetcode.com/problems/merge-k-sorted-lists/
@@ -198,10 +215,10 @@ https://leetcode.com/problems/valid-anagram/
   > 2. Map 计数，比较Map是否相同
   > 3. int[26] 计数
   
-- [ ] 1: Two Sum   
+- [x] 1: Two Sum   
 https://leetcode.com/problems/two-sum/
-  > 1. 两重遍历 
-  > 2. 先遍历一遍，记录 Map<期望匹配值，index>；或记录 Map<元素值, index> 
+  > 1: 暴力解法：两重遍历 
+  > 2: 哈希：遍历一遍，记录 Map<期望匹配值，index>；或记录 Map<元素值, index> 
 
 - [ ] 15: Three Sum *****  
 https://leetcode.com/problems/3sum/
@@ -356,18 +373,35 @@ https://leetcode.com/problems/valid-sudoku/
 https://leetcode.com/problems/sudoku-solver/
 
 ## 位运算
+- [ ] 191: Number of 1 bits `***` `E`
+https://leetcode.com/problems/number-of-1-bits/
+  > 1: 枚举所有位数：不断右移 %2， 余数==1则count++ 
+  >    枚举所有位数：& mask(1), mask每次左移一位
+  > 2: x = x & (x-1) 清零最低位的1
 
-1. https://leetcode.com/problems/number-of-1-bits/
-2. https://leetcode.com/problems/power-of-two/
-3. https://leetcode.com/problems/counting-bits/ 
-4. https://leetcode.com/problems/n-queens-ii/
+- [ ] 231: Power of Two `***` `E`
+https://leetcode.com/problems/power-of-two/
+  > 1: 不断 mod 2, 测试是否能被2整除
+  > 2: 数学求 log2
+  > 3: 位运算：特点 最前面是1，后面全0：x & (x-1) == 0 
+
+- [ ] 338: Counting Bits `***` `M`
+https://leetcode.com/problems/counting-bits/ 
+  > 1: 遍历0~n, ?  
+  > 2: count[i] = count[i&(i-1)] + 1    
+  >    i&(i-1) : 清零最低位的1
+
+- [ ] :
+https://leetcode.com/problems/n-queens-ii/
+
+
 
 ## 贪心、动态规划
 - [ ] : 
 https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii
-  > 1. DFS: ？
-  > 2. 贪心：只要后一天价格比前一天高，则前一天买 后一天卖
-  > 3. DP: ？
+  > 1: DFS: ？
+  > 2: 贪心：只要后一天价格比前一天高，则前一天买 后一天卖
+  > 3: DP: ？
 
 - [ ] : 
 https://leetcode.com/problems/lemonade-change/
