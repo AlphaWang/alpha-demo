@@ -53,6 +53,11 @@ https://leetcode.com/problems/merge-sorted-array/
   > 2: 双指针从后往前遍历：从 m+n-1 --> 0
   > 3: 双指针从后往前遍历：从 m-1 / n-1 --> 0 ，优化循环判断逻辑
  
+- [x] 66: 加一
+https://leetcode.com/problems/plus-one/
+  > 从后往前遍历，逐个+1，加完如果>10，则返回
+  > 注意全9的情况，直接新建一个数组，首位为1，其余全0. （无需拷贝原始数组）
+ 
 - [ ] : 旋转数组最小值  
 https://leetcode.com/problems/find-minimum-in-rotated-sorted-array
 
