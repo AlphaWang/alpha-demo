@@ -166,7 +166,17 @@ https://leetcode.com/problems/largest-rectangle-in-histogram/
 
 - [x] 641: 设计循环双端队列 `*****` `M`
 https://leetcode.com/problems/design-circular-deque/
-
+  > 1: 链表
+  >
+  > 2: 数组，头尾指针 (浪费一个元素)
+  >    插入头：head = (head - 1 + capacity) % capacity;
+  >    插入尾：tail = (tail + 1) % capacity;
+  >    判空/满：head == tail / (tail + 1) % capacity == head
+  >
+  > 3: 数组，头指针+size （不浪费元素）
+  >    插入头：head = (head - 1 + capacity) % capacity;
+  >    插入尾：(head + size) % capacity
+  >    判空/满：size == 0 / size == capacity
 
 - [ ] 42: 接雨水 `*****` ``
 https://leetcode.com/problems/trapping-rain-water/
