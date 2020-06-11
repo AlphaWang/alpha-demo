@@ -121,7 +121,7 @@ https://leetcode.com/problems/merge-k-sorted-lists/
 
 ## Queue / Stack
 
-- [ ] 20: valid-parentheses **** (E) 
+- [ ] 20: valid-parentheses `****` `E` 
 https://leetcode.com/problems/valid-parentheses/
   > 1. 暴力：
         遍历，替换匹配的括号对；
@@ -137,7 +137,7 @@ https://leetcode.com/problems/valid-parentheses/
       暴力解法：依次遍历
   - 优化：https://www.cnblogs.com/kubidemanong/p/11949244.html 
   
-- [ ] 155: Min Stack **** (E)
+- [ ] 155: Min Stack `****` `E`
   https://leetcode.com/problems/min-stack/
 
   > 1. 维护两个栈
@@ -164,8 +164,9 @@ https://leetcode.com/problems/largest-rectangle-in-histogram/
   > 2. 维护大顶堆。Q: 需要删除非堆顶元素  
   > 3. 维护一个双端队列。队列元素为下标，最左为当前最大值的下标。
 
-- [ ] 641: 设计循环双端队列 `*****` `M`
+- [x] 641: 设计循环双端队列 `*****` `M`
 https://leetcode.com/problems/design-circular-deque/
+
 
 - [ ] 42: 接雨水 `*****` ``
 https://leetcode.com/problems/trapping-rain-water/
