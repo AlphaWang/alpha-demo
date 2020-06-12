@@ -12,8 +12,8 @@ public class TreeNodeTraversal {
         System.out.println("post:" + postOrder(node));
     }
     
-    public static <T> List<T> preOrder(TreeNode<T> tree) {
-        List<T> items = Lists.newArrayList();
+    public static List<Integer> preOrder(TreeNode tree) {
+        List<Integer> items = Lists.newArrayList();
         
         items.add(tree.val);
 
@@ -26,8 +26,8 @@ public class TreeNodeTraversal {
         return items;
     }
 
-    public static <T> List<T> inOrder(TreeNode<T> tree) {
-        List<T> items = Lists.newArrayList();
+    public static List<Integer> inOrder(TreeNode tree) {
+        List<Integer> items = Lists.newArrayList();
 
         if (tree.left != null) {
             items.addAll(inOrder(tree.left));
@@ -41,8 +41,8 @@ public class TreeNodeTraversal {
         return items;
     }
 
-    public static <T> List<T> postOrder(TreeNode<T> tree) {
-        List<T> items = Lists.newArrayList();
+    public static List<Integer> postOrder(TreeNode tree) {
+        List<Integer> items = Lists.newArrayList();
 
         if (tree.left != null) {
             items.addAll(postOrder(tree.left));

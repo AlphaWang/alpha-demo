@@ -12,7 +12,7 @@ public class T0094_BinaryTreeInorderTraversal {
         List<Integer> res = new ArrayList<>();
         if (root == null) return res;
         res.addAll(inorderTraversal(root.left));
-        res.add((Integer)root.val);
+        res.add(root.val);
         res.addAll(inorderTraversal(root.right));
         
        return res;
@@ -21,9 +21,9 @@ public class T0094_BinaryTreeInorderTraversal {
     /**
      * 2. 栈
      */
-    public List<Integer> inorderTraversal2(TreeNode root) {
-        
-    }
+//    public List<Integer> inorderTraversal2(TreeNode root) {
+//        
+//    }
 
     public static void main(String[] args) {
         T0094_BinaryTreeInorderTraversal sut = new T0094_BinaryTreeInorderTraversal();

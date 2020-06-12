@@ -1,19 +1,19 @@
 package com.alphawang.algorithm.tree;
 
-public class TreeNode<T> {
-    T val;
-    TreeNode<T> left;
-    TreeNode<T> right;
+public class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
     
-    public TreeNode(T val) {
+    public TreeNode(int val) {
          this.val = val;
     }
     
-    public void setLeft(TreeNode<T> left) {
+    public void setLeft(TreeNode left) {
         this.left = left;
     }
 
-    public void setRight(TreeNode<T> right) {
+    public void setRight(TreeNode right) {
         this.right = right;
     }
 

@@ -29,13 +29,13 @@ public class T199_RightSideView {
     /**
      * 1. from T102_LevelOrderTraversal
      */
-    public static List<Integer> rightSideViewByLevelTraverse(TreeNode<Integer> tree) {
+    public static List<Integer> rightSideViewByLevelTraverse(TreeNode tree) {
         List<Integer> result = Lists.newArrayList();
         if (tree == null) {
             return result;
         }
 
-        Queue<TreeNode<Integer>> queue = new LinkedList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(tree);
 
         while (!queue.isEmpty()) {
@@ -43,7 +43,7 @@ public class T199_RightSideView {
             Integer rightItem = null;
 
             for (int i = 0; i < count; i++) {
-                TreeNode<Integer> currentNode = queue.poll();
+                TreeNode currentNode = queue.poll();
                 rightItem = currentNode.val;
 
                 // put next level to queue
@@ -63,14 +63,14 @@ public class T199_RightSideView {
     /**
      * 2. //TODO
      */
-    public static List<Integer> rightSideViewByRecursion(TreeNode<Integer> tree) {
+    public static List<Integer> rightSideViewByRecursion(TreeNode tree) {
          List<Integer> result = Lists.newArrayList();
          rightView(tree, result, 0);
          
          return result;
     }
     
-    private static void rightView(TreeNode<Integer> node, List<Integer> result, int currDepth) {
+    private static void rightView(TreeNode node, List<Integer> result, int currDepth) {
         if (node == null) {
             return;
         }

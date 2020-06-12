@@ -7,16 +7,16 @@ import java.util.Arrays;
 
 public class TreeNodeCreator {
 
-    public static TreeNode<Integer> createTree(int[] values) {
+    public static TreeNode createTree(int[] values) {
         Integer[] integers = Arrays.stream(values).boxed().toArray(Integer[]::new);
         return createTree(integers);
     }
-    public static <T> TreeNode<T> createTree(T... values) {
+    public static TreeNode createTree(Integer... values) {
         int len = values.length;
         
         TreeNode[] nodes = new TreeNode[len+1];
         for (int i = 0; i < len; i++) {
-            T value = values[i];
+            Integer value = values[i];
             if (value == null) {
                 continue; 
             }

@@ -7,22 +7,22 @@ public class BinarySearchTree {
     /**
      * Create a binary-search-tree
      */
-    public static <T extends Comparable> TreeNode<T> create(T... values) {
+    public static TreeNode create(int... values) {
         return create(values, 0, values.length - 1);
     }
 
-    public static <T extends Comparable> TreeNode<T> create(T[] values, int start, int end) {
+    public static TreeNode create(int[] values, int start, int end) {
         if (start == end) {
-            return new TreeNode<>(values[start]);
+            return new TreeNode(values[start]);
         }
         if (start > end) {
             return null;
         }
 
         int mid = start + (end - start) / 2;
-        TreeNode<T> node = new TreeNode<>(values[mid]);
-        TreeNode<T> left = create(values, start, mid - 1);
-        TreeNode<T> right = create(values, mid + 1, end);
+        TreeNode node = new TreeNode(values[mid]);
+        TreeNode left = create(values, start, mid - 1);
+        TreeNode right = create(values, mid + 1, end);
         node.setLeft(left);
         node.setRight(right);
 //        System.out.println(String.format("-- [%s, %s] --> %s", start, end, mid));
@@ -33,15 +33,15 @@ public class BinarySearchTree {
     /**
      * Find a value in binary-search-tree
      */
-    public static <T extends Comparable> TreeNode<T> find(TreeNode<T> tree, T target) {
-        TreeNode<T> node = tree;
+    public static TreeNode find(TreeNode tree, int target) {
+        TreeNode node = tree;
 
         int step = 0;
         while (node != null) {
             step++;
 
-            T value = node.val;
-            int compare = target.compareTo(value);
+            int value = node.val;
+            int compare = target - value;
             if (compare < 0) {
                 node = node.left;
             } else if (compare > 0) {
@@ -58,22 +58,22 @@ public class BinarySearchTree {
     /**
      * Insert a value into binary-search-tree
      */
-    public static <T extends Comparable> TreeNode<T> insert(TreeNode<T> tree, T target) {
+    public static TreeNode insert(TreeNode tree, int target) {
         if (tree == null) {
-            return new TreeNode<>(target);
+            return new TreeNode(target);
         }
         
-        TreeNode<T> node = tree;
+        TreeNode node = tree;
 
         int step = 0;
         while (node != null) {
             step++;
 
-            T value = node.val;
-            int compare = target.compareTo(value);
+            int value = node.val;
+            int compare = target - value;
             if (compare < 0) {
                 if (node.left == null) {
-                    TreeNode newNode = new TreeNode<>(target);
+                    TreeNode newNode = new TreeNode(target);
                     node.setLeft(newNode);
                     break;
                 }
@@ -81,7 +81,7 @@ public class BinarySearchTree {
                 node = node.left;
             } else if (compare > 0) {
                 if (node.right == null) {
-                    TreeNode newNode = new TreeNode<>(target);
+                    TreeNode newNode = new TreeNode(target);
                     node.setRight(newNode);
                     break;
                 }
@@ -100,14 +100,14 @@ public class BinarySearchTree {
     /**
      * Delete a value in binary-search-tree
      */
-    public static <T extends Comparable> void delete(TreeNode<T> tree, T target) {
-        TreeNode<T> parent = null;
-        TreeNode<T> node = tree;
+    public static void delete(TreeNode tree, int target) {
+        TreeNode parent = null;
+        TreeNode node = tree;
         
         // 1. 找到待删除节点、以及父节点
-        while(node != null && !target.equals(node.val)) {
+        while(node != null && target != node.val) {
             parent = node;
-            if (target.compareTo(node.val) < 0) {
+            if (target < node.val) {
                 node = node.left;
             } else {
                 node = node.right;
@@ -130,7 +130,7 @@ public class BinarySearchTree {
         }
 
         // 3. 当有一个子节点，则把子节点 链接 到父节点
-        TreeNode<T> child = null;
+        TreeNode child = null;
         if (node.left == null) {
             child = node.right;
         }
@@ -149,8 +149,8 @@ public class BinarySearchTree {
         
         // 4. 当有两个子节点，找到右子树中的最小值，替换到当前节点；再删除最小值节点
         // TODO bug: 当最小值有右子树时，右子树会被误删除
-        TreeNode<T> min = node.right;
-        TreeNode<T> minParent = node;
+        TreeNode min = node.right;
+        TreeNode minParent = node;
         while (min.left != null) {
             minParent = min;
             min = min.left;
@@ -165,14 +165,14 @@ public class BinarySearchTree {
         }
     }
 
-    public static <T extends Comparable> void delete2(TreeNode<T> tree, T target) {
-        TreeNode<T> parent = null;
-        TreeNode<T> node = tree;
+    public static void delete2(TreeNode tree, int target) {
+        TreeNode parent = null;
+        TreeNode node = tree;
 
         // 0. 找到待删除节点、以及父节点
-        while(node != null && !target.equals(node.val)) {
+        while(node != null && target != node.val) {
             parent = node;
-            if (target.compareTo(node.val) < 0) {
+            if (target < node.val) {
                 node = node.left;
             } else {
                 node = node.right;
@@ -186,8 +186,8 @@ public class BinarySearchTree {
 
         // 1. 当有两个子节点，找到右子树中的最小值，替换到当前节点；再删除最小值节点
         if (node.left != null & node.right != null) {
-            TreeNode<T> min = node.right;
-            TreeNode<T> minParent = node;
+            TreeNode min = node.right;
+            TreeNode minParent = node;
             while (min.left != null) {
                 minParent = min;
                 min = min.left;
@@ -213,7 +213,7 @@ public class BinarySearchTree {
         }
 
         // 3. 当有一个子节点，则把子节点 链接 到父节点
-        TreeNode<T> child = null;
+        TreeNode child = null;
         if (node.left == null) {
             child = node.right;
         }

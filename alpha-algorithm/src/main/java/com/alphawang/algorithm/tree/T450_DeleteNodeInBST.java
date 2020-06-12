@@ -44,9 +44,9 @@ public class T450_DeleteNodeInBST {
      *    \   \
      *     4   7
      */
-    public static TreeNode<Integer> delete(TreeNode<Integer> tree, Integer target) {
-        TreeNode<Integer> parent = null;
-        TreeNode<Integer> node = tree;
+    public static TreeNode delete(TreeNode tree, Integer target) {
+        TreeNode parent = null;
+        TreeNode node = tree;
 
         // 0. 找到待删除节点、以及父节点
         while(node != null && !target.equals(node.val)) {
@@ -66,8 +66,8 @@ public class T450_DeleteNodeInBST {
 
         // 1. 当有两个子节点，找到右子树中的最小值，替换到当前节点；再删除最小值节点
         if (node.left != null & node.right != null) {
-            TreeNode<Integer> min = node.right;
-            TreeNode<Integer> minParent = node;
+            TreeNode min = node.right;
+            TreeNode minParent = node;
             while (min.left != null) {
                 minParent = min;
                 min = min.left;
@@ -97,7 +97,7 @@ public class T450_DeleteNodeInBST {
         }
 
         // 3. 当有一个子节点，则把子节点 链接 到父节点
-        TreeNode<Integer> child = null;
+        TreeNode child = null;
         if (node.left == null) {
             child = node.right;
         }
@@ -121,7 +121,7 @@ public class T450_DeleteNodeInBST {
     
     
     public static void main(String[] args) {
-        TreeNode<Integer> tree = TreeNodeCreator.createTree(5,3,6,2,4,null,7);
+        TreeNode tree = TreeNodeCreator.createTree(5,3,6,2,4,null,7);
         System.out.println("----------");
         TreeNodePrinter.print(tree);
         System.out.println("Delete 3:");

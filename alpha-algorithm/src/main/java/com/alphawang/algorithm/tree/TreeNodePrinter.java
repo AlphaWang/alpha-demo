@@ -6,13 +6,13 @@ import java.util.List;
 
 public class TreeNodePrinter {
     
-    public static <T extends Comparable<?>> void print(TreeNode<T> root) {
+    public static void print(TreeNode root) {
         int maxLevel = maxLevel(root);
 
         printNodeInternal(Collections.singletonList(root), 1, maxLevel);
     }
 
-    private static <T extends Comparable<?>> void printNodeInternal(List<TreeNode<T>> nodes, int level, int maxLevel) {
+    private static <T extends Comparable<?>> void printNodeInternal(List<TreeNode> nodes, int level, int maxLevel) {
         if (nodes.isEmpty() || isAllElementsNull(nodes))
             return;
 
@@ -23,8 +23,8 @@ public class TreeNodePrinter {
 
         printWhitespaces(firstSpaces);
 
-        List<TreeNode<T>> newNodes = new ArrayList<TreeNode<T>>();
-        for (TreeNode<T> node : nodes) {
+        List<TreeNode> newNodes = new ArrayList<TreeNode>();
+        for (TreeNode node : nodes) {
             if (node != null) {
                 System.out.print(node.val);
                 newNodes.add(node.left);
@@ -73,7 +73,7 @@ public class TreeNodePrinter {
             System.out.print(" ");
     }
 
-    private static <T extends Comparable<?>> int maxLevel(TreeNode<T> node) {
+    private static int maxLevel(TreeNode node) {
         if (node == null)
             return 0;
 

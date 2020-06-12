@@ -28,7 +28,7 @@ public class Heap {
     
     public void printTree() {
         int[] data = Arrays.copyOfRange(array, 1, array.length);
-        TreeNode<Integer> tree = TreeNodeCreator.createTree(data);
+        TreeNode tree = TreeNodeCreator.createTree(data);
         TreeNodePrinter.print(tree);
     }
     

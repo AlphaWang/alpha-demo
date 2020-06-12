@@ -28,10 +28,10 @@ public class T102_LevelOrderTraversal {
      * 
      */
     
-    public static List<List<Integer>> levelOrderTraverse(TreeNode<Integer> tree) {
+    public static List<List<Integer>> levelOrderTraverse(TreeNode tree) {
         List<List<Integer>> result = Lists.newArrayList();
 
-        Queue<TreeNode<Integer>> queue = new LinkedList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
         queue.add(tree);
         
         while (!queue.isEmpty()) {
@@ -39,7 +39,7 @@ public class T102_LevelOrderTraversal {
             List<Integer> currentLevelItems = Lists.newArrayList();
             
             for (int i = 0; i < count; i++) {
-                TreeNode<Integer> currentNode = queue.poll();
+                TreeNode currentNode = queue.poll();
                 currentLevelItems.add(currentNode.val);
                 
                 // put next level to queue
