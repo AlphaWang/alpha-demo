@@ -17,6 +17,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.BiFunction;
 
 @Slf4j
+/**
+ * https://www.jianshu.com/p/f9062567627f
+ */
 public class CompletableFutureTest {
 
     /**
@@ -137,7 +140,7 @@ public class CompletableFutureTest {
         /**
          * 这样才是并行
          */
-        List<CompletableFuture<String>> res2 = input.stream().map(i -> CompletableFuture.supplyAsync(() -> {
+        List<CompletableFuture<String>> futures = input.stream().map(i -> CompletableFuture.supplyAsync(() -> {
             print("start async2. " + i);
             sleep(1000);
             print("finish async2. " + i);
@@ -145,8 +148,9 @@ public class CompletableFutureTest {
             return "STEP " + i;
         }))
         .collect(Collectors.toList());
-        
-        print(res2.stream().map(CompletableFuture::join).collect(Collectors.toList()));
+
+        List<String> res2 = futures.stream().map(CompletableFuture::join).collect(Collectors.toList());
+        print(res2);
     }
     
     private static void sleep(int timeout) {

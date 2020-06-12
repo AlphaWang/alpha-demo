@@ -57,6 +57,13 @@ https://leetcode.com/problems/merge-sorted-array/
 https://leetcode.com/problems/plus-one/
   > 从后往前遍历，逐个+1，加完如果>10，则返回
   > 注意全9的情况，直接新建一个数组，首位为1，其余全0. （无需拷贝原始数组）
+
+- [x] 42: 接雨水 `*****` `H`
+https://leetcode.com/problems/trapping-rain-water/
+  > 1: 暴力：对每个元素，遍历2遍分别计算 leftMax/rightMax
+  > 2: DP： 双指针两次遍历，计算每个元素的 leftMax/rightMax，存入数组
+  > 3: DP优化：双指针夹逼
+  > 4: 栈：(?)
  
 - [ ] : 旋转数组最小值  
 https://leetcode.com/problems/find-minimum-in-rotated-sorted-array
@@ -75,6 +82,8 @@ https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/discuss/48
 - [ ] 560: 和为K的子数组
 https://leetcode-cn.com/problems/subarray-sum-equals-k/
 
+- [ ] 面试40: 最小的K个数 
+https://leetcode-cn.com/problems/zui-xiao-de-kge-shu-lcof/
 
 
 ## LinkedList
@@ -176,8 +185,6 @@ https://leetcode.com/problems/design-circular-deque/
   >    插入尾：(head + size) % capacity
   >    判空/满：size == 0 / size == capacity
 
-- [x] 42: 接雨水 `*****` `H`
-https://leetcode.com/problems/trapping-rain-water/
 
 
 
@@ -188,8 +195,9 @@ https://leetcode.com/problems/trapping-rain-water/
 - [ ] : 二叉树右视图  
 https://leetcode.com/problems/binary-tree-right-side-view/ 
 
-- [ ] : 二叉树中序遍历（stack）
+- [x] 94: 二叉树中序遍历 `*****` `M`
 https://leetcode.com/problems/binary-tree-inorder-traversal/
+
 
 - [ ] 98: 验证二叉搜索树
 https://leetcode.com/problems/validate-binary-search-tree 
@@ -223,18 +231,18 @@ https://leetcode.com/problems/kth-largest-element-in-an-array
 
 ## Hash
 
-- [ ] 242: Valid Anagram
+- [x] 242: Valid Anagram `*****` `E`
 https://leetcode.com/problems/valid-anagram/ 
   > 1: 先排序，再比较 
   > 2: Map 计数，比较Map是否相同
   > 3: int[26] 计数
   
-- [x] 1: Two Sum   
+- [x] 1: Two Sum `***` `E`  
 https://leetcode.com/problems/two-sum/
   > 1: 暴力解法：两重遍历 
   > 2: 哈希：遍历一遍，记录 Map<期望匹配值，index>；或记录 Map<元素值, index> 
 
-- [ ] 15: Three Sum *****  
+- [ ] 15: Three Sum `*****`  
 https://leetcode.com/problems/3sum/
   > 1: 暴力：三重遍历
   > 2: Map：先把数组放入Map；两重遍历，查询Map中是否有 -(a+b)    

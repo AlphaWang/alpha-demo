@@ -15,7 +15,7 @@ public class TreeNodeTraversal {
     public static <T> List<T> preOrder(TreeNode<T> tree) {
         List<T> items = Lists.newArrayList();
         
-        items.add(tree.value);
+        items.add(tree.val);
 
         if (tree.left != null) {
             items.addAll(preOrder(tree.left));
@@ -33,7 +33,7 @@ public class TreeNodeTraversal {
             items.addAll(inOrder(tree.left));
         }
         
-        items.add(tree.value);
+        items.add(tree.val);
         
         if (tree.right != null) {
             items.addAll(inOrder(tree.right));
@@ -52,7 +52,7 @@ public class TreeNodeTraversal {
             items.addAll(postOrder(tree.right));
         }
         
-        items.add(tree.value);
+        items.add(tree.val);
         
         return items;
     }

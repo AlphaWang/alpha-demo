@@ -49,9 +49,9 @@ public class T450_DeleteNodeInBST {
         TreeNode<Integer> node = tree;
 
         // 0. 找到待删除节点、以及父节点
-        while(node != null && !target.equals(node.value)) {
+        while(node != null && !target.equals(node.val)) {
             parent = node;
-            if (target.compareTo(node.value) < 0) {
+            if (target.compareTo(node.val) < 0) {
                 node = node.left;
             } else {
                 node = node.right;
@@ -73,7 +73,7 @@ public class T450_DeleteNodeInBST {
                 min = min.left;
             }
 
-            node.value = min.value;
+            node.val = min.val;
 
             //接下来 删除 min
             node = min;

@@ -1,12 +1,12 @@
 package com.alphawang.algorithm.tree;
 
 public class TreeNode<T> {
-    T value;
+    T val;
     TreeNode<T> left;
     TreeNode<T> right;
     
-    public TreeNode(T value) {
-         this.value = value;
+    public TreeNode(T val) {
+         this.val = val;
     }
     
     public void setLeft(TreeNode<T> left) {
@@ -19,7 +19,7 @@ public class TreeNode<T> {
 
     @Override
     public String toString() {
-        return String.valueOf(value);
+        return String.valueOf(val);
     }
     
 }

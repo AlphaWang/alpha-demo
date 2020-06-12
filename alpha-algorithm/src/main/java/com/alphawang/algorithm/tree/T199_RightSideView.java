@@ -44,7 +44,7 @@ public class T199_RightSideView {
 
             for (int i = 0; i < count; i++) {
                 TreeNode<Integer> currentNode = queue.poll();
-                rightItem = currentNode.value;
+                rightItem = currentNode.val;
 
                 // put next level to queue
                 if (currentNode.left != null) {
@@ -76,7 +76,7 @@ public class T199_RightSideView {
         }
         // 每层只放一个元素
         if (currDepth == result.size()) {
-            result.add(node.value);
+            result.add(node.val);
         }
         rightView(node.right, result, currDepth + 1);
         rightView(node.left, result, currDepth + 1);

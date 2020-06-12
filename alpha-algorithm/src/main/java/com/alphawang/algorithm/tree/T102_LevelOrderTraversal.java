@@ -40,7 +40,7 @@ public class T102_LevelOrderTraversal {
             
             for (int i = 0; i < count; i++) {
                 TreeNode<Integer> currentNode = queue.poll();
-                currentLevelItems.add(currentNode.value);
+                currentLevelItems.add(currentNode.val);
                 
                 // put next level to queue
                 if (currentNode.left != null) {
