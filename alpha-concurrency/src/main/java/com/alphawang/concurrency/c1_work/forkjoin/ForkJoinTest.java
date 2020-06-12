@@ -45,6 +45,9 @@ class CountTask extends RecursiveTask<Integer> {
         boolean canCompute = (end - start) <= THRESHOLD;
         // 任务足够小
         if (canCompute) {
+            if (3 > start && 3 < end) {
+                throw new RuntimeException("mock exception"); 
+            }
             for (int i = start; i <= end; i ++) {
                sum += i; 
             }
@@ -65,8 +68,23 @@ class CountTask extends RecursiveTask<Integer> {
             /**
              * Join
              */
+
+            if (leftTask.isCompletedAbnormally()) {
+                Printer.print(leftTask.getException());
+            }
+            if (rightTask.isCompletedAbnormally()) {
+                Printer.print(rightTask.getException());
+            }
+            
             int leftResult = leftTask.join();
             int rightResult = rightTask.join();
+
+            if (leftTask.isCompletedAbnormally()) {
+                Printer.print(leftTask.getException());
+            }
+            if (rightTask.isCompletedAbnormally()) {
+                Printer.print(rightTask.getException());
+            }
             
             sum = leftResult + rightResult;
         }
