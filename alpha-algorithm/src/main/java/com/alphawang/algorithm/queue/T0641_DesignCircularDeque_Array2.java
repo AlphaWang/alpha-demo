@@ -7,7 +7,10 @@ import java.util.Arrays;
  * Medium
  */
 public class T0641_DesignCircularDeque_Array2 {
-    
+
+    /**
+     * 头指针 + size
+     */
     int[] data;
     int capacity;
     int head;

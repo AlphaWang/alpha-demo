@@ -79,30 +79,29 @@ https://leetcode-cn.com/problems/subarray-sum-equals-k/
 
 ## LinkedList
 
-- [x] 206: reverse-linked-list ****  
+- [x] 206: reverse-linked-list `****`  
 https://leetcode.com/problems/reverse-linked-list/ 
-  > 1. 两个指针：pre/cur；  
+  > 1: 两个指针：pre/cur；  
   > 指针操作：cur.next = pre; pre = cur; cur后移 
 
-- [ ] 24: swap-nodes-in-pairs ****  
+- [ ] 24: swap-nodes-in-pairs `****`  
 https://leetcode.com/problems/swap-nodes-in-pairs 
-  > 1. 遍历：pre.next && pre.next.next；  
+  > 1: 遍历：pre.next && pre.next.next；  
   > 指针操作：？
 
-- [ ] 25: reverse-nodes-in-k-group **** (H)
+- [ ] 25: reverse-nodes-in-k-group `****` `H`
 https://leetcode.com/problems/reverse-nodes-in-k-group/
 
-- [x] 141: linked-list-cycle ****  
-  https://leetcode.com/problems/linked-list-cycle
-
-  > 1. 暴力：限时循环，判断是否能走到null
-  > 2. 遍历，Set 存储走过的节点
-  > 3. 快慢指针，判断是否相交
+- [x] 141: linked-list-cycle `****`  
+https://leetcode.com/problems/linked-list-cycle
+  > 1: 暴力：限时循环，判断是否能走到null
+  > 2: 遍历，Set 存储走过的节点
+  > 3: 快慢指针，判断是否相交
 
 - [x] 142: linked-list-cycle-ii ****  
 https://leetcode.com/problems/linked-list-cycle-ii
-  > 1. 遍历，Set 存储走过的节点；如果当前节点在Set中已存在，则是环的入口
-  > 1. 快慢指针，找到相交点；再用另外两个指针，分别指向头结点、相交点，同时往后遍历找到相交点即是入口。
+  > 1: 遍历，Set 存储走过的节点；如果当前节点在Set中已存在，则是环的入口
+  > 1: 快慢指针，找到相交点；再用另外两个指针，分别指向头结点、相交点，同时往后遍历找到相交点即是入口。
 
 - [ ] 147: 插入排序链表  
 https://leetcode-cn.com/problems/insertion-sort-list/
@@ -123,10 +122,10 @@ https://leetcode.com/problems/merge-k-sorted-lists/
 
 - [ ] 20: valid-parentheses `****` `E` 
 https://leetcode.com/problems/valid-parentheses/
-  > 1. 暴力：
-        遍历，替换匹配的括号对；
-        或者replace("()", "")，循环删除匹配的括号；
-  > 2. 栈：最近相关性，类比洋葱
+  > 1: 暴力：
+  >     遍历，替换匹配的括号对；
+  >     或者replace("()", "")，循环删除匹配的括号；
+  > 2: 栈：最近相关性，类比洋葱
   >     左括号入栈，右括号取栈顶，判断是否匹配。
   >     tips: 用 Map<右括号，左括号> 方便验证是否匹配。
 
@@ -138,31 +137,30 @@ https://leetcode.com/problems/valid-parentheses/
   - 优化：https://www.cnblogs.com/kubidemanong/p/11949244.html 
   
 - [ ] 155: Min Stack `****` `E`
-  https://leetcode.com/problems/min-stack/
-
-  > 1. 维护两个栈
+https://leetcode.com/problems/min-stack/
+  > 1: 维护两个栈
 
 - [ ] 225: implement-stack-using-queues  
 https://leetcode.com/problems/implement-stack-using-queues/
 
 - [ ] 232: implement-queue-using-stacks   
 https://leetcode.com/problems/implement-queue-using-stacks/
-  > 1. 两个Stack
+  > 1: 两个Stack
   > push(): 直接放入输入栈
   > pop(): 输出栈不为空，则pop输出栈；输出栈为空，则先将输入栈 导入到 输出栈，再pop输出栈
 
 - [ ] 84: 柱状图中的最大矩形 `*****` `H`
 https://leetcode.com/problems/largest-rectangle-in-histogram/
-  > 1. 暴力：两重循环，每次找最小高度
-  > 2. 暴力2：遍历，找到左右边界，area = height[i] * (right - left)
-  > 3. 栈：优化思路 左边界无需遍历寻找；遍历入栈，栈内元素从小到大排列，
+  > 1: 暴力：两重循环，每次找最小高度
+  > 2: 暴力2：遍历，找到左右边界，area = height[i] * (right - left)
+  > 3: 栈：优化思路 左边界无需遍历寻找；遍历入栈，栈内元素从小到大排列，
 
 - [ ] 239: sliding-window-maximum `*****` `H`  
   https://leetcode.com/problems/sliding-window-maximum/
 
-  > 1. 暴力解法：循环找最大值，存入数组。
-  > 2. 维护大顶堆。Q: 需要删除非堆顶元素  
-  > 3. 维护一个双端队列。队列元素为下标，最左为当前最大值的下标。
+  > 1: 暴力解法：循环找最大值，存入数组。
+  > 2: 维护大顶堆。Q: 需要删除非堆顶元素  
+  > 3: 维护一个双端队列。队列元素为下标，最左为当前最大值的下标。
 
 - [x] 641: 设计循环双端队列 `*****` `M`
 https://leetcode.com/problems/design-circular-deque/
@@ -178,7 +176,7 @@ https://leetcode.com/problems/design-circular-deque/
   >    插入尾：(head + size) % capacity
   >    判空/满：size == 0 / size == capacity
 
-- [ ] 42: 接雨水 `*****` ``
+- [x] 42: 接雨水 `*****` `H`
 https://leetcode.com/problems/trapping-rain-water/
 
 
@@ -195,26 +193,26 @@ https://leetcode.com/problems/binary-tree-inorder-traversal/
 
 - [ ] 98: 验证二叉搜索树
 https://leetcode.com/problems/validate-binary-search-tree 
-  > 1. 中序遍历，校验递增。优化：遍历过程中与前继节点值。
-  > 2. 递归 validate(node, min, max)，校验子树各节点值区间 (min, max)
+  > 1: 中序遍历，校验递增。优化：遍历过程中与前继节点值。
+  > 2: 递归 validate(node, min, max)，校验子树各节点值区间 (min, max)
 
 - [ ] 235: 二叉搜索树的最近公共祖先
 https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
-  > 1. 可用 236 的思路。
-  > 2. 如果p/q都大于 cur，则找右子树；如果 p/q 都小于cur，则找左子树；否则，cur即是祖先。
+  > 1: 可用 236 的思路。
+  > 2: 如果p/q都大于 cur，则找右子树；如果 p/q 都小于cur，则找左子树；否则，cur即是祖先。
 
 - [ ] 236: 二叉树的最近公共祖先  
 https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
-  > 1. 向上找 Path，找到两条 Path 的交汇点。
-  > 2. 递归 findPorQ(), 如果左右子树返回值都 != null，则当前节点是祖先。否则继续查找返回值 != null 的子树。 
+  > 1: 向上找 Path，找到两条 Path 的交汇点。
+  > 2: 递归 findPorQ(), 如果左右子树返回值都 != null，则当前节点是祖先。否则继续查找返回值 != null 的子树。 
 
 
 ## Heap  
 
 - [ ] 703: kth-largest-element-in-a-stream  
 https://leetcode.com/problems/kth-largest-element-in-a-stream/discuss/149050/Java-Priority-Queue
-  > 1. 维护最大K个元素，新元素进入并排序。 
-  > 2. 用小顶堆，保证size = K。如果新元素 > 顶，则调整：移除顶，新元素进入堆
+  > 1: 维护最大K个元素，新元素进入并排序。 
+  > 2: 用小顶堆，保证size = K。如果新元素 > 顶，则调整：移除顶，新元素进入堆
 
 - [ ] : 一个无序数组求第K大数  
 https://leetcode.com/problems/kth-largest-element-in-an-array
@@ -227,9 +225,9 @@ https://leetcode.com/problems/kth-largest-element-in-an-array
 
 - [ ] 242: Valid Anagram
 https://leetcode.com/problems/valid-anagram/ 
-  > 1. 先排序，再比较 
-  > 2. Map 计数，比较Map是否相同
-  > 3. int[26] 计数
+  > 1: 先排序，再比较 
+  > 2: Map 计数，比较Map是否相同
+  > 3: int[26] 计数
   
 - [x] 1: Two Sum   
 https://leetcode.com/problems/two-sum/
@@ -238,9 +236,9 @@ https://leetcode.com/problems/two-sum/
 
 - [ ] 15: Three Sum *****  
 https://leetcode.com/problems/3sum/
-  > 1. 暴力：三重遍历
-  > 2. Map：先把数组放入Map；两重遍历，查询Map中是否有 -(a+b)    
-  > 3. 双指针：先排序；遍历，同时在后继元素中使用双指针
+  > 1: 暴力：三重遍历
+  > 2: Map：先把数组放入Map；两重遍历，查询Map中是否有 -(a+b)    
+  > 3: 双指针：先排序；遍历，同时在后继元素中使用双指针
 
 - [ ] 18: Four Sum   
 https://leetcode.com/problems/4sum/
@@ -270,16 +268,16 @@ public void recursion(level, param1, ...) {
 
 - [ ] 50: powx-n  
 https://leetcode.com/problems/powx-n/
-  > 1. 调用库函数
-  > 2. 暴力：一层循环，逐个相乘
-  > 3. 分治：如果是偶数个 = y * y; 如果是奇数个 = y * y * x. (y = x的n/2方)
+  > 1: 调用库函数
+  > 2: 暴力：一层循环，逐个相乘
+  > 3: 分治：如果是偶数个 = y * y; 如果是奇数个 = y * y * x. (y = x的n/2方)
 
 - [ ] 169: 众数
 https://leetcode.com/problems/majority-element
-  > 1. 暴力: 遍历元素，再遍历求次数
-  > 2. Map: 遍历元素，放入map计数
-  > 3. 排序: 排序后遍历。--> 优化：排序后直接取最中间元素
-  > 4. 分治: 分别求左右众数，当 left == right --> left; 当left count > right count --> left
+  > 1: 暴力: 遍历元素，再遍历求次数
+  > 2: Map: 遍历元素，放入map计数
+  > 3: 排序: 排序后遍历。--> 优化：排序后直接取最中间元素
+  > 4: 分治: 分别求左右众数，当 left == right --> left; 当left count > right count --> left
 
 - [ ] https://leetcode.com/problems/maximum-subarray
 - [ ] https://leetcode.com/problems/valid-anagram
@@ -323,27 +321,27 @@ bfs(node, start, end) {
 
 - [ ] 102: 二叉树层次遍历
 https://leetcode.com/problems/binary-tree-level-order-traversal/
-  > 1. BFS: 队列如何保存层信息？ --> batch process (queue size)，不存层信息
-  > 2. DFS: 逐个放入结果二维数组。BFS 按行放，DFS 按列放。
+  > 1: BFS: 队列如何保存层信息？ --> batch process (queue size)，不存层信息
+  > 2: DFS: 逐个放入结果二维数组。BFS 按行放，DFS 按列放。
 
 - [ ] 104: 二叉树最大深度
 https://leetcode.com/problems/maximum-depth-of-binary-tree/
-  > 1. 递归：max(left, right) + 1
-  > 2. BFS: 按层遍历，扫到最后一层 
-  > 2. DFS: 遍历节点，记录深度；如果是叶子节点，则更新 min/max
+  > 1: 递归：max(left, right) + 1
+  > 2: BFS: 按层遍历，扫到最后一层 
+  > 2: DFS: 遍历节点，记录深度；如果是叶子节点，则更新 min/max
 
 
 - [ ] 111: 二叉树最小深度
 https://leetcode.com/problems/minimum-depth-of-binary-tree/
-  > 1. 递归：min(left, right) + 1 ，注意：没有left/right的情况
-  > 2. BFS: 按层遍历，如果碰到叶子节点，则找到最小值
-  > 2. DFS: 遍历节点，记录深度；如果是叶子节点，则更新 min/max
+  > 1: 递归：min(left, right) + 1 ，注意：没有left/right的情况
+  > 2: BFS: 按层遍历，如果碰到叶子节点，则找到最小值
+  > 2: DFS: 遍历节点，记录深度；如果是叶子节点，则更新 min/max
 
 - [ ] 22: generate-parentheses
 https://leetcode.com/problems/generate-parentheses/
-  > 1. 数学归纳法：n=1, 2, ...
-  > 2. 递归：构造2*n长度的数组，元素分别填入左右括号，validate
-  > 3. 改进2，剪枝：
+  > 1: 数学归纳法：n=1, 2, ...
+  > 2: 递归：构造2*n长度的数组，元素分别填入左右括号，validate
+  > 3: 改进2，剪枝：
        a) 局部不合法，不再递归； 
        b) 保存leftUsed / rightUsed
 
@@ -351,8 +349,8 @@ https://leetcode.com/problems/generate-parentheses/
 ### 二分查找
 - [ ] 69: 平方根 
 https://leetcode.com/problems/sqrtx/
-  > 1. 二分法，因为单调递增
-  > 2. 牛顿迭代法* 
+  > 1: 二分法，因为单调递增
+  > 2: 牛顿迭代法* 
 
 - [ ] : 
 https://leetcode.com/problems/valid-perfect-square/
@@ -365,25 +363,26 @@ https://leetcode.com/problems/word-search/
 
 - [ ] 212: 单词查找2
 https://leetcode.com/problems/word-search-ii/ 
-  > 1. DFS；缺点：对每个候选词都要重新计算
-  > 2. Trie: 把候选词构造成Trie树，对矩阵进行 DFS
+  > 1: DFS；缺点：对每个候选词都要重新计算
+  > 2: Trie: 把候选词构造成Trie树，对矩阵进行 DFS
 
 
 ### 剪枝
 
-- [ ] 51: N 皇后 
+- [ ] 51: N 皇后 `**` `H`
 https://leetcode.com/problems/n-queens/
-  > 1. 暴力
-  > 2. 剪枝：标记 行col[col]，撇pie[row+col]，捺na[row-col]
+  > 1: 暴力
+  > 2: 剪枝：标记 行col[col]，撇pie[row+col]，捺na[row-col]   
+  > 3: 位运算：判重记录二进制 col, pie, na (???)
 
-- [ ] 52:  
+- [ ] 52: N 皇后2 `**` `H` 
 https://leetcode.com/problems/n-queens-ii/
 
 - [ ] 36: 数独
 https://leetcode.com/problems/valid-sudoku/
-  > 1. Naive DFS
-  > 2. 加速：预处理 找出每个位置的可选数；按可选数个数排序；从选项少的开始
-  > 3. 高级数据结构：DancingLink
+  > 1: Naive DFS
+  > 2: 加速：预处理 找出每个位置的可选数；按可选数个数排序；从选项少的开始
+  > 3: 高级数据结构：DancingLink
 
 - [ ] 37: 数独 
 https://leetcode.com/problems/sudoku-solver/
@@ -412,7 +411,14 @@ https://leetcode.com/problems/n-queens-ii/
 
 
 
-## 贪心、动态规划
+## 贪心、动态规划    
+
+DP：
+1. 递归 + 记忆化 ==> 递推
+2. 状态的定义： opt[n]
+3. 状态转移方程：opt[n] = bestOf(opt[n-1], opt[n-2], ...)
+4. 最优子结构
+
 - [ ] : 
 https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii
   > 1: DFS: ？
@@ -428,6 +434,10 @@ https://leetcode.com/problems/assign-cookies/
 - [ ] : 
 https://leetcode.com/problems/walking-robot-simulation/
 
+- [ ] : 斐波那切数列
+  > 1: 递归 f(n) = f(n-1) + f(n - 2)
+  > 2: 动态规划：递归 + 记忆化, 缓存f(i)   
+  > 3: 动态规划2：从最小数开始算起，for 2~n
 
 
 
