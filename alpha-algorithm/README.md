@@ -13,23 +13,16 @@
 - 快速排序
 
 ## Array
-- [x] 283: 移动零 `****` `E`
+- [x] 283: 移动零 `****` `E`  
 https://leetcode.com/problems/move-zeroes/
-  > 1: loop, count zero
-  > 2: new int[], loop
+  > 1: loop, count zero  
+  > 2: new int[], loop  
   > 3: index，挪动非0元素    
 
 - [ ] 11: 盛水最多的容器 `****` 
 https://leetcode.com/problems/container-with-most-water/
-  > 1: 嵌套循环，枚举 left / right
+  > 1: 嵌套循环，枚举 left / right   
   > 2: 左右边界，向中间收敛
-
-- [ ] 70: 爬楼梯 `****`
-https://leetcode.com/problems/climbing-stairs/
-  > 找最近重复子问题，数学归纳法
-  > 如何走到第三级：从n-1走过来 + 从n-2级走过来
-  > 1: 斐波那契数列，递归 f(n) = f(n-1) + f(n-2) 
-  > 2: 优化：缓存，保存a[i]，或直接只保存最后三个数
 
 - [ ] 15: 三数之和 `*****`
 https://leetcode.com/problems/3sum/
@@ -80,11 +73,15 @@ https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/discuss/48
 - [ ] : 两个有序数组找中位数
 
 - [ ] 560: 和为K的子数组
-https://leetcode-cn.com/problems/subarray-sum-equals-k/
+https://leetcode.com/problems/subarray-sum-equals-k/
+
 
 - [ ] 面试40: 最小的K个数 
 https://leetcode-cn.com/problems/zui-xiao-de-kge-shu-lcof/
-
+  > 1: 堆
+  > 2: 排序
+  > 3: 计数排序
+  > 4: 快排思想 TODO
 
 ## LinkedList
 
@@ -195,8 +192,16 @@ https://leetcode.com/problems/design-circular-deque/
 - [ ] : 二叉树右视图  
 https://leetcode.com/problems/binary-tree-right-side-view/ 
 
-- [x] 94: 二叉树中序遍历 `*****` `M`
+- [x] 94: 二叉树中序遍历 `*****` `M`  
 https://leetcode.com/problems/binary-tree-inorder-traversal/
+  > 1: 递归  
+  > 2: 迭代，使用栈
+
+- [ ] 144: 二叉树前序遍历 `****` `M`
+https://leetcode.com/problems/binary-tree-preorder-traversal/
+
+- [ ] 145: 二叉树后序遍历 `****` `H`
+https://leetcode.com/problems/binary-tree-postorder-traversal/
 
 
 - [ ] 98: 验证二叉搜索树
@@ -279,6 +284,20 @@ https://leetcode.com/problems/powx-n/
   > 1: 调用库函数
   > 2: 暴力：一层循环，逐个相乘
   > 3: 分治：如果是偶数个 = y * y; 如果是奇数个 = y * y * x. (y = x的n/2方)
+``` 
+  r = power(a, n / 2);
+  return (n & 1) ? r * r * a : r * r;
+```
+  > 4: 迭代：
+```   
+  int res = 1, tmp = a;
+  while(n) {
+    if (n & 1 ) res *= tmp;  
+    n >>= 1;
+    tmp *= tmp;
+  }    
+  return res;
+```
 
 - [ ] 169: 众数
 https://leetcode.com/problems/majority-element
@@ -427,11 +446,72 @@ DP：
 3. 状态转移方程：opt[n] = bestOf(opt[n-1], opt[n-2], ...)
 4. 最优子结构
 
-- [ ] : 
-https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii
+- [ ] 70: 爬楼梯 `****`  
+https://leetcode.com/problems/climbing-stairs/
+  > 找最近重复子问题，数学归纳法。    
+  > 如何走到第n级：从n-1走过来 + 从n-2级走过来。   
+  > 1: 斐波那契数列，递归 f(n) = f(n-1) + f(n-2)。   
+  > 2: 优化：缓存，保存a[i]；或直接只保存最后三个数。  
+
+- [x] 120: 三角形最小路径和 `*****` `M`
+https://leetcode.com/problems/triangle/
+  > 1: 递归
+  > 2: 贪心，可能不是最优
+  > 3: DP，动态递归；
+  >    状态定义：dp[i, j]，从底走到(i, j) 路径和的最小值 
+  >    状态转移方程：dp[i, j] = min(dp[i+1, j], dp[i+1, j+1]) + triangle[i, j]
+  >    起始状态：dp[m-1, j] = triangle[m-1, j]
+  >    结果值：dp[0, 0]
+  >  两层循环： for i m-1 --> 0, for j   
+  >  优化：状态存储无需二维，只需一位数组存储当前层的min
+
+- [ ] 152: 乘积最大子数组 `****` `M`
+https://leetcode.com/problems/maximum-product-subarray/
+  > 1: 暴力，递归
+  > 2: DP，
+  >    状态定义：max[i]，存储从0走到i的max product
+  >             min[i]，存储从0走到i的min product(负的max)，以便处理后续的负值
+  >    状态转移方程：if a[i] >= 0, max[i] = max[i-1] * a[i], min[i] = min[i-1] * a[i]
+  >                else          max[i] = min[i-1] * a[i], min[i] = max[i-1] * a[i] 
+  >  空间优化：只存最近两次的max / min
+
+- [ ] : 股票买卖  
+121: https://leetcode.com/problems/best-time-to-buy-and-sell-stock/ `E`  
+122: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/ `E`  
+123: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/ `H`  
+188: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/ `H`  
+309: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/ `M`  
+714: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/ `M`  
   > 1: DFS: ？
   > 2: 贪心：只要后一天价格比前一天高，则前一天买 后一天卖
   > 3: DP: ？
+
+- [ ] 322: 零钱兑换 `*****` `M`
+https://leetcode.com/problems/coin-change/
+  > 1: 暴力，递归 ？  
+  > 2: 贪心，不最优，例如 [1,6,7] --> 30  
+  > 3: DP，类比爬楼梯问题  
+  >    状态：dp[i] 上到第i阶的最小步数  
+  >    方程：dp[i] = min(dp[i-coins[j]]) + 1
+
+- [ ] 72: 编辑距离 `***` `H`
+https://leetcode.com/problems/edit-distance/
+  > 1: 暴力，bfs + queue  
+  > 2: DP   
+  >    状态：`dp[i,j]` word1的前一个字符，替换为word2前j个字符，需要的最少步数   
+  >    方程：if w1[i] == w2[j], `dp[i,j] = dp[i-1,j-1]`;   
+            else,              `dp[i,j] = 1 + min(dp[i-1,j], dp[i,j-1], dp[i-1,j-1])`; //分别对应增/删/替换
+
+- [ ] 300: 最长上升子序列 `*****` `M`
+https://leetcode.com/problems/longest-increasing-subsequence/
+  > 1: 暴力，2N次方  
+  > 2: DP，N平方 
+  >    状态：`dp[i]` 从头到i的最长子序列长度  
+  >    方程：for i 0-->n-1, j 0-->i-1, if a[j]<a[i] `dp[i] = max(dp[j]) + 1`
+  > 
+  > 3: 二分法，优化第二层循环，N(logN)
+  >    维护数组LIS; 遍历数组，if a[i] > LIS[max], 插入LIS尾部; 否则，替换LIS中最早>a[i]的元素   
+  > 
 
 - [ ] : 
 https://leetcode.com/problems/lemonade-change/

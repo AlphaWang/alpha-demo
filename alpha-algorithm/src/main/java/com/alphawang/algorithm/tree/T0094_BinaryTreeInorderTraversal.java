@@ -55,9 +55,11 @@ public class T0094_BinaryTreeInorderTraversal {
                 curr = curr.left;
             }
             
+            //处理左节点
             curr = stack.pop();
+            //处理根节点
             res.add(curr.val);
-            
+            // 处理右节点
             curr = curr.right;
         }
         
