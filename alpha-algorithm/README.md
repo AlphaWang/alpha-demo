@@ -208,7 +208,8 @@ https://leetcode.com/problems/n-ary-tree-level-order-traversal/
 
 - [x] 589: N叉树前序遍历 `*****` `E`
 https://leetcode.com/problems/n-ary-tree-preorder-traversal/
-  >
+  > 1: 递归
+  > 2: 栈：倒序遍历子节点，入栈 
 
 - [ ] 590: N叉树后序遍历
 https://leetcode.com/problems/n-ary-tree-postorder-traversal/
