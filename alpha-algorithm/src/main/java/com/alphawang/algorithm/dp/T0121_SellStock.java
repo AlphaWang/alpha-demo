@@ -1,4 +1,4 @@
-package com.alphawang.algorithm.array;
+package com.alphawang.algorithm.dp;
 
 import java.util.Arrays;
 
@@ -25,19 +25,25 @@ import java.util.Arrays;
  * 解释: 在这种情况下, 没有交易完成, 所以最大利润为 0。
  * 
  */
-public class T121_SellStock {
-    
-    public static int maxProfit(int[] nums) {
-        int minPrice = nums[0];
+public class T0121_SellStock {
+
+    /**
+     * 1. 一次遍历；记录最小值，后续与最小值比较
+     *    1 ms
+     */
+    public static int maxProfit(int[] prices) {
+        if (prices == null || prices.length == 0) 
+            return 0;
+        int minPrice = prices[0];
         int maxProfit = 0;
         
-        for (int i = 1; i < nums.length; i++) {
-            if (nums[i] < minPrice) {
-                minPrice = nums[i];
+        for (int i = 1; i < prices.length; i++) {
+            if (prices[i] < minPrice) {
+                minPrice = prices[i];
                 continue;
             } 
             
-            int profit = nums[i] - minPrice;
+            int profit = prices[i] - minPrice;
             maxProfit = Math.max(maxProfit, profit);
         }
         
@@ -49,6 +55,9 @@ public class T121_SellStock {
         System.out.println(String.format("%s -> %s", Arrays.toString(nums), maxProfit(nums)));
 
         nums = new int[] {7,6,4,3,1}; //0
+        System.out.println(String.format("%s -> %s", Arrays.toString(nums), maxProfit(nums)));
+
+        nums = new int[] {}; //0
         System.out.println(String.format("%s -> %s", Arrays.toString(nums), maxProfit(nums)));
 
     }

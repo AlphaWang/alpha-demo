@@ -1,4 +1,4 @@
-package com.alphawang.algorithm.array;
+package com.alphawang.algorithm.dp;
 
 import java.util.Arrays;
 
@@ -37,22 +37,31 @@ import java.util.Arrays;
  * 1 <= prices.length <= 3 * 10 ^ 4
  * 0 <= prices[i] <= 10 ^ 4
  */
-public class T122_SellStockMulti {
-    
-    public static int maxProfit(int[] nums) {
+public class T0122_SellStockMulti {
+
+    /**
+     * 1. 找波峰、波谷 
+     */
+    public static int maxProfit(int[] prices) {
+        if (prices == null || prices.length == 0)
+            return 0;
+        
         int lowPrice = -1;
         
         int profit = 0;
-        for (int i = 0; i < nums.length; i++) {
-            if (i < nums.length - 1 && nums[i] < nums[i+1] && (i == 0 || nums[i] < nums[i - 1]) ) {
-                lowPrice = nums[i];
+        for (int i = 0; i < prices.length; i++) {
+            // 找波谷
+            if (i < prices.length - 1 && prices[i] < prices[i+1] && (i == 0 || prices[i] < prices[i - 1]) ) {
+                lowPrice = prices[i];
                 continue;
             }
 
-            if (i > 0 && nums[i] > nums[i - 1] && (i == nums.length - 1 || nums[i] > nums[i+1])) {
-                if (lowPrice > 0 && nums[i] > lowPrice) {
-                    profit += nums[i] - lowPrice;
-                    System.out.println(String.format("buy = %s, sell = %s", lowPrice, nums[i]));
+            // 找波峰
+            if (i > 0 && prices[i] > prices[i - 1] && (i == prices.length - 1 || prices[i] > prices[i+1])) {
+                if (lowPrice > 0 && prices[i] > lowPrice) {
+                    //找到波峰，记录收益
+                    profit += prices[i] - lowPrice;
+                    System.out.println(String.format("buy = %s, sell = %s", lowPrice, prices[i]));
                     lowPrice = -1;
                 }
             }
@@ -63,26 +72,28 @@ public class T122_SellStockMulti {
     }
 
     /**
-     * 先找到波谷，再往后找到波峰
+     * 2. 找波峰、波谷，while
+     *    1 ms
      */
-    public static int maxProfit2(int[] nums) {
-        int valley = nums[0];
-        int peak = nums[0];
+    public static int maxProfit2(int[] prices) {
+        if (prices == null || prices.length == 0)
+            return 0;
+        
+        int valley = prices[0];
+        int peak = prices[0];
 
         int profit = 0;
-//        int i = 0;
-//        while (i < nums.length - 1) {
-        for (int i = 0; i < nums.length; i++) {
+        for (int i = 0; i < prices.length; i++) {
             // 找波谷
-            while (i < nums.length - 1 && nums[i] >= nums[i + 1]) {
+            while (i < prices.length - 1 && prices[i] >= prices[i + 1]) {
                 i++;
             }
-            valley = nums[i];
+            valley = prices[i];
             // 找波峰
-            while (i < nums.length - 1 && nums[i] <= nums[i +1]) {
+            while (i < prices.length - 1 && prices[i] <= prices[i +1]) {
                 i++; 
             }
-            peak = nums[i];
+            peak = prices[i];
             
             profit += peak - valley;
         }
@@ -91,13 +102,14 @@ public class T122_SellStockMulti {
     }
 
     /**
-     * 从第二天开始，如果当前价格比之前价格高，则把差值加入利润中
+     * 3. 从第二天开始，如果当前价格比之前价格高，则把差值加入利润中
+     *    1 ms
      */
-    public static int maxProfit3(int[] nums) {
+    public static int maxProfit3(int[] prices) {
        int profit = 0;
-       for (int i = 1; i < nums.length; i++) {
-           if (nums[i] > nums[i-1]) {
-               profit += nums[i] - nums[i-1];
+       for (int i = 1; i < prices.length; i++) {
+           if (prices[i] > prices[i-1]) {
+               profit += prices[i] - prices[i-1];
            }
        }
        
@@ -108,14 +120,19 @@ public class T122_SellStockMulti {
         printMaxProfit1(new int[] {7, 1, 5, 3, 6, 4}); //7
         printMaxProfit1(new int[] {1,2,3,4,5}); //4
         printMaxProfit1(new int[] {7,6,4,3,1}); //0
+        printMaxProfit1(new int[] {2,2,5}); //3
 
+        System.out.println("--------------");
         printMaxProfit2(new int[] {7, 1, 5, 3, 6, 4}); //7
         printMaxProfit2(new int[] {1,2,3,4,5}); //4
         printMaxProfit2(new int[] {7,6,4,3,1}); //0
+        printMaxProfit2(new int[] {2,2,5}); //3
 
+        System.out.println("--------------");
         printMaxProfit3(new int[] {7, 1, 5, 3, 6, 4}); //7
         printMaxProfit3(new int[] {1,2,3,4,5}); //4
         printMaxProfit3(new int[] {7,6,4,3,1}); //0
+        printMaxProfit3(new int[] {2,2,5}); //3
         
     }
     

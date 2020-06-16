@@ -203,6 +203,15 @@ https://leetcode.com/problems/binary-tree-preorder-traversal/
 - [ ] 145: 二叉树后序遍历 `****` `H`
 https://leetcode.com/problems/binary-tree-postorder-traversal/
 
+- [ ] 429: N叉树层序遍历
+https://leetcode.com/problems/n-ary-tree-level-order-traversal/
+
+- [x] 589: N叉树前序遍历 `*****` `E`
+https://leetcode.com/problems/n-ary-tree-preorder-traversal/
+  >
+
+- [ ] 590: N叉树后序遍历
+https://leetcode.com/problems/n-ary-tree-postorder-traversal/
 
 - [ ] 98: 验证二叉搜索树
 https://leetcode.com/problems/validate-binary-search-tree 
@@ -230,17 +239,27 @@ https://leetcode.com/problems/kth-largest-element-in-a-stream/discuss/149050/Jav
 - [ ] : 一个无序数组求第K大数  
 https://leetcode.com/problems/kth-largest-element-in-an-array
 
+- [ ] 49: 丑数
+https://leetcode-cn.com/problems/chou-shu-lcof/
+
+- [ ] 347: 前K个高频元素 `*****` `M`
+https://leetcode.com/problems/top-k-frequent-elements/
+
 - [ ] : 数据流的中位数
 
 
 
 ## Hash
 
-- [x] 242: Valid Anagram `*****` `E`
+- [x] 242: 有效的字母异位词 `*****` `E`
 https://leetcode.com/problems/valid-anagram/ 
   > 1: 先排序，再比较 
   > 2: Map 计数，比较Map是否相同
-  > 3: int[26] 计数
+  > 3: int[26] 计数   
+ 
+- [ ] 49: 字母异位词分组 `*****` `M`
+  >
+
   
 - [x] 1: Two Sum `***` `E`  
 https://leetcode.com/problems/two-sum/
@@ -261,23 +280,6 @@ https://leetcode.com/problems/group-anagrams/
 
 
 ## 递归、分治
-
-- 递归
-```
-public void recursion(level, param1, ...) {
-  // terminator
-  if (level > MAX) return;  
-
-  // process logic in current level 
-  process();
-
-  // drill down
-  recusion(level + 1, p1, ...);
-
-  // reverse the current level status if needed
-  reverseState(level);
-}
-```
 
 - [ ] 50: powx-n  
 https://leetcode.com/problems/powx-n/
@@ -312,39 +314,6 @@ https://leetcode.com/problems/majority-element
 - [ ] https://leetcode.com/problems/anagrams
 
 ## 搜索：BFS / DFS
-
-- DFS: 递归
-```
-visited = set()
-dfs(node, visited) {
-  visited.add(node);
-  // process node
-  ...
-  for nextNode in node.children() 
-    if (!visited.contains(nextNode)) 
-       dfs(nextNode, visited)
-}
-```
-
-- BFS：队列存储
-```
-bfs(node, start, end) {
-  queue = []
-  queue.append([start])
-  visited.add(start)
-
-  while (queue) {
-    node = queue.pop()
-    visited.add(node) 
-
-    process(node);  
- 
-    nodes = node.children()
-    queue.push(nodes)
-  }
-}
-
-```
 
 - [ ] 102: 二叉树层次遍历
 https://leetcode.com/problems/binary-tree-level-order-traversal/
@@ -457,12 +426,12 @@ https://leetcode.com/problems/climbing-stairs/
 https://leetcode.com/problems/triangle/
   > 1: 递归
   > 2: 贪心，可能不是最优
-  > 3: DP，动态递归；
+  > 3: DP，动态递归； 两层循环： for i m-1 --> 0, for j   
   >    状态定义：dp[i, j]，从底走到(i, j) 路径和的最小值 
-  >    状态转移方程：dp[i, j] = min(dp[i+1, j], dp[i+1, j+1]) + triangle[i, j]
-  >    起始状态：dp[m-1, j] = triangle[m-1, j]
+  >    状态转移方程：`dp[i, j] = min(dp[i+1, j], dp[i+1, j+1]) + triangle[i, j]`
+  >    起始状态：`dp[m-1, j] = triangle[m-1, j]`
   >    结果值：dp[0, 0]
-  >  两层循环： for i m-1 --> 0, for j   
+  > 
   >  优化：状态存储无需二维，只需一位数组存储当前层的min
 
 - [ ] 152: 乘积最大子数组 `****` `M`
@@ -471,8 +440,8 @@ https://leetcode.com/problems/maximum-product-subarray/
   > 2: DP，
   >    状态定义：max[i]，存储从0走到i的max product
   >             min[i]，存储从0走到i的min product(负的max)，以便处理后续的负值
-  >    状态转移方程：if a[i] >= 0, max[i] = max[i-1] * a[i], min[i] = min[i-1] * a[i]
-  >                else          max[i] = min[i-1] * a[i], min[i] = max[i-1] * a[i] 
+  >    状态转移方程：if a[i] >= 0, `max[i] = max[i-1] * a[i]`, `min[i] = min[i-1] * a[i]`
+  >                else          `max[i] = min[i-1] * a[i]`, `min[i] = max[i-1] * a[i]` 
   >  空间优化：只存最近两次的max / min
 
 - [ ] : 股票买卖  
@@ -482,9 +451,18 @@ https://leetcode.com/problems/maximum-product-subarray/
 188: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/ `H`  
 309: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/ `M`  
 714: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/ `M`  
-  > 1: DFS: ？
-  > 2: 贪心：只要后一天价格比前一天高，则前一天买 后一天卖
-  > 3: DP: ？
+  > 1: 暴力
+  > 2: 贪心（122）：只要后一天价格比前一天高，则前一天买 后一天卖
+  > 3: 通用DP (188，不考虑K): 
+  >    状态：`mp[i][j]` 到第i天的最大利润, j=0/1 表示当前是否已持有股票
+  >    方程：当前不持有: `m[i, 0] = MAX{ mp[i-1, 0], mp[i-1, 1] + a[i] }` // MAX{ 前一天不持有, 前一天持有当天卖出 }
+  >         当前持有:   `m[i, 1] = MAX{ mp[i-1, 1], mp[i-1, 0] - a[i] }` // MAX{ 前一天持有，前一天不持有当天买入}
+  > 
+  > 4: 通用DP (188，考虑K):
+  >    状态：`mp[i][k][j]` 到第i天的最大利润, j=0/1 表示当前是否已持有股票，k 表示之前总共交易的次数
+  >    方程：当前已持有: `mp[i, k, 0] = MAX{ mp[i-1, k, 0], mp[i-1, k-1, 1] + a[i] }` // MAX{ 前一天不持有, 前一天持有当天卖出 }
+  >         当前不持有：`mp[i, k, 1] = MAX{ mp[i-1, k, 1], mp[i-1, k-1, 0] - a[i] }` // MAX{ 前一天持有，前一天不持有当天买入}
+  >    循环：for i 0-->n-1, k 0-->K； 结果 MAX{ mp[n-1, {0..k}, 0] }
 
 - [ ] 322: 零钱兑换 `*****` `M`
 https://leetcode.com/problems/coin-change/
@@ -528,7 +506,93 @@ https://leetcode.com/problems/walking-robot-simulation/
   > 3: 动态规划2：从最小数开始算起，for 2~n
 
 
+## 并查集
 
+- [ ] 547: Friend Circles `***` `M`
+https://leetcode.com/problems/friend-circles/
+
+
+## 代码模板
+
+
+- 递归
+```
+public void recursion(level, param1, ...) {
+  // terminator
+  if (level > MAX) return;  
+
+  // process logic in current level 
+  process();
+
+  // drill down
+  recusion(level + 1, p1, ...);
+
+  // reverse the current level status if needed
+  reverseState(level);
+}
+```
+
+- DFS: 递归
+```
+visited = set()
+dfs(node, visited) {
+  visited.add(node);
+  // process node
+  ...
+  for nextNode in node.children() 
+    if (!visited.contains(nextNode)) 
+       dfs(nextNode, visited)
+}
+```
+
+- BFS：队列存储
+```
+bfs(node, start, end) {
+  queue = []
+  queue.append(start)
+  visited.add(start)
+
+  while (queue) {
+    node = queue.pop()
+    visited.add(node) 
+
+    process(node);  
+ 
+    nodes = node.children()
+    queue.push(nodes)
+  }
+}
+
+```  
+
+- 二分搜索
+```
+left = 0; right = arr.length - 1;
+while (left <= right) {
+  mid = left + (right - left) / 2;
+  if (arr[mid] == target) 
+     // found
+  else if (arr[mid] < target) 
+     left = mid + 1;
+  else 
+     right = mid - 1;
+}
+```  
+
+- DP
+```
+// 状态定义
+dp = new int[m+1][n+1]
+
+// 初始状态
+dp[0][0] = x
+dp[0][1] = y
+
+// DP状态推导
+for (int i = 0; i <= n; i++)
+  for (int j = 0; j <= m; j++) 
+    d[i][j] = min {dp[i-1][j], dp[i][j-1], ...}
+```
 
 ## Java 数据结构操作
 Queue:
