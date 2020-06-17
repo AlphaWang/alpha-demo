@@ -198,14 +198,14 @@ https://leetcode.com/problems/binary-tree-inorder-traversal/
   > 2: 迭代，使用栈
   > 3: 优化栈，保存状态：更通用
 
-- [ ] 144: 二叉树前序遍历 `****` `M`
+- [x] 144: 二叉树前序遍历 `****` `M`
 https://leetcode.com/problems/binary-tree-preorder-traversal/
-
+  > 1: 递归  
+  > 2: 迭代，使用栈
+  > 3: 优化栈，保存状态：更通用
+  
 - [ ] 145: 二叉树后序遍历 `****` `H`
 https://leetcode.com/problems/binary-tree-postorder-traversal/
-
-- [ ] 429: N叉树层序遍历
-https://leetcode.com/problems/n-ary-tree-level-order-traversal/
 
 - [x] 589: N叉树前序遍历 `*****` `E`
 https://leetcode.com/problems/n-ary-tree-preorder-traversal/
@@ -214,6 +214,10 @@ https://leetcode.com/problems/n-ary-tree-preorder-traversal/
 
 - [ ] 590: N叉树后序遍历
 https://leetcode.com/problems/n-ary-tree-postorder-traversal/
+
+- [x] 429: N叉树层序遍历 `*****` `M`
+https://leetcode.com/problems/n-ary-tree-level-order-traversal/
+  > BFS
 
 - [ ] 98: 验证二叉搜索树
 https://leetcode.com/problems/validate-binary-search-tree 

@@ -57,6 +57,12 @@ public class T0589_NAryTreePreorderTraversal {
     public static void main(String[] args) {
         T0589_NAryTreePreorderTraversal sut = new T0589_NAryTreePreorderTraversal();
 
+        /**
+         *     1
+         *  3  2  4
+         * 5 6 
+         *
+         */
         // 1,3,5,6,2,4
         Node node5 = new Node(5);
         Node node6 = new Node(6);
