@@ -217,7 +217,9 @@ https://leetcode.com/problems/n-ary-tree-postorder-traversal/
 
 - [x] 429: N叉树层序遍历 `*****` `M`
 https://leetcode.com/problems/n-ary-tree-level-order-traversal/
-  > BFS
+  > 1: BFS 基于队列
+  > 2: DFS 
+  > 3: BFS 基于List保存上一层数据 *****
 
 - [ ] 98: 验证二叉搜索树
 https://leetcode.com/problems/validate-binary-search-tree 

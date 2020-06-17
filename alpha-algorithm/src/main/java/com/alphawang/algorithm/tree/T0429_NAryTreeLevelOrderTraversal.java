@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.stream.Collectors;
 
 public class T0429_NAryTreeLevelOrderTraversal {
 
     /**
-     * 1. BFS
+     * 1. BFS: 基于队列
      *    2ms
      */
     public List<List<Integer>> levelOrder(Node root) {
@@ -34,6 +35,34 @@ public class T0429_NAryTreeLevelOrderTraversal {
             res.add(preLevelValues);
         }
         
+        return res;
+    }
+
+    /**
+     * 1. BFS: List保存上一层数据  *****
+     */
+    public List<List<Integer>> levelOrder1_1(Node root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+
+        List<Node> preLevelNodes = new ArrayList<>();
+        preLevelNodes.add(root);
+        while (!preLevelNodes.isEmpty()) {
+//            res.add(preLevelNodes.stream().map(node -> node.val).collect(Collectors.toList()));
+            List<Node> curLevelNodes = new ArrayList<>();
+            List<Integer> preLevelValues = new ArrayList<>();
+            for (Node preLevelNode : preLevelNodes) {
+                preLevelValues.add(preLevelNode.val);
+                if (preLevelNode.children != null) {
+                    curLevelNodes.addAll(preLevelNode.children); 
+                }
+            }
+            res.add(preLevelValues);
+            preLevelNodes = curLevelNodes;
+        }
+
         return res;
     }
 
@@ -85,6 +114,6 @@ public class T0429_NAryTreeLevelOrderTraversal {
         Node node4 = new Node(4);
         Node node1 = new Node(1, node3, node2, node4);
 
-        System.out.println(sut.levelOrder2(node1));
+        System.out.println(sut.levelOrder1_1(node1));
     }
 }
