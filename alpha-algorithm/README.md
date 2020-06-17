@@ -196,6 +196,7 @@ https://leetcode.com/problems/binary-tree-right-side-view/
 https://leetcode.com/problems/binary-tree-inorder-traversal/
   > 1: 递归  
   > 2: 迭代，使用栈
+  > 3: 优化栈，保存状态：更通用
 
 - [ ] 144: 二叉树前序遍历 `****` `M`
 https://leetcode.com/problems/binary-tree-preorder-traversal/
@@ -258,10 +259,10 @@ https://leetcode.com/problems/valid-anagram/
   > 2: Map 计数，比较Map是否相同
   > 3: int[26] 计数   
  
-- [ ] 49: 字母异位词分组 `*****` `M`
+- [x] 49: 字母异位词分组 `*****` `M`
 https://leetcode.com/problems/group-anagrams/
-  >
-
+  > Map: key - 异位词hash, value - 字符串列表
+  > 哈希算法：1. 排序后的字符串；2. int[26] ；
   
 - [x] 1: Two Sum `***` `E`  
 https://leetcode.com/problems/two-sum/
