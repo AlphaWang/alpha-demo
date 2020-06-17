@@ -247,8 +247,16 @@ https://leetcode.com/problems/kth-largest-element-in-a-stream/discuss/149050/Jav
 - [ ] : 一个无序数组求第K大数  
 https://leetcode.com/problems/kth-largest-element-in-an-array
 
-- [ ] 49: 丑数
-https://leetcode-cn.com/problems/chou-shu-lcof/
+- [x] 263: 丑数 `***` `E`
+https://leetcode.com/problems/ugly-number/ 
+  > 1: 递归，依次尝试除以 [2,3,5]
+  > 2: 迭代，如能整除 [2,3,5]，则除
+
+- [ ] 264: 丑数2 `*****` `M`
+https://leetcode.com/problems/ugly-number-ii/
+  > 1：暴力，循环判断isUgly
+  > 2: 堆，将计算得出的丑数放入Heap，再从小到大取出依次乘以 [2,3,5]
+  > 3: DP 三指针，表示待与 [2,3,5] 相乘的数
 
 - [ ] 347: 前K个高频元素 `*****` `M`
 https://leetcode.com/problems/top-k-frequent-elements/
