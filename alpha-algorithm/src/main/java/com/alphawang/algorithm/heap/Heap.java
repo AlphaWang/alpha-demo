@@ -1,7 +1,10 @@
-package com.alphawang.algorithm.tree;
+package com.alphawang.algorithm.heap;
 
 import static com.alphawang.algorithm.Utils.swap;
 
+import com.alphawang.algorithm.tree.TreeNode;
+import com.alphawang.algorithm.tree.TreeNodeCreator;
+import com.alphawang.algorithm.tree.TreeNodePrinter;
 import java.util.Arrays;
 
 public class Heap {

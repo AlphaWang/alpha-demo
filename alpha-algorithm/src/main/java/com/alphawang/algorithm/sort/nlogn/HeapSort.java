@@ -3,7 +3,7 @@ package com.alphawang.algorithm.sort.nlogn;
 import static com.alphawang.algorithm.Utils.swap;
 
 import com.alphawang.algorithm.Utils;
-import com.alphawang.algorithm.tree.Heap;
+import com.alphawang.algorithm.heap.Heap;
 
 public class HeapSort {
 
