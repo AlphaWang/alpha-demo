@@ -356,7 +356,7 @@ https://leetcode.com/problems/minimum-depth-of-binary-tree/
   > 2: BFS: 按层遍历，如果碰到叶子节点，则找到最小值
   > 2: DFS: 遍历节点，记录深度；如果是叶子节点，则更新 min/max
 
-- [ ] 22: generate-parentheses
+- [x] 22: generate-parentheses
 https://leetcode.com/problems/generate-parentheses/
   > 1: 数学归纳法：n=1, 2, ...
   > 2: 递归：构造2*n长度的数组，元素分别填入左右括号，validate
