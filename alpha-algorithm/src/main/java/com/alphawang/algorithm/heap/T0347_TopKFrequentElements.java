@@ -1,8 +1,10 @@
 package com.alphawang.algorithm.heap;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.PriorityQueue;
@@ -98,14 +100,55 @@ public class T0347_TopKFrequentElements {
     public int[] topKFrequent4(int[] nums, int k) {
         return null;
     }
-    
-    
+
+    /**
+     * 5. 对象排序
+     *    8ms
+     */
+    public int[] topKFrequent5(int[] nums, int k) {
+        if (nums == null || nums.length <= 1) {
+            return nums;
+        }
+        Arrays.sort(nums);
+        
+        // 或者用 Heap
+        List<Item> items = new ArrayList<>();
+        for (int i = 0; i < nums.length; i++) {
+            int key = nums[i];
+            int count = 1;
+            while (i < nums.length - 1 && nums[i] == nums[i + 1]) {
+                i++;
+                count++;
+            }
+            
+            items.add(new Item(key, count));
+        }
+        items.sort((o1, o2) -> o2.count - o1.count);
+        
+        int[] res = new int[k];
+        for (int i = 0; i < k; i++) {
+            res[i] = items.get(i).key;
+        }
+
+        System.out.println(Arrays.toString(res));
+        return res;
+    }
+
+    static class Item {
+        int key;
+        int count;
+        
+        public Item(int key, int count) {
+            this.key = key;
+            this.count = count;
+        }
+    }
 
     public static void main(String[] args) {
         T0347_TopKFrequentElements sut = new T0347_TopKFrequentElements();
 
-        sut.topKFrequent3(new int[]{1,1,1,2,2,3}, 2);  // [1, 2]
-        sut.topKFrequent3(new int[]{1}, 1);  // [1]
+        sut.topKFrequent5(new int[]{1,1,1,2,2,3}, 2);  // [1, 2]
+        sut.topKFrequent5(new int[]{1}, 1);  // [1]
     }
     
     

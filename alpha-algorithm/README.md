@@ -264,6 +264,8 @@ https://leetcode.com/problems/top-k-frequent-elements/
   > 1: 对Map进行排序，取前K
   > 2: 将Map元素导入堆中
   > 3: 将Map元素进行桶排序 （只适用于非负数元素）
+  > 4: 快排思想 （?）
+  > 5: 不用Map，而将 num+count作为对象排序。--> 为什么会更快？
 
 - [ ] : 数据流的中位数
 
