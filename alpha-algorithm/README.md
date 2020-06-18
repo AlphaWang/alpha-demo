@@ -438,12 +438,16 @@ DP：
 3. 状态转移方程：opt[n] = bestOf(opt[n-1], opt[n-2], ...)
 4. 最优子结构
 
-- [ ] 70: 爬楼梯 `****`  
+- [x] 70: 爬楼梯 `****`  
 https://leetcode.com/problems/climbing-stairs/
   > 找最近重复子问题，数学归纳法。    
   > 如何走到第n级：从n-1走过来 + 从n-2级走过来。   
   > 1: 斐波那契数列，递归 f(n) = f(n-1) + f(n-2)。   
   > 2: 优化：缓存，保存a[i]；或直接只保存最后三个数。  
+  > 3: 迭代：3~n
+  > 4: DP: 
+  >    状态： dp[n] 登到第n级台阶的方法数
+  >    状态转移方程： dp[n] = dp[n-1] + dp[n-2]
 
 - [x] 120: 三角形最小路径和 `*****` `M`
 https://leetcode.com/problems/triangle/
