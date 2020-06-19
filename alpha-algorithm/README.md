@@ -298,20 +298,16 @@ https://leetcode.com/problems/3sum/
 - [ ] 18: Four Sum   
 https://leetcode.com/problems/4sum/
 
-- [ ] : Group Anagram
-https://leetcode.com/problems/group-anagrams/
-
 
 ## 递归、分治
 
-- [ ] 50: powx-n  
+- [x] 50: powx-n  
 https://leetcode.com/problems/powx-n/
   > 1: 调用库函数
   > 2: 暴力：一层循环，逐个相乘
   > 3: 分治：如果是偶数个 = y * y; 如果是奇数个 = y * y * x. (y = x的n/2方)
 ``` 
   r = power(a, n / 2);
-  return (n & 1) ? r * r * a : r * r;
 ```
   > 4: 迭代：
 ```   
