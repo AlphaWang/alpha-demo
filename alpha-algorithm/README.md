@@ -434,7 +434,7 @@ DP：
 3. 状态转移方程：opt[n] = bestOf(opt[n-1], opt[n-2], ...)
 4. 最优子结构
 
-- [x] 70: 爬楼梯 `****`  
+- [x] 70: 爬楼梯 `****` `E`  
 https://leetcode.com/problems/climbing-stairs/
   > 找最近重复子问题，数学归纳法。    
   > 如何走到第n级：从n-1走过来 + 从n-2级走过来。   
@@ -443,7 +443,14 @@ https://leetcode.com/problems/climbing-stairs/
   > 3: 迭代：3~n
   > 4: DP: 
   >    状态： dp[n] 登到第n级台阶的方法数
-  >    状态转移方程： dp[n] = dp[n-1] + dp[n-2]
+  >    状态转移方程： dp[n] = dp[n-1] + dp[n-2]   
+
+- [x] 78: 子集 `*****` `M`
+https://leetcode.com/problems/subsets/
+  > 1: 对 nums 依次删除元素，依靠Set去重
+  > 2: 从空数组开始，依次考虑原数组每个元素，往已有的结果中添加
+  > 3: 回溯 ？
+  > 4: 位运算？
 
 - [x] 120: 三角形最小路径和 `*****` `M`
 https://leetcode.com/problems/triangle/
