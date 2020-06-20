@@ -1,6 +1,7 @@
 package com.alphawang.algorithm.dp;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -54,26 +55,32 @@ public class T0022_GenerateParentheses {
     public List<String> generateParenthesis2(int n) {
         List<String> res = new ArrayList<>();
         char[] chars = new char[2 * n];
-        _generateParenthesis2(n, n, chars, res);
+        int level = 1;
+        _generateParenthesis2(n, n, chars, res, level);
 
         return res;
     }
 
-    private void _generateParenthesis2(int leftAvailable, int rightAvailable, char[] chars, List<String> res) {
+    private void _generateParenthesis2(int leftAvailable, int rightAvailable, char[] chars, List<String> res, int level) {
         if (leftAvailable == 0 && rightAvailable == 0) {
             res.add(String.copyValueOf(chars));
+            return;
         }
 
         int curPos = chars.length - leftAvailable - rightAvailable;
         if (leftAvailable > 0) {
             chars[curPos] = '(';
-            _generateParenthesis2(leftAvailable - 1, rightAvailable, chars, res);
+            System.out.println(String.format("%s - [%s] append ( --> %s", level, curPos, Arrays.toString(chars)));
+            _generateParenthesis2(leftAvailable - 1, rightAvailable, chars, res, level + 1);
             chars[curPos] = ' ';
+            System.out.println(String.format("%s - [%s] clear (  --> %s", level, curPos, Arrays.toString(chars)));
         }
         if (rightAvailable > leftAvailable) {
             chars[curPos] = ')';
-            _generateParenthesis2(leftAvailable, rightAvailable - 1, chars, res);
+            System.out.println(String.format("%s - [%s] append ) --> %s", level, curPos, Arrays.toString(chars)));
+            _generateParenthesis2(leftAvailable, rightAvailable - 1, chars, res, level + 1);
             chars[curPos] = ' ';
+            System.out.println(String.format("%s - [%s] clear )  --> %s", level, curPos, Arrays.toString(chars)));
         }
     }
 
