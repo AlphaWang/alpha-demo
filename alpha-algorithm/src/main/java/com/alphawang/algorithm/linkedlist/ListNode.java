@@ -1,31 +1,31 @@
 package com.alphawang.algorithm.linkedlist;
 
-public class ListNode<T> {
-    private final T val;
-    private ListNode next;
+public class ListNode {
+    final int val;
+    ListNode next;
 
-    ListNode(T x) {
+    ListNode(int x) {
         this.val = x;
         this.next = null;
     }
 
-    public T getValue() {
+    public int getValue() {
         return val;
     }
 
-    public ListNode<T> getNext() {
+    public ListNode getNext() {
         return next;
     }
 
-    public void setNext(ListNode<T> next) {
+    public void setNext(ListNode next) {
         this.next = next;
     }
 
     public String toString() {
-        return val != null ? val.toString() : "(null)";
+        return String.valueOf(val);
     }
 
-    public static <T> String format(ListNode<T> head) {
+    public static String format(ListNode head) {
         if (head == null) {
             return "(null node)";
         }

@@ -12,8 +12,8 @@ package com.alphawang.algorithm.linkedlist;
  */
 public class T083_RemoveDuplicatesFromSortedList {
 
-    public static ListNode<Integer> deleteDuplicates(ListNode<Integer> head) {
-        ListNode<Integer> current = head;
+    public static ListNode deleteDuplicates(ListNode head) {
+        ListNode current = head;
         /**
          * bug!
          *
@@ -38,7 +38,7 @@ public class T083_RemoveDuplicatesFromSortedList {
         return head;
     }
 
-    public static ListNode<Integer> deleteDuplicates2(ListNode<Integer> head) {
+    public static ListNode deleteDuplicates2(ListNode head) {
         if (head == null || head.getNext() == null) {
             return head;
         }
@@ -53,7 +53,7 @@ public class T083_RemoveDuplicatesFromSortedList {
     }
 
     private static void remove(Integer... values) {
-        ListNode<Integer> head = ListNodeCreator.create(values);
+        ListNode head = ListNodeCreator.create(values);
         System.out.println("BEFORE " + ListNode.format(head));
 
         head = deleteDuplicates(head);

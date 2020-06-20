@@ -13,7 +13,7 @@ public class T082_RemoveDuplicatesFromSortedList2 {
      *
      */
 
-    public static ListNode<Integer> deleteDuplicates(ListNode<Integer> head) {
+    public static ListNode deleteDuplicates(ListNode head) {
         if (head == null) {
             return head;
         }
@@ -40,7 +40,7 @@ public class T082_RemoveDuplicatesFromSortedList2 {
     }
 
     private static void remove(Integer... values) {
-        ListNode<Integer> head = ListNodeCreator.create(values);
+        ListNode head = ListNodeCreator.create(values);
         System.out.println("BEFORE " + ListNode.format(head));
 
         head = deleteDuplicates(head);

@@ -53,10 +53,10 @@ public class T141_LinkedListCycle {
         ListNode fromNode = null;
         ListNode curr = node;
         while (curr != null) {
-            if (curr.getValue().equals(2)) {
+            if (curr.getValue() == 2) {
                 toNode = curr;
             }
-            if (curr.getValue().equals(4)) {
+            if (curr.getValue() == 4) {
                 fromNode = curr;
             }
 

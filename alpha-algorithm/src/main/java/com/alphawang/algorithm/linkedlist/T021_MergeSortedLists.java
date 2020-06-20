@@ -12,7 +12,7 @@ public class T021_MergeSortedLists {
      * Output: 1->1->2->3->4->4
      *
      */
-    public static ListNode mergeTwoLists(ListNode<Integer> l1, ListNode<Integer> l2) {
+    public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         if (l1 == null) {
             return l2;
         }

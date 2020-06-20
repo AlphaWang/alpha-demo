@@ -41,10 +41,10 @@ public class T142_LinkedListCycle2 {
         ListNode fromNode = null;
         ListNode curr = node;
         while (curr != null) {
-            if (curr.getValue().equals(7)) {
+            if (curr.getValue() == 7) {
                 toNode = curr;
             }
-            if (curr.getValue().equals(9)) {
+            if (curr.getValue() == 9) {
                 fromNode = curr;
             }
 

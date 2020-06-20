@@ -7,7 +7,7 @@ public class T019_RemoveNthNode {
      * Given a linked list, remove the n-th node from the end of list and return its head.
      */
     public static ListNode removeNthFromEnd(ListNode head, int n) {
-        ListNode start = new ListNode(null);
+        ListNode start = new ListNode(-1);
         start.setNext(head);
         ListNode slow = start;
         ListNode fast = start;

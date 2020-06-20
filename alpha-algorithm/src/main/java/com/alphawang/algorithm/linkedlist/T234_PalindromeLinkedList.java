@@ -51,7 +51,7 @@ public class T234_PalindromeLinkedList {
         System.out.println("prev : " + ListNode.format(prev));
         
         while (slow != null && prev != null) {
-            if (!slow.getValue().equals(prev.getValue())) {
+            if (slow.getValue() != prev.getValue()) {
                return false; 
             }
             slow = slow.getNext();
@@ -63,13 +63,13 @@ public class T234_PalindromeLinkedList {
 
 
     public static void main(String[] args) {
-        ListNode<String> head = ListNodeCreator.create("a", "b", "c", "d", "e");
+        ListNode head = ListNodeCreator.create(1, 2, 3, 4, 5);
         System.out.println(">>>>" + palindrome(head));
         
-        head = ListNodeCreator.create("a", "b", "b", "a");
+        head = ListNodeCreator.create(1, 2, 2, 1);
         System.out.println(">>>>" + palindrome(head));
 
-        head = ListNodeCreator.create("a", "b", "c", "b", "a");
+        head = ListNodeCreator.create(1, 2, 3, 2, 1);
         System.out.println(">>>>" + palindrome(head));
     }
 
