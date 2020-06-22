@@ -12,7 +12,7 @@ public class T0022_GenerateParentheses {
 
     /**
      * 1. 暴力解法：
-     *    遍历 1~2n, 构造括号字符串
+     *    遍历 1~2n, 构造所有可能的括号字符串
      */
     public List<String> generateParenthesis(int n) {
         List<String> res = new ArrayList<>();
@@ -72,15 +72,16 @@ public class T0022_GenerateParentheses {
             chars[curPos] = '(';
             System.out.println(String.format("%s - [%s] append ( --> %s", level, curPos, Arrays.toString(chars)));
             _generateParenthesis2(leftAvailable - 1, rightAvailable, chars, res, level + 1);
-            chars[curPos] = ' ';
-            System.out.println(String.format("%s - [%s] clear (  --> %s", level, curPos, Arrays.toString(chars)));
+            // TODO 无需清除当前状态？
+//            chars[curPos] = ' ';
+//            System.out.println(String.format("%s - [%s] clear (  --> %s", level, curPos, Arrays.toString(chars)));
         }
         if (rightAvailable > leftAvailable) {
             chars[curPos] = ')';
             System.out.println(String.format("%s - [%s] append ) --> %s", level, curPos, Arrays.toString(chars)));
             _generateParenthesis2(leftAvailable, rightAvailable - 1, chars, res, level + 1);
-            chars[curPos] = ' ';
-            System.out.println(String.format("%s - [%s] clear )  --> %s", level, curPos, Arrays.toString(chars)));
+//            chars[curPos] = ' ';
+//            System.out.println(String.format("%s - [%s] clear )  --> %s", level, curPos, Arrays.toString(chars)));
         }
     }
 

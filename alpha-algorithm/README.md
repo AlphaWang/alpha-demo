@@ -221,7 +221,7 @@ https://leetcode.com/problems/n-ary-tree-level-order-traversal/
   > 2: DFS    
   > 3: BFS 基于List保存上一层数据 *****   
 
-- [ ] 98: 验证二叉搜索树
+- [ ] 98: 验证二叉搜索树 `*****` `M`
 https://leetcode.com/problems/validate-binary-search-tree 
   > 1: 中序遍历，校验递增。优化：遍历过程中与前继节点值。
   > 2: 递归 validate(node, min, max)，校验子树各节点值区间 (min, max)
@@ -231,11 +231,36 @@ https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
   > 1: 可用 236 的思路。
   > 2: 如果p/q都大于 cur，则找右子树；如果 p/q 都小于cur，则找左子树；否则，cur即是祖先。
 
-- [ ] 236: 二叉树的最近公共祖先  
+- [x] 236: 二叉树的最近公共祖先 `****` `M`  
 https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
   > 1: 向上找 Path，找到两条 Path 的交汇点。
   > 2: 递归 findPorQ(), 如果左右子树返回值都 != null，则当前节点是祖先。否则继续查找返回值 != null 的子树。 
 
+- [ ] 226: 翻转二叉树 `***` `E`
+https://leetcode.com/problems/invert-binary-tree/
+
+- [ ] 102: 二叉树层次遍历
+https://leetcode.com/problems/binary-tree-level-order-traversal/
+  > 1: BFS: 队列如何保存层信息？ --> batch process (queue size)，不存层信息
+  > 2: DFS: 逐个放入结果二维数组。BFS 按行放，DFS 按列放。
+
+- [ ] 104: 二叉树最大深度 `****` `E`   
+https://leetcode.com/problems/maximum-depth-of-binary-tree/
+  > 1: 递归：max(left, right) + 1
+  > 2: BFS: 按层遍历，扫到最后一层 
+  > 2: DFS: 遍历节点，记录深度；如果是叶子节点，则更新 min/max
+
+- [ ] 111: 二叉树最小深度  `****` `E`  
+https://leetcode.com/problems/minimum-depth-of-binary-tree/
+  > 1: 递归：min(left, right) + 1 ，注意：没有left/right的情况
+  > 2: BFS: 按层遍历，如果碰到叶子节点，则找到最小值
+  > 2: DFS: 遍历节点，记录深度；如果是叶子节点，则更新 min/max
+
+- [ ] 297: 二叉树的序列化与反序列化 `*` `H`  
+https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
+
+- [ ] 105: 从前序与中序遍历序列构造二叉树 `*` `M`
+https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
 
 ## Heap  
 
@@ -299,7 +324,7 @@ https://leetcode.com/problems/3sum/
 https://leetcode.com/problems/4sum/
 
 
-## 递归、分治
+## 递归、分治、回溯
 
 - [x] 50: powx-n   
 https://leetcode.com/problems/powx-n/   
@@ -320,6 +345,24 @@ https://leetcode.com/problems/powx-n/
   return res;
 ```
 
+
+- [x] 22: generate-parentheses `*****` `M` 
+https://leetcode.com/problems/generate-parentheses/   
+  > 1: 数学归纳法：n=1, 2, ...   
+  > 2: 递归：构造2*n长度的数组，元素分别填入左右括号，validate     
+  > 3: 改进2，剪枝：        
+       a) 局部不合法，不再递归；  
+       b) 保存leftUsed / rightUsed   
+                     
+- [ ] 77: 组合 `*****` `M`
+https://leetcode.com/problems/combinations/
+
+- [ ] 46: 全排列 `*****` `M`
+https://leetcode.com/problems/permutations/
+
+- [ ] 47: 全排列2 `*****` `M` 
+https://leetcode.com/problems/permutations-ii/
+
 - [ ] 169: 众数
 https://leetcode.com/problems/majority-element
   > 1: 暴力: 遍历元素，再遍历求次数
@@ -331,34 +374,6 @@ https://leetcode.com/problems/majority-element
 - [ ] https://leetcode.com/problems/valid-anagram
 - [ ] https://leetcode.com/problems/find-all-anagrams-in-a-string 
 - [ ] https://leetcode.com/problems/anagrams
-
-## 搜索：BFS / DFS
-
-- [ ] 102: 二叉树层次遍历
-https://leetcode.com/problems/binary-tree-level-order-traversal/
-  > 1: BFS: 队列如何保存层信息？ --> batch process (queue size)，不存层信息
-  > 2: DFS: 逐个放入结果二维数组。BFS 按行放，DFS 按列放。
-
-- [ ] 104: 二叉树最大深度
-https://leetcode.com/problems/maximum-depth-of-binary-tree/
-  > 1: 递归：max(left, right) + 1
-  > 2: BFS: 按层遍历，扫到最后一层 
-  > 2: DFS: 遍历节点，记录深度；如果是叶子节点，则更新 min/max
-
-
-- [ ] 111: 二叉树最小深度
-https://leetcode.com/problems/minimum-depth-of-binary-tree/
-  > 1: 递归：min(left, right) + 1 ，注意：没有left/right的情况
-  > 2: BFS: 按层遍历，如果碰到叶子节点，则找到最小值
-  > 2: DFS: 遍历节点，记录深度；如果是叶子节点，则更新 min/max
-
-- [x] 22: generate-parentheses  
-https://leetcode.com/problems/generate-parentheses/   
-  > 1: 数学归纳法：n=1, 2, ...   
-  > 2: 递归：构造2*n长度的数组，元素分别填入左右括号，validate     
-  > 3: 改进2，剪枝：        
-       a) 局部不合法，不再递归；  
-       b) 保存leftUsed / rightUsed     
 
 
 ### 二分查找
@@ -401,6 +416,7 @@ https://leetcode.com/problems/valid-sudoku/
 
 - [ ] 37: 数独 
 https://leetcode.com/problems/sudoku-solver/
+
 
 ## 位运算
 - [ ] 191: Number of 1 bits `***` `E`
@@ -448,8 +464,9 @@ https://leetcode.com/problems/climbing-stairs/
 - [x] 78: 子集 `*****` `M`  
 https://leetcode.com/problems/subsets/  
   > 1: 对 nums 依次删除元素，依靠Set去重  
-  > 2: 从空数组开始，依次考虑原数组每个元素，往已有的结果中添加    
-  > 3: 回溯 ？   
+  > 2: 从空数组开始，依次考虑原数组每个元素，往已有的结果中添加  
+  > 3: DFS，类似创建括号对  
+  > 3: 回溯   
   > 4: 位运算？    
 
 - [x] 120: 三角形最小路径和 `*****` `M`

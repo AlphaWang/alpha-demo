@@ -50,6 +50,7 @@ public class T0078_Subsets {
 
     /**
      * 2. 从空数组开始，依次考虑数组每个元素
+     *    0ms - 100%
      */
     public List<List<Integer>> subsets2(int[] nums) {
         if (nums == null || nums.length == 0) {
@@ -59,7 +60,7 @@ public class T0078_Subsets {
         List<List<Integer>> res = new ArrayList<>();
         res.add(new ArrayList<>());
         for (int num : nums) {
-            List<List<Integer>> resSnapshot = new ArrayList<>(res);
+            List<List<Integer>> resSnapshot = new ArrayList<>(res);  //res; ConcurrentModificationException
             for (List<Integer> existing : resSnapshot) {
                 List<Integer> tmp = new ArrayList<>(existing);
                 tmp.add(num);
@@ -95,6 +96,63 @@ public class T0078_Subsets {
         return res;
     }
 
+    /**
+     * 3. DFS: 针对每个元素，选 or 不选
+     *    1ms - 61%
+     */
+    public List<List<Integer>> subsets3(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (nums == null || nums.length == 0) {
+            return res;
+        }
+        
+        dfs2(res, nums, new ArrayList<>(), 0);
+        
+        return res;
+    }
+    
+    // index: 层数，即当前考虑到第几个元素
+    private void dfs(List<List<Integer>> res, int[] nums, List<Integer> list, int index) {
+        // terminator
+        if (index == nums.length) {
+            res.add(new ArrayList<>(list));
+            return;
+        }
+
+        System.out.println(String.format("%s - %s", index, list));
+        
+        // not pick element at index
+        dfs(res, nums, list, index + 1);
+        // pick element at index
+        list.add(nums[index]);
+        dfs(res, nums, list, index + 1);
+        // reverse current state
+        list.remove(list.size() - 1);
+        
+        System.out.println(String.format("remove last: %s - %s", index, list));
+    }
+
+    // 如果不想reverse state，则需要传递list的时候拷贝
+    private void dfs2(List<List<Integer>> res, int[] nums, List<Integer> list, int index) {
+        // terminator
+        if (index == nums.length) {
+            res.add(new ArrayList<>(list));
+            return;
+        }
+
+        System.out.println(String.format("%s - %s", index, list));
+
+        // not pick element at index
+        dfs(res, nums, new ArrayList<>(list), index + 1);
+        // pick element at index
+        list.add(nums[index]);
+        dfs(res, nums, new ArrayList<>(list), index + 1);
+        // reverse current state
+//        list.remove(list.size() - 1);
+
+        System.out.println(String.format("remove last: %s - %s", index, list));
+    }
+
     public static void main(String[] args) {
         T0078_Subsets sut = new T0078_Subsets();
 
@@ -110,7 +168,7 @@ public class T0078_Subsets {
           []
         ]
          */
-        System.out.println(sut.subsets2_1(new int[]{1 ,2 ,3}));
+        System.out.println(sut.subsets2(new int[]{1 ,2 ,3}));
     }
     
 }

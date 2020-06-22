@@ -28,6 +28,7 @@ public class T0050_PowXN {
 
     /**
      * 2. 二分 + 递归
+     * 
      *    StackOverflow for 1.00000  -2147483648  
      *    TODO why? --> -n 溢出!
      */
@@ -61,6 +62,9 @@ public class T0050_PowXN {
     private double _myPow3(double x, long n) {
         if (n == 0) {
             return 1.0;
+        }
+        if (n == 1) {
+            return x;
         }
         
         double y = _myPow3(x, n / 2);
