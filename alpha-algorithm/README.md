@@ -259,8 +259,12 @@ https://leetcode.com/problems/minimum-depth-of-binary-tree/
 - [ ] 297: 二叉树的序列化与反序列化 `*` `H`  
 https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
 
-- [ ] 105: 从前序与中序遍历序列构造二叉树 `*` `M`
+- [x] 105: 从前序与中序遍历序列构造二叉树 `*****` `M` //TODO
 https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+  > 1: 递归 
+  >    preStart: 根节点，遍历preorder
+  >    inStart / inEnd: 中序遍历数组的有效位
+
 
 ## Heap  
 
@@ -354,13 +358,19 @@ https://leetcode.com/problems/generate-parentheses/
        a) 局部不合法，不再递归；  
        b) 保存leftUsed / rightUsed   
                      
-- [ ] 77: 组合 `*****` `M`
+- [x] 77: 组合 `*****` `M`
 https://leetcode.com/problems/combinations/
+  > 1: 递归回溯: 
+  >    for i in level~n, list.add(i) 
+  >    dfs(i + 1)
 
-- [ ] 46: 全排列 `*****` `M`
+- [x] 46: 全排列 `*****` `M` //TODO
 https://leetcode.com/problems/permutations/
+  > 1: 递归回溯
+  >    for i in 0~len, path.add(nums[i])
+  >    dfs(depth + 1)
 
-- [ ] 47: 全排列2 `*****` `M` 
+- [x] 47: 全排列2 `*****` `M` 
 https://leetcode.com/problems/permutations-ii/
 
 - [ ] 169: 众数
@@ -369,6 +379,10 @@ https://leetcode.com/problems/majority-element
   > 2: Map: 遍历元素，放入map计数
   > 3: 排序: 排序后遍历。--> 优化：排序后直接取最中间元素
   > 4: 分治: 分别求左右众数，当 left == right --> left; 当left count > right count --> left
+
+- [x] 17: 电话号码字母组合 `*****` `M`
+https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+  > 
 
 - [ ] https://leetcode.com/problems/maximum-subarray
 - [ ] https://leetcode.com/problems/valid-anagram
@@ -563,13 +577,15 @@ https://leetcode.com/problems/friend-circles/
 
 
 - 递归
+
+回溯，分治，DP: 找重复性（最近重复性、最优重复性）
 ```
 public void recursion(level, param1, ...) {
   // terminator
   if (level > MAX) return;  
 
-  // process logic in current level 
-  process();
+  // process logic in current level : 只做当前层的任务！不要尝试下探
+  process(level, params);
 
   // drill down
   recusion(level + 1, p1, ...);

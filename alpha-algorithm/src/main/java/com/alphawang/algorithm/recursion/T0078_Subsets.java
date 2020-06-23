@@ -1,7 +1,6 @@
-package com.alphawang.algorithm.dp;
+package com.alphawang.algorithm.recursion;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -123,6 +122,7 @@ public class T0078_Subsets {
         
         // not pick element at index
         dfs(res, nums, list, index + 1);
+        
         // pick element at index
         list.add(nums[index]);
         dfs(res, nums, list, index + 1);
@@ -168,7 +168,7 @@ public class T0078_Subsets {
           []
         ]
          */
-        System.out.println(sut.subsets2(new int[]{1 ,2 ,3}));
+        System.out.println(sut.subsets3(new int[]{1 ,2 ,3}));
     }
     
 }

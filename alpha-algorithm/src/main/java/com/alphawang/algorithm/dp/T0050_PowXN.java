@@ -27,7 +27,7 @@ public class T0050_PowXN {
     }
 
     /**
-     * 2. 二分 + 递归
+     * 2. 分治 + 递归
      * 
      *    StackOverflow for 1.00000  -2147483648  
      *    TODO why? --> -n 溢出!
@@ -49,7 +49,7 @@ public class T0050_PowXN {
     }
 
     /**
-     * 3. 二分 + 递归 
+     * 3. 分治 + 递归 
      */
     public double myPow3(double x, int n) {
         long longN = n;
