@@ -62,17 +62,29 @@ public class T0047_Permutations2 {
     private void dfs2(int[] nums, int length, int depth, boolean[] used, Deque<Integer> path, List<List<Integer>> res) {
         // terminator
         if (depth == length) {
+            System.out.println("added " + path);
             res.add(new ArrayList<>(path));
             return;
         }
         
         for (int i = 0; i < length; i++) {
             if (used[i]) {
+                System.out.println(String.format("%s - nums[%s], %s ignore-A %s", depth, i, path, nums[i]));
                 continue;
             }
+            // TODO 剪枝，去掉重复结果
+            // https://leetcode-cn.com/problems/permutations-ii/solution/hui-su-suan-fa-python-dai-ma-java-dai-ma-by-liwe-2/
+            if (i > 0 && nums[i] == nums[i-1] // 与前一元素重复
+//              && used[i - 1] == true) {     // 并且前一元素已使用? --> 不合理
+              && used[i - 1] == false) {      // 并且nums[i - 1] 在深度优先遍历的过程中刚刚被撤销选择 
+                System.out.println(String.format("%s - nums[%s], %s ignore-B %s", depth, i, path, nums[i]));
+                continue;
+            }
+            
             path.addLast(nums[i]);
             used[i] = true;
-            
+
+            System.out.println(String.format("%s + nums[%s] %s, %s", depth, i, nums[i], path));
             dfs2(nums, length, depth + 1, used, path, res);
             
             used[i] = false;
