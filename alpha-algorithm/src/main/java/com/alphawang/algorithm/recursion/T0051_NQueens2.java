@@ -48,7 +48,6 @@ public class T0051_NQueens2 {
         return !cols.contains(col)
           && !pie.contains(row + col)
           && !na.contains(row - col);
-        
     }
 
     private List<String> format(int[] queensCols) {

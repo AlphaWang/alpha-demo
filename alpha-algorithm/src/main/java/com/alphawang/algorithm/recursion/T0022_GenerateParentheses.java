@@ -20,7 +20,7 @@ import java.util.List;
  *      ]
  *
  */
-public class T022_GenerateParentheses {
+public class T0022_GenerateParentheses {
 
     List<String> res = new ArrayList<>();
     
@@ -47,7 +47,7 @@ public class T022_GenerateParentheses {
     }
 
     public static void main(String[] args) {
-        T022_GenerateParentheses sut = new T022_GenerateParentheses();
+        T0022_GenerateParentheses sut = new T0022_GenerateParentheses();
         System.out.println(sut.generateParenthesis(3));
     }
     

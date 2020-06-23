@@ -369,11 +369,15 @@ https://leetcode.com/problems/permutations/
   > 1: 递归回溯
   >    for i in 0~len, path.add(nums[i])
   >    dfs(depth + 1)
-
+  >    状态变量
+  >    - depth: 递归到第几层 
+  >    - path: 已经选择了哪些数 (Stack)
+  >    - used: boolean[]，已经选择的数
+  
 - [x] 47: 全排列2 `*****` `M` 
 https://leetcode.com/problems/permutations-ii/
 
-- [ ] 169: 众数
+- [x] 169: 众数
 https://leetcode.com/problems/majority-element
   > 1: 暴力: 遍历元素，再遍历求次数
   > 2: Map: 遍历元素，放入map计数
@@ -382,7 +386,7 @@ https://leetcode.com/problems/majority-element
 
 - [x] 17: 电话号码字母组合 `*****` `M`
 https://leetcode.com/problems/letter-combinations-of-a-phone-number/
-  > 
+  > 1: 回溯：level = 当前处理第几个数字
 
 - [ ] https://leetcode.com/problems/maximum-subarray
 - [ ] https://leetcode.com/problems/valid-anagram

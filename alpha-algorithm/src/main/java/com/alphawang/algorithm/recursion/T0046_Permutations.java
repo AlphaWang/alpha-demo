@@ -1,7 +1,9 @@
 package com.alphawang.algorithm.recursion;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +18,7 @@ import java.util.stream.IntStream;
 public class T0046_Permutations {
 
     /**
-     * 1. 递归，回溯 
+     * 1. 递归，回溯：从原始数组开始，交换元素位置 
      *    2ms - 50%
      */
     public List<List<Integer>> permute(int[] nums) {
@@ -46,6 +48,55 @@ public class T0046_Permutations {
         }
     }
 
+    /**
+     * 2. 回溯，递归树：从空列表开始，依次放入
+     * 
+     *   >    - depth: 递归到第几层，即拼接到结果数组中的第几个元素 
+     *   >    - path: 已经选择了哪些数 (Stack)
+     *   >    - used: boolean[]，已经选择的数
+     */
+    public List<List<Integer>> permute2(int[] nums) {
+        List<List<Integer>> res = new LinkedList<>();
+        if (nums == null || nums.length == 0) {
+            return res;
+        }
+        
+        int len = nums.length;
+        Deque<Integer> path = new ArrayDeque<>(); // Stack
+        boolean[] used = new boolean[len];
+        dfs2(nums, len, 0, path, used, res);
+        
+        return res;
+    }
+
+    private void dfs2(int[] nums, int len, int depth, Deque<Integer> path, boolean[] used, List<List<Integer>> res) {
+        // terminator
+        if (depth == len) {
+            System.out.println("added " + path);
+            res.add(new ArrayList<>(path));
+            return;
+        }
+        
+        for (int i = 0; i < len; i++) {
+            if (used[i]) {
+                System.out.println(String.format("%s - %s, ignore %s", depth, nums[i], nums[i]));
+                continue;
+            }
+            
+            // process current
+            path.addLast(nums[i]);
+            used[i] = true;
+
+            // drill down
+            System.out.println(String.format("%s + %s, %s", depth, nums[i], path));
+            dfs2(nums, len, depth + 1, path, used, res);
+            
+            // reverse
+            used[i] = false;
+            path.removeLast();
+        }
+    }
+
     public static void main(String[] args) {
         T0046_Permutations sut = new T0046_Permutations();
         /*
@@ -60,7 +111,7 @@ public class T0046_Permutations {
           [3,2,1]
         ]
          */
-        System.out.println(sut.permute(new int[]{1,2,3}));
+        System.out.println(sut.permute2(new int[]{1,2,3}));
     }
 
 }
