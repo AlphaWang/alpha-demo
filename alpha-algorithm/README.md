@@ -599,6 +599,7 @@ public void recursion(level, param1, ...) {
 ```
 
 - 回溯，分治，DP: 找重复性（最近重复性、最优重复性）
+  > https://labuladong.gitbook.io/algo/di-ling-zhang-bi-du-xi-lie/hui-su-suan-fa-xiang-jie-xiu-ding-ban
   > vs. DP: 回溯相当于DP的暴力求解，因为没有重叠子问题，就像DP那样无法大幅剪枝 
 ``` 
 backtrack(path, depth, choices) { 
@@ -631,9 +632,11 @@ dfs(node, visited) {
 bfs(node, start, end) {
   queue = []
   queue.append(start)
-  visited.add(start)
+  visited.add(start) // 避免走回头路
 
-  while (queue) {
+  while (queue) { 
+    if 达到目标
+       return;
     node = queue.pop()
     visited.add(node) 
 
@@ -647,18 +650,57 @@ bfs(node, start, end) {
 ```  
 
 - 二分搜索
+[left, right]
 ```
-left = 0; right = arr.length - 1;
+left = 0; 
+right = arr.length - 1;
 while (left <= right) {
   mid = left + (right - left) / 2;
   if (arr[mid] == target) 
      // found
   else if (arr[mid] < target) 
      left = mid + 1;
-  else 
+  else if (arr[mid] > target)
      right = mid - 1;
 }
 ```  
+
+二分搜索左边界 
+[left, right)
+```
+left = 0; 
+right = arr.length;
+while (left < right) {
+  mid = left + (right - left) / 2;
+    if (arr[mid] == target) 
+       right = mid;
+    else if (arr[mid] < target) 
+       left = mid + 1;
+    else if (arr[mid] > target)
+       right = mid;
+}     
+if (left == arr.length) return -1;
+return arr[left] == target ? left : -1;
+```    
+
+二分搜索左边界 
+[left, right]
+```
+left = 0; 
+right = arr.length - 1;
+while (left <= right) {
+  mid = left + (right - left) / 2;
+  if (arr[mid] < target) {
+     left = mid + 1;
+  } else if(arr[mid] > target) {
+     right = mid - 1;
+  } else if(arr[mid] == target) {
+     right = mid - 1;
+  }
+}  
+if (left >= arr.length || nums[left] != target ) return -1;
+return left;
+```
 
 - DP
 ```
@@ -673,6 +715,41 @@ dp[0][1] = y
 for (int i = 0; i <= n; i++)
   for (int j = 0; j <= m; j++) 
     d[i][j] = min {dp[i-1][j], dp[i][j-1], ...}
+```     
+
+- 滑动窗口
+```
+/* 滑动窗口算法框架 */
+void slidingWindow(string s, string t) {
+    unordered_map<char, int> need, window;
+    for (char c : t) need[c]++;
+
+    int left = 0, right = 0;
+    int valid = 0; 
+    while (right < s.size()) {
+        // c 是将移入窗口的字符
+        char c = s[right];
+        // 右移窗口
+        right++;
+        // 进行窗口内数据的一系列更新
+        ...
+
+        /*** debug 输出的位置 ***/
+        printf("window: [%d, %d)\n", left, right);
+        /********************/
+
+        // 判断左侧窗口是否要收缩
+        while (window needs shrink) {
+            // d 是将移出窗口的字符
+            char d = s[left];
+            // 左移窗口
+            left++;
+            // 进行窗口内数据的一系列更新
+            ...
+        }
+    }
+}
+
 ```
 
 ## Java 数据结构操作
