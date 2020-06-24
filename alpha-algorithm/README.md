@@ -582,7 +582,6 @@ https://leetcode.com/problems/friend-circles/
 
 - 递归
 
-回溯，分治，DP: 找重复性（最近重复性、最优重复性）
 ```
 public void recursion(level, param1, ...) {
   // terminator
@@ -597,6 +596,21 @@ public void recursion(level, param1, ...) {
   // reverse the current level status if needed
   reverseState(level);
 }
+```
+
+- 回溯，分治，DP: 找重复性（最近重复性、最优重复性）
+  > vs. DP: 回溯相当于DP的暴力求解，因为没有重叠子问题，就像DP那样无法大幅剪枝 
+``` 
+backtrack(path, depth, choices) { 
+    if (满足条件) 
+        res.add(path)
+        return;
+    for choice : choices
+        path += choice //做选择
+        backtrack(path, depth + 1, choices); 
+        path -= choice // 撤销选择
+}
+
 ```
 
 - DFS: 递归

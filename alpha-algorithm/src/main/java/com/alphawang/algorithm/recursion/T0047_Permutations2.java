@@ -47,13 +47,14 @@ public class T0047_Permutations2 {
     /**
      * 2. 回溯，基于46
      *    回溯，递归树：从空列表开始，依次放入
+     *    1ms - 99%
      */
     public List<List<Integer>> permuteUnique2(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
         Deque<Integer> path = new LinkedList<>();
         boolean[] used = new boolean[nums.length];
 
-        Arrays.sort(nums);
+        Arrays.sort(nums); // 先排序，方便去除重复值
         dfs2(nums, nums.length, 0, used, path, res);
         
         return res;

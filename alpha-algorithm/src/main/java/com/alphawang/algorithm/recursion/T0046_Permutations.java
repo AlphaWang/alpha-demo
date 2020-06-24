@@ -50,6 +50,7 @@ public class T0046_Permutations {
 
     /**
      * 2. 回溯，递归树：从空列表开始，依次放入
+     *    1ms - 92%
      * 
      *   >    - depth: 递归到第几层，即拼接到结果数组中的第几个元素 
      *   >    - path: 已经选择了哪些数 (Stack)
@@ -97,6 +98,43 @@ public class T0046_Permutations {
         }
     }
 
+    /**
+     * 2_2. 回溯，递归树：从空列表开始，依次放入 --> 优化，无需专门记录 used[]
+     *    1ms - 92%
+     *
+     *   >    - depth: 递归到第几层，即拼接到结果数组中的第几个元素 
+     *   >    - path: 已经选择了哪些数 (Stack)--> 同时用于判断使用了哪些数
+     */
+    public List<List<Integer>> permute2_2(int[] nums) {
+        List<List<Integer>> res =  new ArrayList<>();
+        Deque<Integer> path = new LinkedList<>();
+        dfs2_2(nums, 0, path, res);
+        
+        return res;
+    }
+
+    private void dfs2_2(int[] nums, int depth, Deque<Integer> path, List<List<Integer>> res) {
+        // 满足条件，则记录
+        if (depth == nums.length) {
+            res.add(new ArrayList<>(path));
+            return;
+        }
+        
+        // 遍历可选列表
+        for (int num : nums) {
+            if (path.contains(num)) {
+                continue;
+            }
+            
+            // 做选择
+            path.addLast(num);
+            // drill down
+            dfs2_2(nums, depth + 1, path, res);
+            // 撤销选择
+            path.removeLast();
+        }
+    }
+
     public static void main(String[] args) {
         T0046_Permutations sut = new T0046_Permutations();
         /*
@@ -111,7 +149,7 @@ public class T0046_Permutations {
           [3,2,1]
         ]
          */
-        System.out.println(sut.permute2(new int[]{1,2,3}));
+        System.out.println(sut.permute2_2(new int[]{1,2,3}));
     }
 
 }
