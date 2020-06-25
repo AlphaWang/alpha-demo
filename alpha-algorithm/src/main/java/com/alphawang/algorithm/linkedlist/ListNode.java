@@ -27,7 +27,7 @@ public class ListNode {
 
     public static String format(ListNode head) {
         if (head == null) {
-            return "(null node)";
+            return "(null)";
         }
 
         StringBuilder sb = new StringBuilder();
@@ -40,7 +40,7 @@ public class ListNode {
         }
 
         if (head.getNext() == null) {
-            sb.append(" -> (null node)");
+            sb.append(" -> (null)");
         }
 
         return sb.toString();

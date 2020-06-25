@@ -28,10 +28,56 @@ public class T0024_SwapNodesInPairs {
 
     /**
      * 2. 遍历
+     *    0ms - 100%
      */
     public ListNode swapPairs2(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        ListNode newHead = head.next;
+
+        ListNode curr = head.next;
+        ListNode prev = head;
+        while (curr != null && curr != prev) {
+            ListNode nextHead = curr.next;
+            
+            prev.next = curr.next == null ? null 
+              : curr.next.next == null ? curr.next : curr.next.next;
+            curr.next = prev;
+            
+            curr = prev.next;
+            prev = nextHead;
+        }
         
-        return head;
+        return newHead;
+    }
+
+    /**
+     * 3. 遍历，优化判断条件
+     *    TODO 三指针
+     *    - prev
+     *    - p1: 
+     *    - p2: curr
+     */
+    public ListNode swapPairs3(ListNode head) {
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        
+        ListNode prev = dummy;
+        while (head != null && head.next != null) {
+            ListNode p1 = head;
+            ListNode p2 = head.next;
+            
+            prev.next = p2;
+            p1.next = p2.next;
+            p2.next = p1;
+            
+            prev = p1;
+            head = p1.next;
+        }
+        
+        return dummy.next;
     }
 
     public static void main(String[] args) {
@@ -44,7 +90,17 @@ public class T0024_SwapNodesInPairs {
         ListNode node = ListNodeCreator.create(1, 2, 3, 4);
         System.out.println(ListNode.format(node));
         
-        node = sut.swapPairs(node);
+        node = sut.swapPairs3(node);
+        System.out.println(ListNode.format(node));
+        
+        /*
+         Input  1->2->3->4->5, 
+         Output 2->1->4->3->5.
+         */
+        node = ListNodeCreator.create(1, 2, 3, 4, 5);
+        System.out.println(ListNode.format(node));
+
+        node = sut.swapPairs3(node);
         System.out.println(ListNode.format(node));
     }
 
