@@ -57,21 +57,18 @@ public class T0025_ReverseNodesInKGroup {
             return head;
         }
         
-        ListNode start = head;
         ListNode end = head;
-        ListNode next = head;
 
         for (int i = 1; i < k; i++) {
             end = end.next;
             if (end == null) {
-                end = start;
-                break;
+                return head; // 不足K, 无需翻转
             }
         }
-        next = end.next;
+        ListNode next = end.next;
         
-        ListNode reversed = reverse(start, end);
-        start.next = reverseKGroup1_1(next, k);
+        ListNode reversed = reverse(head, end);
+        head.next = reverseKGroup1_1(next, k);
         
         return reversed;
     }
