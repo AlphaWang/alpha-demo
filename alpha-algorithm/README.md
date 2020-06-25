@@ -90,9 +90,10 @@ https://leetcode.com/problems/reverse-linked-list/
   > 1: 两个指针：pre/cur；  
   > 指针操作：cur.next = pre; pre = cur; cur后移 
 
-- [ ] 24: swap-nodes-in-pairs `****`  
+- [ ] 24: swap-nodes-in-pairs `****` `M` 
 https://leetcode.com/problems/swap-nodes-in-pairs 
-  > 1: 遍历：pre.next && pre.next.next；  
+  > 1: 递归
+  > 2: 遍历：pre.next && pre.next.next；  
   > 指针操作：？
 
 - [ ] 25: reverse-nodes-in-k-group `****` `H`

@@ -16,9 +16,13 @@ public class T0017_LetterCombinationsOfPhoneNumber {
 
     /**
      * 1. 回溯
+     *    1ms - 82%
      */
     public List<String> letterCombinations(String digits) {
         List<String> res = new ArrayList<>();
+        if (digits == null || digits.length() == 0) {
+            return res;
+        }
 
         Map<Character, String> letterMap = new HashMap<>();
         letterMap.put('2', "abc");
