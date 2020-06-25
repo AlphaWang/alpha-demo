@@ -246,7 +246,7 @@ https://leetcode.com/problems/binary-tree-level-order-traversal/
 
 - [ ] 104: 二叉树最大深度 `****` `E`   
 https://leetcode.com/problems/maximum-depth-of-binary-tree/
-  > 1: 递归：max(left, right) + 1
+  > 1: 递归、分治：max(left, right) + 1
   > 2: BFS: 按层遍历，扫到最后一层 
   > 2: DFS: 遍历节点，记录深度；如果是叶子节点，则更新 min/max
 
@@ -460,7 +460,7 @@ https://leetcode.com/problems/n-queens-ii/
 
 
 
-## 贪心、动态规划    
+## 动态规划    
 
 DP：
 1. 递归 + 记忆化 ==> 递推
@@ -556,6 +556,7 @@ https://leetcode.com/problems/longest-increasing-subsequence/
   >    维护数组LIS; 遍历数组，if a[i] > LIS[max], 插入LIS尾部; 否则，替换LIS中最早>a[i]的元素   
   > 
 
+- [ ] 887: 
 - [ ] : 
 https://leetcode.com/problems/lemonade-change/
 
