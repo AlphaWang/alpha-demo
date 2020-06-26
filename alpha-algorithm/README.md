@@ -111,11 +111,16 @@ https://leetcode.com/problems/linked-list-cycle-ii
   > 1: 遍历，Set 存储走过的节点；如果当前节点在Set中已存在，则是环的入口
   > 1: 快慢指针，找到相交点；再用另外两个指针，分别指向头结点、相交点，同时往后遍历找到相交点即是入口。
 
-- [ ] 147: 插入排序链表  
+- [x] 147: 插入排序链表  
 https://leetcode.com/problems/insertion-sort-list/
+  > 1: 遍历节点，对每个节点 找到待插入的位置。  
+  >   curr: 待处理的节点
+  >   prev: 待处理的前一个节点  
+  >   dummy: 虚拟指针 指向头结点
 
-- [ ] 148: 排序链表 （归并）  
-https://leetcode-cn.com/problems/sort-list/
+- [x] 148: 排序链表 （归并）  
+https://leetcode.com/problems/sort-list/
+  > 1: 归并：先找到中点，在分别排序左侧和右侧，最后merge (同 21)
 
 - [x] 21: 合并两个有序的链表 `*****` ``
 https://leetcode.com/problems/merge-two-sorted-lists/ 
