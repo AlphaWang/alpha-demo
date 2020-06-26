@@ -15,7 +15,7 @@ public class T0148_SortList {
     //TBD
 
     /**
-     * 2. 归并排序
+     * 1. 归并排序
      *    8ms - 20%
      */
     public ListNode sortList(ListNode head) {
@@ -36,7 +36,7 @@ public class T0148_SortList {
         ListNode first = sortList(head);
         ListNode second = sortList(mid);
         
-        return merge(first, second);
+        return merge2(first, second);
     }
 
     // 合并两个有序链表
@@ -51,6 +51,32 @@ public class T0148_SortList {
             second.next = merge(first, second.next);
             return second;
         }
+    }
+
+    /**
+     * 2. 归并排序，merge 非递归
+     *    3ms - 97%
+     */
+    private ListNode merge2(ListNode first, ListNode second) {
+        if (first == null) return second;
+        if (second == null) return first;
+        ListNode head = new ListNode(-1);
+        ListNode tail = head; 
+        while (first != null && second != null) {
+            if (first.val < second.val) {
+                tail.next = first;
+                first = first.next;
+            } else {
+                tail.next = second;
+                second = second.next;
+            }
+            tail = tail.next;
+        }
+        
+        if (first != null) tail.next = first;
+        if (second != null) tail.next = second;
+        
+        return head.next;
     }
 
 
