@@ -127,10 +127,12 @@ https://leetcode.com/problems/merge-two-sorted-lists/
   > 1: 循环两个链表；最后处理剩余的
   > 2: 递归
 
-- [ ] : 合并K个有序链表  
+- [x] 23: 合并K个有序链表 `**` `H` 
 https://leetcode.com/problems/merge-k-sorted-lists/
-
-
+  > 1: 依次进行 k-1 次二链表合并。
+  > 2: 分治 --> 高效
+  > 3: 优先队列，保存K个待处理元素
+ 
 ## Queue / Stack
 
 - [ ] 20: valid-parentheses `****` `E` 

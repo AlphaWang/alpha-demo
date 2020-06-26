@@ -45,4 +45,22 @@ public class ListNode {
 
         return sb.toString();
     }
+
+    public String format() {
+        ListNode node = this;
+        StringBuilder sb = new StringBuilder();
+        sb.append(node);
+
+        while (node.getNext() != null) {
+            sb.append(" -> ");
+            sb.append(node.getNext());
+            node = node.getNext();
+        }
+
+        if (node.getNext() == null) {
+            sb.append(" -> (null)");
+        }
+
+        return sb.toString();
+    }
 }
