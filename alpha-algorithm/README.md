@@ -112,7 +112,7 @@ https://leetcode.com/problems/linked-list-cycle-ii
   > 1: 快慢指针，找到相交点；再用另外两个指针，分别指向头结点、相交点，同时往后遍历找到相交点即是入口。
 
 - [ ] 147: 插入排序链表  
-https://leetcode-cn.com/problems/insertion-sort-list/
+https://leetcode.com/problems/insertion-sort-list/
 
 - [ ] 148: 排序链表 （归并）  
 https://leetcode-cn.com/problems/sort-list/
