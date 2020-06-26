@@ -96,16 +96,17 @@ https://leetcode.com/problems/swap-nodes-in-pairs
   > 2: 遍历: pre.next && pre.next.next；  
   > 指针操作：？
 
-- [ ] 25: reverse-nodes-in-k-group `****` `H`
+- [x] 25: reverse-nodes-in-k-group `*****` `H`
 https://leetcode.com/problems/reverse-nodes-in-k-group/
-
-- [x] 141: linked-list-cycle `****`  
+  > 1: 递归：先遍历K个元素，同时swap；再将tail.next指向下一个递归
+ 
+- [x] 141: linked-list-cycle `****` `E`  
 https://leetcode.com/problems/linked-list-cycle
   > 1: 暴力：限时循环，判断是否能走到null
   > 2: 遍历，Set 存储走过的节点
   > 3: 快慢指针，判断是否相交
 
-- [x] 142: linked-list-cycle-ii ****  
+- [x] 142: linked-list-cycle-ii `****` `M`   
 https://leetcode.com/problems/linked-list-cycle-ii
   > 1: 遍历，Set 存储走过的节点；如果当前节点在Set中已存在，则是环的入口
   > 1: 快慢指针，找到相交点；再用另外两个指针，分别指向头结点、相交点，同时往后遍历找到相交点即是入口。

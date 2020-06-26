@@ -1,12 +1,20 @@
 package com.alphawang.algorithm.linkedlist;
 
-public class T141_LinkedListCycle {
-
+/**
+ * https://leetcode.com/problems/linked-list-cycle/
+ * Easy
+ * 
+ * Given a linked list, determine if it has a cycle in it.
+ *
+ */
+public class T0141_LinkedListCycle {
     /**
-     * https://leetcode.com/problems/linked-list-cycle/
-     *
-     * Given a linked list, determine if it has a cycle in it.
-     *
+     * 0. Set存储走过的节点
+     */
+    //TBD
+    
+    /**
+     * 1. 快慢指针
      */
     public static boolean hasCycle(ListNode head) {
         ListNode slow = head;
@@ -26,6 +34,9 @@ public class T141_LinkedListCycle {
         }
     }
 
+    /**
+     * 1_1. 快慢指针，优化判断条件
+     */
     public static boolean hasCycle2(ListNode head) {
         if (head == null || head.getNext() == null) {
             return false;
@@ -44,6 +55,29 @@ public class T141_LinkedListCycle {
         }
 
         return true;
+    }
+
+    /**
+     * 1_1. 快慢指针，优化判断条件
+     */
+    public static boolean hasCycle3(ListNode head) {
+        if (head == null || head.next == null) {
+            return false;
+        }
+
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while (slow != null && fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (slow != null && slow == fast) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public static void main(String[] args) {
@@ -67,6 +101,7 @@ public class T141_LinkedListCycle {
 
         System.out.println(hasCycle(node));
         System.out.println(hasCycle2(node));
+        System.out.println(hasCycle3(node));
     }
 
 }
