@@ -224,9 +224,11 @@ https://leetcode.com/problems/binary-tree-preorder-traversal/
   > 2: 迭代，使用栈   
   > 3: 优化栈，保存状态：更通用   
   
-- [ ] 145: 二叉树后序遍历 `****` `H`
+- [x] 145: 二叉树后序遍历 `****` `H`
 https://leetcode.com/problems/binary-tree-postorder-traversal/
-
+  > 1: 节点栈 + 状态栈
+  
+  
 - [x] 589: N叉树前序遍历 `*****` `E`  
 https://leetcode.com/problems/n-ary-tree-preorder-traversal/  
   > 1: 递归  
@@ -259,7 +261,7 @@ https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
 - [ ] 226: 翻转二叉树 `***` `E`
 https://leetcode.com/problems/invert-binary-tree/
 
-- [ ] 102: 二叉树层次遍历
+- [x] 102: 二叉树层次遍历 `*****` `M`
 https://leetcode.com/problems/binary-tree-level-order-traversal/
   > 1: BFS: 队列如何保存层信息？ --> batch process (queue size)，不存层信息
   > 2: DFS: 逐个放入结果二维数组。BFS 按行放，DFS 按列放。
