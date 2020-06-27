@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class T102_LevelOrderTraversal {
+public class T0102_BinaryTreeLevelOrderTraversal {
     /**
      * https://leetcode.com/problems/binary-tree-level-order-traversal/
      * 
