@@ -58,21 +58,30 @@ https://leetcode.com/problems/trapping-rain-water/
   > 3: DP优化：双指针夹逼
   > 4: 栈：(?)
  
-- [ ] : 旋转数组最小值  
+- [x] 153: 旋转数组最小值  `*****` `M`  
 https://leetcode.com/problems/find-minimum-in-rotated-sorted-array
+  > 1: 遍历，如果nums[i] < num[i-1]，则找到。O(N)
+  > 2: 二分查找：if nums[mid] < nums[right], 往左侧找 
+  >             if nums[mid] > nums[right], 往右侧找
 
-- [ ] : 旋转数组最小值 (有重复值)   
+- [ ] 154: 旋转数组最小值 (有重复值) `**` `H`  
 https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii
 
-- [ ] : 旋转数组的某个值(无重复值)  
+- [ ] 33: 旋转数组的某个值(无重复值) `**` `M`  
 https://leetcode.com/problems/search-in-rotated-sorted-array/discuss/14425/Concise-O(log-N)-Binary-search-solution
 
-- [ ] : 旋转数组的某个值(有重复值)
+- [ ] 154: 旋转数组的某个值(有重复值) `**` `H`
 https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/discuss/48808/My-pretty-simple-code-to-solve-it/48840
 
-- [ ] : 两个有序数组找中位数
+- [x] 88: 合并有序数组 `*****` `E`
+https://leetcode.com/problems/merge-sorted-array/
+  > 双指针从后往前遍历 
+  > while (index1 >= 0 && index2 >= 0) 
 
-- [ ] 560: 和为K的子数组
+- [ ] 4: 两个有序数组找中位数 `**` `H`
+https://leetcode.com/problems/median-of-two-sorted-arrays/
+
+- [ ] 560: 和为K的子数组 `**` `M`
 https://leetcode.com/problems/subarray-sum-equals-k/
 
 
@@ -198,8 +207,10 @@ https://leetcode.com/problems/design-circular-deque/
 
 - [ ] : 二叉树转中序链表
 
-- [ ] : 二叉树右视图  
+- [x] 199: 二叉树右视图 `*****` `M` 
 https://leetcode.com/problems/binary-tree-right-side-view/ 
+  > 1: BFS，记录最后一个item
+  > 2: DFS，中 - 右 - 左，每层最先访问的都是最右边节点  
 
 - [x] 94: 二叉树中序遍历 `*****` `M`  
 https://leetcode.com/problems/binary-tree-inorder-traversal/
