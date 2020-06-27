@@ -5,29 +5,30 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class T199_RightSideView {
-    /**
-     * 199. Binary Tree Right Side View
-     * https://leetcode.com/problems/binary-tree-right-side-view/
-     * 
-     * Given a binary tree, imagine yourself standing on the right side of it, 
-     * return the values of the nodes you can see ordered from top to bottom.
-     *
-     * Example:
-     *
-     * Input: [1,2,3,null,5,null,4]
-     * Output: [1, 3, 4]
-     * Explanation:
-     *
-     *    1            <---
-     *  /   \
-     * 2     3         <---
-     *  \     \
-     *   5     4       <---
-     */
+/**
+ * 199. Binary Tree Right Side View
+ * https://leetcode.com/problems/binary-tree-right-side-view/
+ *
+ * Given a binary tree, imagine yourself standing on the right side of it, 
+ * return the values of the nodes you can see ordered from top to bottom.
+ *
+ * Example:
+ *
+ * Input: [1,2,3,null,5,null,4]
+ * Output: [1, 3, 4]
+ * Explanation:
+ *
+ *    1            <---
+ *  /   \
+ * 2     3         <---
+ *  \     \
+ *   5     4       <---
+ */
+public class T0199_BinaryTreeRightSideView {
 
     /**
-     * 1. from T102_LevelOrderTraversal
+     * 1. BFS 
+     *    see T102_LevelOrderTraversal
      */
     public static List<Integer> rightSideViewByLevelTraverse(TreeNode tree) {
         List<Integer> result = Lists.newArrayList();
@@ -61,25 +62,26 @@ public class T199_RightSideView {
     }
 
     /**
-     * 2. //TODO
+     * 2. DFS, 根 - 右 - 左，记录每层访问的第一个元素 
      */
     public static List<Integer> rightSideViewByRecursion(TreeNode tree) {
          List<Integer> result = Lists.newArrayList();
-         rightView(tree, result, 0);
+         dfs(tree, result, 0);
          
          return result;
     }
     
-    private static void rightView(TreeNode node, List<Integer> result, int currDepth) {
+    private static void dfs(TreeNode node, List<Integer> result, int depth) {
         if (node == null) {
             return;
         }
-        // 每层只放一个元素
-        if (currDepth == result.size()) {
+        // 每层访问的第一个元素 即是最右节点
+        if (depth == result.size()) {
             result.add(node.val);
         }
-        rightView(node.right, result, currDepth + 1);
-        rightView(node.left, result, currDepth + 1);
+        System.out.println(String.format("%s + %s = %s", depth, node, result));
+        dfs(node.right, result, depth + 1);
+        dfs(node.left, result, depth + 1);
     }
 
 
