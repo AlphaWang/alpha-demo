@@ -2,6 +2,8 @@ package com.alphawang.algorithm.array;
 
 /**
  * https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
+ * Medium
+ * 
  */
 public class T0153_MinimumInRotatedSortedArray {
 

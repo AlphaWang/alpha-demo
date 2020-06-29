@@ -67,8 +67,9 @@ https://leetcode.com/problems/find-minimum-in-rotated-sorted-array
 - [ ] 154: 旋转数组最小值 (有重复值) `**` `H`  
 https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii
 
-- [ ] 33: 旋转数组的某个值(无重复值) `**` `M`  
+- [ ] 33: 旋转数组的某个值(无重复值) `*****` `M`  
 https://leetcode.com/problems/search-in-rotated-sorted-array/discuss/14425/Concise-O(log-N)-Binary-search-solution
+  > 
 
 - [ ] 154: 旋转数组的某个值(有重复值) `**` `H`
 https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/discuss/48808/My-pretty-simple-code-to-solve-it/48840
@@ -80,6 +81,9 @@ https://leetcode.com/problems/merge-sorted-array/
 
 - [ ] 4: 两个有序数组找中位数 `**` `H`
 https://leetcode.com/problems/median-of-two-sorted-arrays/
+  > 1: 暴力，合并数组，再排序
+  > 2: 双指针合并有序数组，see T88
+  > 3: 二分查找 (!)
 
 - [ ] 560: 和为K的子数组 `**` `M`
 https://leetcode.com/problems/subarray-sum-equals-k/
@@ -243,6 +247,10 @@ https://leetcode.com/problems/n-ary-tree-level-order-traversal/
   > 2: DFS    
   > 3: BFS 基于List保存上一层数据 *****   
 
+- [ ] 515: 在每个树行中找最大值 `*****` `M`
+https://leetcode.com/problems/find-largest-value-in-each-tree-row/
+
+
 - [ ] 98: 验证二叉搜索树 `*****` `M`
 https://leetcode.com/problems/validate-binary-search-tree 
   > 1: 中序遍历，校验递增。优化：遍历过程中与前继节点值。
@@ -372,7 +380,7 @@ https://leetcode.com/problems/powx-n/
 ```
 
 
-- [x] 22: generate-parentheses `*****` `M` 
+- [x] 22: 括号生成 `*****` `M` 
 https://leetcode.com/problems/generate-parentheses/   
   > 1: 数学归纳法：n=1, 2, ...   
   > 2: 递归：构造2*n长度的数组，元素分别填入左右括号，validate     
@@ -416,13 +424,13 @@ https://leetcode.com/problems/letter-combinations-of-a-phone-number/
 - [ ] https://leetcode.com/problems/anagrams
 
 
-### 二分查找
-- [ ] 69: 平方根 
+### 二分查找 / BFS / DFS
+- [ ] 69: 平方根 `*****` `E` 
 https://leetcode.com/problems/sqrtx/
   > 1: 二分法，因为单调递增
   > 2: 牛顿迭代法* 
 
-- [ ] : 
+- [ ] 367: 有效的完全平方数 `*****` `E` 
 https://leetcode.com/problems/valid-perfect-square/
 
 - [ ] 208: 实现字典树 
@@ -436,6 +444,17 @@ https://leetcode.com/problems/word-search-ii/ 
   > 1: DFS；缺点：对每个候选词都要重新计算
   > 2: Trie: 把候选词构造成Trie树，对矩阵进行 DFS
 
+- [ ] 127: 单词接龙 `*` `M`
+https://leetcode.com/problems/word-ladder/
+
+- [ ] 126: 单词接龙2 `*` ``
+https://leetcode.com/problems/word-ladder-ii/description/
+
+- [ ] 200: 岛屿数量 `*****` `M`
+https://leetcode.com/problems/number-of-islands/
+
+- [ ] 529: 扫雷游戏 `*****` `M`
+https://leetcode.com/problems/minesweeper/
 
 ### 剪枝
 
@@ -533,7 +552,7 @@ https://leetcode.com/problems/maximum-product-subarray/
 
 - [ ] : 股票买卖  
 121: https://leetcode.com/problems/best-time-to-buy-and-sell-stock/ `E`  
-122: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/ `E`  
+122: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/ `*****` `E`  
 123: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/ `H`  
 188: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/ `H`  
 309: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/ `M`  
@@ -578,7 +597,9 @@ https://leetcode.com/problems/longest-increasing-subsequence/
   >    维护数组LIS; 遍历数组，if a[i] > LIS[max], 插入LIS尾部; 否则，替换LIS中最早>a[i]的元素   
   > 
 
-- [ ] 887: 
+- [ ] 887: 鸡蛋掉落 `*` `H`
+https://leetcode.com/problems/super-egg-drop/
+
 - [ ] : 
 https://leetcode.com/problems/lemonade-change/
 
@@ -593,6 +614,14 @@ https://leetcode.com/problems/walking-robot-simulation/
   > 2: 动态规划：递归 + 记忆化, 缓存f(i)   
   > 3: 动态规划2：从最小数开始算起，for 2~n
 
+- [ ] 455: 分发饼干 `**` `E`
+https://leetcode.com/problems/assign-cookies/
+
+- [ ] 55: 跳跃游戏 `**` `M`
+https://leetcode.com/problems/jump-game/
+
+- [ ] 433: 最小基因变化 `*****` `M`
+https://leetcode.com/problems/minimum-genetic-mutation/
 
 ## 并查集
 
@@ -640,10 +669,17 @@ backtrack(path, depth, choices) {
 - DFS: 递归
 ```
 visited = set()
-dfs(node, visited) {
+dfs(node, visited) { 
+  //terminatior
+  if (visited.contains(node) {
+    return;
+  }    
+
   visited.add(node);
-  // process node
-  ...
+  // process current node
+  ...       
+      
+  // drill down
   for nextNode in node.children() 
     if (!visited.contains(nextNode)) 
        dfs(nextNode, visited)
