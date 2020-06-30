@@ -21,6 +21,11 @@ public class T0033_SearchInRotatedSortedArray {
             int mid = start + (end - start) / 2;
             System.out.println(String.format("%s - [%s, %s] : %s",
                   Arrays.toString(nums), start, end, mid));
+            
+            if (nums[mid] == target) {
+                return mid;
+            }
+            
             if (nums[mid] > target) {
                 if (nums[start] > target && nums[end] >= target) {
                     start = mid;
@@ -33,9 +38,7 @@ public class T0033_SearchInRotatedSortedArray {
                 } else {
                     start = mid;
                 }
-            } else {
-                return mid;
-            }
+            } 
         }
         
         return -1;

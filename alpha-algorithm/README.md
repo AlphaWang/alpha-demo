@@ -69,7 +69,9 @@ https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii
 
 - [x] 33: 旋转数组的某个值(无重复值) `*****` `M`  
 https://leetcode.com/problems/search-in-rotated-sorted-array/discuss/14425/Concise-O(log-N)-Binary-search-solution
-  > 二分法：左右侧总有一个是有序的
+  > 1: 暴力解法，遍历一遍 O(N)
+  > 2: 暴力解法优化：找到最小值，还原成有序数组 O(N) or O(logN)
+  > 3: 二分法：左右侧总有一个是有序的
 
 - [ ] 154: 旋转数组的某个值(有重复值) `**` `H`
 https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/discuss/48808/My-pretty-simple-code-to-solve-it/48840
@@ -425,7 +427,7 @@ https://leetcode.com/problems/letter-combinations-of-a-phone-number/
 
 
 ### 二分查找 / BFS / DFS
-- [ ] 69: 平方根 `*****` `E` 
+- [x] 69: 平方根 `*****` `E` 
 https://leetcode.com/problems/sqrtx/
   > 1: 二分法，因为单调递增
   > 2: 牛顿迭代法* 
@@ -455,6 +457,9 @@ https://leetcode.com/problems/number-of-islands/
 
 - [ ] 529: 扫雷游戏 `*****` `M`
 https://leetcode.com/problems/minesweeper/
+
+- [ ] 74: 搜索二维矩阵 `*****` `M`
+https://leetcode.com/problems/search-a-2d-matrix/
 
 ### 剪枝
 

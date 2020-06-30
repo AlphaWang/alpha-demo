@@ -194,6 +194,7 @@ public class T33_SearchRotatedSortedArray {
             }
             // 中间值 <= 最右，找左边
             else {
+                // TODO 不是 hight = mid - 1; 
                 high = mid;
             }
         }
