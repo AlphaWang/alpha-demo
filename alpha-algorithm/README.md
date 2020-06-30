@@ -482,12 +482,13 @@ https://leetcode.com/problems/valid-sudoku/
 https://leetcode.com/problems/sudoku-solver/
 
 ### 贪心
-- [ ] 455: 分发饼干
+- [x] 455: 分发饼干 `*****` `E`
 https://leetcode.com/problems/assign-cookies/
   > 贪心，先排序，从最小的胃口还是满足 
 
-- [ ] 860: 柠檬水找零 `*****` `E` 
+- [x] 860: 柠檬水找零 `*****` `E` 
 https://leetcode.com/problems/lemonade-change/
+  > 遍历，记录可用的零钱数目；收到整钱后，对零钱数目扣减
 
 - [ ] 874: 模拟行走机器人 `*****` `E`
 https://leetcode.com/problems/walking-robot-simulation/

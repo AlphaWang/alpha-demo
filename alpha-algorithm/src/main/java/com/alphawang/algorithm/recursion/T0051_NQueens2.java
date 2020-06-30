@@ -12,6 +12,9 @@ public class T0051_NQueens2 {
     Set<Integer> pie = new HashSet<>();
     Set<Integer> na = new HashSet<>();
 
+    /**
+     * Backtracking
+     */
     public List<List<String>> solveNQueens(int n) {
         List<List<String>> res = new ArrayList<>();
         
