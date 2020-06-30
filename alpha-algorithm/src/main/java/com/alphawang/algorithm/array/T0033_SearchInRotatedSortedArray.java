@@ -147,7 +147,7 @@ public class T0033_SearchInRotatedSortedArray {
         /*
          * Input: nums = [5,1,3], target = 5
          * Output: 0
-         * TODO 返回-1？
+         * TODO 方法一  返回-1？
          */
         test(new int[] {5,1,3}, 5);
     }

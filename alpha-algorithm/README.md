@@ -67,9 +67,9 @@ https://leetcode.com/problems/find-minimum-in-rotated-sorted-array
 - [ ] 154: 旋转数组最小值 (有重复值) `**` `H`  
 https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii
 
-- [ ] 33: 旋转数组的某个值(无重复值) `*****` `M`  
+- [x] 33: 旋转数组的某个值(无重复值) `*****` `M`  
 https://leetcode.com/problems/search-in-rotated-sorted-array/discuss/14425/Concise-O(log-N)-Binary-search-solution
-  > 
+  > 二分法：左右侧总有一个是有序的
 
 - [ ] 154: 旋转数组的某个值(有重复值) `**` `H`
 https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/discuss/48808/My-pretty-simple-code-to-solve-it/48840
@@ -476,6 +476,24 @@ https://leetcode.com/problems/valid-sudoku/
 - [ ] 37: 数独 
 https://leetcode.com/problems/sudoku-solver/
 
+### 贪心
+- [ ] 455: 分发饼干
+https://leetcode.com/problems/assign-cookies/
+  > 贪心，先排序，从最小的胃口还是满足 
+
+- [ ] 860: 柠檬水找零 `*****` `E` 
+https://leetcode.com/problems/lemonade-change/
+
+- [ ] 874: 模拟行走机器人 `*****` `E`
+https://leetcode.com/problems/walking-robot-simulation/
+
+- [ ] 55: 跳跃游戏 `*****` `M`
+https://leetcode.com/problems/jump-game/
+  > 1: 从前往后遍历，将能走到的索引置为 true
+  > 2: 贪心：从后往前遍历，if (nums[i] + i >= endReachable) endReachable = i;
+
+- [ ] 45: 跳跃游戏2 `***` `H`
+https://leetcode.com/problems/jump-game-ii/
 
 ## 位运算
 - [ ] 191: Number of 1 bits `***` `E`
@@ -709,10 +727,11 @@ bfs(node, start, end) {
 ```  
 
 - 二分搜索
-[left, right]
+  1. 目标函数单调性
+  2. 存在上下界
+  3. 能够通过索引访问 （反例：单链表）
 ```
-left = 0; 
-right = arr.length - 1;
+left = 0, right = arr.length - 1;
 while (left <= right) {
   mid = left + (right - left) / 2;
   if (arr[mid] == target) 
