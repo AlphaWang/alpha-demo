@@ -448,12 +448,14 @@ https://leetcode.com/problems/word-search-ii/ 
 
 - [ ] 127: 单词接龙 `*` `M`
 https://leetcode.com/problems/word-ladder/
+  > !!!
 
 - [ ] 126: 单词接龙2 `*` ``
 https://leetcode.com/problems/word-ladder-ii/description/
 
-- [ ] 200: 岛屿数量 `*****` `M`
+- [x] 200: 岛屿数量 `*****` `M`
 https://leetcode.com/problems/number-of-islands/
+  > 遍历矩阵，碰到1 --> res++，并且 DFS 遍历周边节点，置为0
 
 - [ ] 529: 扫雷游戏 `*****` `M`
 https://leetcode.com/problems/minesweeper/
@@ -637,12 +639,6 @@ https://leetcode.com/problems/walking-robot-simulation/
   > 1: 递归 f(n) = f(n-1) + f(n - 2)
   > 2: 动态规划：递归 + 记忆化, 缓存f(i)   
   > 3: 动态规划2：从最小数开始算起，for 2~n
-
-- [ ] 455: 分发饼干 `**` `E`
-https://leetcode.com/problems/assign-cookies/
-
-- [ ] 55: 跳跃游戏 `**` `M`
-https://leetcode.com/problems/jump-game/
 
 - [ ] 433: 最小基因变化 `*****` `M`
 https://leetcode.com/problems/minimum-genetic-mutation/
