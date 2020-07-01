@@ -1,4 +1,4 @@
-package com.alphawang.algorithm.lru.interview;
+package com.alphawang.algorithm.design.lru.interview;
 
 public class Solution_0916_LiuHaoZhi {
 

@@ -1,4 +1,4 @@
-package com.alphawang.algorithm.lru;
+package com.alphawang.algorithm.design.lru;
 
 import com.google.common.collect.Maps;
 import java.util.Map;

@@ -564,7 +564,7 @@ https://leetcode.com/problems/triangle/
   > 
   >  优化：状态存储无需二维，只需一位数组存储当前层的min
 
-- [ ] 152: 乘积最大子数组 `****` `M`
+- [] 152: 乘积最大子数组 `****` `M`
 https://leetcode.com/problems/maximum-product-subarray/
   > 1: 暴力，递归
   > 2: DP，
@@ -576,7 +576,7 @@ https://leetcode.com/problems/maximum-product-subarray/
 
 - [ ] : 股票买卖  
 121: https://leetcode.com/problems/best-time-to-buy-and-sell-stock/ `E`  
-122: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/ `*****` `E`  
+- [x] 122: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/ `*****` `E`  
 123: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/ `H`  
 188: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/ `H`  
 309: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/ `M`  

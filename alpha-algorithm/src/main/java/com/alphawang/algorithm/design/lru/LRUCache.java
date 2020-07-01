@@ -1,4 +1,4 @@
-package com.alphawang.algorithm.lru;
+package com.alphawang.algorithm.design.lru;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
