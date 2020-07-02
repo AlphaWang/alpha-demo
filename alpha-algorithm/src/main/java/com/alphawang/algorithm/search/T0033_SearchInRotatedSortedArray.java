@@ -1,4 +1,4 @@
-package com.alphawang.algorithm.array;
+package com.alphawang.algorithm.search;
 
 import java.util.Arrays;
 

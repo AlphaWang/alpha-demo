@@ -468,6 +468,7 @@ https://leetcode.com/problems/minesweeper/
 
 - [ ] 74: 搜索二维矩阵 `*****` `M`
 https://leetcode.com/problems/search-a-2d-matrix/
+  > 
 
 ### 剪枝
 
@@ -498,13 +499,18 @@ https://leetcode.com/problems/assign-cookies/
 https://leetcode.com/problems/lemonade-change/
   > 遍历，记录可用的零钱数目；收到整钱后，对零钱数目扣减
 
-- [ ] 874: 模拟行走机器人 `*****` `E`
+- [x] 874: 模拟行走机器人 `*****` `E`
 https://leetcode.com/problems/walking-robot-simulation/
+  > 逐个解析 commands，
+  >   如果是-1/-2，则更新方向
+  >   其他情况，for 0-command, 更新res = max(res, x*x + y*y)
+  >            注意如果碰到obstacle，则不动
 
-- [ ] 55: 跳跃游戏 `*****` `M`
+- [x] 55: 跳跃游戏 `*****` `M`
 https://leetcode.com/problems/jump-game/
   > 1: 从前往后遍历，将能走到的索引置为 true
-  > 2: 贪心：从后往前遍历，if (nums[i] + i >= endReachable) endReachable = i;
+  > 2: 贪心：从前往后遍历，维护最大可达位置
+  > 3: 贪心：从后往前遍历，if (nums[i] + i >= endReachable) endReachable = i;
 
 - [ ] 45: 跳跃游戏2 `***` `H`
 https://leetcode.com/problems/jump-game-ii/
@@ -632,14 +638,6 @@ https://leetcode.com/problems/longest-increasing-subsequence/
 - [ ] 887: 鸡蛋掉落 `*` `H`
 https://leetcode.com/problems/super-egg-drop/
 
-- [ ] : 
-https://leetcode.com/problems/lemonade-change/
-
-- [ ] : 
-https://leetcode.com/problems/assign-cookies/
-
-- [ ] : 
-https://leetcode.com/problems/walking-robot-simulation/
 
 - [ ] : 斐波那切数列
   > 1: 递归 f(n) = f(n-1) + f(n - 2)

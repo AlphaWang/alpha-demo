@@ -24,31 +24,6 @@ import java.util.Arrays;
  */
 public class T33_SearchRotatedSortedArray {
 
-    public static void main(String[] args) {
-        int result = search(new int[] {4,5,6,7,0,1,2}, 0);
-        System.out.println(result);
-        result = search(new int[] {4,5,6,7,0,1,2}, 3);
-        System.out.println(result);
-
-
-        result = search2(new int[] {4,5,6,7,0,1,2}, 0);
-        System.out.println(result);
-        result = search2(new int[] {4,5,6,7,0,1,2}, 3);
-        System.out.println(result);
-
-        System.out.println("----");
-        result = search3(new int[] {4,5,6,7,0,1,2}, 0);
-        System.out.println(result);
-        result = search3(new int[] {4,5,6,7,0,1,2}, 3);
-        System.out.println(result);
-
-        System.out.println("----");
-        result = search4(new int[] {4,5,6,7,0,1,2}, 0);
-        System.out.println(result);
-        result = search4(new int[] {2,3,4,5,6,7,8,0,1}, 3);
-        System.out.println(result);
-    }
-
     /**
      * 1. 分割数组 + 二分搜索
      * 
@@ -201,6 +176,31 @@ public class T33_SearchRotatedSortedArray {
 
         System.out.println(String.format("smallest item in %s: nums[%s]=%s ", Arrays.toString(nums), high, nums[high]));
         return high;
+    }
+
+    public static void main(String[] args) {
+        int result = search(new int[] {4,5,6,7,0,1,2}, 0);
+        System.out.println(result);
+        result = search(new int[] {4,5,6,7,0,1,2}, 3);
+        System.out.println(result);
+
+
+        result = search2(new int[] {4,5,6,7,0,1,2}, 0);
+        System.out.println(result);
+        result = search2(new int[] {4,5,6,7,0,1,2}, 3);
+        System.out.println(result);
+
+        System.out.println("----");
+        result = search3(new int[] {4,5,6,7,0,1,2}, 0);
+        System.out.println(result);
+        result = search3(new int[] {4,5,6,7,0,1,2}, 3);
+        System.out.println(result);
+
+        System.out.println("----");
+        result = search4(new int[] {4,5,6,7,0,1,2}, 0);
+        System.out.println(result);
+        result = search4(new int[] {2,3,4,5,6,7,8,0,1}, 3);
+        System.out.println(result);
     }
 
 }
