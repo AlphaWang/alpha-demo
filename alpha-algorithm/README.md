@@ -457,8 +457,14 @@ https://leetcode.com/problems/word-ladder-ii/description/
 https://leetcode.com/problems/number-of-islands/
   > 遍历矩阵，碰到1 --> res++，并且 DFS 遍历周边节点，置为0
 
-- [ ] 529: 扫雷游戏 `*****` `M`
+- [x] 529: 扫雷游戏 `*****` `M`
 https://leetcode.com/problems/minesweeper/
+  > DFS
+  >  - 遇到 M，标记，结束
+  >  - 遇到 X，结束
+  >  - 否则是 E，
+  >     - 如果周边有雷，更新当前位置
+  >     - 如果周边无雷，DFS 向四周扩散
 
 - [ ] 74: 搜索二维矩阵 `*****` `M`
 https://leetcode.com/problems/search-a-2d-matrix/

@@ -28,17 +28,15 @@ public class T0200_NumberOfIslands {
     }
     
     private void mark(char[][] grid, int x, int y) {
+        if (x < 0 || x >= grid.length || y < 0 || y >= grid[0].length) {
+            return; 
+        }
         if (grid[x][y] == '0') {
             return;
         }
         grid[x][y] = '0';
         for (int i = 0; i < 4; i++) {
-            int nextX = x + dx[i];
-            int nextY = y + dy[i];
-            if (nextX >= 0 && nextX < grid.length 
-              && nextY >= 0 && nextY < grid[0].length) {
-                mark(grid, nextX, nextY);
-            }
+            mark(grid, x + dx[i], y + dy[i]);
         }
     }
 
