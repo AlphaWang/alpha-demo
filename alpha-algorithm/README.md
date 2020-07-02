@@ -446,9 +446,11 @@ https://leetcode.com/problems/word-search-ii/ 
   > 1: DFS；缺点：对每个候选词都要重新计算
   > 2: Trie: 把候选词构造成Trie树，对矩阵进行 DFS
 
-- [ ] 127: 单词接龙 `*` `M`
+- [x] 127: 单词接龙 `*****` `M` (!!!)
 https://leetcode.com/problems/word-ladder/
-  > !!!
+  > 1: DFS //TODO
+  > 2: BFS. 先构造patternMap，再从beginWord开始按层次遍历
+  > 3: BFS 优化。分别从 beginWord/endWord 往中间夹逼
 
 - [ ] 126: 单词接龙2 `*` ``
 https://leetcode.com/problems/word-ladder-ii/description/
