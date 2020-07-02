@@ -1,4 +1,6 @@
-package com.alphawang.algorithm.array;
+package com.alphawang.algorithm.search;
+
+import java.util.Arrays;
 
 /**
  * https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
@@ -109,8 +111,10 @@ public class T0153_MinimumInRotatedSortedArray {
         if (nums.length == 1) {
             return nums[0];
         }
-        // 如果已排序 但未旋转，直接返回
+        
         int left = 0, right = nums.length - 1;
+        
+        // 如果未旋转，直接返回
         if (nums[right] > nums[0]) {
             return nums[0];
         }
@@ -125,12 +129,42 @@ public class T0153_MinimumInRotatedSortedArray {
             } 
             // 在第二段，则往左找
             else if (nums[mid] < nums[right]) {
-                right = mid; 
+                right = mid;  //TODO 不要-1
             }
         }
         
         return nums[left];
     }
+
+    /**
+     * 4 刷
+     */
+    public int findMin4(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return -1;
+        }
+
+        int left = 0, right = nums.length - 1;
+        if (nums[left] <= nums[right]) {
+            return nums[left];
+        }
+
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            System.out.println(String.format("[%s, %s] - %s", left, right, mid));
+            if (nums[mid] == nums[right]) {
+                return nums[mid];
+            } else if (nums[mid] > nums[right]) {
+                left = mid + 1;
+            } else if (nums[mid] < nums[right]) {
+                right = mid;  //TODO 不要-1，比如mid恰好是最低点
+            }
+        }
+
+        return nums[left];
+
+    }
+    
     public static void main(String[] args) {
         T0153_MinimumInRotatedSortedArray sut = new T0153_MinimumInRotatedSortedArray();
 
@@ -138,19 +172,23 @@ public class T0153_MinimumInRotatedSortedArray {
          * Input: [3,4,5,1,2] 
          * Output: 1
          */
-        System.out.println(sut.findMin3(new int[] {3,4,5,1,2}));
+        sut.test(new int[] {3,4,5,1,2});
 
         /*
          * Input: [4,5,6,7,0,1,2]
          * Output: 0
          */
-        System.out.println(sut.findMin3(new int[] {4,5,6,7,0,1,2}));
+        sut.test(new int[] {4,5,6,7,0,1,2});
 
         /*
          * Input: [2,1]
          * Output: 1
          */
-        System.out.println(sut.findMin3(new int[] {2,1}));
+        sut.test(new int[] {2,1});
+    }
+    
+    private void test(int[] nums) {
+        System.out.println(Arrays.toString(nums) + " --> " + findMin4(nums));
     }
 
 }
