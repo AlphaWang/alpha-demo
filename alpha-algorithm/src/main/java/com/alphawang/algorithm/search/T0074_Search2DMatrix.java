@@ -55,6 +55,34 @@ public class T0074_Search2DMatrix {
         return matrix[left][subLeft] == target;
     }
 
+    /**
+     * 1. 矩阵其实是 M * N 的有序数组
+     *    0ms - 100%
+     */
+    public boolean searchMatrix2(int[][] matrix, int target) {
+        if (matrix == null || matrix.length == 0) {
+            return false;
+        }
+        
+        int m = matrix.length;
+        int n = matrix[0].length;
+        
+        int left = 0, right = m * n - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            int midValue = matrix[mid / n][mid % n];
+            if (midValue == target) {
+                return true;
+            } else if (midValue > target) {
+                right = mid - 1;
+            } else if (midValue < target) {
+                left = mid + 1;
+            }
+        }
+        
+        return false;
+    }
+
     public static void main(String[] args) {
         /*
          * Input:
@@ -118,7 +146,7 @@ public class T0074_Search2DMatrix {
     private static void test(int[][] matrix, int target) {
         T0074_Search2DMatrix sut = new T0074_Search2DMatrix();
         System.out.println(Arrays.deepToString(matrix));
-        System.out.println(String.format("%s --> %s", target, sut.searchMatrix(matrix, target)));
+        System.out.println(String.format("%s --> %s", target, sut.searchMatrix2(matrix, target)));
     }
 
 }

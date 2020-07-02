@@ -469,6 +469,7 @@ https://leetcode.com/problems/minesweeper/
 - [ ] 74: 搜索二维矩阵 `*****` `M`
 https://leetcode.com/problems/search-a-2d-matrix/
   > 1: 两步走：先二分找到 子数组；再查子数组
+  > 2: 矩阵其实是 M * N 的有序数组
 
 ### 剪枝
 
