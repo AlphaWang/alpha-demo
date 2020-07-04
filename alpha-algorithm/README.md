@@ -528,6 +528,15 @@ https://leetcode.com/problems/jump-game-ii/
   >      状态: dp[n] = 索引 n 到最后位置的 minSteps
   >      状态转移方程：dp[n] = min{dp[n + 1...nums[n]]}
   > 2: BFS, --TODO 超时
+  > 3: 贪心，从后往前查找，每次找出跨度最大的位置
+  > 4: 贪心，
+  >    Let's say the range of the current jump is [curBegin, curEnd], 
+  >    `reachable` is the farthest point that all points in [curBegin, curEnd] can reach. 
+  >    
+  >    Once the current point reaches curEnd, then trigger another jump, 
+  >    and set the new curEnd with `reachable`, then keep the above steps:
+
+
 ## 位运算
 - [ ] 191: Number of 1 bits `***` `E`
 https://leetcode.com/problems/number-of-1-bits/

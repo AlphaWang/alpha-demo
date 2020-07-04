@@ -96,6 +96,67 @@ public class T0045_JumpGame2 {
         return Integer.MAX_VALUE;
     }
 
+    /**
+     * 3. 贪心，从后往前查找，每次找出跨度最大的位置
+     *    370ms - 17% //TODO ???
+     */
+    public int jump3(int[] nums) {
+//        if (nums == null || nums.length == 0 || nums.length == 1 || nums[0] == 0 ) {
+//            return 0;
+//        }
+//        if (nums.length == 2) {
+//            return 1;
+//        }
+        
+        int steps = 0;
+        
+        // 改成while, 370ms - 17% --> 279ms - 24% 
+//        for (int target = nums.length - 1; target > 0; ) {
+        int target = nums.length - 1;
+        while (target > 0) {
+            for (int i = 0; i < target; i++) {
+                if (i + nums[i] >= target) {
+                    target = i;
+                    steps++;
+                    break;
+                }
+            }
+        }
+        
+        return steps;
+    }
+
+    /**
+     * TODO 
+     * 4. 贪心 
+     *    Let's say the range of the current jump is [curBegin, curEnd], 
+     *    `reachable` is the farthest point that all points in [curBegin, curEnd] can reach. 
+     *    
+     *    Once the current point reaches `curEnd`, then trigger another jump, 
+     *    and set the new curEnd with `reachable`, then keep the above steps:
+     */
+    public int jump4(int[] nums) {
+        if (nums == null || nums.length == 0 || nums.length == 1) {
+            return 0;
+        }
+
+        int curEnd = 0;
+        int reachable = 0;
+        int steps = 0;
+        int target = nums.length - 1;
+        for (int i = 0; i < target; i++){
+            reachable = Math.max(reachable, nums[i] + i);
+            if (curEnd == i) {
+                curEnd = reachable;
+                steps++;
+            }
+//            if (reachable >= target) {
+//                return steps; 
+//            }
+        }
+        return curEnd >= nums.length - 1 ? steps : -1;
+    }
+
     public static void main(String[] args) {
        
         /*
@@ -126,7 +187,7 @@ public class T0045_JumpGame2 {
     private static void test(int[] nums) {
         T0045_JumpGame2 sut = new T0045_JumpGame2();
         System.out.println(Arrays.toString(nums));
-        System.out.println(sut.jump2(nums));
+        System.out.println(sut.jump4(nums));
     }
 
 }
