@@ -522,8 +522,11 @@ https://leetcode.com/problems/jump-game/
   > 2: 贪心：从前往后遍历，维护最大可达位置
   > 3: 贪心：从后往前遍历，if (nums[i] + i >= endReachable) endReachable = i;
 
-- [ ] 45: 跳跃游戏2 `***` `H`
+- [x] 45: 跳跃游戏2 `*****` `H`
 https://leetcode.com/problems/jump-game-ii/
+  > 1: 动态规划 --TODO 击败11%，太慢
+  >      状态: dp[n] = 索引 n 到最后位置的 minSteps
+  >      状态转移方程：dp[n] = min{dp[n + 1...nums[n]]}
 
 ## 位运算
 - [ ] 191: Number of 1 bits `***` `E`
