@@ -527,7 +527,7 @@ https://leetcode.com/problems/jump-game-ii/
   > 1: 动态规划 --TODO 击败11%，太慢
   >      状态: dp[n] = 索引 n 到最后位置的 minSteps
   >      状态转移方程：dp[n] = min{dp[n + 1...nums[n]]}
-
+  > 2: BFS, --TODO 超时
 ## 位运算
 - [ ] 191: Number of 1 bits `***` `E`
 https://leetcode.com/problems/number-of-1-bits/
