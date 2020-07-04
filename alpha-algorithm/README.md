@@ -458,9 +458,9 @@ https://leetcode.com/problems/word-ladder-ii/
   > 127: 找到从 beginWord 到 endWord 的最短转换序列的长度
   > 1: BFS, queue存储当前处理的路径（单词列表） --》 TODO 执行超时
 
-- [ ] 433: 最小基因变化 `*****` `M`
+- [x] 433: 最小基因变化 `*****` `M`
 https://leetcode.com/problems/minimum-genetic-mutation/
-
+  > 1: BFS
 
 - [x] 200: 岛屿数量 `*****` `M`
 https://leetcode.com/problems/number-of-islands/
