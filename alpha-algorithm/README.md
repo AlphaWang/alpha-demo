@@ -452,8 +452,15 @@ https://leetcode.com/problems/word-ladder/
   > 2: BFS. 先构造patternMap，再从beginWord开始按层次遍历
   > 3: BFS 优化。分别从 beginWord/endWord 往中间夹逼
 
-- [ ] 126: 单词接龙2 `*` ``
-https://leetcode.com/problems/word-ladder-ii/description/
+- [x] 126: 单词接龙2 `*` `H`
+https://leetcode.com/problems/word-ladder-ii/
+  > 126: 找出"所有"从 beginWord 到 endWord 的最短转换序列
+  > 127: 找到从 beginWord 到 endWord 的最短转换序列的长度
+  > 1: BFS, queue存储当前处理的路径（单词列表） --》 TODO 执行超时
+
+- [ ] 433: 最小基因变化 `*****` `M`
+https://leetcode.com/problems/minimum-genetic-mutation/
+
 
 - [x] 200: 岛屿数量 `*****` `M`
 https://leetcode.com/problems/number-of-islands/
@@ -647,8 +654,6 @@ https://leetcode.com/problems/super-egg-drop/
   > 2: 动态规划：递归 + 记忆化, 缓存f(i)   
   > 3: 动态规划2：从最小数开始算起，for 2~n
 
-- [ ] 433: 最小基因变化 `*****` `M`
-https://leetcode.com/problems/minimum-genetic-mutation/
 
 ## 并查集
 

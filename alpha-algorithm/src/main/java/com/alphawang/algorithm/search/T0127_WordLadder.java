@@ -135,8 +135,6 @@ public class T0127_WordLadder {
     }
 
     public static void main(String[] args) {
-        
-
         /*
          * beginWord = "hit",
          * endWord = "cog",
