@@ -37,7 +37,7 @@ public class T0239_SlidingWindowMax {
 
     /**
      * 2. 维护一个双端队列。队列元素为下标，最左为当前最大值的下标。
-     *    //TODO 错误
+     *    20ms - 30%
      */
     public int[] maxSlidingWindow2(int[] nums, int k) {
         if (nums == null || nums.length == 0 || k > nums.length) {
@@ -47,34 +47,34 @@ public class T0239_SlidingWindowMax {
         Deque<Integer> queue = new LinkedList<>();
         
         int maxIndex = 0;
-        for (int i = 1; i < k; i++) {
+        for (int i = 0; i < k; i++) {
+            cleanQueue(nums, queue, i, k);
+            queue.addLast(i);
             if (nums[i] > nums[maxIndex]) {
                 maxIndex = i;
             }
         }
-        queue.addLast(maxIndex);
         res[0] = nums[maxIndex];
         
-        for (int i = k; i < res.length; i++) {
-            System.out.println("-- " + queue);
-            int newNum = nums[i];
-            int oldestIndex = i - k;
-            int oldestNum = nums[oldestIndex];
-            
-            if (queue.getFirst() == oldestIndex) {
-                // 上一个最大值被移除
-                queue.removeFirst();
-            } else {
-                // 如果队列里的元素比新元素小
-                while (nums[queue.getFirst()] < newNum) {
-                    queue.removeFirst();
-                }
-            }
+        for (int i = k; i < nums.length; i++) {
+            cleanQueue(nums, queue, i, k);
             queue.addLast(i);
-            res[i - k + 1] = queue.getFirst();
+            System.out.println(String.format("[%s] %s == %s", i, queue, printValue(nums, queue)));
+
+            res[i - k + 1] = nums[queue.getFirst()];
         }
         
         return res;
+    }
+    
+    private void cleanQueue(int[] nums, Deque<Integer> queue, int i, int k) {
+        if (!queue.isEmpty() && queue.getFirst() == i - k) {
+            queue.removeFirst();
+        }
+        
+        while (!queue.isEmpty() && nums[i] > nums[queue.getLast()]) {
+            queue.removeLast();
+        }
     }
 
     /**
@@ -172,7 +172,7 @@ public class T0239_SlidingWindowMax {
         System.out.println(String.format("%s - %s --> \n%s",
              Arrays.toString(nums),
              k,
-             Arrays.toString(sut.maxSlidingWindow2_1(nums, k))
+             Arrays.toString(sut.maxSlidingWindow2(nums, k))
              ));
     }
 
