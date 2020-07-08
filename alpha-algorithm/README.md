@@ -17,7 +17,7 @@
 https://leetcode.com/problems/move-zeroes/
   > 1: loop, count zero  
   > 2: new int[], loop  
-  > 3: index，挪动非0元素    
+  > 3: 双指针，一个遍历数组，一个记录已处理的位置  
 
 - [ ] 11: 盛水最多的容器 `****` 
 https://leetcode.com/problems/container-with-most-water/
@@ -31,6 +31,8 @@ https://leetcode.com/problems/3sum/
 https://leetcode.com/problems/remove-duplicates-from-sorted-array/
   > 1: 开辟新数组，遍历原数组 并拷贝非重复元素到新数组
   > 2: 双指针遍历。碰到不相等的元素，则拷贝到index+1指针处
+  >      index : 去重后的 tail
+  >      i : 当前处理的位置
 
 - [x] 189: 旋转数组 `****` `E`
 https://leetcode.com/problems/rotate-array/
@@ -646,7 +648,7 @@ https://leetcode.com/problems/edit-distance/
   >    方程：if w1[i] == w2[j], `dp[i,j] = dp[i-1,j-1]`;   
             else,              `dp[i,j] = 1 + min(dp[i-1,j], dp[i,j-1], dp[i-1,j-1])`; //分别对应增/删/替换
 
-- [ ] 300: 最长上升子序列 `*****` `M`
+- [x] 300: 最长上升子序列 `*****` `M`
 https://leetcode.com/problems/longest-increasing-subsequence/
   > 1: 暴力，2N次方  
   > 2: DP，N平方 

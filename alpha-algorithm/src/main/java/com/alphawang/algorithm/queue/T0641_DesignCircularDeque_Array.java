@@ -33,8 +33,8 @@ public class T0641_DesignCircularDeque_Array {
         if (isFull()) {
             return false;
         }
-        
-        head = (head - 1 + capacity) % capacity;
+        // == (head - 1) % capacity ? --> 考虑 head - 1 < 0 的情况
+        head = (head - 1 + capacity) % capacity;  
         data[head] = value;
         return true;
     }

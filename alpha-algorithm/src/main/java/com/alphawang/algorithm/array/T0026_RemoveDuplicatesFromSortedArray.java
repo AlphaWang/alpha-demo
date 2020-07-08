@@ -5,6 +5,9 @@ import java.util.Arrays;
 /**
  * https://leetcode.com/problems/remove-duplicates-from-sorted-array/ 
  * Easy
+ * 
+ * 给定一个排序数组，你需要在 原地 删除重复出现的元素，使得每个元素只出现一次，
+ * 返回移除后数组的新长度。
  */
 public class T0026_RemoveDuplicatesFromSortedArray {
     
@@ -32,6 +35,8 @@ public class T0026_RemoveDuplicatesFromSortedArray {
 
     /**
      * 一次循环，双指针，遇到不相等的则复制
+     *   index : 去重后的 tail
+     *   i : 当前处理的位置
      */
     public int removeDuplicates(int[] nums) {
         if (nums == null || nums.length < 1) {
@@ -49,31 +54,20 @@ public class T0026_RemoveDuplicatesFromSortedArray {
     }
     
     public static void main(String[] args) {
-        T0026_RemoveDuplicatesFromSortedArray sut = new T0026_RemoveDuplicatesFromSortedArray();
 
-        int[] nums = new int[] {1,2};
-        System.out.println(sut.removeDuplicates(nums)); // 2
-        System.out.println(Arrays.toString(nums)); // [1, 2]
-
-        nums = new int[] {1,2,3};
-        System.out.println(sut.removeDuplicates(nums)); // 3
-        System.out.println(Arrays.toString(nums)); // [1, 2, 3]
-        
-        nums = new int[] {1,1,2};
-        System.out.println(sut.removeDuplicates(nums)); // 2
-        System.out.println(Arrays.toString(nums)); // [1, 2, ..]
-
-        nums = new int[] {1,1,2, 2};
-        System.out.println(sut.removeDuplicates(nums)); // 2
-        System.out.println(Arrays.toString(nums)); // [1, 2, ..]
-
-        nums = new int[] {1,1,2, 3};
-        System.out.println(sut.removeDuplicates(nums)); // 3
-        System.out.println(Arrays.toString(nums)); // [1, 2, 3..]
-
-        nums = new int[] {0,0,1,1,1,2,2,3,3,4};
-        System.out.println(sut.removeDuplicates(nums)); // 5
-        System.out.println(Arrays.toString(nums)); // [0, 1, 2, 3, 4, ..]
+        test(new int[] {1,2});
+        test(new int[] {1,2,3});
+        test(new int[] {1,1,2});
+        test(new int[] {1,1,2, 2});
+        test(new int[] {1,1,2, 3});
+        test(new int[] {0,0,1,1,1,2,2,3,3,4});
     }
+    
+    private static void test(int[] nums) {
+        T0026_RemoveDuplicatesFromSortedArray sut = new T0026_RemoveDuplicatesFromSortedArray();
+        System.out.println(Arrays.toString(nums));
+        System.out.println(String.format("%s --> %s", sut.removeDuplicates(nums), Arrays.toString(nums)));
+    }
+    
 
 }

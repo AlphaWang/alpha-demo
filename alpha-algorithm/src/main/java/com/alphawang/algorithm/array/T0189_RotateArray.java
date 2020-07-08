@@ -5,12 +5,14 @@ import java.util.Arrays;
 /**
  * https://leetcode.com/problems/rotate-array/
  * Easy
+ * 
+ * 给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。
  */
 public class T0189_RotateArray {
 
     /**
      * 1: 计算需要移动的步数，for steps, 从后往前遍历数组 移动元素
-     *    214 ms
+     *    214 ms  O(K*N)
      */
     public void rotate(int[] nums, int k) {
         if (nums == null || nums.length < 2) {

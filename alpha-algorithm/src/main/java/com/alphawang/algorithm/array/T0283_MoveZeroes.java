@@ -40,20 +40,18 @@ public class T0283_MoveZeroes {
     }
 
     public static void main(String[] args) {
+
+        test(new int[] {0,1,0,3,12});
+        test(new int[] {0});
+        test(new int[] {1, 2, 0, 0 , 3});
+        
+    }
+    
+    private static void test(int[] nums) {
         T0283_MoveZeroes sut = new T0283_MoveZeroes();
-        
-        int[] nums = new int[] {0,1,0,3,12};
-        sut.moveZeroes2(nums);
-        System.out.println(Arrays.toString(nums)); // [1, 3, 12, 0, 0]
-
-        nums = new int[] {0};
-        sut.moveZeroes2(nums);
-        System.out.println(Arrays.toString(nums)); // [0]
-
-        nums = new int[] {1, 2, 0, 0 , 3};
-        sut.moveZeroes2(nums);
-        System.out.println(Arrays.toString(nums)); // [1,2,3,0,0]
-        
+        System.out.println(Arrays.toString(nums));
+        sut.moveZeroes(nums);
+        System.out.println(String.format("--> %s", Arrays.toString(nums)));
     }
 
 }

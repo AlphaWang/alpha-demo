@@ -1,10 +1,10 @@
 package com.alphawang.algorithm.search;
 
+/**
+ * 查找最后一个 值小于或等于给定值的元素
+ */
 public class BinarySearchSmaller {
 
-    /**
-     * 查找最后一个 值小于或等于给定值的元素
-     */
     public static void main(String[] args) {
         System.out.println(binarySearch(new int[] { 1, 2, 3, 4, 5, 8, 8, 8, 11, 18 }, 6)); // 找到元素5， index=4
         System.out.println(binarySearch(new int[] { 1, 2, 3, 4, 5, 8, 8, 8, 11, 18 }, 10)); // 找到元素8， index=7

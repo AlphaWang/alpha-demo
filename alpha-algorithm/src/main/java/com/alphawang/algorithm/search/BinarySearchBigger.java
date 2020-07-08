@@ -1,10 +1,10 @@
 package com.alphawang.algorithm.search;
 
+/**
+ * 查找第一个 值大于或等于给定值的元素
+ */
 public class BinarySearchBigger {
 
-    /**
-     * 查找第一个 值大于或等于给定值的元素
-     */
     public static void main(String[] args) {
         System.out.println(binarySearch(new int[] { 1, 2, 3, 4, 5, 8, 8, 8, 11, 18 }, 10)); // 找到元素11， index=8
         System.out.println(binarySearch(new int[] { 1, 2, 3, 4, 5, 8, 8, 8, 11, 18 }, 7)); // 找到元素8， index=5
