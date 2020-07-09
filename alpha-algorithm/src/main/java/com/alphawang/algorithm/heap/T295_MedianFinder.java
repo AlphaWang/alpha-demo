@@ -1,4 +1,4 @@
-package com.alphawang.algorithm.tree;
+package com.alphawang.algorithm.heap;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
