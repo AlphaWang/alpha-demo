@@ -9,7 +9,7 @@ import java.util.Stack;
 public class T0042_TrappingRainWater {
 
     /**
-     *  1. 暴力
+     *  1. 暴力：对每个元素，找到其左右最大边界
      *     69 ms
      */
     public int trap(int[] height) {

@@ -72,6 +72,45 @@ public class T0025_ReverseNodesInKGroup {
         
         return reversed;
     }
+
+    /**
+     * 2. 循环
+     */
+    public ListNode reverseKGroup2(ListNode head, int k) {
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        
+        ListNode prev = dummy;
+        while (prev != null) {
+            // 翻转 (prev, last] 之间的元素
+            ListNode last = prev;
+            for (int i = 0; i <= k; i++) {
+                last = last.next;
+                // 如果不足 k，则不翻转
+                if (last == null) {
+                    prev = null;
+                    break;
+                }
+            }
+            
+            ListNode start = prev.next;
+            ListNode curr = prev.next.next;
+            
+            while (curr != last) {
+                ListNode newNext = curr.next;
+                curr.next = start;
+                
+                start = curr;
+                curr = newNext;
+            }
+           
+            
+            prev = last;
+        }
+        
+        
+        return dummy.next;
+    }
     
     public ListNode reverse(ListNode start, ListNode end) {
         ListNode next = start.next;
@@ -96,20 +135,22 @@ public class T0025_ReverseNodesInKGroup {
             end = end.next;
         }
         System.out.println(ListNode.format(sut.reverse(node, end)));
-        System.out.println("------");
+        System.out.println("------ tested reverse util");
         
         /*
                   Given this linked list: 1->2->3->4->5
             For k = 2, you should return: 2->1->4->3->5
             For k = 3, you should return: 3->2->1->4->5
          */
-        node = ListNodeCreator.create(1, 2, 3, 4, 5);
-        System.out.println(ListNode.format(sut.reverseKGroup1_1(node, 2)));
-
-        node = ListNodeCreator.create(1, 2, 3, 4, 5);
-        System.out.println(ListNode.format(sut.reverseKGroup1_1(node, 3)));
+        test(ListNodeCreator.create(1, 2, 3, 4, 5), 2);
+        test(ListNodeCreator.create(1, 2, 3, 4, 5), 3);
         
-        
+    }
+    
+    private static void test(ListNode head, int k) {
+        T0025_ReverseNodesInKGroup sut = new T0025_ReverseNodesInKGroup();
+        System.out.println(ListNode.format(head) + " --> ");
+        System.out.println(ListNode.format(sut.reverseKGroup1_1(head, k)));
     }
 
 }

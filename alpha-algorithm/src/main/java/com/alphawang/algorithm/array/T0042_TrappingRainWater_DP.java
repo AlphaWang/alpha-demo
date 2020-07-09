@@ -2,7 +2,7 @@ package com.alphawang.algorithm.array;
 
 import java.util.Arrays;
 
-public class T42_RainWater {
+public class T0042_TrappingRainWater_DP {
     /**
      * https://leetcode.com/problems/trapping-rain-water/
      * 

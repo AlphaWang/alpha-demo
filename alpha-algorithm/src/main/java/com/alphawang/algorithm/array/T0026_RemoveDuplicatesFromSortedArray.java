@@ -35,8 +35,8 @@ public class T0026_RemoveDuplicatesFromSortedArray {
 
     /**
      * 一次循环，双指针，遇到不相等的则复制
-     *   index : 去重后的 tail
-     *   i : 当前处理的位置
+     *   - index : 去重后的 tail
+     *   - i : 当前处理的位置
      */
     public int removeDuplicates(int[] nums) {
         if (nums == null || nums.length < 1) {
