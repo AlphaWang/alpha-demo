@@ -863,7 +863,7 @@ Queue:
 - offer() / add()  
 - poll() / remove()
 - peek() / element() null / exception
-
+                         k
 Deque
 - getFirst() / getLast()
 - removeFirst() / removeLast()  : exception

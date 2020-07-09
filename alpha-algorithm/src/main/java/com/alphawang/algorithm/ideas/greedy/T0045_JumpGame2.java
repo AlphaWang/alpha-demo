@@ -17,7 +17,7 @@ public class T0045_JumpGame2 {
     /**
      * 1. DP
      *    状态: dp[n] = 索引 n 到最后位置的 minSteps
-     *    状态转移方程：dp[n] = min{dp[n + 1], ..., dp[n + nums[n]]}
+     *    状态转移方程：dp[n] = min{dp[n + 1], ..., dp[n + nums[n]]} + 1
      *    
      *    452ms - 11%
      *    378ms - 17%  优化循环跳出条件

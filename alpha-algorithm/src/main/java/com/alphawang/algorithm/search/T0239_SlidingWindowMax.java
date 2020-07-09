@@ -115,30 +115,30 @@ public class T0239_SlidingWindowMax {
      *    //TODO ?
      */
     public int[] maxSlidingWindow3(int[] nums, int k) {
-        int l = 0; //左
+        int left = 0; //左
         int p = 0; // res index
-        int r = 0; //右
+        int right = 0; //右
         int[] res = new int[nums.length - k + 1];
 
         Deque<Integer> queue = new LinkedList<>();
 
-        while (r < nums.length) {
-            while (queue.size() > 0 && queue.peekLast() < nums[r]) {
+        while (right < nums.length) {
+            while (queue.size() > 0 && queue.peekLast() < nums[right]) {
                 queue.pollLast();
             }
-            queue.offer(nums[r]);
+            queue.offer(nums[right]);
             
-            while (r - l + 1 > k) {
-                if (nums[l] == queue.peek()) {
+            while (right - left + 1 > k) {
+                if (nums[left] == queue.peek()) {
                     queue.poll();
                 }
-                l++;
+                left++;
             }
-            if (r + 1 >= k) {
+            if (right + 1 >= k) {
                 res[p] = queue.peek();
                 p++;
             }
-            r++;
+            right++;
         }
 
         return res;
