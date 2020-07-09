@@ -6,6 +6,10 @@ import java.util.List;
 /**
  * https://leetcode.com/problems/triangle/
  * Medium
+ * 
+ * 给定一个三角形，找出自顶向下的最小路径和。每一步只能移动到下一行中相邻的结点上。
+ * 相邻的结点 在这里指的是 下标 与 上一层结点下标 相同或者等于 上一层结点下标 + 1 的两个结点。
+ *
  */
 public class T0120_Triangle {
 
@@ -61,10 +65,13 @@ public class T0120_Triangle {
             return 0;
         
         for (int level = triangle.size() - 2; level >= 0; level--) {
-            for (int index = triangle.get(level).size() - 1; index >= 0; index--) {
-                int min = Math.min(triangle.get(level+1).get(index), 
-                                   triangle.get(level+1).get(index + 1));
-                triangle.get(level).set(index, min + triangle.get(level).get(index));
+            List<Integer> currLevel = triangle.get(level);
+            for (int index = currLevel.size() - 1; index >= 0; index--) {
+                List<Integer> nextLevel = triangle.get(level + 1);
+                // 当前节点 --> 下一层的 最小path
+                int min = Math.min(nextLevel.get(index),
+                                   nextLevel.get(index + 1));
+                currLevel.set(index, min + currLevel.get(index));
             }
             System.out.println(String.format("level %s: %s", level, triangle.get(level)));
         }
@@ -74,7 +81,18 @@ public class T0120_Triangle {
 
     public static void main(String[] args) {
         T0120_Triangle sut = new T0120_Triangle();
-        
+
+        /*
+         * 例如，给定三角形：
+         *
+         * [
+         *      [2],
+         *     [3,4],
+         *    [6,5,7],
+         *   [4,1,8,3]
+         * ]
+         * 自顶向下的最小路径和为 11（即，2 + 3 + 5 + 1 = 11）。
+         */
         int res = sut.minimumTotal2(Arrays.asList(
           Arrays.asList(    2),
           Arrays.asList(  3, 4),
