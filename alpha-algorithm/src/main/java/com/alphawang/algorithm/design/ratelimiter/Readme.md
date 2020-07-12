@@ -1,6 +1,7 @@
 
 # 设计一个支持各种算法的限流框架
 
+https://time.geekbang.org/column/article/242314
 https://github.com/wangzheng0822/ratelimiter4j
 
 ## 需求分析
@@ -70,7 +71,7 @@ configs:
 
 // 重构前：
 com.xzg.ratelimiter
-  --RateLimiter  读取Rules，提供limit()入口  
+  --RateLimiter   读取Rules，提供limit()入口  
 
 com.xzg.ratelimiter.rule
   --ApiLimit      数据结构：单个API的限流规则
