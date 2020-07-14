@@ -34,6 +34,8 @@ public class CountingSort {
         for (int i = 0; i < n; ++i) {
             c[a[i]]++;
         }
+        System.out.println("++++ Array: " + Arrays.toString(a));
+        System.out.println("++++ Count: " + Arrays.toString(c));
 
         /**
          * 3. 依次累加
@@ -45,12 +47,12 @@ public class CountingSort {
         }
 
         // 临时数组r，存储排序之后的结果
-        int[] r = new int[n];
+        int[] res = new int[n];
         /**
          * 4. !!!!!! 计数排序的关键步骤，有点难理解
          */
-        System.out.println("++++ Array: " + Arrays.toString(a));
-        System.out.println("++++ Count: " + Arrays.toString(c));
+        
+        System.out.println("++++ Count added: " + Arrays.toString(c));
         
         for (int i = n - 1; i >= 0; --i) {
             System.out.println("------- Loop " + i);
@@ -61,17 +63,17 @@ public class CountingSort {
             
             // 该数的 "累计计数"，即是其排序位置
             int index = c[num] - 1;
-            r[index] = a[i];
+            res[index] = a[i];
             System.out.println("-- Count: " + c[num]);
             
             // 该数已排序，累计计数需要 -1
             c[num]--;
             System.out.println("-- Reduced Count: " + Arrays.toString(c));
 
-            System.out.println("-- Result: " + Arrays.toString(r));
+            System.out.println("-- Result: " + Arrays.toString(res));
         }
         
-        return r;
+        return res;
     }
 
 

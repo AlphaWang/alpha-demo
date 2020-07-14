@@ -565,6 +565,8 @@ https://leetcode.com/problems/n-queens-ii/
 
 ## 动态规划    
 
+https://www.bilibili.com/video/av53233912?from=search&seid=2847395688604491997
+
 DP：
 1. 递归 + 记忆化 ==> 递推
 2. 状态的定义： opt[n]
@@ -581,6 +583,8 @@ https://leetcode.com/problems/climbing-stairs/
   > 4: DP:  
   >    状态： dp[n] 登到第n级台阶的方法数     
   >    状态转移方程： dp[n] = dp[n-1] + dp[n-2]      
+  > 扩展1：可以走的步伐改为 1、2、3 （Easy）
+  > 扩展2：相邻两步不能相同 （Medium）
 
 - [x] 78: 子集 `*****` `M`  
 https://leetcode.com/problems/subsets/  
@@ -592,17 +596,51 @@ https://leetcode.com/problems/subsets/
 
 - [x] 120: 三角形最小路径和 `*****` `M`
 https://leetcode.com/problems/triangle/
-  > 1: 递归
+  > ref https://leetcode.com/problems/triangle/discuss/38735/Python-easy-to-understand-solutions-(top-down-bottom-up)
+  > 1: 暴力：递归n层，遍历所有路径 (2^n)
   > 2: 贪心，可能不是最优
   > 3: DP，动态递归； 两层循环： for i m-1 --> 0, for j   
   >    状态定义：dp[i, j]，从底走到(i, j) 路径和的最小值 
-  >    状态转移方程：`dp[i, j] = min(dp[i+1, j], dp[i+1, j+1]) + triangle[i, j]`
+  >    状态转移方程：`dp[i, j] = min(dp[i+1, j], dp[i+1, j+1]) + triangle[i, j]`  ---> 此即分解子问题
   >    起始状态：`dp[m-1, j] = triangle[m-1, j]`
   >    结果值：dp[0, 0]
   > 
   >  优化：状态存储无需二维，只需一位数组存储当前层的min
 
-- [] 152: 乘积最大子数组 `****` `M`
+- [ ] 64: 最小路径和 `*****` `M`
+https://leetcode.com/problems/minimum-path-sum/
+
+- [ ] 62: 不同路径 `*****` `M`
+https://leetcode.com/problems/unique-paths/
+
+- [ ] 63: 不同路径2 `*****` `M`
+https://leetcode.com/problems/unique-paths-ii/
+  > vs 62: 考虑障碍物
+  > 1: 分治
+  ```
+  int countPath(boolean[][] grid, int row, int col) {
+    if (!validSquare()) return 0;
+    if (isEnd()) return 1;
+    return countPath(grid, row + 1, col) + 
+           countPath(grid, row, col + 1);
+  }
+  ```
+  > 2: 递推，自底向上
+  ```   
+  if a[i, j] 是空地
+    opt[i, j] = opt[i + 1, j] + opt[i, j + 1];  // 状态转移方程
+  else 
+    opt[i, j] = 0;
+  ```
+
+- [ ] 53: 最大子序和 `*****` `E`
+https://leetcode.com/problems/maximum-subarray/
+  > 1: 暴力，两层循环计算和；--> 优化：首位必须是正数。O(N^2)
+  > 2: DP
+  >    状态：f[i]，从*到i 并且包含i的最大和
+  >    方程：f[i] = max{ f[i-1], 0 } + a[i] 
+
+- [] 152: 乘积最大子数组 `*****` `M`
 https://leetcode.com/problems/maximum-product-subarray/
   > 1: 暴力，递归
   > 2: DP，
@@ -634,11 +672,12 @@ https://leetcode.com/problems/maximum-product-subarray/
 
 - [ ] 322: 零钱兑换 `*****` `M`
 https://leetcode.com/problems/coin-change/
-  > 1: 暴力，递归 ？  
-  > 2: 贪心，不最优，例如 [1,6,7] --> 30  
+  > 1: 暴力，递归树  
+  > 2: 贪心，不最优，例如 [1,6,7] --> 30    
+  > 3: BFS，找到深度最前的 0
   > 3: DP，类比爬楼梯问题  
   >    状态：dp[i] 上到第i阶的最小步数  
-  >    方程：dp[i] = min(dp[i-coins[j]]) + 1
+  >    方程：dp[i] = min{ dp[i - coins[j]] } + 1
 
 - [ ] 72: 编辑距离 `***` `H`
 https://leetcode.com/problems/edit-distance/
@@ -659,14 +698,21 @@ https://leetcode.com/problems/longest-increasing-subsequence/
   >    维护数组LIS; 遍历数组，if a[i] > LIS[max], 插入LIS尾部; 否则，替换LIS中最早>a[i]的元素   
   > 
 
+- [ ] 1143: 最长公共子序列 `*****` `M`
+https://leetcode.com/problems/longest-common-subsequence/
+  > 1: DP
+  >    状态：二维数组，行 - text1, 列 - text2
+  >    方程：if (s1[-1] != s2[-1]) LCS[s1, s2] = max{ LCS[s1 - 1, s2], LCS[s1, s2 - 1] }
+  >         if (s1[-1] == s2[-1]) LCS[s1, s2] = LCS[s1 - 1, s2 -1] + 1
+
 - [ ] 887: 鸡蛋掉落 `*` `H`
 https://leetcode.com/problems/super-egg-drop/
 
 
 - [ ] : 斐波那切数列
   > 1: 递归 f(n) = f(n-1) + f(n - 2)
-  > 2: 动态规划：递归 + 记忆化, 缓存f(i)   
-  > 3: 动态规划2：从最小数开始算起，for 2~n
+  > 2: 动态规划：自顶向下，递归 + 记忆化, 缓存f(i)   
+  > 3: 动态规划2：自底向上，从最小数开始算起，for 2~n, a[i] = a[i-1] + a[i-2]
 
 
 ## 并查集
@@ -681,7 +727,7 @@ https://leetcode.com/problems/friend-circles/
 - 递归
 
 ```
-public void recursion(level, param1, ...) {
+public void recursion(level, params) {
   // terminator
   if (level > MAX) return;  
 
