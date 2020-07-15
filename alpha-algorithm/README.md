@@ -568,10 +568,9 @@ https://leetcode.com/problems/n-queens-ii/
 https://www.bilibili.com/video/av53233912?from=search&seid=2847395688604491997
 
 DP：
-1. 递归 + 记忆化 ==> 递推
+1. 重复子问题是什么？
 2. 状态的定义： opt[n]
 3. 状态转移方程：opt[n] = bestOf(opt[n-1], opt[n-2], ...)
-4. 最优子结构
 
 - [x] 70: 爬楼梯 `****` `E`   
 https://leetcode.com/problems/climbing-stairs/  
@@ -607,13 +606,17 @@ https://leetcode.com/problems/triangle/
   > 
   >  优化：状态存储无需二维，只需一位数组存储当前层的min
 
-- [ ] 64: 最小路径和 `*****` `M`
+- [x] 64: 最小路径和 `*****` `M`
 https://leetcode.com/problems/minimum-path-sum/
+  > 1: DP 
+  >    方程：dp[i][j] = min{dp[i][j+1], dp[i+1][j]} + nums[i][j]
+  > 
+  >    O(M*N), 3ms - 41%
 
 - [ ] 62: 不同路径 `*****` `M`
 https://leetcode.com/problems/unique-paths/
 
-- [ ] 63: 不同路径2 `*****` `M`
+- [ ] 63: 不同路径2：障碍物 `*****` `M`
 https://leetcode.com/problems/unique-paths-ii/
   > vs 62: 考虑障碍物
   > 1: 分治
@@ -632,6 +635,9 @@ https://leetcode.com/problems/unique-paths-ii/
   else 
     opt[i, j] = 0;
   ```
+- [ ] 980: 不同路径3：每个无障碍方格都要通过一次，且不重复
+https://leetcode.com/problems/unique-paths-iii/ `*` `H`
+
 
 - [ ] 53: 最大子序和 `*****` `E`
 https://leetcode.com/problems/maximum-subarray/
@@ -650,13 +656,18 @@ https://leetcode.com/problems/maximum-product-subarray/
   >                else          `max[i] = min[i-1] * a[i]`, `min[i] = max[i-1] * a[i]` 
   >  空间优化：只存最近两次的max / min
 
-- [ ] : 股票买卖  
-121: https://leetcode.com/problems/best-time-to-buy-and-sell-stock/ `E`  
-- [x] 122: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/ `*****` `E`  
-123: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/ `H`  
-188: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/ `H`  
-309: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/ `M`  
-714: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/ `M`  
+- [ ] 121: 股票买卖，只买卖一次  
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock/ `E`  
+- [x] 122: 可买卖多次 
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/ `*****` `E`  
+- [ ] 123: 最多 2 笔买卖 
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/ `H`  
+- [ ] 188: 最多 K 笔交易 
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/ `H`  
+- [ ] 309: 含冷冻期
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/ `M`  
+- [ ] 714: 含手续费
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/ `M`  
   > 1: 暴力
   > 2: 贪心（122）：只要后一天价格比前一天高，则前一天买 后一天卖
   > 3: 通用DP (188，不考虑K): 
@@ -669,6 +680,28 @@ https://leetcode.com/problems/maximum-product-subarray/
   >    方程：当前已持有: `mp[i, k, 0] = MAX{ mp[i-1, k, 0], mp[i-1, k-1, 1] + a[i] }` // MAX{ 前一天不持有, 前一天持有当天卖出 }
   >         当前不持有：`mp[i, k, 1] = MAX{ mp[i-1, k, 1], mp[i-1, k-1, 0] - a[i] }` // MAX{ 前一天持有，前一天不持有当天买入}
   >    循环：for i 0-->n-1, k 0-->K； 结果 MAX{ mp[n-1, {0..k}, 0] }
+  
+  > 通用解法：https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/solution/yi-ge-fang-fa-tuan-mie-6-dao-gu-piao-wen-ti-by-l-3/
+
+- [ ] 198: 打家劫舍
+https://leetcode.com/problems/house-robber/
+  > 1: 暴力 O(N^2)
+  > 2: DP 
+  >   重复子问题：
+      
+  >   状态：dp[i] = 从 0 到 i 能偷到的最大值
+  >   方程：dp[i] = dp[i-1] + nums[i]  
+  >   --> 不行，不能确定i-1个是否被偷，需要升维！！
+      
+  >   状态：dp[i][0,1] : 从 0 到 i 能偷到的最大值，i 有可能偷、不偷
+  >   方程：dp[i][0] = max{ dp[i-1][0], dp[i-1][1]} 
+  >        dp[i][1] = dp[i-1][0] + nums[i]
+  
+  > 优化1: dp[i] = max{ dp[i-2] + nums[i], dp[i-1] } , 状态表示偷i情况下的最大值 
+  > 优化2: 无需存储每一步的结果，只需存储 prevMax, currMax，递推
+  
+- [ ] 213: 打家劫舍2: 围成一个圈 `*****` `M`
+https://leetcode.com/problems/house-robber-ii/
 
 - [ ] 322: 零钱兑换 `*****` `M`
 https://leetcode.com/problems/coin-change/
@@ -678,6 +711,9 @@ https://leetcode.com/problems/coin-change/
   > 3: DP，类比爬楼梯问题  
   >    状态：dp[i] 上到第i阶的最小步数  
   >    方程：dp[i] = min{ dp[i - coins[j]] } + 1
+
+- [ ] 518: 零钱兑换2: 求组合数目 `*****` `M`
+https://leetcode.com/problems/coin-change-2/
 
 - [ ] 72: 编辑距离 `***` `H`
 https://leetcode.com/problems/edit-distance/
