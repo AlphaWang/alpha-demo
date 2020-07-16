@@ -51,6 +51,11 @@ public class T0091_DecodeWays {
                     dp[i] = dp[i-1];
                 }
             }
+            
+            // 性能提升几乎没有
+            if (dp[i] == 0) {
+                return 0;
+            }
         }
         return dp[length];
     }

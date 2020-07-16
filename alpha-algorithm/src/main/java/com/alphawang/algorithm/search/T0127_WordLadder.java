@@ -64,7 +64,7 @@ public class T0127_WordLadder {
     }
 
     /**
-     * 2. BFS
+     * 2. BFS: 预先生成 pattern map
      *    68ms - 55%
      */
     public int ladderLength2(String beginWord, String endWord, List<String> wordList) {
@@ -134,6 +134,56 @@ public class T0127_WordLadder {
         return String.valueOf(pattern);
     }
 
+    /**
+     * 3. BFS: 替换字符
+     *    超时
+     */
+    String letters = "abcdefghijklmnopqrstuvwxyz";
+    public int ladderLength3(String beginWord, String endWord, List<String> wordList) {
+        if (!wordList.contains(endWord)) {
+            return 0;
+        }
+        
+        int length = beginWord.length();
+        Queue<String> queue = new LinkedList<>();
+        Set<String> visited = new HashSet<>();
+        queue.offer(beginWord);
+        visited.add(beginWord);
+        
+        int steps = 0;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            steps++;
+            
+            for (int i = 0; i < size; i++) {
+                System.out.println(String.format("[%s] %s", steps, queue));
+                
+                String word = queue.poll();
+                if (endWord.equals(word)) {
+                    return steps;
+                }
+                
+                char[] chars = word.toCharArray();
+                for (int j = 0; j < length; j++) {
+                    char tmp = chars[j];
+                    for (int k = 0; k < letters.length(); k++) {
+                        chars[j] = letters.charAt(k);
+                        String nextWord = String.valueOf(chars);
+                        if (!visited.contains(nextWord) && wordList.contains(nextWord)) {
+                            queue.offer(nextWord);
+                            visited.add(nextWord);
+//                            wordList.remove(nextWord); //TODO
+                        }
+                        chars[j] = tmp;
+                    }
+                }
+            }
+        }
+        
+        
+        return 0;
+    }
+
     public static void main(String[] args) {
         /*
          * beginWord = "hit",
@@ -168,7 +218,7 @@ public class T0127_WordLadder {
     private static void test(String beginWord, String endWord, List<String> wordList) {
         T0127_WordLadder sut = new T0127_WordLadder();
         System.out.println(String.format("%s : %s --> %s", wordList, beginWord, endWord));
-        System.out.println(sut.ladderLength2(beginWord, endWord, wordList));
+        System.out.println(sut.ladderLength3(beginWord, endWord, wordList));
     }
 
 
