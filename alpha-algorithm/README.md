@@ -688,14 +688,6 @@ https://leetcode.com/problems/coin-change/
 - [ ] 518: 零钱兑换2: 求组合数目 `*****` `M`
 https://leetcode.com/problems/coin-change-2/
 
-- [ ] 72: 编辑距离 `***` `H`
-https://leetcode.com/problems/edit-distance/
-  > 1: 暴力，bfs + queue  
-  > 2: DP   
-  >    状态：`dp[i,j]` word1的前一个字符，替换为word2前j个字符，需要的最少步数   
-  >    方程：if w1[i] == w2[j], `dp[i,j] = dp[i-1,j-1]`;   
-            else,              `dp[i,j] = 1 + min(dp[i-1,j], dp[i,j-1], dp[i-1,j-1])`; //分别对应增/删/替换
-
 - [x] 300: 最长上升子序列 `*****` `M`
 https://leetcode.com/problems/longest-increasing-subsequence/
   > 1: 暴力，2N次方  
@@ -713,6 +705,9 @@ https://leetcode.com/problems/longest-common-subsequence/
   >    状态：二维数组，行 - text1, 列 - text2
   >    方程：if (s1[-1] != s2[-1]) LCS[s1, s2] = max{ LCS[s1 - 1, s2], LCS[s1, s2 - 1] }
   >         if (s1[-1] == s2[-1]) LCS[s1, s2] = LCS[s1 - 1, s2 -1] + 1
+
+- [ ] 76: 最小覆盖子串 `*` `H` 
+https://leetcode.com/problems/minimum-window-substring/
 
 - [ ] 121: 股票买卖，只买卖一次  
 https://leetcode.com/problems/best-time-to-buy-and-sell-stock/ `E`  
@@ -789,6 +784,29 @@ https://leetcode.com/problems/longest-valid-parentheses/
   >
   > 4: 正向+逆向遍历，记录左右括号个数   
   >    为何要逆向再来一遍？"(( ( (())" --> 如果只正向，i=2位置的左括号会导致后续的有效子串被忽略     
+
+- [ ] 72: 编辑距离 `***` `H`
+https://leetcode.com/problems/edit-distance/
+  > 1: 暴力，bfs + queue  
+  > 2: DP   
+  >    状态：`dp[i,j]` word1的前一个字符，替换为word2前j个字符，需要的最少步数   
+  >    方程：if w1[i] == w2[j], `dp[i,j] = dp[i-1,j-1]`;   
+            else,              `dp[i,j] = 1 + min(dp[i-1,j], dp[i,j-1], dp[i-1,j-1])`; //分别对应增/删/替换
+
+- [ ] 363: 矩形区域不超过K的最大数值和 `*` `H`
+https://leetcode.com/problems/max-sum-of-rectangle-no-larger-than-k/
+
+- [ ] 403: 青蛙过河 `*` `H` 
+https://leetcode.com/problems/frog-jump/
+
+- [ ] 410: 分割数组的最大值 `*` `H` 
+https://leetcode.com/problems/split-array-largest-sum/
+
+- [ ] 552: 学生出勤记录2  `*` `H` 
+https://leetcode.com/problems/student-attendance-record-ii/
+
+- [ ] 312: 戳气球 `*` `H`
+https://leetcode.com/problems/burst-balloons/
 
 
 - [ ] : 斐波那切数列
