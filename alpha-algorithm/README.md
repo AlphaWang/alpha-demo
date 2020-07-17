@@ -676,6 +676,44 @@ https://leetcode.com/problems/maximum-product-subarray/
   >                else          `max[i] = min[i-1] * a[i]`, `min[i] = max[i-1] * a[i]` 
   >  空间优化：只存最近两次的max / min
 
+- [ ] 322: 零钱兑换 `*****` `M`
+https://leetcode.com/problems/coin-change/
+  > 1: 暴力，递归树  
+  > 2: 贪心，不最优，例如 [1,6,7] --> 30    
+  > 3: BFS，找到深度最前的 0
+  > 3: DP，类比爬楼梯问题  
+  >    状态：dp[i] 上到第i阶的最小步数  
+  >    方程：dp[i] = min{ dp[i - coins[j]] } + 1
+
+- [ ] 518: 零钱兑换2: 求组合数目 `*****` `M`
+https://leetcode.com/problems/coin-change-2/
+
+- [ ] 72: 编辑距离 `***` `H`
+https://leetcode.com/problems/edit-distance/
+  > 1: 暴力，bfs + queue  
+  > 2: DP   
+  >    状态：`dp[i,j]` word1的前一个字符，替换为word2前j个字符，需要的最少步数   
+  >    方程：if w1[i] == w2[j], `dp[i,j] = dp[i-1,j-1]`;   
+            else,              `dp[i,j] = 1 + min(dp[i-1,j], dp[i,j-1], dp[i-1,j-1])`; //分别对应增/删/替换
+
+- [x] 300: 最长上升子序列 `*****` `M`
+https://leetcode.com/problems/longest-increasing-subsequence/
+  > 1: 暴力，2N次方  
+  > 2: DP，N平方 
+  >    状态：`dp[i]` 从头到i的最长子序列长度  
+  >    方程：for i 0-->n-1, j 0-->i-1, if a[j]<a[i] `dp[i] = max(dp[j]) + 1`
+  > 
+  > 3: 二分法，优化第二层循环，N(logN)
+  >    维护数组LIS; 遍历数组，if a[i] > LIS[max], 插入LIS尾部; 否则，替换LIS中最早>a[i]的元素   
+  > 
+
+- [ ] 1143: 最长公共子序列 `*****` `M`
+https://leetcode.com/problems/longest-common-subsequence/
+  > 1: DP
+  >    状态：二维数组，行 - text1, 列 - text2
+  >    方程：if (s1[-1] != s2[-1]) LCS[s1, s2] = max{ LCS[s1 - 1, s2], LCS[s1, s2 - 1] }
+  >         if (s1[-1] == s2[-1]) LCS[s1, s2] = LCS[s1 - 1, s2 -1] + 1
+
 - [ ] 121: 股票买卖，只买卖一次  
 https://leetcode.com/problems/best-time-to-buy-and-sell-stock/ `E`  
 - [x] 122: 可买卖多次 
@@ -723,52 +761,41 @@ https://leetcode.com/problems/house-robber/
 - [ ] 213: 打家劫舍2: 围成一个圈 `*****` `M`
 https://leetcode.com/problems/house-robber-ii/
 
-- [ ] 322: 零钱兑换 `*****` `M`
-https://leetcode.com/problems/coin-change/
-  > 1: 暴力，递归树  
-  > 2: 贪心，不最优，例如 [1,6,7] --> 30    
-  > 3: BFS，找到深度最前的 0
-  > 3: DP，类比爬楼梯问题  
-  >    状态：dp[i] 上到第i阶的最小步数  
-  >    方程：dp[i] = min{ dp[i - coins[j]] } + 1
-
-- [ ] 518: 零钱兑换2: 求组合数目 `*****` `M`
-https://leetcode.com/problems/coin-change-2/
-
-- [ ] 72: 编辑距离 `***` `H`
-https://leetcode.com/problems/edit-distance/
-  > 1: 暴力，bfs + queue  
-  > 2: DP   
-  >    状态：`dp[i,j]` word1的前一个字符，替换为word2前j个字符，需要的最少步数   
-  >    方程：if w1[i] == w2[j], `dp[i,j] = dp[i-1,j-1]`;   
-            else,              `dp[i,j] = 1 + min(dp[i-1,j], dp[i,j-1], dp[i-1,j-1])`; //分别对应增/删/替换
-
-- [x] 300: 最长上升子序列 `*****` `M`
-https://leetcode.com/problems/longest-increasing-subsequence/
-  > 1: 暴力，2N次方  
-  > 2: DP，N平方 
-  >    状态：`dp[i]` 从头到i的最长子序列长度  
-  >    方程：for i 0-->n-1, j 0-->i-1, if a[j]<a[i] `dp[i] = max(dp[j]) + 1`
-  > 
-  > 3: 二分法，优化第二层循环，N(logN)
-  >    维护数组LIS; 遍历数组，if a[i] > LIS[max], 插入LIS尾部; 否则，替换LIS中最早>a[i]的元素   
-  > 
-
-- [ ] 1143: 最长公共子序列 `*****` `M`
-https://leetcode.com/problems/longest-common-subsequence/
-  > 1: DP
-  >    状态：二维数组，行 - text1, 列 - text2
-  >    方程：if (s1[-1] != s2[-1]) LCS[s1, s2] = max{ LCS[s1 - 1, s2], LCS[s1, s2 - 1] }
-  >         if (s1[-1] == s2[-1]) LCS[s1, s2] = LCS[s1 - 1, s2 -1] + 1
-
 - [ ] 887: 鸡蛋掉落 `*` `H`
 https://leetcode.com/problems/super-egg-drop/
+
+- [ ] 621: 任务调度器 `***` `M`
+https://leetcode.com/problems/task-scheduler/
+  > 不会！ 
+
+- [ ] 647: 回文子串 `***` `M`
+https://leetcode.com/problems/palindromic-substrings/
+  > 不会！    
+
+- [x] 32: 最长有效括号 `*****` `H`
+https://leetcode.com/problems/longest-valid-parentheses/
+  > 1: 暴力，for i = n ~ 2, 遍历子串 检查是否 valid  
+  > 2: 栈，保存index  
+  >    保持栈底元素为当前已经遍历过的元素中「最后一个"没有被匹配的右括号"的下标」，即有效子串的分割线  
+  > 3: DP  
+  >    状态: dp[i] 从0~i的最长有效子串。注意如果i是左括号，则dp[i] = 0   
+  >    方程: dp[i] = 2 + dp[i-1] + dp[i - dp[i-1] - 2]   
+  >         x = i - dp[i-1] - 1: 表示与i对应的左括号位置  
+  >         1："2"，与x位置匹配的基础长度 2      
+  >         2：dp[i-1]: 前一个位置的长度    
+  >         3：dp[i - dp[i-1] - 2] 即 x - 1：x之前的长度  
+  >         
+  >   这个状态转移方程，怎么想到的！！！ 
+  >
+  > 4: 正向+逆向遍历，记录左右括号个数   
+  >    为何要逆向再来一遍？"(( ( (())" --> 如果只正向，i=2位置的左括号会导致后续的有效子串被忽略     
 
 
 - [ ] : 斐波那切数列
   > 1: 递归 f(n) = f(n-1) + f(n - 2)
   > 2: 动态规划：自顶向下，递归 + 记忆化, 缓存f(i)   
   > 3: 动态规划2：自底向上，从最小数开始算起，for 2~n, a[i] = a[i-1] + a[i-2]
+
 
 
 ## 并查集
