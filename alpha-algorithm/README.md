@@ -645,10 +645,19 @@ https://leetcode.com/problems/unique-paths-ii/
     opt[i, j] = opt[i + 1, j] + opt[i, j + 1];  // 状态转移方程
   else 
     opt[i, j] = 0;
-  ```
-- [ ] 980: 不同路径3：每个无障碍方格都要通过一次，且不重复
-https://leetcode.com/problems/unique-paths-iii/ `*` `H`
+  ```   
+  
+- [ ] 980: 不同路径3：每个无障碍方格都要通过一次，且不重复  `*` `H`
+https://leetcode.com/problems/unique-paths-iii/
 
+- [x] 221: 最大正方形 `*****` `M`
+https://leetcode.com/problems/maximal-square/ 
+  > 1: DP
+  >    状态 dp[i][j] : 以(i,j)元素为左上角的最大边长 
+  >    方程 dp[i][j] = min{ dp[i+1][j], dp[i][j+1], dp[i+1][j+1] } + 1
+  >                    min{ 右方、下方、右下方 的最大边长 } + 1
+  >    
+  >     此题状态方程，怎么想到的！！！
 
 - [ ] 53: 最大子序和 `*****` `E`
 https://leetcode.com/problems/maximum-subarray/
