@@ -759,14 +759,21 @@ https://leetcode.com/problems/house-robber-ii/
 - [ ] 887: 鸡蛋掉落 `*` `H`
 https://leetcode.com/problems/super-egg-drop/
 
-- [ ] 621: 任务调度器 `***` `M`
+- [x] 621: 任务调度器 `***` `M`
 https://leetcode.com/problems/task-scheduler/
-  > 不会！ 
+  > 1: 排序，先排数目最多的任务：计算 idleSlot 个数 
+  > TODO 不会！ 
 
-- [ ] 647: 回文子串 `***` `M`
+- [x] 647: 回文子串 `*****` `M`
 https://leetcode.com/problems/palindromic-substrings/
-  > 不会！    
-
+  > 1: DP  
+  >    状态：dp[i][j] 表示字符串s在[i,j]区间的子串是否是一个回文串。  
+  >    状态转移方程：当 s[i] == s[j] && (j - i <= 1 || dp[i + 1][j - 1]) 时，dp[i][j]=true，否则为false    
+  > 
+  > 2: 从中心扩展   
+  >    区分长度为奇数、偶数的子串，分别处理     
+ 
+ 
 - [x] 32: 最长有效括号 `*****` `H`
 https://leetcode.com/problems/longest-valid-parentheses/
   > 1: 暴力，for i = n ~ 2, 遍历子串 检查是否 valid  
