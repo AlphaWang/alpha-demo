@@ -391,6 +391,8 @@ https://leetcode.com/problems/generate-parentheses/
   > 3: 改进2，剪枝：        
        a) 局部不合法，不再递归；  
        b) 保存leftUsed / rightUsed   
+  >
+  > 4: DP
                      
 - [x] 77: 组合 `*****` `M`
 https://leetcode.com/problems/combinations/
@@ -428,7 +430,7 @@ https://leetcode.com/problems/letter-combinations-of-a-phone-number/
 - [ ] https://leetcode.com/problems/anagrams
 
 
-### 二分查找 / BFS / DFS
+### 搜索：二分 / BFS / DFS
 - [x] 69: 平方根 `*****` `E` 
 https://leetcode.com/problems/sqrtx/
   > 1: 二分法，因为单调递增
@@ -437,22 +439,11 @@ https://leetcode.com/problems/sqrtx/
 - [ ] 367: 有效的完全平方数 `*****` `E` 
 https://leetcode.com/problems/valid-perfect-square/
 
-- [ ] 208: 实现字典树 
-https://leetcode.com/problems/implement-trie-prefix-tree/
-
-- [ ] 79: 单词查找 
-https://leetcode.com/problems/word-search/
-
-- [ ] 212: 单词查找2
-https://leetcode.com/problems/word-search-ii/ 
-  > 1: DFS；缺点：对每个候选词都要重新计算
-  > 2: Trie: 把候选词构造成Trie树，对矩阵进行 DFS
-
 - [x] 127: 单词接龙 `*****` `M` (!!!)
 https://leetcode.com/problems/word-ladder/
   > 1: DFS //TODO
   > 2: BFS. 先构造patternMap，再从beginWord开始按层次遍历
-  > 3: BFS 优化。分别从 beginWord/endWord 往中间夹逼
+  > 3: 双向BFS 优化。分别从 beginWord/endWord 往中间夹逼
 
 - [x] 126: 单词接龙2 `*` `H`
 https://leetcode.com/problems/word-ladder-ii/
@@ -482,7 +473,7 @@ https://leetcode.com/problems/search-a-2d-matrix/
   > 1: 两步走：先二分找到 子数组；再查子数组
   > 2: 矩阵其实是 M * N 的有序数组
 
-### 剪枝
+### 高级搜索：剪枝、双向BFS、启发式搜索
 
 - [x] 51: N 皇后 `**` `H`   
 https://leetcode.com/problems/n-queens/  
@@ -493,14 +484,32 @@ https://leetcode.com/problems/n-queens/
 - [ ] 52: N 皇后2 `**` `H` 
 https://leetcode.com/problems/n-queens-ii/
 
-- [ ] 36: 数独
+- [ ] 36: 有效数独 `*****` `M`
 https://leetcode.com/problems/valid-sudoku/
   > 1: Naive DFS
   > 2: 加速：预处理 找出每个位置的可选数；按可选数个数排序；从选项少的开始
   > 3: 高级数据结构：DancingLink
 
-- [ ] 37: 数独 
+- [ ] 37: 解数独 `*****` `H` 
 https://leetcode.com/problems/sudoku-solver/
+  > 1: DFS
+  > 优化：先遍历棋盘，保存每行、列、块的可用数字，以及空白位置 (@yybeta)
+  > 
+  > Labuladong: https://leetcode-cn.com/problems/sudoku-solver/solution/zi-cong-wo-xue-hui-liao-hui-su-suan-fa-zhong-yu-hu/
+
+
+- [ ] 1091: 二进制矩阵中的最短路径 `***` `H`
+https://leetcode.com/problems/shortest-path-in-binary-matrix/ 
+  > 1: DP
+  > 2: BFS。注意标记已走过的点 --> grid[x][y] = 1 
+  > 3: A* 启发式搜索：直接往右下会更快
+  >    https://leetcode.com/problems/shortest-path-in-binary-matrix/discuss/313347/A*-search-in-Python
+
+- [ ] 773: 滑动谜题 `***` `H`
+https://leetcode.com/problems/sliding-puzzle/
+  > 1: DFS
+  > 2: BFS 
+  > 3: A* 搜索，基于BFS.
 
 ### 贪心
 - [x] 455: 分发饼干 `*****` `E`
@@ -826,11 +835,30 @@ https://leetcode.com/problems/burst-balloons/
 
 
 
-## 并查集
+## Trie / 并查集
+
+- [x] 208: 实现字典树 
+https://leetcode.com/problems/implement-trie-prefix-tree/
+  > 数组实现，定义 TrieNode
+  > TrieNode 封装 get / put / contains
+
+- [ ] 79: 单词查找 `*****` `M` 
+https://leetcode.com/problems/word-search/
+
+- [ ] 212: 单词查找2 `***` `H`
+https://leetcode.com/problems/word-search-ii/ 
+  > 1: DFS；遍历words，搜索board
+       缺点：对每个候选词都要重新计算，O(N*M*M*4^k)
+  > 2: Trie: 把候选词构造成 Trie 树，对矩阵进行 DFS
+  >    复杂度 ？
 
 - [ ] 547: Friend Circles `***` `M`
 https://leetcode.com/problems/friend-circles/
+  > 1: DFS/BFS 类似岛屿问题
+  > 2: 
 
+- [ ] 130: 被围绕的区域 `***` `M`
+https://leetcode.com/problems/surrounded-regions/
 
 ## 代码模板
 
