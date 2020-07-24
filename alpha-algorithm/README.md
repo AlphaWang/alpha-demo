@@ -852,7 +852,7 @@ https://leetcode.com/problems/word-search-ii/ 
   > 2: Trie: 把候选词构造成 Trie 树，对矩阵进行 DFS
   >    复杂度 ？
 
-- [ ] 547: Friend Circles `***` `M`
+- [x] 547: 朋友圈 `***` `M`
 https://leetcode.com/problems/friend-circles/
   > 1: DFS/BFS 类似岛屿问题
   > 2: 
