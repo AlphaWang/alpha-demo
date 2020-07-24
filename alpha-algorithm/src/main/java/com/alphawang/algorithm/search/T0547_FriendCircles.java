@@ -68,6 +68,60 @@ public class T0547_FriendCircles {
         }
     }
 
+    /**
+     * 2. 并查集
+     * 
+     *    5ms - 25%
+     */
+    public int findCircleNum2(int[][] M) {
+        if (M == null || M.length == 0) {
+            return 0;
+        }
+        int m = M.length;
+        int n = M[0].length;
+        
+        JointSet jointSet = new JointSet(M.length);
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (M[i][j] == 1) {
+                    jointSet.union(i, j);
+                }
+            }
+        }
+
+        System.out.println(Arrays.toString(jointSet.parent));
+        return jointSet.count;
+    }
+
+    static class JointSet {
+        int count = 0;
+        int[] parent;
+
+        public JointSet(int n) {
+            count = n;
+            parent = new int[n];
+            for (int i = 0; i < n; i++) {
+                parent[i] = i;
+            }
+        }
+
+        public int find(int p) {
+            while (p != parent[p]) {
+                parent[p] = parent[parent[p]];  // 路径压缩 5ms --> 1ms
+                p = parent[p];
+            }
+            return p;
+        }
+
+        public void union(int p, int q) {
+            int rootP = find(p);
+            int rootQ = find(q);
+            if (rootP == rootQ) return;
+            parent[rootP] = rootQ;
+            count--;
+        }
+    }
+
     public static void main(String[] args) {
         /*
          * 输入: 
@@ -110,6 +164,6 @@ public class T0547_FriendCircles {
     private static void test(int[][] M) {
         T0547_FriendCircles sut = new T0547_FriendCircles();
         System.out.println(Arrays.deepToString(M));
-        System.out.println("--> " + sut.findCircleNum(M));
+        System.out.println("--> " + sut.findCircleNum2(M));
     }
 }
