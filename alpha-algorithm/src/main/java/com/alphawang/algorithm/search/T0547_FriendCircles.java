@@ -26,6 +26,8 @@ public class T0547_FriendCircles {
      *           {0,1,1,1},
      *           {1,0,1,1}
      *    --> 4, 应该是 1
+     *    
+     *    解决：和岛屿问题不同，这里是 m 个人，可以标记每个人是否已被访问过
      */
     int[][] directions = new int[][] {
       {0, -1}, {0, 1}, {-1, 0}, {1, 0}
@@ -69,27 +71,63 @@ public class T0547_FriendCircles {
     }
 
     /**
+     * 1_1: DFS
+     * 
+     *      O(N^2)
+     *      0ms - 100%
+     */
+    public int findCircleNum1_1(int[][] M) {
+        if (M == null || M.length == 0) {
+            return 0;
+        }
+
+        int m = M.length;
+        int count = 0;
+        boolean[] visited = new boolean[m];
+        for (int i = 0; i < m; i++) {
+            System.out.println("-- checking " + i);
+            if (!visited[i]) {
+                System.out.println("--   adding " + i);
+                count++;
+                dfs2(M, visited, i);
+            }
+        }
+        
+        return count;
+    }
+
+    private void dfs2(int[][] m, boolean[] visited, int i) {
+        for (int j = 0; j < m.length; j++) {
+            if (!visited[j] && m[i][j] == 1) {
+                visited[j] = true;
+                dfs2(m, visited, j);
+            }
+        }
+    }
+
+
+    /**
      * 2. 并查集
      * 
+     *    O(N^3)
      *    5ms - 25%
      */
     public int findCircleNum2(int[][] M) {
         if (M == null || M.length == 0) {
             return 0;
         }
-        int m = M.length;
-        int n = M[0].length;
         
+        int m = M.length;
         JointSet jointSet = new JointSet(M.length);
         for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
+            for (int j = 0; j < m; j++) {
                 if (M[i][j] == 1) {
                     jointSet.union(i, j);
                 }
             }
         }
 
-        System.out.println(Arrays.toString(jointSet.parent));
+        System.out.println("joint-set: " + Arrays.toString(jointSet.parent));
         return jointSet.count;
     }
 
@@ -164,6 +202,6 @@ public class T0547_FriendCircles {
     private static void test(int[][] M) {
         T0547_FriendCircles sut = new T0547_FriendCircles();
         System.out.println(Arrays.deepToString(M));
-        System.out.println("--> " + sut.findCircleNum2(M));
+        System.out.println("--> " + sut.findCircleNum1_1(M));
     }
 }
