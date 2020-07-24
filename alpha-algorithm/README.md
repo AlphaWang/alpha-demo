@@ -854,11 +854,13 @@ https://leetcode.com/problems/word-search-ii/ 
 
 - [x] 547: 朋友圈 `***` `M`
 https://leetcode.com/problems/friend-circles/
-  > 1: DFS/BFS 类似岛屿问题，O(N^2)
+  > 1: DFS/BFS 类似岛屿问题，O(N^2) --> 易错
   > 2: 并查集，O(N^3)
 
-- [ ] 130: 被围绕的区域 `***` `M`
+- [x] 130: 被围绕的区域 `***` `M`
 https://leetcode.com/problems/surrounded-regions/
+  > 1: DFS
+  > 2: 并查集
 
 ## 代码模板
 
