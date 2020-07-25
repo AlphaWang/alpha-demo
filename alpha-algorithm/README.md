@@ -484,10 +484,11 @@ https://leetcode.com/problems/n-queens/
 - [ ] 52: N 皇后2 `**` `H` 
 https://leetcode.com/problems/n-queens-ii/
 
-- [ ] 36: 有效数独 `*****` `M`
+- [x] 36: 有效数独 `*****` `M`
 https://leetcode.com/problems/valid-sudoku/
+  > 0: 用3个数组，分别存储 行、列、块 的已出现数字个数
   > 1: Naive DFS
-  > 2: 加速：预处理 找出每个位置的可选数；按可选数个数排序；从选项少的开始
+  > 2: 加速 DFS：预处理 找出每个位置的可选数；按可选数个数排序；从选项少的开始  //TODO
   > 3: 高级数据结构：DancingLink
 
 - [ ] 37: 解数独 `*****` `H` 
