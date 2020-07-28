@@ -7,11 +7,11 @@ public class InsertionSort {
     /**
      * N^2
      *
-     * 假设前面(n-1) [n>=2] 个数已经是排好顺序的。
-     * 把第n个数插到前面的有序数中，使得这n个数也是排好顺序的。
+     * 假设前面(n-1) [n>=2] 个数已经是排好序的。
+     * 把第 n 个数插到前面的有序数中，使得这 n 个数也是排好序的。
      *
      * - 找到待插入位置，查找过程中 "移动数据"
-     * - 把n插入找到的位置。
+     * - 把 n 插入找到的位置。
      */
     public static int[] sort(int[] data) {
 
@@ -28,7 +28,7 @@ public class InsertionSort {
                 if (data[j - 1] > value) {
                     data[j] = data[j - 1];
                 } else {
-                    // 否则：找到待插入点
+                    // 否则：找到待插入点 //TODO 可作为while循环终止条件
                     break;
                 }
             }

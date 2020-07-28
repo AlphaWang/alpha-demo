@@ -3,24 +3,16 @@ package com.alphawang.algorithm.design.lru;
 import com.google.common.collect.Maps;
 import java.util.Map;
 
-public class LRUCache2 {
+/**
+ * https://leetcode.com/problems/lru-cache/
+ * Medium
+ * 
+ * see 缓存替换策略：https://en.wikipedia.org/wiki/Cache_replacement_policies
+ * 
+ * 自己实现双向链表
+ */
+public class T0146_LRUCache {
 
-    public static void main(String[] args) {
-        LRUCache2 cache = new LRUCache2( 2 /* capacity */ );
-
-        cache.put(1, 1);
-        cache.put(2, 2);
-        cache.get(1);       // returns 1
-        cache.put(3, 3);    // evicts key 2
-
-
-        cache.get(2);       // returns -1 (not found)
-        cache.put(4, 4);    // evicts key 1
-        cache.get(1);       // returns -1 (not found)
-        cache.get(3);       // returns 3
-        cache.get(4);       // returns 4
-    }
-    
     private static class Node {
         int key;
         int value;
@@ -35,7 +27,7 @@ public class LRUCache2 {
         
         @Override
         public String toString() {
-            return String.valueOf(value);
+            return String.valueOf(key);
         }
     }
     
@@ -44,7 +36,7 @@ public class LRUCache2 {
     private Node tail;
     private int capacity;
     
-    public LRUCache2(int capacity) {
+    public T0146_LRUCache(int capacity) {
         this.capacity = capacity;
         cache = Maps.newConcurrentMap();
         head = new Node(-2, -2);
@@ -67,12 +59,13 @@ public class LRUCache2 {
     public int get(int key) {
         Node node = cache.get(key);
         if (node == null) {
+            System.out.println(String.format("-- get(%s) = %s", key, null));
             return -1;
         }
         
         refreshNode(node);
 
-        System.out.println("-- get " + key + " : " + node.value);
+        System.out.println(String.format("-- get(%s) = %s", key, node.value));
         print();
         
         return node.value;
@@ -84,7 +77,7 @@ public class LRUCache2 {
      * void put(int key, int val) {
      *     Node x = new Node(key, val);
      *     if (key 已存在) {
-     *         把旧的数据删除；
+     *         把旧的数据删除； //TODO 要更新为新值！
      *         将新节点 x 插入到开头；
      *     } else {
      *         if (cache 已满) {
@@ -113,7 +106,7 @@ public class LRUCache2 {
             removeNode(oldNode);
         }
 
-        System.out.println("++ put " + key + " : " +value);
+        System.out.println(String.format("-- get(%s) = %s", key, value));
         print();
     }
 
@@ -153,12 +146,48 @@ public class LRUCache2 {
     private void print() {
         Node node = head;
         while (node != null) {
-            System.out.print(String.format("[v=%s, p=%s, n=%s]", node, node.prev, node.next ) + " > ");
+            System.out.print(String.format("[%s:%s]", node.key, node.value) + " > ");
 //            System.out.print(String.format("[%s]", node) + " > ");
             node = node.next;
         }
-        System.out.println(cache.keySet());
-        
+        System.out.println("\n keys : " + cache.keySet());
     }
 
+    public static void main(String[] args) {
+//        test1();
+        test2();
+    }
+    
+    private static void test1() {
+        T0146_LRUCache cache = new T0146_LRUCache(2 /* capacity */ );
+
+        cache.put(1, 1);
+        cache.put(2, 2);
+        cache.get(1);       // returns 1
+        cache.put(3, 3);    // evicts key 2
+
+        cache.get(2);       // returns -1 (not found)
+        cache.put(4, 4);    // evicts key 1
+        cache.get(1);       // returns -1 (not found)
+        cache.get(3);       // returns 3
+        cache.get(4);       // returns 4
+    }
+
+    /**
+     * ["LRUCache","put","put","get","put","put","get"]
+     * [[2],[2,1],[2,2],[2],[1,1],[4,1],[2]]
+     * 
+     * --> [null,null,null,2,null,null,-1]
+     */
+    private static void test2() {
+        T0146_LRUCache cache = new T0146_LRUCache(2);
+        cache.put(2, 1);
+        cache.put(2, 2);
+        
+        cache.get(2); // 2
+        cache.put(1, 1);
+        cache.put(4, 1);
+        
+        cache.get(2); // -1
+    }
 }

@@ -1,6 +1,5 @@
 package com.alphawang.algorithm.queue;
 
-import java.sql.SQLOutput;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 

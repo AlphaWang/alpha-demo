@@ -92,6 +92,8 @@ https://leetcode.com/problems/median-of-two-sorted-arrays/
 - [ ] 560: 和为K的子数组 `**` `M`
 https://leetcode.com/problems/subarray-sum-equals-k/
 
+- [ ] 1122: 数组的相对排序 `*****` `E`
+https://leetcode.com/problems/relative-sort-array/
 
 - [ ] 面试40: 最小的K个数 
 https://leetcode-cn.com/problems/zui-xiao-de-kge-shu-lcof/
@@ -479,11 +481,12 @@ https://leetcode.com/problems/search-a-2d-matrix/
 https://leetcode.com/problems/n-queens/  
   > 1: 暴力    
   > 2: 剪枝：标记 行col[col]，撇pie[row+col]，捺na[row-col]     
-  > 3: 位运算：判重记录二进制 col, pie, na (???)    
+  > 3: 位运算：判重记录二进制 col, pie, na；而不用数组   
 
 - [ ] 52: N 皇后2 `**` `H` 
 https://leetcode.com/problems/n-queens-ii/
-
+  > 位运算
+  
 - [x] 36: 有效数独 `*****` `M`
 https://leetcode.com/problems/valid-sudoku/
   > 0: 用3个数组，分别存储 行、列、块 的已出现数字个数
@@ -493,23 +496,23 @@ https://leetcode.com/problems/valid-sudoku/
 
 - [ ] 37: 解数独 `*****` `H` 
 https://leetcode.com/problems/sudoku-solver/
-  > 1: DFS
+  > 1: DFS，回溯
   > 优化：先遍历棋盘，保存每行、列、块的可用数字，以及空白位置 (@yybeta)
   > 
   > Labuladong: https://leetcode-cn.com/problems/sudoku-solver/solution/zi-cong-wo-xue-hui-liao-hui-su-suan-fa-zhong-yu-hu/
-
+  > 2: 启发式搜索：先填空白最少的行列块
 
 - [ ] 1091: 二进制矩阵中的最短路径 `***` `H`
 https://leetcode.com/problems/shortest-path-in-binary-matrix/ 
   > 1: DP
   > 2: BFS。注意标记已走过的点 --> grid[x][y] = 1 
-  > 3: A* 启发式搜索：直接往右下会更快
+  > 3: A* 启发式搜索：直接往右下会更快 --> h(n) = 曼哈顿举例
   >    https://leetcode.com/problems/shortest-path-in-binary-matrix/discuss/313347/A*-search-in-Python
 
 - [ ] 773: 滑动谜题 `***` `H`
 https://leetcode.com/problems/sliding-puzzle/
   > 1: DFS
-  > 2: BFS 
+  > 2: BFS : min steps
   > 3: A* 搜索，基于BFS.
 
 ### 贪心
@@ -550,17 +553,36 @@ https://leetcode.com/problems/jump-game-ii/
 
 
 ## 位运算
+
+- 判断奇偶：  
+   `x % 2 == 1` --> `(x & 1) == 1`  
+   `x % 2 == 0` --> `(x & 1) == 0`
+- 除2：  
+   `x / 2` --> `x >> 1`   
+   `min = (left + right) / 2` --> `mid = (left + right) >> 1`
+- 清零最低位的1  
+   `x & (x-1)`  
+- 得到最低位的1  
+   `x & -x`
+- `x & ~x => 0`
+    
 - [ ] 191: Number of 1 bits `***` `E`
 https://leetcode.com/problems/number-of-1-bits/
-  > 1: 枚举所有位数：不断右移 %2， 余数==1则count++ 
-  >    枚举所有位数：& mask(1), mask每次左移一位
+  > 1: 枚举所有位数：不断右移 %2， 余数==1则count++ (循环32次，右移 == `/2`)
+  >    枚举所有位数：& mask(初始值=1), mask每次左移一位
   > 2: x = x & (x-1) 清零最低位的1
 
-- [ ] 231: Power of Two `***` `E`  
+- [x] 231: Power of Two `***` `E`  
 https://leetcode.com/problems/power-of-two/    
   > 1: 不断 mod 2, 测试是否能被2整除   
   > 2: 数学求 log2     
   > 3: 位运算：特点 最前面是1，后面全0：x & (x-1) == 0       
+
+- [ ] 190: 颠倒二进制位 `***` `E`
+https://leetcode.com/problems/reverse-bits/
+  > 1: 转换成字符串，再颠倒
+  > 2: 按位swap
+
 
 - [ ] 338: Counting Bits `***` `M`
 https://leetcode.com/problems/counting-bits/ 

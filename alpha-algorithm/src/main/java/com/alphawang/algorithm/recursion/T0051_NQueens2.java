@@ -6,6 +6,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * https://leetcode.com/problems/n-queens/
+ * Hard
+ * 
+ * 返回解决方案列表
+ */
 public class T0051_NQueens2 {
     
     Set<Integer> cols = new HashSet<>();
@@ -68,7 +74,6 @@ public class T0051_NQueens2 {
         
         return res;
     }
-    
 
     public static void main(String[] args) {
         T0051_NQueens2 sut = new T0051_NQueens2();

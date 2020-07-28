@@ -6,8 +6,12 @@ public class MergeSort {
 
     /**
      * 将两个有序表合并成一个新的有序表。即：
-     * - 把待排序序列分为若干个子序列，确保每个子序列是有序的。
+     * - 把待排序序列分为两个子序列，确保每个子序列是有序的 （递归）。
      * - 然后再把有序子序列合并为整体有序序列。
+     * 
+     * > 可认为是快排的逆向操作。
+     * 
+     * 
      * 
      *  递归公式：
      *  merge_sort(start, end) = merge(merge_sort(start, mid), merge_sort(mid+1, end))
@@ -20,23 +24,23 @@ public class MergeSort {
     }
     
     private static int[] mergeSort(int[] array, int start, int end) {
-        /**
-         * 终止条件
-         */
+        // 1. terminator
         if (start >= end) {
+            // TODO 问题：创建了太多临时数组
             int[] ret = new int[] {array[start]};
             System.out.println(String.format("------ 2. sort [%s, %s] => %s", start, end, Arrays.toString(ret)));
             return ret;
         }
         
         int mid = start + (end - start) / 2;
+        // int mid = (start + end) >> 1;
         System.out.println(String.format("---- 1. split to [%s, %s], [%s, %s]", start, mid, mid + 1, end));
 
-        /**
-         * Merge
-         */
+        // 2. partition 分治
         int[] left = mergeSort(array, start, mid);
         int[] right = mergeSort(array, mid + 1, end);
+        
+        // 3. 合并
         return merge(left, right);
     }
     

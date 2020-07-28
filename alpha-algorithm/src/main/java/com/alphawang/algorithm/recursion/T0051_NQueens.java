@@ -7,6 +7,9 @@ import java.util.List;
 /**
  * https://leetcode.com/problems/n-queens/
  * Hard
+ * 
+ * @deprecated 
+ * see T0051_NQueens2
  */
 public class T0051_NQueens {
 
