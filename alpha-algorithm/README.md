@@ -92,8 +92,22 @@ https://leetcode.com/problems/median-of-two-sorted-arrays/
 - [ ] 560: 和为K的子数组 `**` `M`
 https://leetcode.com/problems/subarray-sum-equals-k/
 
-- [ ] 1122: 数组的相对排序 `*****` `E`
+- [x] 1122: 数组的相对排序 `*****` `E`
 https://leetcode.com/problems/relative-sort-array/
+  > 1: 计数排序
+  >    先计算arr1每个元素的个数，再按照arr2的顺序重置arr1；再遍历counter处理!arr2元素
+  >    注意，重置数据的过程中 while(counter[i]-- > 0) ，清空counter数组
+
+- [ ] 56: 合并区间 `*****` `M`
+https://leetcode.com/problems/merge-intervals/
+
+- [ ] 493: 翻转对 `***` `H` 
+https://leetcode.com/problems/reverse-pairs/
+  > 1: 嵌套循环 O(N^2)
+  > 2: merge-sort O(NlogN)，归并的过程中做统计
+
+- [ ] 排行榜
+https://leetcode.com/problems/design-a-leaderboard/
 
 - [ ] 面试40: 最小的K个数 
 https://leetcode-cn.com/problems/zui-xiao-de-kge-shu-lcof/

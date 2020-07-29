@@ -48,7 +48,7 @@ public class T0242_ValidAnagram {
     }
 
     /**
-     * 3. 优化：无需存储两个次数
+     * 3. 优化：无需存储两个次数 --> 只需记录一个字符串的次数
      */
     public boolean isAnagram3(String s, String t) {
         if (s.length() != t.length()) {

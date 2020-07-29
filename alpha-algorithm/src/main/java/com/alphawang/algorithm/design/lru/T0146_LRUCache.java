@@ -10,6 +10,7 @@ import java.util.Map;
  * see 缓存替换策略：https://en.wikipedia.org/wiki/Cache_replacement_policies
  * 
  * 自己实现双向链表
+ * 23ms - 38%
  */
 public class T0146_LRUCache {
 
@@ -27,7 +28,7 @@ public class T0146_LRUCache {
         
         @Override
         public String toString() {
-            return String.valueOf(key);
+            return String.valueOf(value);
         }
     }
     
@@ -59,13 +60,13 @@ public class T0146_LRUCache {
     public int get(int key) {
         Node node = cache.get(key);
         if (node == null) {
-            System.out.println(String.format("-- get(%s) = %s", key, null));
+            System.out.println(String.format("\n-- get(%s) = %s", key, null));
             return -1;
         }
         
         refreshNode(node);
 
-        System.out.println(String.format("-- get(%s) = %s", key, node.value));
+        System.out.println(String.format("\n-- get(%s) = %s", key, node.value));
         print();
         
         return node.value;
@@ -92,7 +93,9 @@ public class T0146_LRUCache {
     public void put(int key, int value) {
         Node node = new Node(key, value);
 
-        Node oldNode = cache.putIfAbsent(key, node);
+        Node oldNode = cache.get(key);
+        
+        cache.put(key, node);
         refreshNode(node);
         
         if (oldNode == null) {
@@ -106,7 +109,7 @@ public class T0146_LRUCache {
             removeNode(oldNode);
         }
 
-        System.out.println(String.format("-- get(%s) = %s", key, value));
+        System.out.println(String.format("\n-- put(%s) = %s", key, value));
         print();
     }
 
@@ -150,7 +153,7 @@ public class T0146_LRUCache {
 //            System.out.print(String.format("[%s]", node) + " > ");
             node = node.next;
         }
-        System.out.println("\n keys : " + cache.keySet());
+        System.out.println("\nmap : " + cache);
     }
 
     public static void main(String[] args) {

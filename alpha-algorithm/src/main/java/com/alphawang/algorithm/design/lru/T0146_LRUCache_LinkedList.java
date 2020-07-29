@@ -14,7 +14,7 @@ public class T0146_LRUCache_LinkedList extends LinkedHashMap<Integer, Integer> {
     private int capacity; 
     
     public T0146_LRUCache_LinkedList(int capacity) {
-        super(capacity);
+        super(capacity, 0.8F, true);
         this.capacity = capacity;
     }
 
