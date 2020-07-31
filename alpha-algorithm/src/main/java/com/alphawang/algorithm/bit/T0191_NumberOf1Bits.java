@@ -1,4 +1,4 @@
-package com.alphawang.algorithm.design.bit;
+package com.alphawang.algorithm.bit;
 
 /**
  * https://leetcode.com/problems/number-of-1-bits/

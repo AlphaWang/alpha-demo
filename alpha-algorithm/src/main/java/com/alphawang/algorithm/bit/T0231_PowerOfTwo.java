@@ -1,4 +1,4 @@
-package com.alphawang.algorithm.design.bit;
+package com.alphawang.algorithm.bit;
 
 /**
  * 231: Power of Two `***` `E`  
@@ -10,7 +10,7 @@ package com.alphawang.algorithm.design.bit;
 public class T0231_PowerOfTwo {
 
     /**
-     * 1. 位运算：去除最后一位1
+     * 1. n = n & (n-1)：去除最后一位 1
      *    1ms - 100%
      */
     public boolean isPowerOfTwo(int n) {
@@ -42,6 +42,16 @@ public class T0231_PowerOfTwo {
         return true;
     }
 
+    /**
+     * 3. n & (-n) 获取最后一位1
+     *    1ms - 100%
+     */
+    public boolean isPowerOfTwo3(int n) {
+        if (n <= 0) return false;
+        long x = n;
+        return (x & (-x)) == x;
+    }
+
     public static void main(String[] args) {
         test(1); // true
         test(16); // true
@@ -52,6 +62,6 @@ public class T0231_PowerOfTwo {
     private static void test(int n) {
         T0231_PowerOfTwo sut = new T0231_PowerOfTwo();
         System.out.println(String.format("%s (%s) --> %s", n, Integer.toBinaryString(n), 
-                                         sut.isPowerOfTwo2(n)));
+                                         sut.isPowerOfTwo3(n)));
     }
 }
