@@ -48,6 +48,40 @@ public class T0191_NumberOf1Bits {
     }
 
     /**
+     *  2_2. 优化: 去掉 loop = 32  
+     *
+     *    1ms - 55%
+     */
+    public int hammingWeight2_2(int n) {
+        int count = 0;
+        /*
+         * 不能用 n > 0，否则无法处理 Integer.MAX_VALUE + 1
+         * 
+         * Integer.MAX_VALUE     = 0111 1111 1111 1111 1111 1111 1111 1111
+         * Integer.MAX_VALUE + 1 = 1000 0000 0000 0000 0000 0000 0000 0000
+         */
+        while (n != 0) {
+            count += (n & 1);
+            /*
+             * 不能用 n >> 1，否则无法处理 Integer.MAX_VALUE + 1
+             * 
+             * Integer.MAX_VALUE + 1 >> 1
+             * 1000 0000 0000 0000 0000 0000 0000 0000
+             * 1100 0000 0000 0000 0000 0000 0000 0000
+             * 1110 0000 0000 0000 0000 0000 0000 0000
+             * 
+             * Integer.MAX_VALUE + 1 >>> 1
+             * 1000 0000 0000 0000 0000 0000 0000 0000
+             * 0100 0000 0000 0000 0000 0000 0000 0000
+             * 0010 0000 0000 0000 0000 0000 0000 0000
+             */
+            n = n >>> 1;
+        }
+
+        return count;
+    }
+
+    /**
      * 3. n & mask
      *    
      *    1ms - 55%
@@ -78,6 +112,16 @@ public class T0191_NumberOf1Bits {
         return count;
     }
 
+    /**
+     * 5. Integer.bitCount(); 
+     * 
+     *    2ms - 15%
+     */
+    public int hammingWeight5(int n) {
+        return Integer.bitCount(n);
+    }
+
+
     public static void main(String[] args) {
         // 3
         test("00000000000000000000000000001011");
@@ -91,6 +135,6 @@ public class T0191_NumberOf1Bits {
         long n = Long.parseLong(binaryStr, 2);
         System.out.println(String.format("%s (%s) --> %s", n,
             binaryStr,
-            new T0191_NumberOf1Bits().hammingWeight4((int) n)));
+            new T0191_NumberOf1Bits().hammingWeight2_2((int) n)));
     }
 }
