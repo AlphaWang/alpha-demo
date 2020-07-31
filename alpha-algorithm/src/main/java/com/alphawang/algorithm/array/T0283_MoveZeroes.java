@@ -30,6 +30,24 @@ public class T0283_MoveZeroes {
     }
 
     /**
+     * 2. 双指针，交换
+     * 
+     *    0ms - 100%
+     */
+    public void moveZeroe2(int[] nums) {
+        int nonZeroIndex = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != 0) {
+                int tmp = nums[i];
+                nums[i] = nums[nonZeroIndex];
+                nums[nonZeroIndex] = tmp;
+                
+                nonZeroIndex++;
+            }
+        }
+    }
+
+    /**
      * 快排思想 
      * TODO
      */
@@ -59,7 +77,7 @@ public class T0283_MoveZeroes {
     private static void test(int[] nums) {
         T0283_MoveZeroes sut = new T0283_MoveZeroes();
         System.out.println(Arrays.toString(nums));
-        sut.moveZeroes(nums);
+        sut.moveZeroe2(nums);
         System.out.println(String.format("--> %s", Arrays.toString(nums)));
     }
 

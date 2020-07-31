@@ -13,11 +13,14 @@
 - 快速排序
 
 ## Array
-- [x] 283: 移动零 `****` `E`  
+- [x] 283: 移动零 `*****` `E`  
 https://leetcode.com/problems/move-zeroes/
   > 1: loop, count zero  
   > 2: new int[], loop  
   > 3: 双指针，一个遍历数组，一个记录已处理的位置  
+  > 4: 双指针，交换元素
+  >
+  > 扩展：移动零到两侧
 
 - [ ] 11: 盛水最多的容器 `****` 
 https://leetcode.com/problems/container-with-most-water/
@@ -580,11 +583,11 @@ https://leetcode.com/problems/jump-game-ii/
    `x & -x`
 - `x & ~x => 0`
     
-- [ ] 191: Number of 1 bits `***` `E`
+- [x] 191: Number of 1 bits `***` `E`
 https://leetcode.com/problems/number-of-1-bits/
   > 1: 枚举所有位数：不断右移 %2， 余数==1则count++ (循环32次，右移 == `/2`)
-  >    枚举所有位数：& mask(初始值=1), mask每次左移一位
-  > 2: x = x & (x-1) 清零最低位的1
+  > 2: 枚举所有位数：& mask(初始值=1), mask每次左移一位
+  > 3: x = x & (x-1) 清零最低位的1
 
 - [x] 231: Power of Two `***` `E`  
 https://leetcode.com/problems/power-of-two/    

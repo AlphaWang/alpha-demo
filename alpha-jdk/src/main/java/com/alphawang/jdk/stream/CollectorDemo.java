@@ -1,23 +1,21 @@
 package com.alphawang.jdk.stream;
 
-import com.google.common.collect.Lists;
-
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.TreeSet;
-import java.util.stream.IntStream;
-
 import static java.util.stream.Collectors.averagingInt;
 import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.mapping;
-import static java.util.stream.Collectors.maxBy;
 import static java.util.stream.Collectors.partitioningBy;
 import static java.util.stream.Collectors.toCollection;
 import static java.util.stream.Collectors.toList;
+
+import com.google.common.collect.Lists;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 public class CollectorDemo {
 
@@ -38,7 +36,7 @@ public class CollectorDemo {
          * Collectors.averagingInt
          */
         Optional<Integer> max = numbers.stream()
-            .collect(maxBy(Comparator.comparing(x -> x)));
+            .collect(Collectors.maxBy(Comparator.comparing(x -> x)));
         System.out.println("max: " + max.get());
 
         Double avg = numbers.stream()

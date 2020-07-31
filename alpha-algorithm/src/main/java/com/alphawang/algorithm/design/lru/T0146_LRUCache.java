@@ -40,7 +40,7 @@ public class T0146_LRUCache {
     public T0146_LRUCache(int capacity) {
         this.capacity = capacity;
         cache = Maps.newConcurrentMap();
-        head = new Node(-2, -2);
+        head = new Node(-2, -2); // head,tail也可不用创建Node，只当做指针来用。
         tail = new Node(-3, -3);
         head.next = tail;
         tail.prev = head;
@@ -91,28 +91,22 @@ public class T0146_LRUCache {
      * }
      */
     public void put(int key, int value) {
-        Node node = new Node(key, value);
-
-        Node oldNode = cache.get(key);
-        
-        cache.put(key, node);
-        refreshNode(node);
-        
-        if (oldNode == null) {
-            // 新元素：检查size
+        if (cache.containsKey(key)) {
+            Node node = cache.get(key);
+            node.value = value;
+            refreshNode(node);
+        } else {
+            Node node = new Node(key, value);
+            cache.put(key, node);
             if (cache.size() > capacity) {
                 removeOldest();
             }
-            
-        } else {
-            // 已有元素: 删除
-            removeNode(oldNode);
+            refreshNode(node);
         }
-
+        
         System.out.println(String.format("\n-- put(%s) = %s", key, value));
         print();
     }
-
 
     private void refreshNode(Node node) {
         if (node == null) {
