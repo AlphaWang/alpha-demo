@@ -101,12 +101,11 @@ https://leetcode.com/problems/relative-sort-array/
   >    先计算arr1每个元素的个数，再按照arr2的顺序重置arr1；再遍历counter处理!arr2元素
   >    注意，重置数据的过程中 while(counter[i]-- > 0) ，清空counter数组
 
-- [ ] 56: 合并区间 `*****` `M`
+- [x] 56: 合并区间 `*****` `M`
 https://leetcode.com/problems/merge-intervals/
+  > 1: 按首位排序，依次比较prev vs. curr
 
-
-
-- [ ] 493: 翻转对 `***` `H` 
+- [x] 493: 翻转对 `***` `H` 
 https://leetcode.com/problems/reverse-pairs/
   > 1: 嵌套循环 O(N^2)
   > 2: merge-sort O(NlogN)，归并的过程中做统计
