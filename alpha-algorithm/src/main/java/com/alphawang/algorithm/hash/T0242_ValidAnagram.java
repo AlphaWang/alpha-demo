@@ -27,7 +27,7 @@ public class T0242_ValidAnagram {
     }
 
     /**
-     * 2. 记录每个字母出现的次数
+     * 2. int[26] 记录每个字母出现的次数
      */
     public boolean isAnagram2(String s, String t) {
         if (s.length() != t.length()) {

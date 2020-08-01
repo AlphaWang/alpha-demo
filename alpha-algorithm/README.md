@@ -104,6 +104,8 @@ https://leetcode.com/problems/relative-sort-array/
 - [ ] 56: 合并区间 `*****` `M`
 https://leetcode.com/problems/merge-intervals/
 
+
+
 - [ ] 493: 翻转对 `***` `H` 
 https://leetcode.com/problems/reverse-pairs/
   > 1: 嵌套循环 O(N^2)
@@ -168,6 +170,11 @@ https://leetcode.com/problems/merge-k-sorted-lists/
   > 1: 依次进行 k-1 次二链表合并。
   > 2: 分治 --> 高效
   > 3: 优先队列，保存K个待处理元素
+
+- [x] 146: LRU Cache 
+https://leetcode.com/problems/lru-cache/
+  > 1: 重载 LinkedHashMap.removeEldestEntry()
+  > 2: 自己实现双向链表，维护最近访问信息 
  
 ## Queue / Stack
 
@@ -596,11 +603,12 @@ https://leetcode.com/problems/power-of-two/
   > 3: n & (n-1) == 0, 去除最后一个 1 。利用特点：最前面是1，后面全0：
   > 4: n & (-n) == n, 获取最后一个1     
 
-- [ ] 190: 颠倒二进制位 `***` `E`
+- [x] 190: 颠倒二进制位 `***` `E`
 https://leetcode.com/problems/reverse-bits/
   > 1: 转换成字符串，再颠倒
-  > 2: 按位swap
-
+  > 2: n >> 1，依次处理最低位
+  >    https://leetcode-cn.com/problems/reverse-bits/solution/zhi-qi-ran-zhi-qi-suo-yi-ran-wei-yun-suan-jie-fa-x/
+  > 
 
 - [ ] 338: Counting Bits `***` `M`
 https://leetcode.com/problems/counting-bits/ 
