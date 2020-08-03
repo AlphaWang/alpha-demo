@@ -33,7 +33,7 @@ public class SemaphoreTest {
          * Semaphore(int permits) 
          * Semaphore(int permits, boolean fair)
          */
-        Semaphore semaphore = new Semaphore(CONCURRENT_LEVEL);
+            Semaphore semaphore = new Semaphore(CONCURRENT_LEVEL);
 
         CountDownLatch countDownLatch = new CountDownLatch(TOTAL);
 
