@@ -184,12 +184,14 @@ https://leetcode.com/problems/valid-palindrome/
 - [ ] 680: 验证回文串2 `*****` `E`
 https://leetcode.com/problems/valid-palindrome-ii/
 
-- [ ] 5: 最长回文串 `*****` `M`
+- [x] 5: 最长回文串 `*****` `M`
 https://leetcode.com/problems/longest-palindromic-substring/
   > 1: 暴力，枚举 start/end，判断[start, end] 是否回文。O(N^3)
-  > 2: 枚举中间点。O(N^2)
+  > 2: 枚举中间点，注意奇偶。O(N^2)
   > 3: DP 
-
+  >    状态 dp[i][j] : [i, j]子串是否回文 !!!!!
+  >    方程  if s[i] == s[j], dp[i][j] = dp[i+1][j-1]  
+  >         if s[i] != s[j], dp[i][j] = 0
 
 ## LinkedList
 
