@@ -120,6 +120,75 @@ https://leetcode-cn.com/problems/zui-xiao-de-kge-shu-lcof/
   > 3: 计数排序
   > 4: 快排思想 TODO
 
+
+## String
+
+- [ ] 387: 字符串中的第一个唯一字符 `*****` `E` 
+https://leetcode.com/problems/first-unique-character-in-a-string/
+  > 1: 两层循环
+  > 2: 借助 Map / Array 存储出现次数
+
+- [ ] 8: 字符串转换整数 `*****` `M`
+https://leetcode.com/problems/string-to-integer-atoi/
+  > 
+
+- [ ] 14: 最长公共前缀 `*****` `E`
+https://leetcode.com/problems/longest-common-prefix/description/
+  > 1: 同时遍历
+  > 2: Trie
+  > 3: 分治
+
+- [ ] 344: 反转字符串 `*****` `E`
+https://leetcode-cn.com/problems/reverse-string/
+  > 1: 头尾指针夹逼
+
+- [ ] 541: 反转字符串2 `*****` `E`
+https://leetcode.com/problems/reverse-string-ii/
+  > 1: 
+
+- [ ] 151: 翻转字符串里的单词 `*****` `M`
+https://leetcode.com/problems/reverse-words-in-a-string/
+  > 1: 库函数：split(" +""), Collections.reverse(), String.join(" ", list)
+  > 2: reverse 整个字符串 --> 单独reverse每个单词
+
+- [ ] 557: 翻转字符串里的单词3 `*****` `E`
+https://leetcode.com/problems/reverse-words-in-a-string-iii/
+
+
+- [x] 242: 有效的字母异位词 `*****` `E`   
+https://leetcode.com/problems/valid-anagram/   
+  > 1: 先排序，再比较   
+  > 2: Map 计数，比较Map是否相同  
+  > 3: int[26] 计数   
+ 
+- [x] 49: 字母异位词分组 `*****` `M`  
+https://leetcode.com/problems/group-anagrams/  
+  > Map: key - 异位词hash, value - 字符串列表  
+  > 哈希算法：1. 排序后的字符串；2. int[26] ； 
+
+- [ ] 438: 找到字符串中所有字母异位词 `*****` `M`
+https://leetcode.com/problems/find-all-anagrams-in-a-string/
+
+- [x] 647: 回文子串 `*****` `M`
+https://leetcode.com/problems/palindromic-substrings/
+  > 1: DP  
+  >    状态：dp[i][j] 表示字符串s在[i,j]区间的子串是否是一个回文串。  
+  >    状态转移方程：当 s[i] == s[j] && (j - i <= 1 || dp[i + 1][j - 1]) 时，dp[i][j]=true，否则为false    
+  > 
+  > 2: 从中心扩展   
+  >    区分长度为奇数、偶数的子串，分别处理     
+ 
+- [ ] 125: 验证回文串 `*****` `E`  
+https://leetcode.com/problems/valid-palindrome/
+
+- [ ] 680: 验证回文串2 `*****` `E`
+https://leetcode.com/problems/valid-palindrome-ii/
+
+- [ ] 5: 最长回文串 `*****` `M`
+https://leetcode.com/problems/longest-palindromic-substring/
+
+
+
 ## LinkedList
 
 - [x] 206: reverse-linked-list `****`  
@@ -361,17 +430,6 @@ https://leetcode.com/problems/top-k-frequent-elements/
 
 ## Hash
 
-- [x] 242: 有效的字母异位词 `*****` `E`   
-https://leetcode.com/problems/valid-anagram/   
-  > 1: 先排序，再比较   
-  > 2: Map 计数，比较Map是否相同  
-  > 3: int[26] 计数   
- 
-- [x] 49: 字母异位词分组 `*****` `M`  
-https://leetcode.com/problems/group-anagrams/  
-  > Map: key - 异位词hash, value - 字符串列表  
-  > 哈希算法：1. 排序后的字符串；2. int[26] ；  
-  
 - [x] 1: Two Sum `***` `E`  
 https://leetcode.com/problems/two-sum/  
   > 1: 暴力解法：两重遍历   
@@ -629,7 +687,7 @@ DP：
 2. 状态的定义： opt[n]
 3. 状态转移方程：opt[n] = bestOf(opt[n-1], opt[n-2], ...)
 
-- [x] 70: 爬楼梯 `****` `E`   
+- [x] 70: 爬楼梯 `*****` `E`   
 https://leetcode.com/problems/climbing-stairs/  
   > 找最近重复子问题，数学归纳法。    
   > 如何走到第n级：从n-1走过来 + 从n-2级走过来。   
@@ -640,7 +698,11 @@ https://leetcode.com/problems/climbing-stairs/
   >    状态： dp[n] 登到第n级台阶的方法数     
   >    状态转移方程： dp[n] = dp[n-1] + dp[n-2]      
   > 扩展1：可以走的步伐改为 1、2、3 （Easy）
-  > 扩展2：相邻两步不能相同 （Medium）
+  > 扩展2：相邻两步不能相同 （Medium）  
+
+- [ ] 746: 使用最小花费爬楼梯 `*****` `E`
+https://leetcode.com/problems/min-cost-climbing-stairs/
+  > 题目没看懂...
 
 - [x] 78: 子集 `*****` `M`  
 https://leetcode.com/problems/subsets/  
@@ -670,7 +732,7 @@ https://leetcode.com/problems/decode-ways/
   > 方程：
   >  1 如果当前元素为0：
   >    1.1 如果"能"和前一个数组成字母（prev == 1 or 2 ）：dp[i] = dp[i-2]
-  >    1.2 如果"不能"喝前一个数组成字母：                 dp[i] = 0 
+  >    1.2 如果"不能"和前一个数组成字母：                 dp[i] = 0 
   >  2 如果"能"和前一个数组成字母：  dp[i] = dp[i-1] + dp[i-2] // 单独构成字母  +  与前一个数组成字母
   >  3 如果"不能"和前一个数组成字母：dp[i] = dp[i-1]           // 单独构成字母
 
@@ -707,6 +769,10 @@ https://leetcode.com/problems/unique-paths-ii/
 - [ ] 980: 不同路径3：每个无障碍方格都要通过一次，且不重复  `*` `H`
 https://leetcode.com/problems/unique-paths-iii/
 
+- [ ] 85: 最大矩形 `***` `H`
+https://leetcode.com/problems/maximal-rectangle/
+
+
 - [x] 221: 最大正方形 `*****` `M`
 https://leetcode.com/problems/maximal-square/ 
   > 1: DP
@@ -733,18 +799,6 @@ https://leetcode.com/problems/maximum-product-subarray/
   >                else          `max[i] = min[i-1] * a[i]`, `min[i] = max[i-1] * a[i]` 
   >  空间优化：只存最近两次的max / min
 
-- [ ] 322: 零钱兑换 `*****` `M`
-https://leetcode.com/problems/coin-change/
-  > 1: 暴力，递归树  
-  > 2: 贪心，不最优，例如 [1,6,7] --> 30    
-  > 3: BFS，找到深度最前的 0
-  > 3: DP，类比爬楼梯问题  
-  >    状态：dp[i] 上到第i阶的最小步数  
-  >    方程：dp[i] = min{ dp[i - coins[j]] } + 1
-
-- [ ] 518: 零钱兑换2: 求组合数目 `*****` `M`
-https://leetcode.com/problems/coin-change-2/
-
 - [x] 300: 最长上升子序列 `*****` `M`
 https://leetcode.com/problems/longest-increasing-subsequence/
   > 1: 暴力，2N次方  
@@ -762,6 +816,22 @@ https://leetcode.com/problems/longest-common-subsequence/
   >    状态：二维数组，行 - text1, 列 - text2
   >    方程：if (s1[-1] != s2[-1]) LCS[s1, s2] = max{ LCS[s1 - 1, s2], LCS[s1, s2 - 1] }
   >         if (s1[-1] == s2[-1]) LCS[s1, s2] = LCS[s1 - 1, s2 -1] + 1
+
+- [ ] 115: 不同的子序列 `***` `H`
+https://leetcode.com/problems/distinct-subsequences/
+
+- [ ] 322: 零钱兑换 `*****` `M`
+https://leetcode.com/problems/coin-change/
+  > 1: 暴力，递归树  
+  > 2: 贪心，不最优，例如 [1,6,7] --> 30    
+  > 3: BFS，找到深度最前的 0
+  > 3: DP，类比爬楼梯问题  
+  >    状态：dp[i] 上到第i阶的最小步数  
+  >    方程：dp[i] = min{ dp[i - coins[j]] } + 1
+
+- [ ] 518: 零钱兑换2: 求组合数目 `*****` `M`
+https://leetcode.com/problems/coin-change-2/
+
 
 - [ ] 76: 最小覆盖子串 `*` `H` 
 https://leetcode.com/problems/minimum-window-substring/
@@ -821,16 +891,6 @@ https://leetcode.com/problems/task-scheduler/
   > 1: 排序，先排数目最多的任务：计算 idleSlot 个数 
   > TODO 不会！ 
 
-- [x] 647: 回文子串 `*****` `M`
-https://leetcode.com/problems/palindromic-substrings/
-  > 1: DP  
-  >    状态：dp[i][j] 表示字符串s在[i,j]区间的子串是否是一个回文串。  
-  >    状态转移方程：当 s[i] == s[j] && (j - i <= 1 || dp[i + 1][j - 1]) 时，dp[i][j]=true，否则为false    
-  > 
-  > 2: 从中心扩展   
-  >    区分长度为奇数、偶数的子串，分别处理     
- 
- 
 - [x] 32: 最长有效括号 `*****` `H`
 https://leetcode.com/problems/longest-valid-parentheses/
   > 1: 暴力，for i = n ~ 2, 遍历子串 检查是否 valid  
@@ -851,11 +911,11 @@ https://leetcode.com/problems/longest-valid-parentheses/
 
 - [x] 72: 编辑距离 `*****` `H`
 https://leetcode.com/problems/edit-distance/
-  > 1: 暴力，bfs + queue  
+  > 1: 暴力，BFS + queue  
   > 2: DP   
   >    状态：`dp[i,j]` word1的前i个字符，替换为word2前j个字符，需要的最少步数   
   >    方程：if w1[i] == w2[j], `dp[i,j] = dp[i-1,j-1]`;   
-            if w1[i] != w2[j], `dp[i,j] = 1 + min{ dp[i-1,j], dp[i,j-1], dp[i-1,j-1] }`; //分别对应增/删/替换
+           if w1[i] != w2[j], `dp[i,j] = 1 + min{ dp[i-1,j], dp[i,j-1], dp[i-1,j-1] }`; //分别对应增/删/替换
   > 3: DP 可改为递归 
   >    DP - 自底向上
   >    递归 - 自顶向下
@@ -875,6 +935,8 @@ https://leetcode.com/problems/student-attendance-record-ii/
 - [ ] 312: 戳气球 `*` `H`
 https://leetcode.com/problems/burst-balloons/
 
+- [ ] 818: 赛车 `***` `H`
+https://leetcode.com/problems/race-car/
 
 - [ ] : 斐波那切数列
   > 1: 递归 f(n) = f(n-1) + f(n - 2)

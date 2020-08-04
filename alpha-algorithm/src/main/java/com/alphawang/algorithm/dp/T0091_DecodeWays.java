@@ -20,7 +20,7 @@ public class T0091_DecodeWays {
      *    方程：
      *      - 如果当前元素为0：
      *          - 如果"能"和前一个数组成字母（prev == 1 or 2 ）：dp[i] = dp[i-2]
-     *          - 如果"不能"喝前一个数组成字母：                 dp[i] = 0 
+     *          - 如果"不能"和前一个数组成字母：                 dp[i] = 0 
      *      - 如果"能"和前一个数组成字母：  dp[i] = dp[i-1] + dp[i-2] // 单独构成字母  +  与前一个数组成字母
      *      - 如果"不能"和前一个数组成字母：dp[i] = dp[i-1]           // 单独构成字母
      *    6ms - 15%
@@ -39,15 +39,21 @@ public class T0091_DecodeWays {
             int prev = nums[i - 2];
             int comp = prev * 10 + curr;
             if (curr == 0) {
+                // 当前为0，且能和前一个组成字母
                 if (prev == 1 || prev == 2) {
                     dp[i] = dp[i-2];
-                } else {
+                } 
+                // 当前为0，但不能和前一个组成字母 
+                else {
                     dp[i] = 0;
                 }
             } else {
+                // 如果能和前一个组成字母
                 if (comp >= 11 && comp <= 26) {
                     dp[i] = dp[i-1] + dp[i-2];
-                } else {
+                } 
+                // 如果不能和前一个组成字母
+                else {
                     dp[i] = dp[i-1];
                 }
             }
