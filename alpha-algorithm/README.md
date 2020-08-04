@@ -186,7 +186,9 @@ https://leetcode.com/problems/valid-palindrome-ii/
 
 - [ ] 5: 最长回文串 `*****` `M`
 https://leetcode.com/problems/longest-palindromic-substring/
-
+  > 1: 暴力，枚举 start/end，判断[start, end] 是否回文。O(N^3)
+  > 2: 枚举中间点。O(N^2)
+  > 3: DP 
 
 
 ## LinkedList
@@ -810,12 +812,15 @@ https://leetcode.com/problems/longest-increasing-subsequence/
   >    维护数组LIS; 遍历数组，if a[i] > LIS[max], 插入LIS尾部; 否则，替换LIS中最早>a[i]的元素   
   > 
 
-- [ ] 1143: 最长公共子序列 `*****` `M`
+- [x] 1143: 最长公共子序列 `*****` `M`
 https://leetcode.com/problems/longest-common-subsequence/
   > 1: DP
-  >    状态：二维数组，行 - text1, 列 - text2
-  >    方程：if (s1[-1] != s2[-1]) LCS[s1, s2] = max{ LCS[s1 - 1, s2], LCS[s1, s2 - 1] }
-  >         if (s1[-1] == s2[-1]) LCS[s1, s2] = LCS[s1 - 1, s2 -1] + 1
+  >    状态：二维数组，行: text1, 列: text2
+  >    方程：if (s1[i-1] != s2[j-1]) LCS[i, j] = max{ LCS[i - 1, j], LCS[i, j - 1] }
+  >        if (s1[i-1] == s2[j-1]) LCS[i, j] = LCS[i - 1, j -1] + 1
+  >  扩展：最长子串 
+  >        if (s1[i-1] != s2[j-1]) LCS[i, j] = 0
+  >        if (s1[i-1] == s2[j-1]) LCS[i, j] = LCS[i - 1, j -1] + 1
 
 - [ ] 115: 不同的子序列 `***` `H`
 https://leetcode.com/problems/distinct-subsequences/
