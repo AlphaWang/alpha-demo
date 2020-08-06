@@ -123,10 +123,13 @@ https://leetcode-cn.com/problems/zui-xiao-de-kge-shu-lcof/
 
 ## String
 
-- [ ] 387: 字符串中的第一个唯一字符 `*****` `E` 
+- [x] 387: 字符串中的第一个唯一字符 `*****` `E` 
 https://leetcode.com/problems/first-unique-character-in-a-string/
   > 1: 两层循环
-  > 2: 借助 Map / Array 存储出现次数
+  > 2: 两次循环：1）记录次数、2）统计：
+  > 3: 一次遍历，用 Hash + Set 存储
+  >      Set: 已遍历过的元素
+  >      LinkedHashMap: 非重复元素
 
 - [ ] 8: 字符串转换整数 `*****` `M`
 https://leetcode.com/problems/string-to-integer-atoi/
@@ -826,6 +829,10 @@ https://leetcode.com/problems/longest-common-subsequence/
 
 - [ ] 115: 不同的子序列 `***` `H`
 https://leetcode.com/problems/distinct-subsequences/
+  > 1: DP
+  >    状态：dp[i][j] 表示 T 的前i字符串可以有 S j字符串组成的最多个数
+  >    方程： if S[j] == T[i], dp[i][j] = dp[i-1][j-1] + dp[i][j-1]
+  >         if S[j] != T[i], dp[i][j] = dp[i][j-1]
 
 - [ ] 322: 零钱兑换 `*****` `M`
 https://leetcode.com/problems/coin-change/
@@ -926,6 +933,9 @@ https://leetcode.com/problems/edit-distance/
   > 3: DP 可改为递归 
   >    DP - 自底向上
   >    递归 - 自顶向下
+
+- [ ] 44: 通配符匹配 `***` `H`
+https://leetcode.com/problems/wildcard-matching/
 
 - [ ] 363: 矩形区域不超过K的最大数值和 `*` `H`
 https://leetcode.com/problems/max-sum-of-rectangle-no-larger-than-k/
