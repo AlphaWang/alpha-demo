@@ -149,10 +149,11 @@ https://leetcode-cn.com/problems/reverse-string/
 https://leetcode.com/problems/reverse-string-ii/
   > 1: 指针每次累加 2*k + 头尾指针夹逼
 
-- [ ] 151: 翻转字符串里的单词 `*****` `M`
+- [x] 151: 翻转字符串里的单词 `*****` `M`
 https://leetcode.com/problems/reverse-words-in-a-string/
   > 1: 库函数：split(" +""), Collections.reverse(), String.join(" ", list)
   > 2: reverse 整个字符串 --> 单独reverse每个单词
+  > 3: 逐个解析单词，放入栈 （Deque）；然后join deque
 
 - [ ] 557: 翻转字符串里的单词3 `*****` `E`
 https://leetcode.com/problems/reverse-words-in-a-string-iii/

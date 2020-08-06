@@ -1,6 +1,6 @@
 package com.alphawang.algorithm.string;
 
-public class T165_CompareVersion {
+public class T0165_CompareVersion {
 
     public static int compareVersion(String version1, String version2) {
         String[] verSpl1 = version1.split("\\.");
