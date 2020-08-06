@@ -163,6 +163,7 @@ https://leetcode.com/problems/reverse-words-in-a-string-iii/
 - [x] 917: 仅仅反转字母 `*****` `E`
 https://leetcode.com/problems/reverse-only-letters/
   > 1: 双指针夹逼  
+  > 2: 栈：第一次遍历：字母放入栈中；第二次遍历：构造新字符串
 
 - [x] 242: 有效的字母异位词 `*****` `E`   
 https://leetcode.com/problems/valid-anagram/   
@@ -178,6 +179,13 @@ https://leetcode.com/problems/group-anagrams/
 - [ ] 438: 找到字符串中所有字母异位词 `*****` `M`
 https://leetcode.com/problems/find-all-anagrams-in-a-string/
 
+
+- [x] 205: 同构字符串 `*****` `E`
+https://leetcode.com/problems/isomorphic-strings/
+  > 1: Map 记录"所在组的位置" 
+  > 2: Map 记录 字符对应关系 --》 注意需要双向对比 
+  > 3: encode: 将字符串编码为 所在组位置。
+
 - [x] 647: 回文子串 `*****` `M`
 https://leetcode.com/problems/palindromic-substrings/
   > 1: DP  
@@ -190,8 +198,9 @@ https://leetcode.com/problems/palindromic-substrings/
 - [ ] 125: 验证回文串 `*****` `E`  
 https://leetcode.com/problems/valid-palindrome/
 
-- [ ] 680: 验证回文串2 `*****` `E`
+- [x] 680: 验证回文串2 `*****` `E`
 https://leetcode.com/problems/valid-palindrome-ii/
+  > 1: 双指针，如果遇到不等，则跳过start、"或"跳过end
 
 - [x] 5: 最长回文串 `*****` `M`
 https://leetcode.com/problems/longest-palindromic-substring/
