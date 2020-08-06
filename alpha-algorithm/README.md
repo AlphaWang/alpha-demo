@@ -141,13 +141,13 @@ https://leetcode.com/problems/longest-common-prefix/description/
   > 2: Trie
   > 3: 分治
 
-- [ ] 344: 反转字符串 `*****` `E`
+- [x] 344: 反转字符串 `*****` `E`
 https://leetcode-cn.com/problems/reverse-string/
   > 1: 头尾指针夹逼
 
-- [ ] 541: 反转字符串2 `*****` `E`
+- [x] 541: 反转字符串2 `*****` `E`
 https://leetcode.com/problems/reverse-string-ii/
-  > 1: 
+  > 1: 指针每次累加 2*k + 头尾指针夹逼
 
 - [ ] 151: 翻转字符串里的单词 `*****` `M`
 https://leetcode.com/problems/reverse-words-in-a-string/
