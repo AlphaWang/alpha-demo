@@ -155,9 +155,10 @@ https://leetcode.com/problems/reverse-words-in-a-string/
   > 2: reverse 整个字符串 --> 单独reverse每个单词
   > 3: 逐个解析单词，放入栈 （Deque）；然后join deque
 
-- [ ] 557: 翻转字符串里的单词3 `*****` `E`
+- [x] 557: 翻转字符串里的单词3 `*****` `E`
 https://leetcode.com/problems/reverse-words-in-a-string-iii/
-
+  > 1: 遍历，找到单词，再翻转
+  >    Note: 按照开始节点遍历，无需特殊处理结束字符
 
 - [x] 242: 有效的字母异位词 `*****` `E`   
 https://leetcode.com/problems/valid-anagram/   
@@ -753,6 +754,7 @@ https://leetcode.com/problems/minimum-path-sum/
 
 - [ ] 62: 不同路径 `*****` `M`
 https://leetcode.com/problems/unique-paths/
+  > 
 
 - [ ] 63: 不同路径2：障碍物 `*****` `M`
 https://leetcode.com/problems/unique-paths-ii/
