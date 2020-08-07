@@ -852,7 +852,7 @@ https://leetcode.com/problems/longest-common-subsequence/
   >        if (s1[i-1] != s2[j-1]) LCS[i, j] = 0
   >        if (s1[i-1] == s2[j-1]) LCS[i, j] = LCS[i - 1, j -1] + 1
 
-- [ ] 115: 不同的子序列 `***` `H`
+- [x] 115: 不同的子序列 `***` `H` ???
 https://leetcode.com/problems/distinct-subsequences/
   > 1: DP
   >    状态：dp[i][j] 表示 T 的前i字符串可以有 S j字符串组成的最多个数
