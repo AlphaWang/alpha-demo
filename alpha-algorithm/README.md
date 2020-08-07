@@ -69,7 +69,7 @@ https://leetcode.com/problems/trapping-rain-water/
 https://leetcode.com/problems/find-minimum-in-rotated-sorted-array
   > 1: 遍历，如果nums[i] < num[i-1]，则找到。O(N)
   > 2: 二分查找：if nums[mid] < nums[right], 往左侧找 
-  >             if nums[mid] > nums[right], 往右侧找
+  >           if nums[mid] > nums[right], 往右侧找
 
 - [ ] 154: 旋转数组最小值 (有重复值) `**` `H`  
 https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii
@@ -88,11 +88,14 @@ https://leetcode.com/problems/merge-sorted-array/
   > 双指针从后往前遍历 
   > while (index1 >= 0 && index2 >= 0) 
 
-- [ ] 4: 两个有序数组找中位数 `**` `H`
+- [x] 4: 两个有序数组找中位数 `*****` `H`
 https://leetcode.com/problems/median-of-two-sorted-arrays/
-  > 1: 暴力，合并数组，再排序
+  > 1: 暴力，合并数组，再排序 
   > 2: 双指针合并有序数组，see T88
-  > 3: 二分查找 (!)
+  >
+  > 3: 两个堆
+  > 4: 遍历 len / 2 次，记录前一次的值、当前值； O(N)
+  > 5: 二分查找 (!) // TODO
 
 - [ ] 560: 和为K的子数组 `**` `M`
 https://leetcode.com/problems/subarray-sum-equals-k/
@@ -452,8 +455,8 @@ https://leetcode.com/problems/top-k-frequent-elements/
   > 4: 快排思想 （?）  
   > 5: 不用Map，而将 num+count作为对象排序。--> 为什么会更快？   
 
-- [ ] : 数据流的中位数
-
+- [ ] 195: 数据流的中位数 `*****` `H`
+https://leetcode.com/problems/find-median-from-data-stream/
 
 
 ## Hash
