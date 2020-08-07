@@ -17,7 +17,7 @@ public class T0300_LongestIncreasingSubsequence {
     /**
      * 1. DP
      *    状态：dp[n] = n索引处的LIS长度
-     *    方程：j = 0~i-1, if a[j]<a[i], then dp[i] = max(dp[j]) + 1
+     *    方程：j = 0~i-1, if a[j]<a[i], then dp[i] = max(dp[j]) + 1  --> 难点！！！
      *    
      *    13ms - 33%
      */

@@ -131,9 +131,10 @@ https://leetcode.com/problems/first-unique-character-in-a-string/
   >      Set: 已遍历过的元素
   >      LinkedHashMap: 非重复元素
 
-- [ ] 8: 字符串转换整数 `*****` `M`
+- [x] 8: 字符串转换整数 `*****` `M`
 https://leetcode.com/problems/string-to-integer-atoi/
-  > 
+  > 1: 先解析 sign, 再 res * 10 + curr.
+  >    注意：判断数据范围 >> 易出错！
 
 - [ ] 14: 最长公共前缀 `*****` `E`
 https://leetcode.com/problems/longest-common-prefix/description/
@@ -747,16 +748,21 @@ https://leetcode.com/problems/triangle/
   > 
   >  优化：状态存储无需二维，只需一位数组存储当前层的min
 
-- [x] 91: 解码方法 `*****` `M`
+- [x] 91: 解码方法 `*****` `M` !!!
 https://leetcode.com/problems/decode-ways/
   > 1: DP
-  > 状态：dp[i] 表示从 0~i 个元素的结果
+  > 状态：dp[i] 表示从 0~i 个元素的结果 
+  >
   > 方程：
   >  1 如果当前元素为0：
   >    1.1 如果"能"和前一个数组成字母（prev == 1 or 2 ）：dp[i] = dp[i-2]
   >    1.2 如果"不能"和前一个数组成字母：                 dp[i] = 0 
   >  2 如果"能"和前一个数组成字母：  dp[i] = dp[i-1] + dp[i-2] // 单独构成字母  +  与前一个数组成字母
-  >  3 如果"不能"和前一个数组成字母：dp[i] = dp[i-1]           // 单独构成字母
+  >  3 如果"不能"和前一个数组成字母：dp[i] = dp[i-1]           // 单独构成字母   
+  >
+  > 方程：
+  >  1 如果当前元素 [1, 9]:   dp[i] = dp[i - 1]
+  >  2 如果最近两位 [10, 26]: dp[i] += dp[i - 2]
 
 - [x] 64: 最小路径和 `*****` `M`
 https://leetcode.com/problems/minimum-path-sum/
@@ -829,7 +835,7 @@ https://leetcode.com/problems/longest-increasing-subsequence/
   >    状态：`dp[i]` 从头到i的最长子序列长度  
   >    方程：for i 0-->n-1, j 0-->i-1, if a[j]<a[i] `dp[i] = max(dp[j]) + 1`
   > 
-  > 3: 二分法，优化第二层循环，N(logN)
+  > 3: 二分法，优化第二层循环，N(logN) //TODO
   >    维护数组LIS; 遍历数组，if a[i] > LIS[max], 插入LIS尾部; 否则，替换LIS中最早>a[i]的元素   
   > 
 
