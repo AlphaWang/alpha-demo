@@ -197,8 +197,10 @@ https://leetcode.com/problems/palindromic-substrings/
   > 2: 从中心扩展   
   >    区分长度为奇数、偶数的子串，分别处理     
  
-- [ ] 125: 验证回文串 `*****` `E`  
+- [x] 125: 验证回文串 `*****` `E`  
 https://leetcode.com/problems/valid-palindrome/
+  > 1: 双指针夹逼：遍历原始字符串
+  >    注意跳过非字符、toLowerCase
 
 - [x] 680: 验证回文串2 `*****` `E`
 https://leetcode.com/problems/valid-palindrome-ii/
@@ -936,14 +938,18 @@ https://leetcode.com/problems/longest-valid-parentheses/
   > 3: DP  
   >    状态: dp[i] 从0~i的最长有效子串。注意如果i是左括号，则dp[i] = 0   
   >    方程: dp[i] = 2 + dp[i-1] + dp[i - dp[i-1] - 2]   
+  >
   >         x = i - dp[i-1] - 1: 表示与i对应的左括号位置  
   >         1："2"，与x位置匹配的基础长度 2      
   >         2：dp[i-1]: 前一个位置的长度    
   >         3：dp[i - dp[i-1] - 2] 即 x - 1：x之前的长度  
   >         
-  >   这个状态转移方程，怎么想到的！！！ 
+  >   >> 这个状态转移方程，怎么想到的！！！ 
   >
-  > 4: 正向+逆向遍历，记录左右括号个数   
+  > 4: 正向+逆向遍历，记录左右括号个数    
+  >          if left == right, 找到有效子串，更新max
+  >          if left < right,  右括号多，重置数目，重新统计  
+  >
   >    为何要逆向再来一遍？"(( ( (())" --> 如果只正向，i=2位置的左括号会导致后续的有效子串被忽略     
 
 - [x] 72: 编辑距离 `*****` `H`

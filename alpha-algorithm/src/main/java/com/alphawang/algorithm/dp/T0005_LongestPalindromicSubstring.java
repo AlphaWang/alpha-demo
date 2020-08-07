@@ -7,7 +7,8 @@ package com.alphawang.algorithm.dp;
 public class T0005_LongestPalindromicSubstring {
 
     /**
-     * 1. 暴力 
+     * 1. 暴力: 两层循环遍历 start / end；再来一层循环判断是否回文 
+     * 
      *    O(N^3)
      *    Time Limit Exceeded
      */
@@ -55,9 +56,9 @@ public class T0005_LongestPalindromicSubstring {
     }
 
     /**
-     * 2. 从中心往左右扩展
+     * 2. 从中心往左右扩展：注意奇偶，分开处理
+     * 
      *    O(N^2)
-     *    
      *    25ms - 73%
      */
     public String longestPalindrome2(String s) {
@@ -86,7 +87,7 @@ public class T0005_LongestPalindromicSubstring {
     private String findPalindrome(String s, int left, int right, int n) {
         int l = -1, r = -1;
         while (left >= 0 && right < n && s.charAt(left) == s.charAt(right)) {
-            l = left; r = right;
+             l = left; r = right;
              left--;
              right++;
         }
@@ -97,9 +98,9 @@ public class T0005_LongestPalindromicSubstring {
     }
 
     /**
-     * 2. 从中心往左右扩展: 优化 子方法返回回文串长度
+     * 2. 从中心往左右扩展: 优化 子方法返回回文串长度，而非直接返回回文
+     * 
      *    O(N^2)
-     *
      *    25ms - 73%
      */
     public String longestPalindrome2_1(String s) {
@@ -137,6 +138,11 @@ public class T0005_LongestPalindromicSubstring {
 
     /**
      * 3. DP
+     *     状态 dp[i][j] : [i, j] 子串是否回文 !!!!!
+     *     
+     *     方程  if s[i] == s[j], dp[i][j] = dp[i+1][j-1]  
+     *          if s[i] != s[j], dp[i][j] = 0
+     * 
      *    78ms - 40%
      */
     public String longestPalindrome3(String s) {
