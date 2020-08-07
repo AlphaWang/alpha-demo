@@ -59,7 +59,9 @@ https://leetcode.com/problems/plus-one/
 - [x] 42: 接雨水 `*****` `H`
 https://leetcode.com/problems/trapping-rain-water/
   > 1: 暴力：对每个元素，遍历2遍分别计算 leftMax/rightMax
-  > 2: DP： 双指针两次遍历，计算每个元素的 leftMax/rightMax，存入数组
+  > 2: DP： 双指针两次遍历，计算每个元素的 leftMax/rightMax，存入数组 
+  >    left[i] = max{ left[i - 1], height[i]} 
+  >    right[i] = max{ right[i + 1], height[i]}
   > 3: DP优化：双指针夹逼
   > 4: 栈：(?)
  

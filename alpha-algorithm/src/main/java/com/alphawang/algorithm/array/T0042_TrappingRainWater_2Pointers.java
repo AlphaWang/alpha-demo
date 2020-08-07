@@ -39,12 +39,16 @@ public class T0042_TrappingRainWater_2Pointers {
         while (left < right) {
             int leftHeight = bars[left];
             int rightHeight = bars[right];
-            // 左侧
+            // 左侧更小
             if (leftHeight <= rightHeight) {
+                // 如果left往右走更低，计算面积
                 while (left < right && leftHeight >= bars[++left]) {
                     count += leftHeight - bars[left];
                 }
-            } else {
+            } 
+            // 右侧更小
+            else {
+                // 如果 right 往左走更低，计算面积
                 while (left < right && rightHeight >= bars[--right]) {
                     count += rightHeight - bars[right];
                 }
