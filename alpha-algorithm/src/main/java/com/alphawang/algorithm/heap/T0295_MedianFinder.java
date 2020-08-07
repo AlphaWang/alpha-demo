@@ -80,7 +80,7 @@ public class T0295_MedianFinder {
         System.out.println("smallHalf: " + smallHalf);
     }
 
-    // 优化 add
+    // add: 简化平衡
     public void addNum(int num) {
         smallHalf.offer(num);
         bigHalf.offer(smallHalf.poll());

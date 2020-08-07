@@ -427,13 +427,15 @@ https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-tr
 
 ## Heap  
 
-- [ ] 703: kth-largest-element-in-a-stream  
+- [x] 703: kth-largest-element-in-a-stream `*****` `E`  
 https://leetcode.com/problems/kth-largest-element-in-a-stream/discuss/149050/Java-Priority-Queue
   > 1: 维护最大K个元素，新元素进入并排序。 
   > 2: 用小顶堆，保证size = K。如果新元素 > 顶，则调整：移除顶，新元素进入堆
 
-- [ ] : 一个无序数组求第K大数  
+- [ ] 215: 一个无序数组求第K大数 `*****` `M` 
 https://leetcode.com/problems/kth-largest-element-in-an-array
+  > 1: 排序后直接返回
+  > 2: 堆排序？
 
 - [x] 263: 丑数 `***` `E`   
 https://leetcode.com/problems/ugly-number/  
@@ -455,9 +457,11 @@ https://leetcode.com/problems/top-k-frequent-elements/
   > 4: 快排思想 （?）  
   > 5: 不用Map，而将 num+count作为对象排序。--> 为什么会更快？   
 
-- [ ] 295: 数据流的中位数 `*****` `H`
+- [x] 295: 数据流的中位数 `*****` `H`
 https://leetcode.com/problems/find-median-from-data-stream/
-
+  > 1: 两个堆。
+  >   add: 对堆进行平衡 
+ 
 
 ## Hash
 
