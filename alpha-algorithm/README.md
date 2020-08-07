@@ -177,9 +177,10 @@ https://leetcode.com/problems/group-anagrams/
   > Map: key - 异位词hash, value - 字符串列表  
   > 哈希算法：1. 排序后的字符串；2. int[26] ； 
 
-- [ ] 438: 找到字符串中所有字母异位词 `*****` `M`
+- [x] 438: 找到字符串中所有字母异位词 `*****` `M`
 https://leetcode.com/problems/find-all-anagrams-in-a-string/
-
+  > 1: 暴力遍历，对比是否为字母异位词
+  > 2: 滑动窗口
 
 - [x] 205: 同构字符串 `*****` `E`
 https://leetcode.com/problems/isomorphic-strings/

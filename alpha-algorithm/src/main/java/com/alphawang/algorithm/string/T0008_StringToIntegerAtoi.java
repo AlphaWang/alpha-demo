@@ -54,6 +54,54 @@ public class T0008_StringToIntegerAtoi {
         
         return parse(res, sign);
     }
+
+    /**
+     * 2: 优化判断流程
+     * TODO
+     */
+    public int myAtoi2(String str) {
+        char[] chars = str.toCharArray();
+        int n = chars.length;
+        int idx = 0;
+
+        // 去掉前导空格
+        while (idx < n && chars[idx] == ' ') {
+            idx++;
+        }
+        
+        //去掉前导空格以后到了末尾了
+        if (idx == n) {
+            return 0;
+        }
+        
+        boolean negative = false;
+        //遇到负号
+        if (chars[idx] == '-') {
+            negative = true;
+            idx++;
+        }
+        // 遇到正号
+        else if (chars[idx] == '+') {
+            idx++;
+        }
+        // 其他符号
+        else if (!Character.isDigit(chars[idx])) {
+            return 0;
+        }
+        
+        int ans = 0;
+        while (idx < n && Character.isDigit(chars[idx])) {
+            int digit = chars[idx] - '0';
+            if (ans > (Integer.MAX_VALUE - digit) / 10) {
+                // 本来应该是 ans * 10 + digit > Integer.MAX_VALUE
+                // 但是 *10 和 + digit 都有可能越界，所有都移动到右边去就可以了。
+                return negative? Integer.MIN_VALUE : Integer.MAX_VALUE;
+            }
+            ans = ans * 10 + digit;
+            idx++;
+        }
+        return negative ? -ans : ans;
+    }
     
     private int parse(long res, Integer sign) {
         if (sign == 1 && (res >= Integer.MAX_VALUE || res < 0)) {
@@ -84,6 +132,6 @@ public class T0008_StringToIntegerAtoi {
     }
 
     public static void test(String str) {
-        System.out.println(String.format("%s --> %s", str, new T0008_StringToIntegerAtoi().myAtoi(str)));
+        System.out.println(String.format("%s --> %s", str, new T0008_StringToIntegerAtoi().myAtoi2(str)));
     }
 }
