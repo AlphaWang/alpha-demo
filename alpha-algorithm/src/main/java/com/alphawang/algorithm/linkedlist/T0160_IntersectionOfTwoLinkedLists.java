@@ -102,18 +102,29 @@ public class T0160_IntersectionOfTwoLinkedLists {
         if (headA == null || headB == null) return null;
         int lengthA = getLength(headA);
         int lengthB = getLength(headB);
-        
-        if (lengthA > lengthB) {
-            int steps = lengthA - lengthB;
-            while (steps-- > 0) {
-                headA = headA.next;
-            }
+
+        /*
+         * if - while 逻辑重复，可简化
+         */
+//        if (lengthA > lengthB) {
+//            int steps = lengthA - lengthB;
+//            while (steps-- > 0) {
+//                headA = headA.next;
+//            }
+//        }
+//        if (lengthB > lengthA) {
+//            int steps = lengthB - lengthA;
+//            while (steps-- > 0) {
+//                headB = headB.next;
+//            }
+//        }
+        while (lengthA > lengthB) {
+            headA = headA.next;
+            lengthA--;
         }
-        if (lengthB > lengthA) {
-            int steps = lengthB - lengthA;
-            while (steps-- > 0) {
-                headB = headB.next;
-            }
+        while (lengthB > lengthA) {
+            headB = headB.next;
+            lengthB--;
         }
         
         while (headA != null && headB != null) {
@@ -163,7 +174,7 @@ public class T0160_IntersectionOfTwoLinkedLists {
     public static void test(ListNode headA, ListNode headB) {
         System.out.println(ListNode.format(headA));
         System.out.println(ListNode.format(headB));
-        System.out.println(new T0160_IntersectionOfTwoLinkedLists().getIntersectionNode2_2(headA, headB));
+        System.out.println(new T0160_IntersectionOfTwoLinkedLists().getIntersectionNode3(headA, headB));
     }
     
     
