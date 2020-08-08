@@ -274,6 +274,14 @@ https://leetcode.com/problems/merge-k-sorted-lists/
 https://leetcode.com/problems/lru-cache/
   > 1: 重载 LinkedHashMap.removeEldestEntry()
   > 2: 自己实现双向链表，维护最近访问信息 
+
+- [x] 160: 相交链表 `*****` `E` !!!
+https://leetcode.com/problems/intersection-of-two-linked-lists/
+  > 1: Set存储已访问节点
+  >    O(N) 空间复杂度：不符合要求
+  > 2: 双指针：把两个链表接起来 A + B == B + A
+  > 3: 按长度对齐终点
+ 
  
 ## Queue / Stack
 
@@ -432,7 +440,7 @@ https://leetcode.com/problems/kth-largest-element-in-a-stream/discuss/149050/Jav
   > 1: 维护最大K个元素，新元素进入并排序。 
   > 2: 用小顶堆，保证size = K。如果新元素 > 顶，则调整：移除顶，新元素进入堆
 
-- [ ] 215: 一个无序数组求第K大数 `*****` `M` 
+- [x] 215: 一个无序数组求第K大数 `*****` `M` 
 https://leetcode.com/problems/kth-largest-element-in-an-array
   > 1: 排序后直接返回
   > 2: 堆排序？
