@@ -88,7 +88,7 @@ https://leetcode.com/problems/merge-sorted-array/
   > 双指针从后往前遍历 
   > while (index1 >= 0 && index2 >= 0) 
 
-- [x] 4: 两个有序数组找中位数 `*****` `H`
+- [x] 4: 两个有序数组找中位数 `*****` `H` !!!
 https://leetcode.com/problems/median-of-two-sorted-arrays/
   > 1: 暴力，合并数组，再排序 
   > 2: 双指针合并有序数组，see T88
@@ -320,9 +320,8 @@ https://leetcode.com/problems/largest-rectangle-in-histogram/
   > 2: 暴力2：遍历，找到左右边界，area = height[i] * (right - left)
   > 3: 栈：优化思路 左边界无需遍历寻找；遍历入栈，栈内元素从小到大排列，
 
-- [ ] 239: sliding-window-maximum `*****` `H`  
+- [x] 239: 滑动窗口最大值 `*****` `H` !!! 
   https://leetcode.com/problems/sliding-window-maximum/
-
   > 1: 暴力解法：循环找最大值，存入数组。
   > 2: 维护大顶堆。Q: 需要删除非堆顶元素  
   > 3: 维护一个双端队列。队列元素为下标，最左为当前最大值的下标。

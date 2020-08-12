@@ -184,6 +184,66 @@ public class T0127_WordLadder {
         return 0;
     }
 
+
+    public int ladderLength4(String beginWord, String endWord, List<String> wordList) {
+        if (wordList == null || wordList.size() == 0 || !wordList.contains(endWord)) {
+            return 0;
+        }
+
+        int m = beginWord.length();
+
+        Map<String, List<String>> patterns = new HashMap<>();
+        for (String s : wordList) {
+            for (int i = 0; i < m; i++) {
+                String encoded = encode(s, i);
+                List<String> matched = patterns.getOrDefault(encoded, new ArrayList<>());
+                matched.add(s);
+                patterns.put(encoded, matched);
+            }
+        }
+
+        Queue<String> queue = new LinkedList();
+        queue.offer(beginWord);
+        int steps = 0;
+
+        while (!queue.isEmpty()) {
+            steps++;
+            int size = queue.size();
+
+            for (int j = 0; j < size; j++) {
+                String word = queue.poll();
+                if (word.equals(endWord)) {
+                    return steps;
+                }
+
+                for (int k = 0; k < m; k++) {
+                    String encoded = encode(word, k);
+                    List<String> matched = patterns.get(encoded);
+                    if (matched == null) {
+                        continue;
+                    } else {
+                        for (String ms : matched) {
+                            queue.offer(ms);
+                        }
+
+                    }
+                }
+
+
+            }
+
+
+        }
+
+        return 0;
+    }
+
+    private String encode(String s, int index) {
+        char[] chars = s.toCharArray();
+        chars[index] = '*';
+        return String.valueOf(chars);
+    }
+
     public static void main(String[] args) {
         /*
          * beginWord = "hit",
@@ -218,7 +278,7 @@ public class T0127_WordLadder {
     private static void test(String beginWord, String endWord, List<String> wordList) {
         T0127_WordLadder sut = new T0127_WordLadder();
         System.out.println(String.format("%s : %s --> %s", wordList, beginWord, endWord));
-        System.out.println(sut.ladderLength3(beginWord, endWord, wordList));
+        System.out.println(sut.ladderLength4(beginWord, endWord, wordList));
     }
 
 
