@@ -7,6 +7,8 @@ import java.util.PriorityQueue;
 /**
  * https://leetcode-cn.com/problems/merge-k-sorted-lists/
  * Hard
+ * 
+ * 合并 k 个排序链表，返回合并后的排序链表
  */
 public class T0023_MergeKSortedLists {
 
@@ -80,6 +82,7 @@ public class T0023_MergeKSortedLists {
      */
     public ListNode mergeKLists4(ListNode[] lists) {
         PriorityQueue<ListNode> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(o -> o.val));
+        // 插入 N 个头结点
         for (ListNode list : lists) {
             if (list != null)
                 priorityQueue.offer(list);
@@ -92,6 +95,7 @@ public class T0023_MergeKSortedLists {
              tail.next = top;
              tail = tail.next;
              
+             // 处理后续节点
              if (top.next != null) {
                  priorityQueue.offer(top.next);
              }

@@ -22,7 +22,7 @@ https://leetcode.com/problems/move-zeroes/
   >
   > 扩展：移动零到两侧
 
-- [ ] 11: 盛水最多的容器 `****` 
+- [x] 11: 盛水最多的容器 `****` 
 https://leetcode.com/problems/container-with-most-water/
   > 1: 嵌套循环，枚举 left / right   
   > 2: 左右边界，向中间收敛
@@ -233,7 +233,7 @@ https://leetcode.com/problems/swap-nodes-in-pairs
   > 2: 遍历: pre.next && pre.next.next；  
   > 指针操作：？
 
-- [x] 25: reverse-nodes-in-k-group `*****` `H`
+- [x] 25: reverse-nodes-in-k-group `*****` `H` !!!
 https://leetcode.com/problems/reverse-nodes-in-k-group/
   > 1: 递归：先遍历K个元素，同时swap；再将tail.next指向下一个递归
  
@@ -739,8 +739,10 @@ https://leetcode.com/problems/climbing-stairs/
   > 4: DP:  
   >    状态： dp[n] 登到第n级台阶的方法数     
   >    状态转移方程： dp[n] = dp[n-1] + dp[n-2]      
-  > 扩展1：可以走的步伐改为 1、2、3 （Easy）
-  > 扩展2：相邻两步不能相同 （Medium）  
+  > 
+  > 扩展1：可以走的步伐改为 1、2、3 （Easy） --> dp[n] = dp[n-1] + dp[n-2] + dp[n-3]
+  > 扩展2：相邻两步不能相同 （Medium） --> dp[n][k] = dp[n-1][!k] + dp[n-2][0~k] ?
+  > 扩展3：打印出步伐列表 --> DFS
 
 - [ ] 746: 使用最小花费爬楼梯 `*****` `E`
 https://leetcode.com/problems/min-cost-climbing-stairs/
@@ -890,6 +892,7 @@ https://leetcode.com/problems/coin-change-2/
 
 - [ ] 76: 最小覆盖子串 `*` `H` 
 https://leetcode.com/problems/minimum-window-substring/
+  > 
 
 - [ ] 121: 股票买卖，只买卖一次  
 https://leetcode.com/problems/best-time-to-buy-and-sell-stock/ `E`  

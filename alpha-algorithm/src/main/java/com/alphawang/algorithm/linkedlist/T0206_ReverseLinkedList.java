@@ -62,15 +62,15 @@ public class T0206_ReverseLinkedList {
     }
 
     public static void main(String[] args) {
-        reverse(1, 2, 3, 4, 5);
+        test(1, 2, 3, 4, 5);
     }
 
-    private static void reverse(Integer... values) {
+    private static void test(Integer... values) {
         ListNode head = ListNodeCreator.create(values);
         System.out.println("BEFORE " + ListNode.format(head));
 
         //        head = reverseByRecursion(head);
-        head = reverseByLoop(head);
+        head = reverseByLoop2(head);
 
         System.out.println("AFTER  " + ListNode.format(head));
         System.out.println();

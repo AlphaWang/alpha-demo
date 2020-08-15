@@ -21,6 +21,7 @@ public class AtomicLongTest {
     public static void main(String[] args) {
         Stopwatch stopwatch = Stopwatch.createStarted();
         AtomicLong atomicLong = new AtomicLong();
+        atomicLong.set(Long.MAX_VALUE - 10);
         log.info("[{}] ---- START ", stopwatch.elapsed(TimeUnit.MILLISECONDS));
 
         ExecutorService executorService = Executors.newCachedThreadPool();

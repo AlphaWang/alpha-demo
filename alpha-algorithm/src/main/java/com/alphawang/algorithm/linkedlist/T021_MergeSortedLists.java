@@ -1,5 +1,8 @@
 package com.alphawang.algorithm.linkedlist;
 
+/**
+ * 
+ */
 public class T021_MergeSortedLists {
 
     /**

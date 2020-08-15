@@ -18,25 +18,26 @@ public class T082_RemoveDuplicatesFromSortedList2 {
             return head;
         }
 
-        if (head.getNext() != null && head.getValue() == head.getNext().getValue()) {
-
-            while (head.getNext() != null && head.getValue() == head.getNext().getValue()) {
-                head = head.getNext();
+        System.out.println("-- removing " + ListNode.format(head));
+        
+        if (head.next != null && head.val == head.next.val) {
+            while (head.next != null && head.val == head.next.val) {
+                head = head.next;
+                System.out.println(" -- move head: " + ListNode.format(head));
             }
-
-            return deleteDuplicates(head.getNext());
-
+            return deleteDuplicates(head.next);
         } else {
-            head.setNext(deleteDuplicates(head.getNext()));
+            System.out.println(" -- handle head: " + ListNode.format(head));
+            head.next = deleteDuplicates(head.next);
         }
 
+        System.out.println(" ++ return head: " + ListNode.format(head));
         return head;
     }
 
     public static void main(String[] args) {
         remove(1, 2, 2, 2, 3);
         remove(1, 1, 1);
-
     }
 
     private static void remove(Integer... values) {

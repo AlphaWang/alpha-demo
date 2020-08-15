@@ -13,7 +13,12 @@ package com.alphawang.algorithm.array;
  * Output: 49
  */
 public class T0011_ContainerWithMostWater {
-    
+
+    /**
+     * 双指针夹逼
+     * 
+     * 2ms - 97%
+     */
     public static int mostWater(int[] nums) {
         int count = 0;
         

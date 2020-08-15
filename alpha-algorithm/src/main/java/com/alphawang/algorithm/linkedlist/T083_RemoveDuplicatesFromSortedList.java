@@ -27,11 +27,11 @@ public class T083_RemoveDuplicatesFromSortedList {
         //            current = current.next;
         //        }
 
-        while (current != null && current.getNext() != null) {
-            if (current.getNext().getValue() == current.getValue()) {
-                current.setNext(current.getNext().getNext());
+        while (current != null && current.next != null) {
+            if (current.next.val == current.val) {
+                current.next = current.next.next;
             } else {
-                current = current.getNext();
+                current = current.next;
             }
         }
 
@@ -39,20 +39,20 @@ public class T083_RemoveDuplicatesFromSortedList {
     }
 
     public static ListNode deleteDuplicates2(ListNode head) {
-        if (head == null || head.getNext() == null) {
+        if (head == null || head.next == null) {
             return head;
         }
-        head.setNext(deleteDuplicates2(head.getNext()));
+        head.next = deleteDuplicates2(head.next);
 
-        return head.getValue() == head.getNext().getValue() ? head.getNext() : head;
+        return head.val == head.next.val ? head.next : head;
     }
 
     public static void main(String[] args) {
-        remove(1, 2, 2, 2, 3);
-        remove(1, 1, 1);
+        test(1, 2, 2, 2, 3);
+        test(1, 1, 1);
     }
 
-    private static void remove(Integer... values) {
+    private static void test(Integer... values) {
         ListNode head = ListNodeCreator.create(values);
         System.out.println("BEFORE " + ListNode.format(head));
 
