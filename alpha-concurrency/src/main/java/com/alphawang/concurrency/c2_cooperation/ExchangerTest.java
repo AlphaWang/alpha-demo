@@ -24,8 +24,19 @@ public class ExchangerTest {
         
         new Thread(() -> {
             try {
-                Printer.print("Thread-1 exchanging...");
+                Printer.print("Thread-0 exchanging...");
                 Thread.sleep(100);
+                String exchange = exchanger.exchange("Thread-0");
+                Printer.print("Thread-0 exchanged: " + exchange);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+
+        new Thread(() -> {
+            try {
+                Printer.print("Thread-1 exchanging...");
+                Thread.sleep(200);
                 String exchange = exchanger.exchange("Thread-1");
                 Printer.print("Thread-1 exchanged: " + exchange);
             } catch (Exception e) {
@@ -36,20 +47,9 @@ public class ExchangerTest {
         new Thread(() -> {
             try {
                 Printer.print("Thread-2 exchanging...");
-                Thread.sleep(200);
+                Thread.sleep(100);
                 String exchange = exchanger.exchange("Thread-2");
                 Printer.print("Thread-2 exchanged: " + exchange);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }).start();
-
-        new Thread(() -> {
-            try {
-                Printer.print("Thread-3 exchanging...");
-                Thread.sleep(100);
-                String exchange = exchanger.exchange("Thread-3");
-                Printer.print("Thread-3 exchanged: " + exchange);
             } catch (Exception e) {
                 e.printStackTrace();
             }

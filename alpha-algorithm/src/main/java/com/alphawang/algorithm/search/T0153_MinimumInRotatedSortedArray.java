@@ -164,6 +164,31 @@ public class T0153_MinimumInRotatedSortedArray {
         return nums[left];
 
     }
+
+    public static int findSmallest(int[]arr){
+        if(arr.length == 0) return -1;
+        // If strict in asc sequence.
+        if(arr.length == 1 || arr[0] <= arr[arr.length - 1]) return arr[0];
+
+        return search(arr, 0, arr.length - 1);
+    }
+    private static int search(int[]arr, int from, int end){
+        if(from == end) return arr[from];
+        int mid = from + (end - from)/2;
+        // mid is on the left slice.
+        if(arr[mid] > arr[arr.length - 1]){
+            return search(arr, mid + 1, end);
+        }
+        // mid is on the right side.
+        else{
+            if(mid > 0 && arr[mid] < arr[mid - 1] && mid < arr.length - 1 && arr[mid] < arr[mid + 1]){
+                return arr[mid];
+            }
+            else{
+                return search(arr, from, mid);
+            }
+        }
+    }
     
     public static void main(String[] args) {
         T0153_MinimumInRotatedSortedArray sut = new T0153_MinimumInRotatedSortedArray();
@@ -188,7 +213,7 @@ public class T0153_MinimumInRotatedSortedArray {
     }
     
     private void test(int[] nums) {
-        System.out.println(Arrays.toString(nums) + " --> " + findMin4(nums));
+        System.out.println(Arrays.toString(nums) + " --> " + findSmallest(nums));
     }
 
 }

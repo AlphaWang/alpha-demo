@@ -41,6 +41,7 @@ public class T0021_MergeTwoSortedLists {
      *    0 ms
      */
     public ListNode mergeTwoLists2(ListNode l1, ListNode l2) {
+        if (l1 == null || l2 == null) return null;
         if (l1 == null) return l2;
         if (l2 == null) return l1;
         
