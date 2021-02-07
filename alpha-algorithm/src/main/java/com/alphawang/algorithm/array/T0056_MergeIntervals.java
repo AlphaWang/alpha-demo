@@ -13,8 +13,9 @@ import java.util.List;
  */
 public class T0056_MergeIntervals {
 
+
     /**
-     * 1: 按首位排序，依次比较prev vs. curr
+     * 1: 按首位排序，默认放入interval[0]，依次比较prev vs. curr，直接修改 prev
      *    18ms - 7%
      */
     public int[][] merge(int[][] intervals) {
@@ -45,7 +46,8 @@ public class T0056_MergeIntervals {
     }
 
     /**
-     * 2: 优化比较逻辑，去掉 List.get
+     * 2: 按首位排序，默认放入interval[0]，依次比较prev vs. curr，直接修改 prev
+     *    优化比较逻辑，去掉 List.get
      *    6ms - 71%
      */
     public int[][] merge2(int[][] intervals) {
@@ -66,6 +68,34 @@ public class T0056_MergeIntervals {
             }
         }
         
+        return res.toArray(new int[res.size()][]);
+    }
+
+    /**
+     * 3. 按首位排序，记录 start - end； 依次比较 当curr[start] > prev[end] 时 存入 start - end
+     *    6ms
+     */
+    public int[][] merge3(int[][] intervals) {
+        if (intervals == null || intervals.length <= 1) {
+            return intervals;
+        }
+        Arrays.sort(intervals, Comparator.comparingInt(o -> o[0]));
+
+        List<int[]> res = new ArrayList<>();
+        int start = intervals[0][0];
+        int end = intervals[0][1];
+
+        for (int i = 1; i < intervals.length; i++) {
+            if (intervals[i][0] <= end) {
+                end = Math.max(end, intervals[i][1]);
+            } else {
+                res.add(new int[] {start, end});
+                start = intervals[i][0];
+                end = intervals[i][1];
+            }
+        }
+        res.add(new int[] {start, end});
+
         return res.toArray(new int[res.size()][]);
     }
 
@@ -90,6 +120,7 @@ public class T0056_MergeIntervals {
     private static void test(int[][] intervals) {
         System.out.println(Arrays.deepToString(intervals));
         System.out.println("-->");
-        System.out.println(Arrays.deepToString(new T0056_MergeIntervals().merge2(intervals)));
+        System.out.println(Arrays.deepToString(new T0056_MergeIntervals().merge3(intervals)));
+        System.out.println();
     }
 }
