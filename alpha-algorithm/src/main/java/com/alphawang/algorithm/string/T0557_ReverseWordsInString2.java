@@ -139,8 +139,8 @@ public class T0557_ReverseWordsInString2 {
          * "s'teL ekat edoCteeL tsetnoc"
          */
         test("Let's take LeetCode contest");
-        test("How did we ever live without Coupang?");
-        test("How did we ever  ^&* live without Coupang?");
+        test("How did we ever live without Alpha?");
+        test("How did we ever  ^&* live without Alpha?");
         test("");
         test("How");
         test("How?");
