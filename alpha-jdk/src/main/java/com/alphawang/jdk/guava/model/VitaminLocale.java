@@ -2,13 +2,7 @@ package com.alphawang.jdk.guava.model;
 
 import java.util.Locale;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Coupang.parternallove
- * Date: 2014. 4. 9.
- * Time: 오후 4:06
- * To change this template use File | Settings | File Templates.
- */
+
 public enum VitaminLocale {
     ko_KR(Locale.KOREA, "한국어", "Korean", Locale.KOREAN),
     en_US(Locale.US, "영어", "English", Locale.ENGLISH),
