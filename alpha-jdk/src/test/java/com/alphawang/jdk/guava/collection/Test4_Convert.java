@@ -45,9 +45,6 @@ public class Test4_Convert {
         System.out.println("\nlistToMapAsValue: \n" + idCityMap);
         Assert.assertTrue(idCityMap.size() == cities.size());
 
-        // example:
-        // com.coupang.product.domain.meta.item.unit.ItemUnitService#getInfo(List<java.lang.Long>, VitaminLocale)
-
         /*
         List<ItemUnitInfo> results = itemRepository.findUnitInfoByIds(itemIds, locale);
 

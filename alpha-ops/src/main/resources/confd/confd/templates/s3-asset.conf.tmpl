@@ -2,7 +2,6 @@
 resolver {{ getenv "LOCAL_RESOLVER_IP" }} valid=10s;
 resolver_timeout 1s;
 
-## {your_role_name} 을 각자 사용하는 role 이름으로 변경한다. ex) http://assets-proxy.coupang.net/roles/empty_can_2tomcat
 set $backend_upstream http://{{ getenv "S3_PROXY_DOMAIN" }}/roles/{{ getenv "ROLE_NAME" }};
 location /resources/ {
     rewrite ^/resources/(.*) /$1 break;
