@@ -6,13 +6,13 @@ import java.util.Arrays;
  * https://leetcode.com/problems/relative-sort-array/
  * Easy
  * 
- * 给你两个数组，arr1 和 arr2，
+ * 给你两个数组，arr1 和arr2，
  *
- * arr2 中的元素各不相同
- * arr2 中的每个元素都出现在 arr1 中
+ * arr2 中的元素各不相同
+ * arr2 中的每个元素都出现在arr1中
  * 
- * 对 arr1 中的元素进行排序，使 arr1 中项的相对顺序和 arr2 中的相对顺序相同。
- * 未在 arr2 中出现过的元素需要按照升序放在 arr1 的末尾。
+ * 对 arr1中的元素进行排序，使 arr1 中项的相对顺序和arr2中的相对顺序相同。
+ * 未在arr2中出现过的元素需要按照升序放在arr1的末尾。
  *
  * Example 1:
  *   Input: arr1 = [2,3,1,3,2,4,6,7,9,2,19], arr2 = [2,1,4,3,9,6]
