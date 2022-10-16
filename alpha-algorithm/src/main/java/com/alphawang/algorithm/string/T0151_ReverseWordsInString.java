@@ -1,5 +1,6 @@
 package com.alphawang.algorithm.string;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -12,6 +13,9 @@ import java.util.stream.Collectors;
 /**
  * https://leetcode.com/problems/reverse-words-in-a-string/
  * Medium
+ *
+ * Input: s = "the sky is blue"
+ * Output: "blue is sky the"
  */
 public class T0151_ReverseWordsInString {
 
@@ -136,26 +140,68 @@ public class T0151_ReverseWordsInString {
         System.out.println(words);
         return String.join(" ", words);
     }
+
+    /**
+     * 4. 递归找出第一个单词，放到末尾
+     *   8ms
+     */
+    public String reverseWords4(String s) {
+        List<String> list = new ArrayList<>();
+        int split = split(s);
+
+        while (split != -1) {
+            String sub = s.substring(0, split);
+            if (!" ".equals(sub) && !"".equals(sub)) {
+                list.add(sub);
+            }
+
+            s = s.substring(split + 1);
+            split = split(s);
+        }
+        if (!" ".equals(s) && !"".equals(s)) {
+            list.add(s);
+        }
+        System.out.println("list = " + list);
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = list.size() - 1; i >= 0; i--) {
+            sb.append(list.get(i));
+            sb.append(" ");
+        }
+        System.out.println("res = " + sb);
+
+        return sb.substring(0, sb.length() - 1);
+     }
+
+    private int split(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == ' ') {
+                return i;
+            }
+        }
+
+        return -1;
+    }
     
     
 
     public static void main(String[] args) {
              
-        // "blue is sky the"
-        test("the sky is blue");
-        // "world! hello"
-        test("  hello world!  ");
-        // "example good a"
-        test("a good   example");
-        
-        // "a"
-        test("a");
+//        // "blue is sky the"
+//        test("the sky is blue");
+//        // "world! hello"
+//        test("  hello world!  ");
+//        // "example good a"
+//        test("a good   example");
+//
+//        // "a"
+//        test("a");
         // "b a"
         test("   a   b ");
     }
     
     private static void test(String s) {
-        System.out.println(String.format("%s -> \n%s\n", s, new T0151_ReverseWordsInString().reverseWords3(s)));
+        System.out.println(String.format("%s -> \n%s\n", s, new T0151_ReverseWordsInString().reverseWords4(s)));
     }
     
 

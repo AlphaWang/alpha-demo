@@ -3,6 +3,9 @@ package com.alphawang.algorithm.string;
 /**
  * https://leetcode.com/problems/reverse-words-in-a-string-iii/submissions/
  * Easy
+ *
+ * 输入："Let's take LeetCode contest"
+ * 输出："s'teL ekat edoCteeL tsetnoc"
  */
 public class T0557_ReverseWordsInString2 {
 
