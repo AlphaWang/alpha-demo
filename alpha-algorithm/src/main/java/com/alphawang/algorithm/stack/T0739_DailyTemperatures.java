@@ -3,15 +3,16 @@ package com.alphawang.algorithm.stack;
 import static com.alphawang.algorithm.Utils.print;
 
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Deque;
 
 /**
  * https://leetcode.com/problems/daily-temperatures
  *
- * Given an array of integers temperatures represents the daily temperatures,
- * return an array answer such that answer[i] is the number of days you have to wait after the ith day to get a warmer temperature.
+ * 给定一个整数数组 temperatures，表示每天的温度，
+ * 返回一个数组 answer，其中 answer[i] 是指对于第 i 天，下一个更高温度出现在几天后。
+ * 如果气温在这之后都不会升高，请在该位置用 0 来代替。
  *
- * If there is no future day for which this is possible, keep answer[i] == 0 instead.
  */
 public class T0739_DailyTemperatures {
 
@@ -24,15 +25,23 @@ public class T0739_DailyTemperatures {
 
     Deque<Integer> stack = new ArrayDeque<>();
     for (int i = n - 1; i >= 0; i--) {
+      System.out.println(String.format("---- iter=%s", i));
+
+      // 如果栈内元素比当前元素小，则清空
+      // -- 大个子来了，之前的小个子无需存储
       while(!stack.isEmpty() && t[i] >= t[stack.peek()]) {
         stack.pop();
       }
+
+      // 记录当前 i 位置的结果：栈顶到i的距离
       if (stack.isEmpty()) {
         res[i] = 0;
       } else {
         res[i] = stack.peek() - i;
       }
       stack.push(i);
+      System.out.println(String.format("   stack = %s", stack));
+      System.out.println(String.format("   res   = %s", Arrays.toString(res)));
     }
 
     return res;
