@@ -98,9 +98,9 @@ public class T0735_AsteroidCollision {
           stack.pop();
         }
         if (!stack.isEmpty() && stack.peek() == -a) {
-          stack.pop();
+          stack.pop(); // 如果之前有行星，且质量相等，则撞飞 + 当前行星不放入
         } else if (stack.isEmpty() || stack.peek() < 0) {
-          stack.push(a);
+          stack.push(a); // 如果之前无行星，或之前行星为负数，则放入当前行星
         }
       }
     }
