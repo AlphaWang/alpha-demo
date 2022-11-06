@@ -52,7 +52,7 @@ public class T0735_AsteroidCollision {
     return res;
   }
 
-  // bug: cannot handle [-8, 8]
+  // bug: don't need to' handle [-8, 8]
   public int[] asteroidCollision1(int[] a) {
     int n = a.length;
     Deque<Integer> stack = new ArrayDeque<>();
@@ -87,7 +87,32 @@ public class T0735_AsteroidCollision {
     return res;
   }
 
-  public int[] asteroidCollision2(int[] asteroids) {
+  public int[] asteroidCollision2(int[] arr) {
+    Deque<Integer> stack = new ArrayDeque<>();
+    for (int a : arr) {
+      if (a > 0) {
+        stack.push(a);
+      } else {
+        // 对于负数，回头看之前的行星：如果质量小，则撞飞
+        while (!stack.isEmpty() && stack.peek() > 0 && stack.peek() < -a) {
+          stack.pop();
+        }
+        if (!stack.isEmpty() && stack.peek() == -a) {
+          stack.pop();
+        } else if (stack.isEmpty() || stack.peek() < 0) {
+          stack.push(a);
+        }
+      }
+    }
+
+    int[] res = new int[stack.size()];
+    for (int i = res.length - 1; i >=0; i--) {
+      res[i] = stack.pop();
+    }
+    return res;
+  }
+
+  public int[] asteroidCollision3(int[] asteroids) {
     Stack<Integer> stack = new Stack();
     for (int ast: asteroids) {
       collision: {
@@ -134,8 +159,8 @@ public class T0735_AsteroidCollision {
 
   private void test(int[] a) {
 //    print(asteroidCollision1(a));
-//    print(asteroidCollision2(a));
-    print(asteroidCollision(a));
+    print(asteroidCollision2(a));
+//    print(asteroidCollision(a));
 //    print(asteroidCollision4(a));
   }
 }
