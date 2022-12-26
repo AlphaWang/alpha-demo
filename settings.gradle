@@ -12,4 +12,5 @@ include 'alpha-netty'
 include 'alpha-nacos'
 include 'alpha-auth'
 include 'alpha-websocket'
+include 'alpha-flink'
 

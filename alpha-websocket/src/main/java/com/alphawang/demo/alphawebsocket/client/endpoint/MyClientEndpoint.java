@@ -1,6 +1,5 @@
 package com.alphawang.demo.alphawebsocket.client.endpoint;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.IO;
 import java.io.IOException;
 import java.net.URI;
 import javax.websocket.ClientEndpoint;

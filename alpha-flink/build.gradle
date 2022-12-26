@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+}
+
+group 'com.alphawang'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    flinkVersion = '1.13.0'
+}
+
+dependencies {
+    implementation "org.apache.flink:flink-core:${flinkVersion}"
+    implementation "org.apache.flink:flink-connector-kafka_2.12:${flinkVersion}"
+    implementation "org.apache.flink:flink-streaming-scala_2.12:${flinkVersion}"
+    implementation "org.apache.flink:flink-streaming-java_2.12:${flinkVersion}"
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
