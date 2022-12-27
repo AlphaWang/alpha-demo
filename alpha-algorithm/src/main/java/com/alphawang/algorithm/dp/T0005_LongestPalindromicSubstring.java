@@ -185,6 +185,51 @@ public class T0005_LongestPalindromicSubstring {
         return s.substring(start, end + 1);
     }
 
+    /**
+     * DP
+     */
+    Boolean[][] memo = null;
+    String res = "";
+    public String longestPalindrome4(String s) {
+        int n = s.length();
+        memo = new Boolean[n][n];
+        dfs(s, 0, n-1);
+        return res;
+    }
+
+    private boolean dfs(String s, int i, int j) {
+        int curLength = j - i + 1;
+        //1. base case: 单元素 or 空串 -> true
+        if (i >= j) {
+            if (res.length() < curLength) {
+                res = s.substring(i, j + 1);
+            }
+            return true;
+        }
+
+        //2. check memo
+        if (memo[i][j] != null) {
+            return memo[i][j];
+        }
+
+        boolean result = false;
+        //3. sub-problems
+        //3.1 去头尾
+        if (dfs(s, i + 1, j - 1) && s.charAt(i) == s.charAt(j)) {
+            result = true;
+            if (res.length() < curLength) {
+                res = s.substring(i, j + 1);
+            }
+        } else { //注意是else，是个优化：当前已经是回文的情况下无需看更小的子问题
+            //3.2 去头
+            dfs(s, i + 1, j);
+            //3.3 去尾
+            dfs(s, i, j - 1);
+        }
+
+        return memo[i][j] = result;
+    }
+
     public static void main(String[] args) {
         // "bab"
         test("babad");
@@ -196,7 +241,7 @@ public class T0005_LongestPalindromicSubstring {
     
     private static void test(String s) {
         System.out.println(String.format("%s --> %s", s, 
-          new T0005_LongestPalindromicSubstring().longestPalindrome3(s)));
+          new T0005_LongestPalindromicSubstring().longestPalindrome4(s)));
     }
 
 }
