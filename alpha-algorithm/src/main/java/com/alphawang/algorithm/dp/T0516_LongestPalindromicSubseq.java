@@ -25,14 +25,12 @@ public class T0516_LongestPalindromicSubseq {
     }
 
     if (s.charAt(i) == s.charAt(j)) {
-      memo[i][j] = dp(s, i + 1, j - 1) + 2;
-      return memo[i][j];
+      return memo[i][j] = dp(s, i + 1, j - 1) + 2;
     } else {
       return memo[i][j] = Math.max(
           dp(s, i + 1, j),
           dp(s, i, j - 1));
     }
-
   }
 
 
