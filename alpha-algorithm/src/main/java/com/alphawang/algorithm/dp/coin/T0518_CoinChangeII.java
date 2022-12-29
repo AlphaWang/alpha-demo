@@ -1,9 +1,9 @@
-package com.alphawang.algorithm.dp;
+package com.alphawang.algorithm.dp.coin;
 
 import java.util.Arrays;
 
 /**
- * 给定硬币币值数组，要凑出总额 amount 共有多少种方法？
+ * 给定硬币币值数组，要凑出总额 amount 最多共有多少种方法？
  */
 public class T0518_CoinChangeII {
 
@@ -20,7 +20,7 @@ public class T0518_CoinChangeII {
     if (amount == 0) {
       return 1;
     }
-    if (amount < 0 || i < 0) {
+    if (amount < 0 || i < 0) { //注意 i < 0 而非 i == 0
       return 0;
     }
 
@@ -29,12 +29,11 @@ public class T0518_CoinChangeII {
     }
     if (coins[i] > amount) {
       // return 0; --> NO
-      memo[i][amount] = dp(coins, i - 1, amount);
-      return memo[i][amount];
+      return memo[i][amount] = dp(coins, i - 1, amount);
     }
 
     int sum1 = dp(coins, i - 1, amount); //不用第i个
-    int sum2 = dp(coins, i, amount - coins[i]); //用第i个：注意无需 i-1
+    int sum2 = dp(coins, i, amount - coins[i]); //用第i个：注意无需 i-1，因为可以重复使用当前币值
     return memo[i][amount] = sum1 + sum2;
   }
 

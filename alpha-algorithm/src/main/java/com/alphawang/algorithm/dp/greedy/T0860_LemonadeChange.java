@@ -1,4 +1,4 @@
-package com.alphawang.algorithm.ideas.greedy;
+package com.alphawang.algorithm.dp.greedy;
 
 /**
  * https://leetcode.com/problems/lemonade-change/

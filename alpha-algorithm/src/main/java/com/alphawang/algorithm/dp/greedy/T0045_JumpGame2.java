@@ -1,4 +1,4 @@
-package com.alphawang.algorithm.ideas.greedy;
+package com.alphawang.algorithm.dp.greedy;
 
 import java.util.Arrays;
 import java.util.LinkedList;

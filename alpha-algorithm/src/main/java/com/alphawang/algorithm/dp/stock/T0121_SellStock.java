@@ -1,4 +1,4 @@
-package com.alphawang.algorithm.dp;
+package com.alphawang.algorithm.dp.stock;
 
 import java.util.Arrays;
 

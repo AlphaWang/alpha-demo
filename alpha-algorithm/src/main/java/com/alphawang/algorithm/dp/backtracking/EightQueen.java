@@ -1,4 +1,4 @@
-package com.alphawang.algorithm.ideas.backtracking;
+package com.alphawang.algorithm.dp.backtracking;
 
 public class EightQueen {
     /**
