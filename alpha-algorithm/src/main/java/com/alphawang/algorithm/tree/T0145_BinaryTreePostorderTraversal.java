@@ -1,5 +1,8 @@
 package com.alphawang.algorithm.tree;
 
+import com.alphawang.algorithm.TreeNode;
+import com.alphawang.algorithm.TreeNodeCreator;
+import com.alphawang.algorithm.TreeNodePrinter;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
@@ -71,6 +74,7 @@ public class T0145_BinaryTreePostorderTraversal {
          *
          * Output: [3,2,1]
          */
-        System.out.println(sut.postorderTraversal(TreeNodeCreator.createTree(1, null, 2, null, null, 3)));
+        System.out.println(sut.postorderTraversal(
+            TreeNodeCreator.createTree(1, null, 2, null, null, 3)));
     }
 }

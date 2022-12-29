@@ -38,7 +38,7 @@ public class KafkaSourceDemo {
     messageStream.rebalance().map(new MapFunction<String, String>() {
       @Override
       public String map(String value) throws Exception {
-        return "Kafka and Flink says: " + value;
+        return "KafkaSource says: " + value;
       }
     }).print();
 

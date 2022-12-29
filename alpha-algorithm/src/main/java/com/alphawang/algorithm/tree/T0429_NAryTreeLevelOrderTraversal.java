@@ -1,10 +1,10 @@
 package com.alphawang.algorithm.tree;
 
+import com.alphawang.algorithm.Node;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.stream.Collectors;
 
 public class T0429_NAryTreeLevelOrderTraversal {
 

@@ -1,5 +1,7 @@
 package com.alphawang.algorithm.tree;
 
+import com.alphawang.algorithm.TreeNode;
+import com.alphawang.algorithm.TreeNodeCreator;
 import com.google.common.collect.Lists;
 import java.util.LinkedList;
 import java.util.List;
@@ -87,7 +89,8 @@ public class T0199_BinaryTreeRightSideView {
 
     public static void main(String[] args) {
         
-        System.out.println(rightSideViewByLevelTraverse(TreeNodeCreator.createTree(1,2,3,null,5,null,4)));
+        System.out.println(rightSideViewByLevelTraverse(
+            TreeNodeCreator.createTree(1,2,3,null,5,null,4)));
         System.out.println(rightSideViewByRecursion(TreeNodeCreator.createTree(1,2,3,null,5,null,4)));
     
     }

@@ -1,7 +1,7 @@
-package com.alphawang.algorithm.tree;
+package com.alphawang.algorithm;
 
-import static com.alphawang.algorithm.tree.TreeNodePrinter.print;
-import static com.alphawang.algorithm.tree.TreeNodeTraversal.traverse;
+import static com.alphawang.algorithm.TreeNodePrinter.print;
+import static com.alphawang.algorithm.TreeNodeTraversal.traverse;
 
 import java.util.Arrays;
 

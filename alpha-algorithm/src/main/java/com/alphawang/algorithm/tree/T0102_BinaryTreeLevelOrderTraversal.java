@@ -1,6 +1,7 @@
 package com.alphawang.algorithm.tree;
 
-import com.google.common.collect.Lists;
+import com.alphawang.algorithm.TreeNode;
+import com.alphawang.algorithm.TreeNodeCreator;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;

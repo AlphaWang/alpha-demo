@@ -1,5 +1,8 @@
 package com.alphawang.algorithm.tree;
 
+import com.alphawang.algorithm.TreeNode;
+import com.alphawang.algorithm.TreeNodePrinter;
+
 /**
  *  https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
  *  Medium

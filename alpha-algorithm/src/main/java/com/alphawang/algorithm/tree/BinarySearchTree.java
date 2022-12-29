@@ -1,6 +1,8 @@
 package com.alphawang.algorithm.tree;
 
-import static com.alphawang.algorithm.tree.TreeNodePrinter.print;
+import static com.alphawang.algorithm.TreeNodePrinter.print;
+
+import com.alphawang.algorithm.TreeNode;
 
 public class BinarySearchTree {
 

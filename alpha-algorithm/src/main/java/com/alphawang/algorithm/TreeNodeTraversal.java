@@ -1,4 +1,4 @@
-package com.alphawang.algorithm.tree;
+package com.alphawang.algorithm;
 
 import com.google.common.collect.Lists;
 import java.util.List;
