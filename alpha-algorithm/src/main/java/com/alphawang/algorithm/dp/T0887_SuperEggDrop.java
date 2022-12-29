@@ -18,7 +18,7 @@ public class T0887_SuperEggDrop {
 
     /**
      * 1. DP
-     * 状态：1. 鸡蛋数K, 2. 要测试的楼层数N
+     * 状态：1. K = 鸡蛋数, 2. N = 要测试的楼层数
      * 状态转移：在第i层扔，碎 or 没碎
      */
     int[][] memo;
@@ -49,8 +49,8 @@ public class T0887_SuperEggDrop {
              * 如果没碎，那么鸡蛋的个数 K 不变，搜索的楼层区间应该从 [1..N] 变为 [i+1..N] 共 N-i 层楼。
              * 如果碎了，那么鸡蛋的个数 K 应该减一，搜索的楼层区间应该从 [1..N] 变为 [1..i-1] 共 i-1 层楼；
              */
-            int move = Math.max(dp(K, N - i),  //没碎: 找 N-i 层楼
-                                dp(K - 1, i - 1)) // 碎了：找 i-1 层楼
+            int move = Math.max(dp(K, N - i),  //没碎: 往上找 N-i 层楼
+                                dp(K - 1, i - 1)) // 碎了：往下找 i-1 层楼
                        + 1;
             res = Math.min(res, move);
         }
