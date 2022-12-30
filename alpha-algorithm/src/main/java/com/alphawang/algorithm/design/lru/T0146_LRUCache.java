@@ -64,7 +64,7 @@ public class T0146_LRUCache {
             return -1;
         }
         
-        refreshNode(node);
+        addRecently(node);
 
         System.out.println(String.format("\n-- get(%s) = %s", key, node.value));
         print();
@@ -94,21 +94,24 @@ public class T0146_LRUCache {
         if (cache.containsKey(key)) {
             Node node = cache.get(key);
             node.value = value;
-            refreshNode(node);
+            addRecently(node);
         } else {
             Node node = new Node(key, value);
             cache.put(key, node);
             if (cache.size() > capacity) {
                 removeOldest();
             }
-            refreshNode(node);
+            addRecently(node);
         }
         
         System.out.println(String.format("\n-- put(%s) = %s", key, value));
         print();
     }
 
-    private void refreshNode(Node node) {
+    /**
+     * Add recent node
+     */
+    private void addRecently(Node node) {
         if (node == null) {
             return;
         }
