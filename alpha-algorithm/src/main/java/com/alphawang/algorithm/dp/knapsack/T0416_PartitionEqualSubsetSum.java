@@ -1,4 +1,4 @@
-package com.alphawang.algorithm.dp;
+package com.alphawang.algorithm.dp.knapsack;
 
 import java.util.Arrays;
 
