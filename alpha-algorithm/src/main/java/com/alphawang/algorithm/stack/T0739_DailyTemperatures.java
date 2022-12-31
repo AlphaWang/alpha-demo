@@ -1,7 +1,5 @@
 package com.alphawang.algorithm.stack;
 
-import static com.alphawang.algorithm.Utils.print;
-
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
@@ -47,11 +45,31 @@ public class T0739_DailyTemperatures {
     return res;
   }
 
+  public int[] dailyTemperatures2(int[] t) {
+    int[] res = new int[t.length];
+    Deque<Integer> stack = new ArrayDeque<>();
+    for (int i = 0; i < t.length; i++) {
+      // 单调递减栈
+      while(!stack.isEmpty() && t[stack.peek()] < t[i]) {
+        int prevIndex = stack.pop();
+        res[prevIndex] = i - prevIndex;
+        System.out.println(String.format("(%s) mapping %s -> %s", i, t[prevIndex], t[i]));
+      }
+      stack.push(i);
+      System.out.println(String.format("(%s) stack = %s", i, stack));
+    }
+    return res;
+  }
+
   public static void main(String[] args) {
     T0739_DailyTemperatures sut = new T0739_DailyTemperatures();
+    sut.test(new int[]{ 30,40,50,60 });// [1,1,1,0]
+    sut.test(new int[]{ 73, 74, 75, 71, 69, 72, 76, 73 });// [1,1,4,2,1,1,0,0]
+  }
 
-    int[] t = { 73, 74, 75, 71, 69, 72, 76, 73 }; // [1,1,4,2,1,1,0,0]
-    print(sut.dailyTemperatures(t));
+  private void test(int[] t) {
+    System.out.println(Arrays.toString(t) + " --> "
+        + Arrays.toString(dailyTemperatures2(t)));
   }
 
 }
