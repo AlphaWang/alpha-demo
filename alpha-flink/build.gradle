@@ -19,6 +19,16 @@ dependencies {
     implementation "org.apache.flink:flink-streaming-scala_2.12:${flinkVersion}"
     implementation "org.apache.flink:flink-streaming-java_2.12:${flinkVersion}"
     implementation "org.apache.flink:flink-clients_2.12:${flinkVersion}"
+
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+    compile('org.slf4j:slf4j-api:1.7.21')
+    compile('ch.qos.logback:logback-classic:1.1.7')
+    compile('ch.qos.logback:logback-core:1.1.7')
+
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }

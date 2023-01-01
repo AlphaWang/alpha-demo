@@ -1,18 +1,19 @@
 package com.alpha.demo.flink.kafka;
 
-import java.util.Properties;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
-import org.apache.flink.api.java.ExecutionEnvironment;
-import org.apache.flink.api.java.LocalEnvironment;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.connector.kafka.source.KafkaSource;
 import org.apache.flink.connector.kafka.source.enumerator.initializer.OffsetsInitializer;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class KafkaSourceDemo {
+
+  private static final Logger LOG = LoggerFactory.getLogger(KafkaSourceDemo.class);
 
   public static void main(String[] args) throws Exception {
 
@@ -38,6 +39,12 @@ public class KafkaSourceDemo {
     messageStream.rebalance().map(new MapFunction<String, String>() {
       @Override
       public String map(String value) throws Exception {
+//        try {
+//          throw new RuntimeException("debug.");
+//        } catch (Exception e) {
+//          e.printStackTrace();
+//          LOG.warn("test from " + Thread.currentThread().getName(), e);
+//        }
         return "KafkaSource says: " + value;
       }
     }).print();
