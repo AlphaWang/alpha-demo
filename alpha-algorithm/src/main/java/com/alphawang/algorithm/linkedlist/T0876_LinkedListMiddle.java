@@ -1,6 +1,6 @@
 package com.alphawang.algorithm.linkedlist;
 
-public class T876_LinkedListMiddle {
+public class T0876_LinkedListMiddle {
 
     /**
      * https://leetcode.com/problems/middle-of-the-linked-list/
