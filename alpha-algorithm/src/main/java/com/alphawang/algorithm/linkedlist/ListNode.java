@@ -1,22 +1,25 @@
 package com.alphawang.algorithm.linkedlist;
 
 public class ListNode {
-    final int val;
-    ListNode next;
+    public int val;
+    public ListNode next;
 
     ListNode(int x) {
         this.val = x;
         this.next = null;
     }
 
+    @Deprecated
     public int getValue() {
         return val;
     }
 
+    @Deprecated
     public ListNode getNext() {
         return next;
     }
 
+    @Deprecated
     public void setNext(ListNode next) {
         this.next = next;
     }

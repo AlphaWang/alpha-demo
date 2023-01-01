@@ -1,6 +1,6 @@
 package com.alphawang.algorithm.linkedlist;
 
-public class T234_PalindromeLinkedList {
+public class T0234_PalindromeLinkedList {
 
     /**
      * https://leetcode.com/problems/palindrome-linked-list/
@@ -15,9 +15,9 @@ public class T234_PalindromeLinkedList {
      * Input: 1->2->2->1
      * Output: true
      */
-    
-    public static boolean palindrome(ListNode head) {
-        if (head == null || head.getNext() == null) {
+
+    public boolean isPalindrome(ListNode head) {
+        if (head == null || head.next == null) {
             return true;
         }
         
@@ -26,20 +26,22 @@ public class T234_PalindromeLinkedList {
         ListNode prev = null;
 
         /**
-         * 快慢指针，找到中点，并且将前一半倒序
+         * 快慢指针，找到中点；同时将前一半倒序
          */
-        while (fast != null && fast.getNext() != null) {
-            fast = fast.getNext().getNext();
-            ListNode next = slow.getNext();
-            
-            slow.setNext(prev);
+        while (fast != null && fast.next != null) {
+            //快慢指针找中点
+            fast = fast.next.next;
+            ListNode next = slow.next;
+
+            //倒序
+            slow.next = prev;
             prev = slow;
             slow = next;
         }
         
         // 如果是奇数个，跳过中间
         if (fast != null) {
-            slow = slow.getNext();
+            slow = slow.next;
         }
 
         // slow: 指向后一半链表
@@ -51,11 +53,11 @@ public class T234_PalindromeLinkedList {
         System.out.println("prev : " + ListNode.format(prev));
         
         while (slow != null && prev != null) {
-            if (slow.getValue() != prev.getValue()) {
+            if (slow.val != prev.val) {
                return false; 
             }
-            slow = slow.getNext();
-            prev = prev.getNext();
+            slow = slow.next;
+            prev = prev.next;
         }
         
         return true;
@@ -63,14 +65,14 @@ public class T234_PalindromeLinkedList {
 
 
     public static void main(String[] args) {
-        ListNode head = ListNodeCreator.create(1, 2, 3, 4, 5);
-        System.out.println(">>>>" + palindrome(head));
-        
-        head = ListNodeCreator.create(1, 2, 2, 1);
-        System.out.println(">>>>" + palindrome(head));
+        T0234_PalindromeLinkedList sut = new T0234_PalindromeLinkedList();
+        sut.test(ListNodeCreator.create(1, 2, 3, 4, 5)); //false
+        sut.test(ListNodeCreator.create(1, 2, 2, 1)); //true
+        sut.test(ListNodeCreator.create(1, 2, 3, 2, 1)); //true
+    }
 
-        head = ListNodeCreator.create(1, 2, 3, 2, 1);
-        System.out.println(">>>>" + palindrome(head));
+    private void test(ListNode head) {
+        System.out.println(head.format() + " -->>> " + isPalindrome(head));
     }
 
 }
