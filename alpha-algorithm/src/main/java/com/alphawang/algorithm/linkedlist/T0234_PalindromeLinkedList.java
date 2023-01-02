@@ -1,21 +1,24 @@
 package com.alphawang.algorithm.linkedlist;
 
+/**
+ * https://leetcode.com/problems/palindrome-linked-list/
+ *
+ * Given a singly linked list, determine if it is a palindrome.
+ *
+ * Example 1:
+ * Input: 1->2
+ * Output: false
+ *
+ * Example 2:
+ * Input: 1->2->2->1
+ * Output: true
+ */
 public class T0234_PalindromeLinkedList {
 
-    /**
-     * https://leetcode.com/problems/palindrome-linked-list/
-     * 
-     * Given a singly linked list, determine if it is a palindrome.
-     *
-     * Example 1:
-     * Input: 1->2
-     * Output: false 
-     * 
-     * Example 2:
-     * Input: 1->2->2->1
-     * Output: true
-     */
 
+    /**
+     * 快慢指针，找到中点；同时将前一半倒序
+     */
     public boolean isPalindrome(ListNode head) {
         if (head == null || head.next == null) {
             return true;
@@ -25,9 +28,6 @@ public class T0234_PalindromeLinkedList {
         ListNode slow = head;
         ListNode prev = null;
 
-        /**
-         * 快慢指针，找到中点；同时将前一半倒序
-         */
         while (fast != null && fast.next != null) {
             //快慢指针找中点
             fast = fast.next.next;
@@ -63,6 +63,27 @@ public class T0234_PalindromeLinkedList {
         return true;
     }
 
+    /**
+     * 递归解法
+     * 先将node递归到最右边，再与最左边对比
+     */
+    public boolean isPalindrome2(ListNode head) {
+        left = head;
+        return traverse(head);
+    }
+
+    ListNode left;
+    private boolean traverse(ListNode node) {
+        if (node == null) {
+            return true;
+        }
+        boolean res = traverse(node.next);
+        res = res && left.val == node.val;
+
+        left = left.next;
+        return res;
+    }
+
 
     public static void main(String[] args) {
         T0234_PalindromeLinkedList sut = new T0234_PalindromeLinkedList();
@@ -72,7 +93,7 @@ public class T0234_PalindromeLinkedList {
     }
 
     private void test(ListNode head) {
-        System.out.println(head.format() + " -->>> " + isPalindrome(head));
+        System.out.println(head.format() + " -->>> " + isPalindrome2(head));
     }
 
 }
