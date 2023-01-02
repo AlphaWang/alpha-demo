@@ -35,8 +35,8 @@ public class T0206_ReverseLinkedList {
         ListNode curHead = head;
 
         while (curHead != null) {
-            ListNode nextHead = curHead.getNext();
-            curHead.setNext(newHead);
+            ListNode nextHead = curHead.next;
+            curHead.next = newHead;
 
             newHead = curHead;
             curHead = nextHead;
