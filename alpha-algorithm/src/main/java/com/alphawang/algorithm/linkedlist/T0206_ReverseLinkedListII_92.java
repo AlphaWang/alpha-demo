@@ -2,6 +2,10 @@ package com.alphawang.algorithm.linkedlist;
 
 public class T0206_ReverseLinkedListII_92 {
 
+  /**
+   * 方法一：
+   * 先移动到 left 节点，再 reverseN
+   */
   public ListNode reverseBetween(ListNode head, int left, int right) {
     ListNode originHead = head;
     ListNode firstLast = null;
@@ -23,8 +27,23 @@ public class T0206_ReverseLinkedListII_92 {
     }
   }
 
-  // 翻转前N个元素
-  // 1,2,3,4,5,6,7 & 2 --> 2,1,3,4,5,6,7
+  /**
+   * TODO
+   * 方法二：递归
+   */
+  public ListNode reverseBetween2(ListNode head, int left, int right) {
+    if (left == 1) {
+      return reverseN(head, right);
+    }
+
+    head.next = reverseBetween2(head.next, left - 1, right - 1);
+    return head;
+  }
+
+  /**
+   * 翻转前N个元素
+   * 1,2,3,4,5,6,7 & 2 --> 2,1,3,4,5,6,7
+   */
   ListNode successor = null;
   private ListNode reverseN(ListNode head, int n) {
     if (n == 1) {
@@ -53,6 +72,6 @@ public class T0206_ReverseLinkedListII_92 {
 //        head.format(), right, reverseN(head, right).format()));
 
     System.out.println(String.format("%s \nReverse Between [%s, %s] -->>>> %s \n---------",
-        head.format(), left, right, reverseBetween(head, left, right).format()));
+        head.format(), left, right, reverseBetween2(head, left, right).format()));
   }
 }
