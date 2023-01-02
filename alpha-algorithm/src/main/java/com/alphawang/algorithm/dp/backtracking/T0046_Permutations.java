@@ -1,4 +1,4 @@
-package com.alphawang.algorithm.recursion;
+package com.alphawang.algorithm.dp.backtracking;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;

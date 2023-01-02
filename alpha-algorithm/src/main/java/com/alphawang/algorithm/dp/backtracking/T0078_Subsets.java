@@ -1,4 +1,4 @@
-package com.alphawang.algorithm.recursion;
+package com.alphawang.algorithm.dp.backtracking;
 
 import java.util.ArrayList;
 import java.util.HashSet;

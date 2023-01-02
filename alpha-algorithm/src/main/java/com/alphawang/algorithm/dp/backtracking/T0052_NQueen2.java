@@ -1,4 +1,4 @@
-package com.alphawang.algorithm.recursion;
+package com.alphawang.algorithm.dp.backtracking;
 
 /**
  * https://leetcode.com/problems/n-queens-ii/

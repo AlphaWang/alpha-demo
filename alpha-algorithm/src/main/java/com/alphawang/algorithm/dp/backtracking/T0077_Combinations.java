@@ -1,12 +1,9 @@
-package com.alphawang.algorithm.recursion;
+package com.alphawang.algorithm.dp.backtracking;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 /**
  *  https://leetcode.com/problems/combinations/
