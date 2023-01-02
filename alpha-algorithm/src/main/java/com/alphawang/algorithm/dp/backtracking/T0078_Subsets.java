@@ -1,6 +1,7 @@
 package com.alphawang.algorithm.dp.backtracking;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -168,7 +169,11 @@ public class T0078_Subsets {
           []
         ]
          */
-        System.out.println(sut.subsets3(new int[]{1 ,2 ,3}));
+        sut.test(new int[]{1 ,2 ,3});
+    }
+
+    private void test(int[] nums) {
+        System.out.println(Arrays.toString(nums) + " -->> " + subsets3(nums));
     }
     
 }

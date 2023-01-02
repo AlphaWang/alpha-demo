@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
+ * 排列
+ *
  *  https://leetcode.com/problems/permutations/
  *  Medium 
  *  
