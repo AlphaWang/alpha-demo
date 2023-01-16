@@ -1,4 +1,4 @@
-package com.alphawang.algorithm.recursion;
+package com.alphawang.algorithm.dp;
 
 import com.google.common.collect.Maps;
 import java.util.Map;

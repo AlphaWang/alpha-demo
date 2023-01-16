@@ -11,6 +11,7 @@ import java.util.stream.IntStream;
 
 /**
  * 排列
+ * 类似 78-子集问题，只不过只需收集 叶子节点 即可
  *
  *  https://leetcode.com/problems/permutations/
  *  Medium 

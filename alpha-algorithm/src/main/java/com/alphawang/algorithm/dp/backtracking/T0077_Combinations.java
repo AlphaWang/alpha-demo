@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * 组合
+ * 类似 78-子集问题，只不过只需递归到 第K层 即可
  *
  *  https://leetcode.com/problems/combinations/
  *  Medium
